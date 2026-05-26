@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aegis — Privacy Policy</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 720px; margin: 0 auto; padding: 2rem; background: #0F1B3D; color: #E2E8F0; line-height: 1.7; }
+h1 { color: #fff; border-bottom: 3px solid #D4A843; padding-bottom: .5rem; }
+h2 { color: #0891B2; margin-top: 2rem; }
+h3 { color: #D4A843; }
+a { color: #0891B2; }
+code { background: #1E293B; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+ul { padding-left: 1.5rem; }
+li { margin-bottom: 0.5rem; }
+.footer { margin-top: 3rem; text-align: center; color: #64748B; font-style: italic; }
+strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<h1>Aegis — Privacy Policy</h1>
+<p><em>Last updated: May 26, 2026</em></p>
+
+<h2>Architecture</h2>
+<p>Aegis uses the <strong>SimpleX protocol</strong>. SimpleX is fundamentally different from Signal, WhatsApp, or Telegram:</p>
+<ul>
+<li><strong>No user identifiers.</strong> No phone number, no username, no account. You are a cryptographic key pair.</li>
+<li><strong>No contact lists on servers.</strong> SimpleX relays don't know who talks to whom. Each conversation uses a different, disposable relay address.</li>
+<li><strong>No metadata.</strong> The relay sees encrypted blobs arriving and leaving. It doesn't know the sender, the recipient, or the conversation.</li>
+<li><strong>Double ratchet encryption.</strong> Same protocol family as Signal, without the phone-number identity layer.</li>
+</ul>
+
+<h2>What Aegis stores on your device</h2>
+<ul>
+<li>Your messages (encrypted, local only)</li>
+<li>Your contacts (local only)</li>
+<li>Your location (shared only with family members you explicitly paired with)</li>
+<li>Your battery level (shared with family members)</li>
+</ul>
+
+<h2>What Aegis does NOT collect</h2>
+<ul>
+<li>Phone number</li>
+<li>Email address</li>
+<li>Name (unless you type it yourself)</li>
+<li>Contacts from your phone's address book</li>
+<li>Browsing history</li>
+<li>Device identifiers or advertising IDs</li>
+<li>Analytics or crash data</li>
+</ul>
+
+<h2>What SimpleX relays see</h2>
+<p>Encrypted blobs with disposable addresses. Nothing else.</p>
+
+<h2>Panic data</h2>
+<p>During a panic event, Aegis sends GPS coordinates, audio, and camera frames to your connected family members only, through the same encrypted SimpleX channels. No server stores this data. No third party sees it.</p>
+
+<h2>Duress PIN</h2>
+<p>The duress PIN opens a fake profile and silently triggers panic. The existence of the second PIN is cryptographically unprovable.</p>
+
+<h2>Data storage</h2>
+<p>All data is stored locally on your device. Nothing is backed up to any cloud. If you lose your device, you lose your data. This is by design.</p>
+
+<h2>Data sharing with third parties</h2>
+<p><strong>None.</strong> No data is shared with any third party. No data is sent to the developer. No analytics. No ads. No tracking.</p>
+
+<h2>Data deletion</h2>
+<p>Uninstall the app to delete all data. No server-side data exists. Burn-after-reading messages are deleted after viewing. Disappearing messages are deleted after their timer expires.</p>
+
+<h2>Open source</h2>
+<p>Aegis is open source (AGPL-3.0). The cryptographic protocols (SimpleX, NaCl/libsodium) are well-studied and independently audited.</p>
+
+<h2>Contact</h2>
+<p>For privacy questions: <a href="https://github.com/artst3in/Aegis">github.com/artst3in/Aegis</a></p>
+
+<div class="footer">
+<p>Part of Project Aether</p>
+<p>dε/dt ≤ 0</p>
+</div>
+
+</body>
+</html>
