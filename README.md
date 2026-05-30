@@ -8,26 +8,28 @@
 <h1 align="center">Aegis</h1>
 
 <p align="center">
-  <strong>Encrypted family communication + emergency response</strong>
+  <strong>Encrypted communication. Emergency response. Personal security.</strong>
 </p>
 
 <p align="center">
-  <em>Part of Project Aether — the family nervous system</em>
+  <em>Part of Project Aether</em>
 </p>
 
 ---
 
 ## What Is Aegis
 
-A family security app built around one constraint: if someone in your family is in danger, every other member knows immediately — location, audio, camera — and can act remotely.
+A personal security app built around one principle: if someone you protect is in danger, everyone in their circle knows immediately — location, audio, camera — and can act remotely.
 
 All messaging runs through SimpleX. No accounts, no phone numbers, no metadata, no central server.
+
+Aegis is for anyone with people they care about — partners, children, parents, close friends, trusted colleagues. The trust model handles the rest.
 
 ---
 
 ## Install
 
-Download the latest APK from [Releases](https://github.com/artst3in/Aegis/releases):
+Download the latest APK from [Releases](https://github.com/artst3in/Aegis/releases).
 
 Settings → Install unknown apps → Allow → Install.
 
@@ -42,32 +44,32 @@ Every contact belongs to one of three tiers. One label per person. The label dec
 | Tier | Routine sharing | Panic alerts | Visibility |
 |------|----------------|--------------|------------|
 | **Trusted** | Location, presence, status, sensors | Yes | Full profile + shield tier badge |
-| **Emergency** | Nothing | Yes | Red "!" placeholder |
-| **Untrusted** | Nothing | No | Mask icon |
+| **Emergency** | Nothing | Yes | Alert-only placeholder |
+| **Untrusted** | Nothing | No | Minimal |
 
-**Trusted** is not "people I trust" — it's the small set who actively want your daily location and you want them to have it. Spouse, parents of young children, close co-monitoring family. Usually under a dozen.
+**Trusted** is not "people I trust generally." It is the small set who actively want your daily location and you want them to have it. Partners, parents of young children, close friends who co-monitor. Usually under a dozen people.
 
-**Emergency** is the doctor, the neighbor with your spare key, the reliable colleague. People who should be alerted in a real crisis but who don't need your daily battery level.
+**Emergency** is someone who should know if you are in danger but does not need your daily data. A doctor, a neighbor with your spare key, a reliable colleague.
 
-**Untrusted** is everyone else. They can message you. They know nothing about your status or location.
+**Untrusted** is everyone else. They can message you. They see nothing about your status or location.
 
-No per-feature toggles. No granular controls. The tier IS the decision.
+No per-feature toggles. No granular controls. The tier is the decision.
 
 ---
 
 ## Shield Tiers
 
-Security is gamified. Your shield tier is a colored frame around your avatar, visible to all family members.
+Security is gamified. Your shield tier is a colored frame around your avatar, visible to everyone in your circle.
 
 | Tier | Frame | Requirement |
 |------|-------|-------------|
 | — | None | Nothing configured |
-| 🥉 | **Bronze** | App PIN set |
-| 🥈 | **Silver** | 2-8 security features enabled |
-| 🥇 | **Gold** | All 9 in-app features enabled |
-| 🔷 | **Cyan** | Gold + Device Owner (factory reset + ADB) |
+| Bronze | Bronze | App PIN set |
+| Silver | Silver | 2–8 security features enabled |
+| Gold | Gold | All 9 in-app features enabled |
+| Cyan | Cyan | Gold + Device Owner (factory reset + ADB) |
 
-Cyan is the Aegis brand color — the crown. It means you wiped your phone, rebuilt it around Aegis, and maxed every security node. Disabling any feature drops your tier immediately.
+Cyan is the Aegis brand color — the highest tier. It means the device was factory-reset, rebuilt around Aegis, and every security node is active. Disabling any feature drops the tier immediately.
 
 ---
 
@@ -75,67 +77,51 @@ Cyan is the Aegis brand color — the crown. It means you wiped your phone, rebu
 
 Ten security features arranged in a dependency tree. Each feature requires its prerequisites.
 
-```
-                     💎 CYAN
-                  (all 10 nodes)
-              /    |    |    |    \
-          Canary  Geo  SIM  Panic  Vault
-            |      |    |   Drill  Duress
-            |      |    |    |      |
-          App    App  App   App   Vault
-         Duress  PIN  PIN   PIN    PIN
-            \      |    |   /      |
-             \     |    |  /       |
-              ┌────┴────┴─┴───┐    |
-              │    APP PIN    │────┘
-              └───────────────┘
-```
-
-| Node | What it does | Gate |
-|------|-------------|------|
-| **App PIN** | Locks the app | None — always first |
-| **App Duress** | Fake PIN → clean fake profile + silent panic | App PIN |
-| **Mugshot** | 3 wrong PINs → front camera captures attacker's face → sent to family | App PIN |
-| **Vault PIN** | Separate encrypted vault for sensitive files | App PIN |
+| Node | Function | Requires |
+|------|----------|----------|
+| **App PIN** | Locks the app | Nothing |
+| **App Duress** | Fake PIN opens a clean decoy profile and triggers silent panic | App PIN |
+| **Mugshot** | Three wrong PINs trigger front camera capture, sent to Trusted contacts | App PIN |
+| **Vault PIN** | Separate encrypted storage behind its own PIN | App PIN |
 | **Vault Duress** | Hidden vault behind a second fake PIN | Vault PIN |
-| **Canary** | Dead man's switch — no check-in within interval → alert fires | App PIN |
-| **Geofence** | Zone alerts when family enters/leaves defined areas | App PIN |
-| **SIM Watch** | SIM swap detection → instant alert | App PIN |
-| **Panic Drill** | Test panic system with one paired contact. Once, done forever. | App PIN + 1 contact |
-| **Device Owner** | Factory reset + ADB setup. Proves phone is yours from boot. | Cannot be set in-app |
+| **Canary** | Dead man's switch — no check-in within the set interval triggers an alert | App PIN |
+| **Geofence** | Zone alerts when contacts enter or leave defined areas | App PIN |
+| **SIM Watch** | SIM swap detection with instant alert | App PIN |
+| **Panic Drill** | One-time test of the panic system with one paired contact | App PIN + 1 contact |
+| **Device Owner** | Factory reset + ADB provisioning. Cannot be set in-app. | External setup |
 
 ---
 
 ## Messaging
 
-End-to-end encrypted text, photos, voice messages, and documents. No accounts, no phone numbers, no metadata — all via SimpleX protocol.
+End-to-end encrypted text, photos, voice messages, and documents. No accounts, no phone numbers, no metadata. All transport via SimpleX protocol.
 
 | Feature | Details |
 |---------|---------|
 | Encryption | SimpleX protocol — peer-to-peer, no central server |
-| Media | Photos, voice messages, documents, link previews |
-| Voice/video calls | WebRTC via SimpleX signaling |
-| Controls | Delivery ticks, typing indicators, editing, pinning |
+| Media | Photos, voice messages, documents |
+| Calls | Voice and video via WebRTC over SimpleX signaling |
+| Controls | Delivery receipts, typing indicators, editing, pinning |
 | Privacy | Disappearing messages, scheduled messages, quiet hours |
-| Secure notes | Encrypted local notebook |
-| Groups | Regular (identity-visible) and Anonymous (see below) |
+| Storage | Encrypted local notebook (Secure Notes) |
+| Groups | Standard (visible identity) and Anonymous (see below) |
 
 ---
 
 ## Anonymous Groups
 
-Chat rooms where members don't know each other's real identities. Each member appears as a rotating pseudonym (e.g., `Mask-7F3A2`). The underlying SimpleX addresses and display names are never shared.
+Chat rooms where members cannot determine each other's real identities. Each member appears as a rotating pseudonym. Display names, SimpleX addresses, and profile data are never shared.
 
-**What's protected:**
-- External observer can't enumerate members (SimpleX metadata protection)
-- Member A can't learn member B's real identity (application-layer anonymity)
-- Seized device reveals no other members' addresses or names
-- Leaving the group triggers forced perfect erasure — message history, attachments, keys, and pseudonym mappings are wiped. The device becomes indistinguishable from one that was never in the group.
+**Protected against:**
+- External observers cannot enumerate members
+- Members cannot learn each other's real identities
+- A seized device reveals no other members' addresses or names
+- Leaving the group triggers forced perfect erasure — message history, keys, and pseudonym mappings are destroyed. The device becomes indistinguishable from one that was never in the group.
 
-**What's not protected:**
-- The group creator runs the routing layer and knows all members' addresses. This is the honest trade-off for a no-server design.
+**Not protected against:**
+- The group creator knows all members' relay addresses. This is the honest trade-off for a serverless design.
 
-Anonymous groups are **chat only** — no location, presence, status, or panic data flows through them.
+Anonymous groups are chat only. No location, presence, status, or panic data flows through them.
 
 ---
 
@@ -143,25 +129,25 @@ Anonymous groups are **chat only** — no location, presence, status, or panic d
 
 | Feature | Details |
 |---------|---------|
-| Hold-to-activate | 3-second press with edge-heat animation (can't trigger accidentally) |
-| Hardware trigger | Power button ×4 rapid press (works with screen off) |
-| GPS broadcast | Continuous location to all Trusted + Emergency contacts |
-| Live stream | Audio + video to family via encrypted WebRTC |
-| Siren | Overrides silent mode |
-| Stealth | Screen dims to minimum, device stays unlocked |
-| Radar | Real-time family positions on a map during and after panic |
+| Hold-to-activate | Three-second press with progressive edge-heat animation |
+| Hardware trigger | Power button ×4 rapid press (works with screen off, from pocket) |
+| GPS broadcast | Continuous location to all Trusted and Emergency contacts |
+| Live stream | Encrypted audio and video via WebRTC |
+| Siren | Overrides silent mode and volume settings |
+| Stealth | Screen dims to minimum; device stays active |
+| Radar | Real-time positions of all Trusted contacts on a map |
 
 ### Voyager Mode
 
-Progressive shutdown as battery dies. At 5%: fake dead-battery screen. GPS pings continue once per hour — days of ghost transmissions on a "dead" phone.
+Progressive shutdown as battery depletes. At 5%: a fake dead-battery screen replaces the display. GPS transmissions continue once per hour — days of location pings from a phone that appears dead.
 
 ---
 
 ## Duress PIN
 
-Two PINs. The real one opens Aegis. The duress PIN opens a clean fake profile and silently triggers panic to your family.
+Two PINs. The real one opens Aegis. The duress PIN opens a clean decoy profile and silently triggers panic to every Trusted and Emergency contact.
 
-The second PIN's existence is cryptographically unprovable. An attacker who forces you to unlock sees a normal-looking app with fake contacts and no alerts — while your real family is already receiving your location and the silent alarm.
+The second PIN's existence is cryptographically unprovable. An attacker who forces you to unlock the device sees a normal-looking messenger with decoy contacts and no alerts — while the real contacts are already receiving your location and the silent alarm.
 
 ---
 
@@ -169,46 +155,45 @@ The second PIN's existence is cryptographically unprovable. An attacker who forc
 
 | Feature | Details |
 |---------|---------|
-| **Mugshot** | 3 failed PIN attempts → front camera captures attacker → photo sent to family |
-| **SIM swap alert** | Monitors SIM state changes, instant notification on swap |
-| **Canary** | Dead man's switch — configurable interval, pre-authored message |
-| **Geofence** | Zone-based alerts for family arrivals and departures |
-| **Decoy fixtures** | Fake contacts and conversations for the duress profile |
+| **Mugshot** | Three failed PIN attempts trigger front camera capture, sent to Trusted contacts |
+| **SIM swap alert** | Monitors SIM state changes; instant notification on swap |
+| **Canary** | Dead man's switch with configurable interval and pre-authored message |
+| **Geofence** | Zone-based alerts for arrivals and departures |
+| **Decoy fixtures** | Synthetic contacts and conversation history for the duress profile |
 | **Remote commands** | PIN-authenticated: locate, siren, lock, wipe |
 
 ### Remote Commands
 
 | Command | Effect |
 |---------|--------|
-| LOCATE | Lock device + return GPS |
+| LOCATE | Lock device, return GPS coordinates |
 | SIREN | Trigger audible alarm remotely |
-| WIPE | Broadcast goodbye to all contacts, then factory reset |
+| WIPE | Broadcast notification to all contacts, then factory reset |
 
-Duress PIN on remote commands triggers failure counter + silent notification to family.
+Entering the duress PIN on a remote command triggers a failure counter and silent notification.
 
 ---
 
 ## Sonar
 
-Acoustic proximity detection. Uses speaker and microphone for ultrasonic ranging between family devices. Know who's physically near without GPS — works indoors, through walls.
+Acoustic proximity detection. Uses the phone's speaker and microphone for ultrasonic ranging between paired devices. Determines who is physically nearby without GPS — works indoors, through walls, in environments where satellite positioning is unavailable.
 
 ---
 
 ## Vault
 
-Encrypted storage with its own PIN, separate from the app PIN. Store sensitive documents, photos, and notes behind a second layer of encryption. Vault also supports its own duress PIN — opening the hidden vault behind a fake vault.
+Encrypted storage behind its own PIN, independent from the app PIN. Sensitive documents, photos, and notes are protected by a separate encryption key derived from the vault PIN. The vault also supports its own duress PIN.
 
 ---
 
 ## Privacy
 
 - No accounts. No phone numbers. No email.
-- No servers you don't control. SimpleX uses disposable relays.
-- No metadata collection. SimpleX doesn't know who talks to whom.
-- No cloud. Everything stays on-device.
-- No analytics. No tracking. No ads.
-- No post-quantum cryptography — because the quantum computer that breaks classical crypto will never be built. The threat model is fictional.
-- Panic data goes only to your family members, through the same encrypted channel.
+- No servers you do not control. SimpleX uses disposable relay addresses.
+- No metadata collection. SimpleX relays do not know who communicates with whom.
+- No cloud storage. All data remains on-device.
+- No analytics. No tracking. No advertising.
+- Panic data travels through the same encrypted channels as messages. No third party receives it.
 
 ---
 
@@ -216,10 +201,10 @@ Encrypted storage with its own PIN, separate from the app PIN. Store sensitive d
 
 Aegis uses **LunaGlass** — the Project Aether design system.
 
-- Dark backgrounds, cyan accents (#00FFFF)
+- Dark backgrounds with cyan accents (#00FFFF)
 - Flat-top hexagonal UI elements
-- Inter font
-- Edge-heat animation on hold-to-execute buttons
+- Inter typeface
+- Edge-heat animation on hold-to-execute controls
 - Shield tier badges on avatars
 
 ---
@@ -255,17 +240,17 @@ Aegis uses **LunaGlass** — the Project Aether design system.
 └──────────────────────────────────────────────────────────┘
 ```
 
-**Kotlin + Jetpack Compose.** Full LunaGlass design system. Android 10+ (GrapheneOS recommended).
+Kotlin + Jetpack Compose. Full LunaGlass design system. Android 10+ (GrapheneOS recommended).
 
 ---
 
 ## Versioning
 
 ```
-YYYY.MM.BUILD — e.g., 2026.05.478
+YYYY.MM.BUILD — e.g., 2026.05.613
 ```
 
-Year and month for temporal context. Build number increments. Zero semantic judgment. One number to bump. See [VERSIONING](docs/VERSIONING.md).
+Year and month for temporal context. Build number increments per release. No semantic judgment. One number to bump. See [VERSIONING](docs/VERSIONING.md) for the full specification.
 
 ---
 
@@ -273,11 +258,9 @@ Year and month for temporal context. Build number increments. Zero semantic judg
 
 | Component | Role | Repository |
 |-----------|------|------------|
-| **LunaOS** | The Brain — consciousness OS, PI, inference engine | [artst3in/LunaOS](https://github.com/artst3in/LunaOS) |
-| **Aegis** | The Shield — encrypted family communication | [artst3in/Aegis](https://github.com/artst3in/Aegis) |
-| **LunaGlass** | The Body — hardware interface layer | Coming soon |
-
-The **Superfield** is the cosmic aether — the superfluid vacuum that carries all waves in reality. **Project Aether** is the family aether — the encrypted medium that carries all signals in the family. Same architecture, different scale.
+| **LunaOS** | The Brain — consciousness operating system | [artst3in/LunaOS](https://github.com/artst3in/LunaOS) |
+| **Aegis** | The Shield — encrypted communication and personal security | [artst3in/Aegis](https://github.com/artst3in/Aegis) |
+| **LunaGlass** | The Design — hardware interface and visual language | [artst3in/LunaGlass](https://github.com/artst3in/LunaGlass) |
 
 ---
 
