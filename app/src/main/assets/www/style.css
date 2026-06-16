@@ -1,0 +1,73 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: black;
+}
+
+#remote-video-stream {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#local-video-stream {
+  position: absolute;
+  width: 30%;
+  max-width: 30%;
+  object-fit: cover;
+  margin: 16px;
+  border-radius: 16px;
+  top: 0;
+  right: 0;
+  touch-action: none;
+}
+
+/* Self-view PiP swap (Aegis-side polish, not in upstream call.js).
+   When the user taps the small local video it swaps "fullscreen" with
+   the remote — local becomes the big picture, remote becomes the
+   corner thumbnail. Toggled by a tiny inline script in call.html. */
+.aegis-fullscreen {
+  position: absolute !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  top: 0 !important;
+  right: auto !important;
+  left: 0 !important;
+  z-index: 1 !important;
+}
+.aegis-pip {
+  position: absolute !important;
+  width: 30% !important;
+  max-width: 30% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  margin: 16px !important;
+  border-radius: 16px !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  z-index: 2 !important;
+}
+
+*::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+*::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+*::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+*::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/icon_background" />
+    <foreground android:drawable="@mipmap/ic_aegis_foreground" />
+    <!-- Themed-icon layer (Android 13+) — the clean flat-top hex
+         silhouette the user approved on notifications, scaled to
+         the 108×108 adaptive viewport. Was pointing at the full-
+         colour foreground which made themed icons render as a
+         tinted blob; ic_aegis_mono renders as a proper hex outline
+         under the user's wallpaper accent. -->
+    <monochrome android:drawable="@drawable/ic_aegis_mono" />
+</adaptive-icon>

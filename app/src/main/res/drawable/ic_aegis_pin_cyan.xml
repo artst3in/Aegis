@@ -1,0 +1,36 @@
+<!--
+  LunaGlass pin glyph — cyan variant for map markers.
+  Same shape as ic_aegis_pin but with the cyan stroke pre-baked so
+  no Drawable.setTint dance is needed (some VectorDrawableCompat
+  paths ignore tint applied at runtime).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Hex head -->
+    <path
+        android:strokeColor="#FF00FFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#3300FFFF"
+        android:pathData="M12,2 L15,4 L15,8 L12,10 L9,8 L9,4 Z" />
+    <!-- Shaft -->
+    <path
+        android:strokeColor="#FF00FFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,10 L12,18" />
+    <!-- Angular point -->
+    <path
+        android:strokeColor="#FF00FFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M10,18 L12,22 L14,18" />
+</vector>

@@ -1,0 +1,10 @@
+Receipt reconciliation for lossy links (zero extra traffic, 4 natural triggers).
+Attention leak defense (unread-only reconciliation).
+Remote duress trap (every PIN field is a coercion tripwire).
+Silent SOS (duress-triggered, zero visual footprint).
+Power button x4 state-dependent (trigger or cancel SOS).
+Remote SOS button.
+Permission tutorial with OEM battery-killer detection.
+Self-healing handshake.
+Picture frame inner wall (concave depth cue).
+16 languages at 688 strings.

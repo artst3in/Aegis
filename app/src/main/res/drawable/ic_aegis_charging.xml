@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LunaGlass charging indicator. Stroke-only zigzag lightning bolt,
+     geometrically centred in a 24×24 viewport, ~1.8 dp stroke width
+     to match the other LunaGlass glyphs (chats, settings, mic). The
+     ⚡ emoji it replaces was the only non-LunaGlass element left on
+     the battery readouts; using a vector instead lets ColorFilter
+     tint it cyan / amber / danger like every other tinted glyph. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M14,2 L6,13 L11,13 L10,22 L18,11 L13,11 Z" />
+</vector>

@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">チャット</string>    <string name="action_save">保存</string><string name="action_cancel">キャンセル</string><string name="action_done">完了</string><string name="action_back">戻る</string>    <string name="profile_title">プロフィール</string><string name="profile_welcome">Aegisへようこそ</string><string name="profile_display_name">表示名</string><string name="profile_your_name">あなたの名前</string><string name="profile_bio">自己紹介（任意）</string><string name="profile_bio_hint">連絡先があなたの名前をタップすると表示されます。</string>    <string name="contact_title">連絡先</string><string name="contact_not_found">連絡先が見つかりません。</string><string name="contact_add">連絡先を追加</string><string name="contact_connecting">接続中…</string><string name="contact_nickname">ニックネーム</string><string name="contact_nickname_hint">ニックネーム（呼び方）</string><string name="contact_my_nickname">相手へのニックネーム</string><string name="contact_save_nickname">ニックネームを保存</string><string name="contact_copy_link">リンクをコピー</string><string name="contact_accept_invite">招待を受ける</string><string name="contact_accept_invitation">招待を受ける</string><string name="contact_pin">ピン留め</string><string name="contact_unpin">ピン解除</string><string name="contact_mute">ミュート</string>    <string name="group_new">新しいグループ</string><string name="group_name">グループ名</string><string name="group_creating">作成中…</string><string name="group_create">グループを作成</string>
+    <string name="call_voice">音声通話</string><string name="call_video">ビデオ通話</string><string name="call_calling">発信中…</string>    <string name="sos_title">緊急</string><string name="sos_active">作動中</string><string name="sos_broadcasting">配信中</string>    <string name="duress_confirm_pin">PINを確認</string><string name="duress_confirm_duress_pin">脅迫PINを確認</string><string name="duress_change_pin">PINを変更</string>
+    <string name="settings_title">設定</string><string name="settings_app_lock">アプリロック</string><string name="settings_auto_lock">自動ロック</string><string name="settings_calls">通話</string><string name="settings_updates">アップデート</string><string name="settings_quiet_hours">おやすみモード</string><string name="settings_canary">カナリアメッセージ</string><string name="settings_wifi_only">Wi-Fiのみ</string>    <string name="status_online">オンライン</string><string name="status_offline">オフライン</string><string name="status_away">離席中</string>    <string name="update_available">アップデートあり</string>    <string name="loki_mugshot_armed">有効 — PIN%d回失敗後に撮影。</string><string name="loki_sim_armed">有効。現在のSIM：</string><string name="loki_canary_armed">有効。アプリを開いてタイマーをリセット。</string><string name="loki_deadmans_switch">デッドマンスイッチ</string>
+    <string name="nav_security">防護</string>
+    <string name="nav_radar">レーダー</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">コピーエラー</string>
+    <string name="add_contact_generate_a_onetime_link">ワンタイムリンク生成</string>
+    <string name="add_contact_generating_link">リンク生成中…</string>
+    <string name="add_contact_got_their_invitation_link">リンクを受け取った? QRスキャンか貼り付け.</string>
+    <string name="add_contact_invitation_qr">招待QR</string>
+    <string name="add_contact_invite_someone">誰かを招待</string>
+    <string name="add_contact_joining_a_group_no">グループに参加 -- ニックネーム不要.</string>
+    <string name="add_contact_or_paste_an_invitation">…または招待/グループリンクを貼り付け</string>
+    <string name="add_contact_pair_via_simplex_exchange">SimpleXでペアリング -- ワンタイムリンク交換.</string>
+    <string name="add_contact_paired">ペアリング済み ✓</string>
+    <string name="add_contact_pick_qr_from_photo">写真からQRを選択</string>
+    <string name="add_contact_show_this_qr_to">このQRを見せるかリンクを共有.</string>
+    <string name="add_contact_they_see_you_as">相手にはランダムハンドルで表示 -- 本名は非公開.</string>
+    <string name="add_contact_they_sent_you_a">リンクかQRが届いた. スキャンか貼り付け.</string>
+    <string name="add_contact_theyll_see_you_as">相手にランダムハンドルで表示されます -- 本名は非公開.</string>
+    <string name="add_contact_waiting_for_them_to">承認待ち…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">マイクテスト</string>
+    <string name="call_relayonly_calls">リレーのみの通話</string>
+    <string name="call_run_mic_test">マイクテスト実行</string>
+    <string name="call_troubleshooting">トラブルシューティング</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Aegisを開かずにどれくらい</string>
+    <string name="canary_i_havent_checked_in">しばらくチェックインしていません. </string>
+    <string name="canary_if_you_dont_open">Aegisを開かないと، </string>
+    <string name="canary_sent_verbatim_to_every">すべてのペアリング済み連絡先にそのまま送信.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">承認</string>
+    <string name="chat_list_add_contact">連絡先を追加</string>
+    <string name="chat_list_add_your_first_contact">最初の連絡先を追加</string>
+    <string name="chat_list_automatically_turn_off_the">一定期間後にグループモジュールを自動オフ.</string>
+    <string name="chat_list_disable">無効化</string>
+    <string name="chat_list_enable_group_chat">グループチャット有効化</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">招待</string>
+    <string name="chat_list_join_via_link">リンクで参加</string>
+    <string name="chat_list_new_group">+ 新規グループ</string>
+    <string name="chat_list_no_groups_yet_tap">グループなし. + 新規グループをタップ.</string>
+    <string name="chat_list_pending_invitations">保留中の招待</string>
+    <string name="chat_list_public_groups_increase_your">公開グループは攻撃面を増やす.</string>
+    <string name="chat_list_removes_the_group_and">このデバイスからグループと履歴を削除.</string>
+    <string name="chat_list_revoke">取り消し</string>
+    <string name="chat_list_search_messages">メッセージ検索…</string>
+    <string name="chat_list_shield_paused_messages_and">シールド一時停止 · メッセージとSOS中断</string>
+    <string name="chat_list_tap_here_or_the">ここか下のヘックスボタンで招待リンクを共有か QRをスキャン.</string>
+    <string name="chat_list_video_call">ビデオ通話</string>
+    <string name="chat_list_view">表示</string>
+    <string name="chat_list_voice_call">音声通話</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">ランダムなエイリアス、この連絡先固有.</string>
+    <string name="contact_detail_access_denied_wrong_pin">アクセス拒否 -- PINが違います</string>
+    <string name="contact_detail_authenticate">認証</string>
+    <string name="contact_detail_battery">バッテリー</string>
+    <string name="contact_detail_delete_contact">連絡先を削除</string>
+    <string name="contact_detail_device_status">デバイス状態</string>
+    <string name="contact_detail_enable">有効化</string>
+    <string name="contact_detail_group_this_contact_under">チャットリストでラベル分類.</string>
+    <string name="contact_detail_local_only_they_dont">ローカルのみ -- 相手には見えません.</string>
+    <string name="contact_detail_no_data_received_yet">データ未受信 -- 最初のピング待ち.</string>
+    <string name="contact_detail_not_now">今はしない</string>
+    <string name="contact_detail_notifications">通知</string>
+    <string name="contact_detail_on_success_their_phone">成功すると電話がロックされ位置が特定されます.</string>
+    <string name="contact_detail_one_label_per_contact">1連絡先にラベル1つ. 何を受信するか決定.</string>
+    <string name="contact_detail_opening_remote_control">リモートコントロールを開いています…</string>
+    <string name="contact_detail_removes_the_contact_every">連絡先と全メッセージを削除.</string>
+    <string name="contact_detail_repair_contact">連絡先を再ペアリング</string>
+    <string name="contact_detail_their_achievements">彼らの実績</string>
+    <string name="contact_detail_this_person_will_be">この人はあなたの電話を探し、ロックし、削除できます.</string>
+    <string name="contact_detail_trust_tier">信頼ティア</string>
+    <string name="contact_detail_wearable">ウェアラブル</string>
+    <string name="contact_detail_you_appear_to_them">相手にはこう見える</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">衝突検知</string>
+    <string name="crash_detection_detects_a_vehicle_crash">衝撃から車両事故を検知.</string>
+    <string name="crash_detection_sensitivity">感度</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">アクション</string>
+    <string name="device_control_audio">オーディオ</string>
+    <string name="device_control_expires_in">有効期限: </string>
+    <string name="device_control_fix">修正 </string>
+    <string name="device_control_location">位置</string>
+    <string name="device_control_lock_did_not_fire">ロック未実行 -- デバイス管理未登録.</string>
+    <string name="device_control_lock_off">⚠ ロックオフ</string>
+    <string name="device_control_lockscreen_message">ロック画面メッセージ</string>
+    <string name="device_control_no_frame">フレームなし</string>
+    <string name="device_control_remote_session">リモートセッション</string>
+    <string name="device_control_send">送信</string>
+    <string name="device_control_this_is_the_last">工場リセット前の最終ステップ.</string>
+    <string name="device_control_this_triggers_a_full">ターゲットで完全な工場リセットを実行.</string>
+    <string name="device_control_type_wipe">WIPEと入力</string>
+    <string name="device_control_type_wipe_to_confirm">WIPEと入力</string>
+    <string name="device_control_wipe_device">デバイス削除</string>
+    <string name="device_control_wipe_target_device">ターゲットデバイスを削除?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">リモートアクセス</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">強い投げ/つかみ/引きでSOS発動.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">侵入検知. 3センサーカスケード.</string>
+    <string name="experimental_crash_sensitivity_settings">衝突感度設定 ></string>
+    <string name="experimental_detect_a_vehicle_crash">車両事故を検出しSOS送信</string>
+    <string name="experimental_event_log">イベントログ →</string>
+    <string name="experimental_here_be_dragons">ここにドラゴンが</string>
+    <string name="experimental_inbox">受信箱 →</string>
+    <string name="experimental_relock_experimental_section">実験セクションを再ロック</string>
+    <string name="experimental_snatch_detection">ひったくり検知</string>
+    <string name="experimental_these_features_are_unfinished">これらは未完成でバッテリーを消耗する可能性.</string>
+    <string name="experimental_vehicle_crash_detection">車両事故検知</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">バックアップパスフレーズを入力</string>
+    <string name="first_run_passphrase">パスフレーズ</string>
+    <string name="first_run_restore">復元</string>
+    <string name="first_run_restore_from_a_previous">以前のバックアップから復元か新規開始.</string>
+    <string name="first_run_start_fresh">新規開始</string>
+    <string name="first_run_welcome_to_aegis">Aegisへようこそ</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">一時停止</string>
+    <string name="geofence_radius">半径</string>
+    <string name="geofence_resume">再開</string>
+    <string name="geofence_set_a_circular_zone">円形ゾーン設定。離れると通知。</string>
+    <string name="geofence_zone_centre">ゾーン中心</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">メンバー</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegisは起動時とバックグラウンド後にロック解除が必要.</string>
+    <string name="lock_after_too_many_wrong">PIN間違いが多すぎるとデータを完全に削除.</string>
+    <string name="lock_arm">Arm</string>
+    <string name="lock_arm_selfdestruct">自壊を有効に?</string>
+    <string name="lock_biometric_login_is_convenient">生体認証は便利だが強制をスキップ.</string>
+    <string name="lock_deletes_the_pin_entirely">PINを完全に削除し強制PINも削除.</string>
+    <string name="lock_draw_a_pattern_to">PINの代わりにパターンでロック解除.</string>
+    <string name="lock_duress_pin_48_digits">強制PIN (4-8桁)</string>
+    <string name="lock_enable_device_admin">デバイス管理を有効化</string>
+    <string name="lock_entering_this_pin_opens">このPINでダミープロフィールが開きSOSが作動.</string>
+    <string name="lock_fast_convenient_but_it">高速、便利 -- だが強制をスキップ.</string>
+    <string name="lock_how_long_after_backgrounding">バックグラウンド後何分で再ロック.</string>
+    <string name="lock_maximum_security_your_encryption">最高セキュリティ: 暗号鍵はディスクに保存されない.</string>
+    <string name="lock_pattern_unlock">パターンロック解除</string>
+    <string name="lock_remove_pin">PIN削除</string>
+    <string name="lock_require_pin_to_open">Aegisを開くにはPINが必要</string>
+    <string name="lock_require_recovery_phrase_on">再起動毎に復元フレーズを要求</string>
+    <string name="lock_scramble_pin_pad">PINパッドシャッフル</string>
+    <string name="lock_shuffles_digit_positions_on">のぞき見防止のため桁位置をシャッフル.</string>
+    <string name="lock_unlock_with_fingerprint_face">指紋/顔でロック解除</string>
+    <string name="lock_when_off_aegis_opens">Aegisは確認なしで開く. PINはデータを保護.</string>
+    <string name="lock_wipe_after_failed_attempts">失敗後に削除</string>
+    <!-- MapScreen -->
+    <string name="map_charging">充電中</string>
+    <string name="map_locate_on_map">地図で特定</string>
+    <string name="map_radar">レーダー</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">家族に再中心</string>
+    <string name="map_solo">ソロ</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">失敗PINで写真</string>
+    <string name="mugshot_threshold">しきい値</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">プロファイルについて</string>
+    <string name="profiles_active">アクティブ</string>
+    <string name="profiles_create">作成</string>
+    <string name="profiles_each_profile_is_a">各プロフィールは完全に独立したAegis.</string>
+    <string name="profiles_ephemeral_import_a_backup">一時的 - バックアップインポート</string>
+    <string name="profiles_ephemeral_start_fresh">一時的 · 新規開始</string>
+    <string name="profiles_ive_written_it_down">書き留めた -- 作成</string>
+    <string name="profiles_keep_ephemeral">一時的のまま</string>
+    <string name="profiles_make_permanent">永続にする?</string>
+    <string name="profiles_make_this_profile_permanent">このプロフィールを永続に</string>
+    <string name="profiles_new_pin">新しいPIN</string>
+    <string name="profiles_new_profile">新プロフィール</string>
+    <string name="profiles_permanent_import_a_backup">永続 · バックアップをインポート</string>
+    <string name="profiles_permanent_start_fresh">永続 · 新規開始</string>
+    <string name="profiles_pick_a_short_id">短いIDを選択 (英字, 数字, - _).</string>
+    <string name="profiles_profile_id">プロファイルID</string>
+    <string name="profiles_sos_alerts_only_fire">SOSアラートはアクティブプロフィールの家族のみ.</string>
+    <string name="profiles_switch">切り替え</string>
+    <string name="profiles_these_24_words_are">この24単語が唯一の鍵.</string>
+    <string name="profiles_this_conversation_will_be">この会話はディスクに保存され残ります.</string>
+    <string name="profiles_write_down_your_recovery">復元フレーズを書き留める</string>
+    <string name="profiles_your_current_profile_stays">現在のプロフィールはバックグラウンドで安全.</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">設定期間中チャット通知音を消音.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">24単語フレーズ</string>
+    <string name="recovery_unlock_back_to_pin">PINに戻る</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">24単語の復元フレーズを入力.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">フレーズで復元</string>
+    <string name="recovery_unlock_recovered_set_a_new">復元済み. 新しいPINを設定.</string>
+    <string name="recovery_unlock_set_pin">PINを設定</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">助けが来ています</string>
+    <string name="s_o_s_no_sos_recipients_promote">SOS受信者がいません。少なくとも1人を昇格させてください。</string>
+    <string name="s_o_s_plays_at_maximum_alarm">ロック解除まで最大音量で再生</string>
+    <string name="s_o_s_start_siren">サイレン開始?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">アプリPIN</string>
+    <string name="security_canary">カナリア</string>
+    <string name="security_device_admin">デバイス管理</string>
+    <string name="security_duress_mode_active_some">強制モード有効. 一部パネル非表示.</string>
+    <string name="security_geofence">ジオフェンス</string>
+    <string name="security_mugshot">マグショット</string>
+    <string name="security_sim_watch">SIM監視</string>
+    <string name="security_sonar_experimental">Sonar · 実験的</string>
+    <string name="security_your_living_shield_each">あなたの生きた盾. 各ヘックスが保護機能.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">上級: デフォルトSMPサーバーを上書き.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">新しいチャットに自動削除.</string>
+    <string name="_autorevoke_unused_11_invite">未使用の招待を自動取り消し.</string>
+    <string name="_backup">バックアップ</string>
+    <string name="_block_screenshots">スクショットブロック</string>
+    <string name="_clear_all_queued">キューをすべてクリア</string>
+    <string name="_disappearing_default">消えるデフォルト</string>
+    <string name="_encrypted_file_backup_data">暗号化バックアップ -- データは残る.</string>
+    <string name="_experimental">実験的</string>
+    <string name="_health_probes_driver_reloads">プローブ、再読み込み、ログ、デバッグオーバーレイ.</string>
+    <string name="_language">言語</string>
+    <string name="_multiple_isolated_aegis_profiles">複数の独立したAegisプロフィール -- 家族間で切り替え.</string>
+    <string name="_mute_chat_notifications_at">夜間のチャット通知を消音. SOSは起こします.</string>
+    <string name="_notifications">通知</string>
+    <string name="_outbox">送信箱</string>
+    <string name="_perchannel_sound_vibration_and">チャンネルごとの音、振動、重要度.</string>
+    <string name="_performance_balanced_power_saver">パフォーマンス/バランス/節電 + 制御.</string>
+    <string name="_pressandhold_send_call_video">長押しで送信/通話/ビデオ. 誤操作防止.</string>
+    <string name="_profiles">プロファイル</string>
+    <string name="_project_aether">プロジェクト AETHER</string>
+    <string name="_readonly_inventory_of_every">出荷された全機能の読み取り専用一覧.</string>
+    <string name="_rearrange_the_bottom_tabs">下部タブを並び替え. SOSは中央固定.</string>
+    <string name="_relayonly_ice_and_call">リレー専用ICEと通話診断.</string>
+    <string name="_stops_screenshots_screen_recording">スクショ、録画、プレビューをブロック.</string>
+    <string name="_unfinished_features_hidden_behind">7タップゲートの後ろに未完成機能.</string>
+    <string name="_wifionly_by_default_apks">WiFiのみ -- APK ~45-65 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">SIM変更アラート</string>
+    <string name="sim_swap_when_the_sim_in">電話のSIMが変わるとアラートを送信.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Aegisロゴ</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_aegis_polls_github_every">Aegisは24時間ごとにGitHubを確認。</string>
+    <string name="update_beltandbraces_type_rollback_below">下にROLLBACKと入力.</string>
+    <string name="update_check_interval">確認間隔</string>
+    <string name="update_how_often_aegis_polls">AegisがGitHubに新ビルドを確認する頻度.</string>
+    <string name="update_roll_back">ロールバック</string>
+    <string name="update_roll_back_to_previous">前のバージョンに戻す</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">システムインストーラーが開きます.</string>
+    <string name="update_type_rollback_to_confirm">ROLLBACKと入力</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">確認</string>
+    <string name="vault_pin_confirm_duress">強制確認</string>
+    <string name="vault_pin_current_vault_pin">現在の金庫PIN</string>
+    <string name="vault_pin_entering_this_pin_at">このPINで金庫の隠れたダミーウィングが開く.</string>
+    <string name="vault_pin_remove_duress_pin">強制PIN削除</string>
+    <string name="vault_pin_vault_pin">金庫PIN</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">スクショなし. コピーなし. 痕跡なし.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">受信者に火のアイコン. 開くとカウントダウン開始.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">機能</string>
+    <string name="capabilities_device_admin_enable_in">デバイス管理: 設定で有効化.</string>
+    <string name="capabilities_device_owner_factoryreset_the">デバイスオーナー: 工場リセット、制御.</string>
+    <string name="capabilities_live_status_green_active">ライブステータス. 緑=アクティブ. 暗い=許可必要.</string>
+    <string name="capabilities_stay_safe">安全に.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">選択した期間後にメッセージを自動削除.</string>
+    <string name="chat_burn">破棄</string>
+    <string name="chat_burn_after_reading">読後破棄</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">全員から削除</string>
+    <string name="chat_deletes_every_message_in">この会話の全メッセージを削除.</string>
+    <string name="chat_disappearing_messages">消えるメッセージ…</string>
+    <string name="chat_editing_message">メッセージ編集中</string>
+    <string name="chat_emergency_contact_they_receive">緊急連絡先. SOSのみ受信.</string>
+    <string name="chat_forward">転送</string>
+    <string name="chat_forward_to">転送先…</string>
+    <string name="chat_gallery">ギャラリー</string>
+    <string name="chat_loading_preview">プレビュー読み込み中…</string>
+    <string name="chat_no_contacts_paired_yet">まだ連絡先がありません.</string>
+    <string name="chat_pick_when_to_send">送信時間を選択. Aegisは毎分ポーリング.</string>
+    <string name="chat_pinned">ピン留め</string>
+    <string name="chat_reply">返信</string>
+    <string name="chat_save_to_device">デバイスに保存</string>
+    <string name="chat_save_to_notes">ノートに保存</string>
+    <string name="chat_video">ビデオ</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">既知のシンクはすべて空.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ は空です。</string>
+    <string name="diagnostics_building_usage_history">使用履歴を構築中…</string>
+    <string name="diagnostics_close">閉じる</string>
+    <string name="diagnostics_copy">コピー</string>
+    <string name="diagnostics_device_owner">デバイスオーナー</string>
+    <string name="diagnostics_diagnostics">診断</string>
+    <string name="diagnostics_empty">(空)</string>
+    <string name="diagnostics_erase_all_aegis_data">全Aegisデータを削除?</string>
+    <string name="diagnostics_erase_everything">全て削除</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">再起動なしでサブシステムをリセット.</string>
+    <string name="diagnostics_how_much_data_aegis">Aegisが転送したデータ量.</string>
+    <string name="diagnostics_kills_the_aegis_process">Aegisプロセスを終了し再起動.</string>
+    <string name="diagnostics_mainthread_sample_30_100">メインスレッドサンプル (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">改ざん信号なし.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">何もどこにも送信されません.</string>
+    <string name="diagnostics_process">プロセス</string>
+    <string name="diagnostics_reconnect_now">今すぐ再接続</string>
+    <string name="diagnostics_relays">リレー</string>
+    <string name="diagnostics_reset">リセット</string>
+    <string name="diagnostics_reset_simplex_core">SimpleXコアをリセット?</string>
+    <string name="diagnostics_restart">再起動</string>
+    <string name="diagnostics_restart_aegis">Aegisを再起動?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Aegis再起動(完全)</string>
+    <string name="diagnostics_signer_sha256">署名者SHA-256</string>
+    <string name="diagnostics_stop_all_sos">全SOS停止</string>
+    <string name="diagnostics_storage">ストレージ</string>
+    <string name="diagnostics_subsystems_shut_off_as">バッテリー低下でサブシステム停止.</string>
+    <string name="diagnostics_tap_to_open">タップで開く</string>
+    <string name="diagnostics_this_is_irreversible_it">元に戻せません. 工場リセット.</string>
+    <string name="diagnostics_threads">スレッド</string>
+    <string name="diagnostics_wipe_all_aegis_data">全Aegisデータを削除.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">SimpleXデータベースを削除.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">連絡先がありません. 先にペアリング.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">連絡先に送信</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">省電力モードで全エフェクト無効.</string>
+    <string name="graphics_cyan_mascot">Cyanマスコット</string>
+    <string name="graphics_data_rain">データレイン</string>
+    <string name="graphics_effects_intensity">エフェクト強度</string>
+    <string name="graphics_effects_suppressed_in_power">節電モードでエフェクト抑制</string>
+    <string name="graphics_faint_repeating_hex_pattern">全画面の背景に淡いヘックスパターン.</string>
+    <string name="graphics_graphics">グラフィックス</string>
+    <string name="graphics_graphics_profile">グラフィックプロフィール</string>
+    <string name="graphics_hex_grid_backdrop">ヘックスグリッド背景</string>
+    <string name="graphics_scan_line">スキャンライン</string>
+    <string name="graphics_scan_line_data_rain">スキャンライン + データレインの透明度.</string>
+    <string name="graphics_show_the_chibi_mascot">chibiマスコットをスプラッシュ、空画面、Aboutに表示.</string>
+    <string name="graphics_single_cyan_line_crawling">30秒ごとにシアンラインが上から下へ.</string>
+    <string name="graphics_tiny_hex_particles_drifting">小さなヘックス粒子が下方に漂流. 3つの中で最も重い.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">グループを削除</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">メッセージ</string>
+    <string name="group_chat_removes_the_group_and">グループとメッセージ履歴を削除.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">全メンバーに表示される短いノート.</string>
+    <string name="group_members_about_this_group">このグループについて</string>
+    <string name="group_members_active_in_this_group">このグループでアクティブ</string>
+    <string name="group_members_anonymous_the_group_sees">匿名 -- グループはランダム名を見る.</string>
+    <string name="group_members_apply">適用</string>
+    <string name="group_members_armed">武装</string>
+    <string name="group_members_autoburn_messages_in_this">このグループのメッセージを自動削除.</string>
+    <string name="group_members_autodisable_timer">自動無効タイマー</string>
+    <string name="group_members_autodisable_timer_for_this">このグループの自動無効タイマー</string>
+    <string name="group_members_configure">設定 ›</string>
+    <string name="group_members_demote_to_member">メンバーに降格</string>
+    <string name="group_members_description">説明</string>
+    <string name="group_members_disappearing_messages">消えるメッセージ</string>
+    <string name="group_members_every_paired_contact_is">全ペアリング済み連絡先は既にこのグループに.</string>
+    <string name="group_members_group_description">グループ説明</string>
+    <string name="group_members_group_image">グループ画像</string>
+    <string name="group_members_group_name">グループ名</string>
+    <string name="group_members_groups_are_always_incognito">グループは常に匿名. プロフィールは隠れたまま.</string>
+    <string name="group_members_invite_member">メンバーを招待</string>
+    <string name="group_members_leave">退出</string>
+    <string name="group_members_leave_group">グループを退出</string>
+    <string name="group_members_make_sure_the_photo">写真に自分や位置が映らないように.</string>
+    <string name="group_members_minutes_min_1">分 (min 1)</string>
+    <string name="group_members_mute_group">グループミュート</string>
+    <string name="group_members_no_members_yet_the">まだメンバーなし. ホストボットがここに表示.</string>
+    <string name="group_members_off_1_min_1">オフ / 1分 - 1年.</string>
+    <string name="group_members_promote_to_admin">管理者に昇格</string>
+    <string name="group_members_remove_from_group">グループから削除</string>
+    <string name="group_members_removes_the_group_locally">ローカルでグループを削除しホストに通知.</string>
+    <string name="group_members_rename">名前変更</string>
+    <string name="group_members_rename_group">グループ名変更</string>
+    <string name="group_members_save">保存</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">ウィンドウがあなたなしで終了すると.</string>
+    <string name="group_members_youll_stop_receiving_messages">このグループからのメッセージが届かなくなります.</string>
+    <string name="group_members_your_identity_here">ここでのあなたの身元</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">基本</string>
+    <string name="help_design_decisions">デザイン決定</string>
+    <string name="help_experimental">実験的</string>
+    <string name="help_help">ヘルプ</string>
+    <string name="help_how_aegis_works">Aegisの仕組み</string>
+    <string name="help_loading">読み込み中…</string>
+    <string name="help_privacy">プライバシー</string>
+    <string name="help_security">セキュリティ</string>
+    <string name="help_technical">技術</string>
+    <string name="help_the_same_documents_that">ソースコードと同じドキュメント -- アプリ内蔵.</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">保持時間</string>
+    <string name="hold_to_execute_hold_to_send_call">送信/通話のために長押し</string>
+    <string name="hold_to_execute_send_voice_call_and">送信・通話ボタンは長押し必要.</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">1:1招待リンクは期限切れまで有効.</string>
+    <string name="invitation_expiry_about_this_setting">この設定について</string>
+    <string name="invitation_expiry_invitation_expiry">招待の有効期限</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegisは17言語で利用可能。</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">PINを忘れた?</string>
+    <string name="lock_hold_for_silent_emergency">静かな緊急通報のため長押し</string>
+    <string name="lock_use_fingerprint_or_face">指紋または顔を使用</string>
+    <string name="lock_use_pattern">パターンを使用</string>
+    <string name="lock_use_pin">PINを使用</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">ノート削除</string>
+    <string name="note_editor_folder">フォルダ</string>
+    <string name="note_editor_unfiled">未分類</string>
+    <string name="note_editor_write">書く…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegisは何百万人を守った技術の上に構築.</string>
+    <string name="origins_origins">起源</string>
+    <string name="origins_where_this_came_from">これの由来</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">実績</string>
+    <string name="profile_avatar">アバター</string>
+    <string name="profile_pick_avatar">アバター選択</string>
+    <string name="profile_proof_your_safety_net">セーフティネットが機能している証拠.</string>
+    <string name="profile_set_your_name_and">名前とオプション写真を設定.</string>
+    <string name="profile_tap_to_change_photo">タップで写真変更</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">リレー追加</string>
+    <string name="relay_current_relays">現在のリレー</string>
+    <string name="relay_format_smpbase64fingerprinthostport">形式: smp://&lt;base64指紋&gt;@ホスト[:ポート]</string>
+    <string name="relay_loading">読み込み中…</string>
+    <string name="relay_must_start_with_smp">smp://で始まりホストを含む必要.</string>
+    <string name="relay_poweruser_setting_the_defaults">パワーユーザー設定. デフォルトはインフラ上で動作.</string>
+    <string name="relay_reset_to_defaults">デフォルトにリセット</string>
+    <string name="relay_simplex_relays">SimpleXリレー</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;指紋&gt;@ホスト:ポート</string>
+    <string name="relay_using_simplex_defaults">SimpleXのデフォルトを使用.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">リモートアクセス</string>
+    <string name="remote_access_target_device">ターゲットデバイス</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">プッシュトゥトーク</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">二重保護.</string>
+    <string name="secure_notes_cancel">キャンセル</string>
+    <string name="secure_notes_delete">削除</string>
+    <string name="secure_notes_every_note_photo_video">金庫内の全ノート、写真、動画.</string>
+    <string name="secure_notes_search_the_vault">金庫を検索…</string>
+    <string name="secure_notes_type_wipe_vault_to">WIPE VAULTと入力</string>
+    <string name="secure_notes_vault">金庫</string>
+    <string name="secure_notes_wipe">削除</string>
+    <string name="secure_notes_wipe_vault">金庫を削除</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">ドリル</string>
+    <string name="sentinel_inbox_frontcamera_capture">フロントカメラキャプチャ</string>
+    <string name="sentinel_inbox_gyroscope_rads">ジャイロスコープ (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">録画ステージからのマグショット</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">このステージにフォレンジックペイロードなし.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">まだSentinelイベントなし.</string>
+    <string name="sentinel_inbox_sentinel_inbox">Sentinel受信箱</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">クリア</string>
+    <string name="sentinel_log_no_events_logged_arm">イベントなし. Sentinelを有効化.</string>
+    <string name="sentinel_log_sentinel_event_log">Sentinelイベントログ</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">デバイスごとに調整 -- スピーカーが異なる.</string>
+    <string name="sonar_audio_loop_selftest">オーディオループ自己テスト</string>
+    <string name="sonar_autoarm_at_bedside">ベッドサイドで自動武装</string>
+    <string name="sonar_autocalibrate">自動キャリブレーション</string>
+    <string name="sonar_automatically_arms_sentinel_when">電話を置くとSentinel自動有効.</string>
+    <string name="sonar_cancel_drill">訓練キャンセル</string>
+    <string name="sonar_contacts_who_receive_silent">サイレントピングを受ける連絡先.</string>
+    <string name="sonar_fires_one_audible_200">200 ms 1 kHzのビープ1回で測定.</string>
+    <string name="sonar_hearing_audible_clicks_drop">クリック音? 下げて. スピーカーが超音波に到達.</string>
+    <string name="sonar_if_you_hear_clicks">クリック音が聞こえたら -- それは電話のスピーカー -- ほとんど</string>
+    <string name="sonar_latest_reading">最新読み取り</string>
+    <string name="sonar_layered_cascade_sonar_proximity">カスケード: ソナー、近接、加速度.</string>
+    <string name="sonar_local_event_log_debug">ローカルログ(デバッグ)</string>
+    <string name="sonar_logonly_record_events_locally">ログのみ -- 通知なし</string>
+    <string name="sonar_lower_more_sensitive_compare">低い = より敏感.</string>
+    <string name="sonar_no_contacts_yet_add">連絡先なし -- 通知有効化に追加.</string>
+    <string name="sonar_no_data_yet_tap">データなし -- スタート</string>
+    <string name="sonar_notification_throttle">通知制限</string>
+    <string name="sonar_notify_list">通知リスト</string>
+    <string name="sonar_place_the_phone_where">電話を聴かせたい場所に置く.</string>
+    <string name="sonar_send_test_notification_to">リストにテスト通知を送信</string>
+    <string name="sonar_sentinel_mode">Sentinelモード</string>
+    <string name="sonar_sentinel_viewers">Sentinelビューア</string>
+    <string name="sonar_sonar_raw_data">ソナー -- 生データ</string>
+    <string name="sonar_status">ステータス</string>
+    <string name="sonar_stop_sonar_first_calibrate">先にソナーを停止 -- キャリブレーションにはオーディオ占有が必要</string>
+    <string name="sonar_stop_sonar_first_selftest">先にソナーを停止 -- セルフテストにはオーディオ占有が必要</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">カメラ</string>
+    <string name="story_screens_new_story">新しいストーリー</string>
+    <string name="story_screens_photo">写真</string>
+    <string name="story_screens_remove">削除</string>
+    <string name="story_screens_stories">ストーリー</string>
+    <string name="story_screens_story_not_found">ストーリーが見つかりません.</string>
+    <string name="story_screens_visible_to_every_paired">全連絡先に24時間表示.</string>
+    <string name="story_screens_whats_happening">何が起きている?</string>
+    <string name="story_screens_your_story">あなたのストーリー</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">常に中央. 移動不可.</string>
+    <string name="tab_order_nav_order">ナビ順序</string>
+    <string name="tab_order_reorder_bottom_nav">ナビ並べ替え</string>
+    <string name="tab_order_reset_to_default">デフォルトにリセット</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (中央固定)</string>
+    <string name="tab_order_sos_stays_in_the">SOSは中央に固定 -- 移動するには重要すぎる.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegisは永久無料. 広告なし. トラッキングなし. データ販売なし.</string>
+    <string name="tutorial_aegis_will_open_without">Aegisは確認なしで開きます. PINがデータを保護.</string>
+    <string name="tutorial_anyone_who_sees_these">この言葉を見た人があなたのアカウントを所有</string>
+    <string name="tutorial_biometric_login_is_convenient">生体認証ログインは便利だが強制をスキップ.</string>
+    <string name="tutorial_biometric_skips_duress">生体認証は強制をスキップ</string>
+    <string name="tutorial_choose_how_you_unlock">ロック解除方法を選択</string>
+    <string name="tutorial_confirm_pin">PIN確認</string>
+    <string name="tutorial_continue">続ける</string>
+    <string name="tutorial_disable_lock">ロックを無効化</string>
+    <string name="tutorial_done">完了</string>
+    <string name="tutorial_each_node_unlocks_a">各ノードが新しい保護層を解除.</string>
+    <string name="tutorial_enable_anyway">それでも有効化</string>
+    <string name="tutorial_encrypted_communication_personal_security">暗号化通信 + 個人セキュリティ.</string>
+    <string name="tutorial_enter_aegis">Aegisに入る</string>
+    <string name="tutorial_find_your_way_around">アプリを知る</string>
+    <string name="tutorial_fingerprint_face">指紋 / 顔</string>
+    <string name="tutorial_get_started">開始</string>
+    <string name="tutorial_if_it_ever_helps">役に立てば、Aetherプロジェクトをサポート.</string>
+    <string name="tutorial_it_is_your_master">これがマスターキーです</string>
+    <string name="tutorial_ive_written_it_down">書き留めた</string>
+    <string name="tutorial_keep_lock">ロックを維持</string>
+    <string name="tutorial_keep_pin_only">PINのみ</string>
+    <string name="tutorial_left_to_right_along">左から右へ下部に沿って:</string>
+    <string name="tutorial_make_sure_no_one">誰も見ていないことを確認</string>
+    <string name="tutorial_new_pin_48_digits">新PIN (4–8桁)</string>
+    <string name="tutorial_no_lock_screen">ロック画面なし</string>
+    <string name="tutorial_open_without_a_lock">ロック画面なしで開く?</string>
+    <string name="tutorial_part_of_project_aether">Project Aetherの一部</string>
+    <string name="tutorial_pattern">パターン</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN設定済み ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">復元フレーズ設定済み!</string>
+    <string name="tutorial_save_pin">PIN保存</string>
+    <string name="tutorial_set_your_pin">PINを設定</string>
+    <string name="tutorial_show_the_words_again">単語を再表示</string>
+    <string name="tutorial_skip">スキップ</string>
+    <string name="tutorial_skip_check_debug">チェックをスキップ (デバッグ)</string>
+    <string name="tutorial_sos_stays_locked_in">SOSは中央に固定</string>
+    <string name="tutorial_thank_you">ありがとう</string>
+    <string name="tutorial_the_skill_tree">スキルツリー</string>
+    <string name="tutorial_this_encrypts_your_messages">メッセージを暗号化しアカウントを復元.</string>
+    <string name="tutorial_this_is_the_only">これが唯一のコピーです</string>
+    <string name="tutorial_three_tiers_of_trust">3段階の信頼</string>
+    <string name="tutorial_what_makes_this_different">何が違うのか</string>
+    <string name="tutorial_you_can_replay_this">ヘルプからチュートリアルを再生可能.</string>
+    <string name="tutorial_your_messages_and_attachments">メッセージと添付ファイルはこのPINで暗号化.</string>
+    <string name="tutorial_your_pin_is_set">PINが設定され常に機能.</string>
+    <string name="tutorial_your_recovery_phrase">復元フレーズ</string>
+    <string name="tutorial_your_safety_net">セーフティネット</string>
+    <string name="tutorial_youre_ready">準備完了</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">安全コードを取得できませんでした. SimpleXがまだ</string>
+    <string name="verify_contact_pick_qr_from_photo">写真からQR選択</string>
+    <string name="verify_contact_safety_code_qr">安全コードQR</string>
+    <string name="verify_contact_scan_their_qr">相手のQRをスキャン</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">今すぐロック</string>
+    <string name="header_sentinel_armed">Sentinel武装</string>
+    <string name="call_island_tap_return">タップで戻る</string>
+    <string name="cyan_stay_safe">— 安全に.</string>
+    <string name="pin_guard_required">アプリPINが必要</string>
+    <string name="pin_guard_set_pin">アプリPINを設定</string>
+    <string name="update_dialog_later">後で</string>
+    <string name="update_dialog_update">更新</string>
+    <string name="voice_slide_cancel">キャンセルはスライド ←</string>
+    <string name="a11y_group_avatar">グループアバター</string>
+    <string name="a11y_voice_record">音声録音</string>
+
+    <string name="chat_react_custom_title">カスタムリアクション</string>
+    <string name="chat_react_custom_hint">絵文字を入力してリアクション.</string>
+    <string name="chat_react_apply">リアクション</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">システム</string>
+    <string name="action_delete">削除</string>
+    <string name="action_clear">クリア</string>
+    <string name="action_add">追加</string>
+    <string name="action_edit">編集</string>
+    <string name="action_copy">コピー</string>
+    <string name="action_share">共有…</string>
+    <string name="action_send">送信</string>
+    <string name="action_change">変更</string>
+    <string name="profile_saving">保存中…</string>
+    <string name="profile_get_started">始める</string>
+    <string name="contact_notification_sound">通知音</string>
+    <string name="chat_add_caption">キャプションを追加…</string>
+    <string name="chat_clear">チャットをクリア</string>
+    <string name="chat_clear_confirm">このチャットをクリア?</string>
+    <string name="chat_schedule_message">メッセージを予約</string>
+    <string name="chat_cancel_edit">編集をキャンセル</string>
+    <string name="chat_cancel_reply">返信をキャンセル</string>
+    <string name="chat_voice_message">音声メッセージ</string>
+    <string name="chat_file">ファイル</string>
+    <string name="chat_location">位置情報</string>
+    <string name="chat_camera">カメラ</string>
+    <string name="sos_emergency">緊急事態</string>
+    <string name="sos_stop">停止</string>
+    <string name="settings_checking">確認中…</string>
+    <string name="settings_enabled">有効</string>
+    <string name="settings_start">開始</string>
+    <string name="settings_end">終了</string>
+    <string name="settings_how_it_works">仕組み</string>
+    <string name="settings_message">メッセージ</string>
+    <string name="settings_checkin_window">チェックイン期間</string>
+    <string name="status_battery">バッテリー</string>
+    <string name="status_charging">充電中</string>
+    <string name="remote_locate">検索</string>
+    <string name="remote_siren">サイレン</string>
+    <string name="tutorial_bubble_welcome">Project Aetherへようこそ。Cyanです — ガイドします。</string>
+    <string name="tutorial_bubble_different">電話番号なし。アカウントなし。サーバーはメッセージを保存しません。暗号化のみ。</string>
+    <string name="tutorial_bubble_safety">危険なとき、ボタン一つで信頼する全員に通知。</string>
+    <string name="tutorial_bubble_tiers">誰が何を見るか、あなたが決めます。</string>
+    <string name="tutorial_bubble_skill_tree">一歩ずつスマホを強化。</string>
+    <string name="tutorial_bubble_tabs">下に5つのタブ。それぞれの機能：</string>
+    <string name="tutorial_bubble_unlock">PINが最も安全。より速い方法を追加 — PINは常に有効。</string>
+    <string name="tutorial_bubble_ready">準備完了。連絡先を追加して開始。</string>
+    <string name="tutorial_bubble_thanks">Aegisをお選びいただきありがとうございます。</string>
+    <string name="tutorial_bullet_protocol">Aegis Protocol上に構築</string>
+    <string name="tutorial_bullet_metadata">メタデータなし — プロフィールなし、連絡先グラフなし</string>
+    <string name="tutorial_bullet_e2ee">エンドツーエンド暗号化、常時</string>
+    <string name="tutorial_bullet_sos_hold">SOSボタンを1秒長押し — または電源×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS、音声、カメラが連絡先に配信</string>
+    <string name="tutorial_bullet_sos_lockscreen">ロック画面から動作</string>
+    <string name="tutorial_tier_trusted">信頼済み</string>
+    <string name="tutorial_tier_trusted_desc">すべて — 位置、プレゼンス、SOS。</string>
+    <string name="tutorial_tier_emergency">緊急</string>
+    <string name="tutorial_tier_emergency_desc">SOSアラートのみ — 日常データなし。</string>
+    <string name="tutorial_tier_untrusted">未信頼</string>
+    <string name="tutorial_tier_untrusted_desc">メッセージのみ — 他には何も。</string>
+    <string name="tutorial_tab_system_desc">設定、身元、アプリロック、更新。</string>
+    <string name="tutorial_tab_opsec_desc">スキルツリー — 一歩ずつ強化。</string>
+    <string name="tutorial_tab_sos_desc">最も重要。長押しで全員に通知。</string>
+    <string name="tutorial_tab_comms_desc">暗号化されたチャット。ここでメッセージ。</string>
+    <string name="tutorial_tab_radar_desc">ライブマップ — 連絡先の位置とオンライン状態。</string>
+    <string name="tutorial_unlock_pin_desc">PINを入力して解除。完全な脅迫保護。</string>
+    <string name="tutorial_unlock_pattern_desc">パターンを描いて解除。PINは脅迫をカバー。</string>
+    <string name="tutorial_unlock_bio_desc">高速解除。生体認証は脅迫保護をスキップ。</string>
+    <string name="tutorial_unlock_none_desc">ロックなしでAegisを開く。PINは脅迫+リモートを保護。</string>
+    <string name="tutorial_pin_explanation_new">PINがAegisをロックしプロフィールを保護。復元フレーズがメッセージを暗号化。4–8桁。</string>
+    <string name="tutorial_pin_already_nice">完了済み。良いですね。</string>
+    <string name="tutorial_pin_set_first">まず最初に。アプリPINを設定。</string>
+    <string name="tutorial_node_app_pin">アプリ
+PIN</string>
+    <string name="tutorial_node_duress_pin">脅迫
+PIN</string>
+    <string name="tutorial_perm_title">なぜAegisは多く求めるのか</string>
+    <string name="tutorial_perm_bubble">タップして許可 — またはスキップ。それぞれの理由を説明します。</string>
+    <string name="tutorial_perm_intro">セキュリティアプリはあなたに代わって行動できる必要があります — 位置検索、通知、画面オフ時の動作。あなたなしでは何も電話から出ません。</string>
+    <string name="tutorial_perm_background_title">バックグラウンド活動</string>
+    <string name="tutorial_perm_background_why">最も重要。Aegisを閉じても画面オフでも動作させます。これがないとメッセージやSOSが届かなくなります — 特にOnePlus、Xiaomi、Oppoで。</string>
+    <string name="tutorial_perm_oem_warning">%1$sの電話にAegisを殺す追加バッテリー設定があります。この設定を開いてAegisの自動起動を許可してください。</string>
+    <string name="tutorial_perm_notif_title">通知</string>
+    <string name="tutorial_perm_notif_why">メッセージ、通話、SOSの通知 — ロック画面でも。</string>
+    <string name="tutorial_perm_location_title">位置情報</string>
+    <string name="tutorial_perm_location_why">緊急時に信頼できる連絡先があなたを見つけ、SOSが位置を共有するため。</string>
+    <string name="tutorial_perm_camera_title">カメラ</string>
+    <string name="tutorial_perm_camera_why">SOS写真、誤PINでのマグショット、ビデオ通話用。</string>
+    <string name="tutorial_perm_mic_title">マイク</string>
+    <string name="tutorial_perm_mic_why">SOS音声録音と音声/ビデオ通話用。</string>
+    <string name="tutorial_perm_media_title">写真、動画、ファイル</string>
+    <string name="tutorial_perm_media_why">添付ファイルの送受信用。Aegisは共有したものだけ見ます。</string>
+    <string name="tutorial_perm_phone_title">電話とSIM</string>
+    <string name="tutorial_perm_phone_why">SIM交換を警告 — 番号乗っ取りの典型的兆候。</string>
+    <string name="tutorial_perm_nearby_title">近くのデバイス</string>
+    <string name="tutorial_perm_nearby_why">Bluetoothで人やデバイスを検索（レーダーとソナー）。</string>
+    <string name="tutorial_perm_install_title">アップデートインストール</string>
+    <string name="tutorial_perm_install_why">Aegisが追跡なしで安全に更新するため。</string>
+    <string name="tutorial_perm_footer">あなたが管理します。スキップしてもAegisの大部分は動作 — でもバックグラウンドがセキュリティを維持。</string>
+    <string name="tutorial_perm_granted">許可済み ✓</string>
+    <string name="tutorial_perm_denied">拒否</string>
+    <string name="tutorial_perm_allow">許可</string>
+</resources>

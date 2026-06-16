@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Shield — status, last seen, panic</string>
+
+    <!-- System splash theme. Was per-flavor before the green/red collapse;
+         now one entry. windowSplashScreenAnimatedIcon points at a transparent
+         placeholder because Android's splash slot crops the Aegis hex
+         regardless of icon-background tricks — the Compose AegisSplashScreen
+         draws the full uncropped wordmark immediately after. -->
+    <style name="Theme.Aegis.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#050508</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_transparent</item>
+        <item name="windowSplashScreenIconBackgroundColor">#050508</item>
+        <item name="postSplashScreenTheme">@style/Theme.Aegis</item>
+    </style>
+
+    <style name="Theme.Aegis" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">@color/aegis_primary</item>
+        <item name="android:colorPrimaryDark">@color/aegis_status_bar</item>
+        <item name="android:colorAccent">@color/aegis_primary</item>
+        <item name="android:windowBackground">#050508</item>
+        <item name="android:statusBarColor">@color/aegis_status_bar</item>
+        <item name="android:navigationBarColor">@color/aegis_status_bar</item>
+    </style>
+</resources>

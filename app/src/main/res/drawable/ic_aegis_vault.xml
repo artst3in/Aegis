@@ -1,0 +1,43 @@
+<!--
+  LunaGlass vault / safe glyph. Square cabinet outline with a
+  centre dial, a small 12-o'clock indicator notch, and a side
+  hinge dot at the right edge so the shape reads as "safe" and
+  not just "framed circle". 24×24, stroked white so AegisIcon
+  tints it from the call site (matching every other ic_aegis_*).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Outer cabinet — 4dp inset, rounded corners drawn as
+         straight segments + corner notches so it stays angular
+         in line with the LunaGlass spec. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M5,4 L19,4 L19,20 L5,20 Z" />
+    <!-- Dial — flat-top hex circle (we approximate a circle with
+         eight short tangent strokes for the LunaGlass angular
+         look; a true M-arc would render as a curve). -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M14.5,12 L13.7,14 L12,15 L10.3,14 L9.5,12 L10.3,10 L12,9 L13.7,10 Z" />
+    <!-- Indicator notch at the top of the dial. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M12,6 L12,8" />
+    <!-- Door handle / latch on the right edge of the cabinet. -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M17.6,11.2 L18.2,11.2 L18.2,12.8 L17.6,12.8 Z" />
+</vector>

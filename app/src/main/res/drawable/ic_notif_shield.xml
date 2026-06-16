@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notification small icon — SOLID flat-top hexagon at r=8.
+
+     Sizing history:
+       - r=8 ring (pointy) — visible everywhere, user-approved "perfect"
+       - r=8 ring (flat-top, switched orientation) — "hex is gone" on Pixel
+       - r=10 ring (flat-top, bumped) — still gone on Pixel
+       - r=11 solid (flat-top, biggest) — still gone on Pixel
+
+     Pixel's status-bar small-icon renderer is aggressive about
+     clipping anything outside an inscribed circle (~r=8 in the 24dp
+     viewport). The r=10/r=11 versions touched or exceeded that
+     boundary and got clipped to invisibility. Drop back to r=8 —
+     same size as the user-approved original — but SOLID instead of
+     ringed, so the silhouette survives even the harshest tint pass.
+
+     Vertices: flat-top hex centred at (12,12) with circumradius 8.
+     Inscribed neatly in the 16dp safe area Material reserves for
+     status-bar icons. Width 16dp, height 13.86dp. No evenOdd path —
+     just a solid white hexagonal silhouette. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M20,12 L16,18.93 L8,18.93 L4,12 L8,5.07 L16,5.07 Z" />
+</vector>

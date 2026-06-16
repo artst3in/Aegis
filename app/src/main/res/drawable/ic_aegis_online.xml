@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Revised online indicator (May 24): larger
+     flat-top hex (r=8 vs the previous r=6) — fills more of the
+     24×24 viewport so the dot reads at thumbnail sizes. Used as the
+     Person / avatar placeholder + the "online" status mark. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M20,12 L16,18.9 L8,18.9 L4,12 L8,5.1 L16,5.1 Z" />
+</vector>

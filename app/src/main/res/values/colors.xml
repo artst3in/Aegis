@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LunaGlass tokens. Mirror the Compose-side
+         AegisCyan / AegisSurface so the system theme and status bar
+         match in-app colours. -->
+    <color name="aegis_primary">#00D4D4</color>
+    <color name="aegis_status_bar">#0A1214</color>
+</resources>

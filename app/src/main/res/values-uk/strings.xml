@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">Чати</string>    <string name="action_save">Зберегти</string><string name="action_cancel">Скасувати</string><string name="action_done">Готово</string><string name="action_back">Назад</string>    <string name="profile_title">Ваш профіль</string><string name="profile_welcome">Ласкаво просимо до Aegis</string><string name="profile_display_name">Ім\'я для відображення</string><string name="profile_your_name">Ваше ім\'я</string><string name="profile_bio">Про себе (необов\'язково)</string><string name="profile_bio_hint">Що бачать контакти, натиснувши на ваше ім\'я.</string>    <string name="contact_title">Контакт</string><string name="contact_not_found">Контакт не знайдено.</string><string name="contact_add">Додати контакт</string><string name="contact_connecting">З\'єднання…</string><string name="contact_nickname">Псевдонім</string><string name="contact_nickname_hint">Псевдонім (як ви їх називаєте)</string><string name="contact_my_nickname">Мій псевдонім для них</string><string name="contact_save_nickname">Зберегти псевдонім</string><string name="contact_copy_link">Копіювати посилання</string><string name="contact_accept_invite">Прийняти запрошення</string><string name="contact_accept_invitation">Прийняти запрошення</string><string name="contact_pin">Закріпити</string><string name="contact_unpin">Відкріпити</string><string name="contact_mute">Вимкнути звук</string>    <string name="group_new">Нова група</string><string name="group_name">Назва групи</string><string name="group_creating">Створення…</string><string name="group_create">Створити групу</string>
+    <string name="call_voice">Голосовий дзвінок</string><string name="call_video">Відеодзвінок</string><string name="call_calling">Дзвоним…</string>    <string name="sos_title">ПАНІКА</string><string name="sos_active">АКТИВНА</string><string name="sos_broadcasting">Передача</string>    <string name="duress_confirm_pin">Підтвердіть PIN</string><string name="duress_confirm_duress_pin">Підтвердіть PIN примусу</string><string name="duress_change_pin">Змінити PIN</string>
+    <string name="settings_title">Налаштування</string><string name="settings_app_lock">Блокування додатку</string><string name="settings_auto_lock">Автоблокування</string><string name="settings_calls">Дзвінки</string><string name="settings_updates">Оновлення</string><string name="settings_quiet_hours">Тихі години</string><string name="settings_canary">Повідомлення-канарка</string><string name="settings_wifi_only">Тільки Wi-Fi</string>    <string name="status_online">онлайн</string><string name="status_offline">офлайн</string><string name="status_away">відійшов</string>    <string name="update_available">Доступне оновлення</string>    <string name="loki_mugshot_armed">Активовано — фото після %d невірних PIN.</string><string name="loki_sim_armed">Активовано. Поточна SIM:</string><string name="loki_canary_armed">Активовано. Відкрийте додаток для скидання таймера.</string><string name="loki_deadmans_switch">Вимикач мертвої людини</string>
+    <string name="nav_security">Безпека</string>
+    <string name="nav_radar">Радар</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">Помилка копіювання</string>
+    <string name="add_contact_generate_a_onetime_link">Створити одноразове посилання</string>
+    <string name="add_contact_generating_link">Генерація посилання…</string>
+    <string name="add_contact_got_their_invitation_link">Маєте посилання? Скануйте QR або вставте.</string>
+    <string name="add_contact_invitation_qr">QR запрошення</string>
+    <string name="add_contact_invite_someone">Запросити когось</string>
+    <string name="add_contact_joining_a_group_no">Вступ до групи -- псевдонім не потрібен.</string>
+    <string name="add_contact_or_paste_an_invitation">…або вставте запрошення / посилання групи</string>
+    <string name="add_contact_pair_via_simplex_exchange">Парування через SimpleX -- обмін одноразовим посиланням.</string>
+    <string name="add_contact_paired">Пару створено ✓</string>
+    <string name="add_contact_pick_qr_from_photo">Вибрати QR з фото</string>
+    <string name="add_contact_show_this_qr_to">Покажіть цей QR або поділіться посиланням.</string>
+    <string name="add_contact_they_see_you_as">Вони бачать вас як випадковий анонім -- справжнє імʼя приховане.</string>
+    <string name="add_contact_they_sent_you_a">Вам надіслали посилання або QR. Скануйте або вставте.</string>
+    <string name="add_contact_theyll_see_you_as">Вони бачитимуть вас як випадковий анонім -- справжнє імʼя приховане.</string>
+    <string name="add_contact_waiting_for_them_to">Очікування прийняття…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">Тест мікрофону</string>
+    <string name="call_relayonly_calls">Дзвінки лише через реле</string>
+    <string name="call_run_mic_test">Запустити тест мікрофону</string>
+    <string name="call_troubleshooting">Усунення неполадок</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Як довго без відкриття Aegis</string>
+    <string name="canary_i_havent_checked_in">Я не відмічався деякий час. </string>
+    <string name="canary_if_you_dont_open">Якщо не відкриєте Aegis، </string>
+    <string name="canary_sent_verbatim_to_every">Надсилається дослівно кожному контакту.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">Прийняти</string>
+    <string name="chat_list_add_contact">Додати контакт</string>
+    <string name="chat_list_add_your_first_contact">Додайте перший контакт</string>
+    <string name="chat_list_automatically_turn_off_the">Автоматично вимкнути модуль груп після періоду.</string>
+    <string name="chat_list_disable">Вимкнути</string>
+    <string name="chat_list_enable_group_chat">Увімкнути груповий чат</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">Запросити</string>
+    <string name="chat_list_join_via_link">Приєднатися за посиланням</string>
+    <string name="chat_list_new_group">+ Нова група</string>
+    <string name="chat_list_no_groups_yet_tap">Груп немає. + Нова група.</string>
+    <string name="chat_list_pending_invitations">Очікувані запрошення</string>
+    <string name="chat_list_public_groups_increase_your">Публічні групи збільшують поверхню атаки.</string>
+    <string name="chat_list_removes_the_group_and">Видаляє групу та історію повідомлень з цього пристрою.</string>
+    <string name="chat_list_revoke">Скасувати</string>
+    <string name="chat_list_search_messages">Шукати повідомлення…</string>
+    <string name="chat_list_shield_paused_messages_and">Щит призупинено · повідомлення та SOS зупинено</string>
+    <string name="chat_list_tap_here_or_the">Натисніть тут або хекс внизу щоб поділитися запрошенням або сканувати QR.</string>
+    <string name="chat_list_video_call">Відеодзвінок</string>
+    <string name="chat_list_view">Переглянути</string>
+    <string name="chat_list_voice_call">Голосовий дзвінок</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">Випадковий псевдонім, унікальний для цього контакту.</string>
+    <string name="contact_detail_access_denied_wrong_pin">Доступ заборонено -- невірний PIN</string>
+    <string name="contact_detail_authenticate">Автентифікувати</string>
+    <string name="contact_detail_battery">Батарея</string>
+    <string name="contact_detail_delete_contact">Видалити контакт</string>
+    <string name="contact_detail_device_status">Стан пристрою</string>
+    <string name="contact_detail_enable">Увімкнути</string>
+    <string name="contact_detail_group_this_contact_under">Групуйте контакт під міткою в списку.</string>
+    <string name="contact_detail_local_only_they_dont">Лише локально -- вони не бачать ваше прізвисько.</string>
+    <string name="contact_detail_no_data_received_yet">Даних немає -- очікування першого пінгу.</string>
+    <string name="contact_detail_not_now">Не зараз</string>
+    <string name="contact_detail_notifications">Сповіщення</string>
+    <string name="contact_detail_on_success_their_phone">При успіху телефон буде заблоковано і знайдено.</string>
+    <string name="contact_detail_one_label_per_contact">Одна мітка на контакт. Визначає що вони отримують.</string>
+    <string name="contact_detail_opening_remote_control">Відкривається дистанційне керування…</string>
+    <string name="contact_detail_removes_the_contact_every">Видаляє контакт і всі повідомлення.</string>
+    <string name="contact_detail_repair_contact">Перепарувати контакт</string>
+    <string name="contact_detail_their_achievements">Їхні досягнення</string>
+    <string name="contact_detail_this_person_will_be">Ця особа зможе знайти, заблокувати і очистити ваш телефон.</string>
+    <string name="contact_detail_trust_tier">Рівень довіри</string>
+    <string name="contact_detail_wearable">Носимий пристрій</string>
+    <string name="contact_detail_you_appear_to_them">Вони бачать вас як</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">Виявлення зіткнень</string>
+    <string name="crash_detection_detects_a_vehicle_crash">Виявляє зіткнення за ударом.</string>
+    <string name="crash_detection_sensitivity">Чутливість</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">ДІЇ</string>
+    <string name="device_control_audio">Аудіо</string>
+    <string name="device_control_expires_in">Спливає через </string>
+    <string name="device_control_fix">Виправити </string>
+    <string name="device_control_location">Місцезнаходження</string>
+    <string name="device_control_lock_did_not_fire">Блокування не спрацювало -- адмін не зареєстрований.</string>
+    <string name="device_control_lock_off">⚠ блокування вимк.</string>
+    <string name="device_control_lockscreen_message">Повідомлення на екрані блокування</string>
+    <string name="device_control_no_frame">Немає кадру</string>
+    <string name="device_control_remote_session">Віддалена сесія</string>
+    <string name="device_control_send">Надіслати</string>
+    <string name="device_control_this_is_the_last">Це останній крок перед скиданням до заводських.</string>
+    <string name="device_control_this_triggers_a_full">Це запускає повне скидання до заводських на цілі.</string>
+    <string name="device_control_type_wipe">Введіть WIPE</string>
+    <string name="device_control_type_wipe_to_confirm">Введіть WIPE</string>
+    <string name="device_control_wipe_device">Очистити пристрій</string>
+    <string name="device_control_wipe_target_device">Очистити цільовий пристрій?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">Віддалений доступ</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">Сильний кидок/захоплення/ривок надсилає SOS.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">Виявлення вторгнення. Каскад 3 датчиків.</string>
+    <string name="experimental_crash_sensitivity_settings">Налаштування чутливості ></string>
+    <string name="experimental_detect_a_vehicle_crash">Виявити аварію і надіслати SOS</string>
+    <string name="experimental_event_log">Журнал подій →</string>
+    <string name="experimental_here_be_dragons">Тут дракони</string>
+    <string name="experimental_inbox">Вхідні →</string>
+    <string name="experimental_relock_experimental_section">Переблокувати експериментальний розділ</string>
+    <string name="experimental_snatch_detection">Виявлення виривання</string>
+    <string name="experimental_these_features_are_unfinished">Ці функції незавершені, можуть виснажувати батарею.</string>
+    <string name="experimental_vehicle_crash_detection">Виявлення зіткнення</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">Введіть пароль резервної копії</string>
+    <string name="first_run_passphrase">Парольна фраза</string>
+    <string name="first_run_restore">Відновити</string>
+    <string name="first_run_restore_from_a_previous">Відновити з копії або почати знову.</string>
+    <string name="first_run_start_fresh">Почати знову</string>
+    <string name="first_run_welcome_to_aegis">Ласкаво просимо до Aegis</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">Пауза</string>
+    <string name="geofence_radius">Радіус</string>
+    <string name="geofence_resume">Поновити</string>
+    <string name="geofence_set_a_circular_zone">Встановити кругову зону. Сповіщення при виході.</string>
+    <string name="geofence_zone_centre">Центр зони</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">Учасники</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis потребує розблокування при запуску і після фону.</string>
+    <string name="lock_after_too_many_wrong">Після забагатьох невірних PIN дані назавжди видаляються.</string>
+    <string name="lock_arm">Arm</string>
+    <string name="lock_arm_selfdestruct">Активувати самознищення?</string>
+    <string name="lock_biometric_login_is_convenient">Біометрія зручна але пропускає примус.</string>
+    <string name="lock_deletes_the_pin_entirely">Видаляє PIN повністю та PIN примусу.</string>
+    <string name="lock_draw_a_pattern_to">Намалюйте патерн для розблокування замість PIN.</string>
+    <string name="lock_duress_pin_48_digits">PIN примусу (4-8 цифр)</string>
+    <string name="lock_enable_device_admin">Увімкнути адмін</string>
+    <string name="lock_entering_this_pin_opens">Цей PIN відкриває фальшивий профіль і запускає SOS.</string>
+    <string name="lock_fast_convenient_but_it">Швидко, зручно -- але пропускає примус.</string>
+    <string name="lock_how_long_after_backgrounding">Через скільки після фону знову блокувати.</string>
+    <string name="lock_maximum_security_your_encryption">Макс. безпека: ключ ніколи не зберігається на диску.</string>
+    <string name="lock_pattern_unlock">Розблокування взірцем</string>
+    <string name="lock_remove_pin">Видалити PIN</string>
+    <string name="lock_require_pin_to_open">PIN потрібен для відкриття Aegis</string>
+    <string name="lock_require_recovery_phrase_on">Фраза відновлення при кожному перезавантаженні</string>
+    <string name="lock_scramble_pin_pad">Перемішати клавіатуру PIN</string>
+    <string name="lock_shuffles_digit_positions_on">Перемішує позиції цифр проти підглядання.</string>
+    <string name="lock_unlock_with_fingerprint_face">Розблокування відбитком/обличчям</string>
+    <string name="lock_when_off_aegis_opens">Aegis відкривається без питань. PIN захищає дані.</string>
+    <string name="lock_wipe_after_failed_attempts">Очистити після невдалих спроб</string>
+    <!-- MapScreen -->
+    <string name="map_charging">Зарядка</string>
+    <string name="map_locate_on_map">Знайти на карті</string>
+    <string name="map_radar">Радар</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">Центрувати на родині</string>
+    <string name="map_solo">один</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">Фото при невірному PIN</string>
+    <string name="mugshot_threshold">Поріг</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">Про профілі</string>
+    <string name="profiles_active">АКТИВНИЙ</string>
+    <string name="profiles_create">Створити</string>
+    <string name="profiles_each_profile_is_a">Кожний профіль -- повний ізольований Aegis.</string>
+    <string name="profiles_ephemeral_import_a_backup">Тимчасовий - імпорт копії</string>
+    <string name="profiles_ephemeral_start_fresh">Тимчасовий · новий початок</string>
+    <string name="profiles_ive_written_it_down">Записав -- створити</string>
+    <string name="profiles_keep_ephemeral">Залишити тимчасовим</string>
+    <string name="profiles_make_permanent">Зробити постійним?</string>
+    <string name="profiles_make_this_profile_permanent">Зробити цей профіль постійним</string>
+    <string name="profiles_new_pin">Новий PIN</string>
+    <string name="profiles_new_profile">Новий профіль</string>
+    <string name="profiles_permanent_import_a_backup">Постійний · імпорт копії</string>
+    <string name="profiles_permanent_start_fresh">Постійний · новий початок</string>
+    <string name="profiles_pick_a_short_id">Виберіть короткий ID (літери, цифри, - _).</string>
+    <string name="profiles_profile_id">ID профілю</string>
+    <string name="profiles_sos_alerts_only_fire">SOS спрацьовує лише для родини активного профілю.</string>
+    <string name="profiles_switch">Перемкнути</string>
+    <string name="profiles_these_24_words_are">Ці 24 слова -- єдиний ключ.</string>
+    <string name="profiles_this_conversation_will_be">Ця розмова зберігається на диску і лишається.</string>
+    <string name="profiles_write_down_your_recovery">Запишіть фразу відновлення</string>
+    <string name="profiles_your_current_profile_stays">Поточний профіль залишається захищеним.</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">Вимикає звук сповіщень чату під час налаштованого вікна.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">24-слівна фраза</string>
+    <string name="recovery_unlock_back_to_pin">Назад до PIN</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">Введіть 24-слівну фразу відновлення.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">Відновити фразою</string>
+    <string name="recovery_unlock_recovered_set_a_new">Відновлено. Встановіть новий PIN.</string>
+    <string name="recovery_unlock_set_pin">Встановити PIN</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">Допомога вже їде</string>
+    <string name="s_o_s_no_sos_recipients_promote">Немає отримувачів SOS. Підвищіть хоча б один контакт.</string>
+    <string name="s_o_s_plays_at_maximum_alarm">Грає на максимумі до розблокування</string>
+    <string name="s_o_s_start_siren">Запустити сирену?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">PIN додатку</string>
+    <string name="security_canary">Канарейка</string>
+    <string name="security_device_admin">Адмін пристрою</string>
+    <string name="security_duress_mode_active_some">Режим примусу активний. Деякі панелі приховані.</string>
+    <string name="security_geofence">Геоогорожа</string>
+    <string name="security_mugshot">Фото зловмисника</string>
+    <string name="security_sim_watch">SIM спостереження</string>
+    <string name="security_sonar_experimental">Sonar · Експериментальний</string>
+    <string name="security_your_living_shield_each">Ваш живий щит. Кожний хекс -- функція захисту.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">Розширено: перевизначити стандартні SMP-сервери.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">Авто-видалення в нових чатах.</string>
+    <string name="_autorevoke_unused_11_invite">Авто-скасування невикористаних запрошень.</string>
+    <string name="_backup">Резервна копія</string>
+    <string name="_block_screenshots">Блокувати скріншоти</string>
+    <string name="_clear_all_queued">Очистити всю чергу</string>
+    <string name="_disappearing_default">Зникання за замовчуванням</string>
+    <string name="_encrypted_file_backup_data">Зашифрована копія -- дані зберігаються.</string>
+    <string name="_experimental">Експериментальне</string>
+    <string name="_health_probes_driver_reloads">Зонди, перезавантаження, лог, накладка зневадження.</string>
+    <string name="_language">Мова</string>
+    <string name="_multiple_isolated_aegis_profiles">Кілька ізольованих профілів Aegis -- перемикання між родинами.</string>
+    <string name="_mute_chat_notifications_at">Вимкнути сповіщення чату вночі. SOS розбудить.</string>
+    <string name="_notifications">Сповіщення</string>
+    <string name="_outbox">Вихідні</string>
+    <string name="_perchannel_sound_vibration_and">Звук, вібрація та пріоритет по каналах.</string>
+    <string name="_performance_balanced_power_saver">Продуктивність/Баланс/Економія + керування.</string>
+    <string name="_pressandhold_send_call_video">Утримуйте Відправити / Дзвінок / Відео для активації. Запобігає випадковим.</string>
+    <string name="_profiles">Профілі</string>
+    <string name="_project_aether">ПРОЄКТ AETHER</string>
+    <string name="_readonly_inventory_of_every">Інвентар усіх вбудованих функцій (лише читання).</string>
+    <string name="_rearrange_the_bottom_tabs">Переставте нижні вкладки. SOS залишається по центру.</string>
+    <string name="_relayonly_ice_and_call">ICE та дзвінки лише через реле.</string>
+    <string name="_stops_screenshots_screen_recording">Блокує скріншоти, запис і попередній перегляд.</string>
+    <string name="_unfinished_features_hidden_behind">Незавершені функції за 7-таповою брамою.</string>
+    <string name="_wifionly_by_default_apks">WiFi тільки -- APK ~45-65 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">Сповіщення про зміну SIM</string>
+    <string name="sim_swap_when_the_sim_in">Коли SIM в телефоні змінюється, надсилається сповіщення.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Лого Aegis</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_aegis_polls_github_every">Aegis перевіряє GitHub кожні 24 години.</string>
+    <string name="update_beltandbraces_type_rollback_below">Введіть ROLLBACK нижче.</string>
+    <string name="update_check_interval">Інтервал перевірки</string>
+    <string name="update_how_often_aegis_polls">Як часто Aegis перевіряє GitHub на новий білд.</string>
+    <string name="update_roll_back">Повернути</string>
+    <string name="update_roll_back_to_previous">Повернутися до попередньої</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">Відкриється системний інсталятор.</string>
+    <string name="update_type_rollback_to_confirm">Введіть ROLLBACK</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">Підтвердити</string>
+    <string name="vault_pin_confirm_duress">Підтвердити примус</string>
+    <string name="vault_pin_current_vault_pin">Поточний PIN сховища</string>
+    <string name="vault_pin_entering_this_pin_at">Цей PIN відкриває приховане фальшиве крило сховища.</string>
+    <string name="vault_pin_remove_duress_pin">Видалити PIN примусу</string>
+    <string name="vault_pin_vault_pin">PIN сховища</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">Без скріншотів. Без копіювання. Без слідів.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">Отримувач бачить іконку вогню. Відкриття запускає відлік.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">Можливості</string>
+    <string name="capabilities_device_admin_enable_in">Адмін пристрою: увімкніть в Налаштуваннях.</string>
+    <string name="capabilities_device_owner_factoryreset_the">Власник пристрою: скидання до заводських, контроль.</string>
+    <string name="capabilities_live_status_green_active">Живий статус. Зелений=активний. Тусклий=потрібен дозвіл.</string>
+    <string name="capabilities_stay_safe">Будьте в безпеці.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">Авто-видалення повідомлень після вибраного періоду.</string>
+    <string name="chat_burn">Знищити</string>
+    <string name="chat_burn_after_reading">Знищити після прочитання</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">Видалити для всіх</string>
+    <string name="chat_deletes_every_message_in">Видаляє всі повідомлення в цій розмові.</string>
+    <string name="chat_disappearing_messages">Зникаючі повідомлення…</string>
+    <string name="chat_editing_message">Редагування повідомлення</string>
+    <string name="chat_emergency_contact_they_receive">Контакт на випадок надзвичайної ситуації. Отримує лише SOS.</string>
+    <string name="chat_forward">Переслати</string>
+    <string name="chat_forward_to">Переслати до…</string>
+    <string name="chat_gallery">Галерея</string>
+    <string name="chat_loading_preview">Завантаження попереднього перегляду…</string>
+    <string name="chat_no_contacts_paired_yet">Немає контактів.</string>
+    <string name="chat_pick_when_to_send">Виберіть коли надіслати. Aegis перевіряє щохвилини.</string>
+    <string name="chat_pinned">Закріплено</string>
+    <string name="chat_reply">Відповісти</string>
+    <string name="chat_save_to_device">Зберегти на пристрій</string>
+    <string name="chat_save_to_notes">Зберегти в Нотатки</string>
+    <string name="chat_video">Відео</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">Усі відомі сховища порожні.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ порожньо.</string>
+    <string name="diagnostics_building_usage_history">Побудова історії використання…</string>
+    <string name="diagnostics_close">Закрити</string>
+    <string name="diagnostics_copy">Копіювати</string>
+    <string name="diagnostics_device_owner">Власник пристрою</string>
+    <string name="diagnostics_diagnostics">Діагностика</string>
+    <string name="diagnostics_empty">(порожньо)</string>
+    <string name="diagnostics_erase_all_aegis_data">Видалити всі дані Aegis?</string>
+    <string name="diagnostics_erase_everything">Видалити все</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">Скидання підсистем без перезапуску.</string>
+    <string name="diagnostics_how_much_data_aegis">Скільки даних передав Aegis.</string>
+    <string name="diagnostics_kills_the_aegis_process">Завершує процес Aegis і перезапускає.</string>
+    <string name="diagnostics_mainthread_sample_30_100">Вибірка головного потоку (30 × 100 мс)</string>
+    <string name="diagnostics_no_tampering_signals_detected">Сигналів втручання не виявлено.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">Нічого не надсилається нікуди.</string>
+    <string name="diagnostics_process">Процес</string>
+    <string name="diagnostics_reconnect_now">Перепідключитися зараз</string>
+    <string name="diagnostics_relays">Реле</string>
+    <string name="diagnostics_reset">Скинути</string>
+    <string name="diagnostics_reset_simplex_core">Скинути ядро SimpleX?</string>
+    <string name="diagnostics_restart">Перезапустити</string>
+    <string name="diagnostics_restart_aegis">Перезапустити Aegis?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Перезапустити Aegis (повний)</string>
+    <string name="diagnostics_signer_sha256">SHA-256 підписувача</string>
+    <string name="diagnostics_stop_all_sos">Зупинити всі SOS</string>
+    <string name="diagnostics_storage">Сховище</string>
+    <string name="diagnostics_subsystems_shut_off_as">Підсистеми вимикаються при зниженні заряду.</string>
+    <string name="diagnostics_tap_to_open">Натисніть щоб відкрити</string>
+    <string name="diagnostics_this_is_irreversible_it">Незворотньо. Скидання до заводських.</string>
+    <string name="diagnostics_threads">Потоки</string>
+    <string name="diagnostics_wipe_all_aegis_data">Видалити всі дані Aegis.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">Очищує бази даних SimpleX.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">Немає контактів. Спочатку паруйте когось.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">Надіслати контакту</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">Усі ефекти вимкнені в режимі економії.</string>
+    <string name="graphics_cyan_mascot">Маскот Cyan</string>
+    <string name="graphics_data_rain">Дощ даних</string>
+    <string name="graphics_effects_intensity">Інтенсивність ефектів</string>
+    <string name="graphics_effects_suppressed_in_power">Ефекти придушені в режимі економії</string>
+    <string name="graphics_faint_repeating_hex_pattern">Легкий повторюваний хекс-патерн за кожним екраном.</string>
+    <string name="graphics_graphics">Графіка</string>
+    <string name="graphics_graphics_profile">Графічний профіль</string>
+    <string name="graphics_hex_grid_backdrop">Фон шестикутної сітки</string>
+    <string name="graphics_scan_line">Лінія сканування</string>
+    <string name="graphics_scan_line_data_rain">Прозорість лінії сканування + дощу даних.</string>
+    <string name="graphics_show_the_chibi_mascot">Показувати chibi-маскот на сплеші, порожніх екранах, Про.</string>
+    <string name="graphics_single_cyan_line_crawling">Один сіановий рядок повзе кожні 30 с.</string>
+    <string name="graphics_tiny_hex_particles_drifting">Дрібні хекс-частинки пливуть вниз. Найважчий з трьох.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">Видалити групу</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">Повідомлення</string>
+    <string name="group_chat_removes_the_group_and">Видаляє групу та історію повідомлень.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">Коротка нотатка для кожного учасника.</string>
+    <string name="group_members_about_this_group">Про цю групу</string>
+    <string name="group_members_active_in_this_group">Активні в цій групі</string>
+    <string name="group_members_anonymous_the_group_sees">Анонімно -- група бачить випадкове імʼя.</string>
+    <string name="group_members_apply">Застосувати</string>
+    <string name="group_members_armed">Активовано</string>
+    <string name="group_members_autoburn_messages_in_this">Авто-видалення повідомлень в цій групі.</string>
+    <string name="group_members_autodisable_timer">Таймер авто-вимкнення</string>
+    <string name="group_members_autodisable_timer_for_this">Таймер авто-вимкнення для цієї групи</string>
+    <string name="group_members_configure">Налаштувати ›</string>
+    <string name="group_members_demote_to_member">Знизити до учасника</string>
+    <string name="group_members_description">Опис</string>
+    <string name="group_members_disappearing_messages">Зникаючі повідомлення</string>
+    <string name="group_members_every_paired_contact_is">Кожний паруваний контакт вже в групі.</string>
+    <string name="group_members_group_description">Опис групи</string>
+    <string name="group_members_group_image">Зображення групи</string>
+    <string name="group_members_group_name">Назва групи</string>
+    <string name="group_members_groups_are_always_incognito">Групи завжди інкогніто. Профіль приховано.</string>
+    <string name="group_members_invite_member">Запросити</string>
+    <string name="group_members_leave">Покинути</string>
+    <string name="group_members_leave_group">Покинути групу</string>
+    <string name="group_members_make_sure_the_photo">Переконайтесь що фото не показує вас чи місце.</string>
+    <string name="group_members_minutes_min_1">Хвилини (min 1)</string>
+    <string name="group_members_mute_group">Вимкнути звук групи</string>
+    <string name="group_members_no_members_yet_the">Ще немає учасників. Бот і учасники з’являться тут.</string>
+    <string name="group_members_off_1_min_1">Вимк. / 1 хв - 1 рік.</string>
+    <string name="group_members_promote_to_admin">Підвищити до адміна</string>
+    <string name="group_members_remove_from_group">Видалити з групи</string>
+    <string name="group_members_removes_the_group_locally">Видаляє групу локально і повідомляє хост.</string>
+    <string name="group_members_rename">Перейменувати</string>
+    <string name="group_members_rename_group">Перейменувати групу</string>
+    <string name="group_members_save">Зберегти</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">Коли вікно спливає без вас.</string>
+    <string name="group_members_youll_stop_receiving_messages">Ви перестанете отримувати повідомлення.</string>
+    <string name="group_members_your_identity_here">Ваша особистість тут</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">Основи</string>
+    <string name="help_design_decisions">Дизайн-рішення</string>
+    <string name="help_experimental">Експериментальне</string>
+    <string name="help_help">Допомога</string>
+    <string name="help_how_aegis_works">Як працює Aegis</string>
+    <string name="help_loading">Завантаження…</string>
+    <string name="help_privacy">Конфіденційність</string>
+    <string name="help_security">Безпека</string>
+    <string name="help_technical">Технічне</string>
+    <string name="help_the_same_documents_that">Ті самі документи що в коді -- вбудовані в додаток.</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">Тривалість утримання</string>
+    <string name="hold_to_execute_hold_to_send_call">Тримати для надсилання / дзвінка</string>
+    <string name="hold_to_execute_send_voice_call_and">Кнопки надсилання та дзвінка потребують утримання.</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">1:1 посилання-запрошення працює до закінчення терміну.</string>
+    <string name="invitation_expiry_about_this_setting">Про це налаштування</string>
+    <string name="invitation_expiry_invitation_expiry">Термін запрошення</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis доступний 17 мовами.</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">Забули PIN?</string>
+    <string name="lock_hold_for_silent_emergency">Тримати для тихої тривоги</string>
+    <string name="lock_use_fingerprint_or_face">Використати відбиток або обличчя</string>
+    <string name="lock_use_pattern">Використати патерн</string>
+    <string name="lock_use_pin">Використати PIN</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">Видалити нотатку</string>
+    <string name="note_editor_folder">Папка</string>
+    <string name="note_editor_unfiled">Не класифіковано</string>
+    <string name="note_editor_write">Пишіть…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis побудований на технологіях що вже захищали мільйони.</string>
+    <string name="origins_origins">Походження</string>
+    <string name="origins_where_this_came_from">Звідки це походить</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">Досягнення</string>
+    <string name="profile_avatar">Аватар</string>
+    <string name="profile_pick_avatar">Вибрати аватар</string>
+    <string name="profile_proof_your_safety_net">Доказ що ваша мережа безпеки працює.</string>
+    <string name="profile_set_your_name_and">Встановіть імʼя та необовʼязкове фото.</string>
+    <string name="profile_tap_to_change_photo">Торкніться щоб змінити фото</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">Додати реле</string>
+    <string name="relay_current_relays">Поточні реле</string>
+    <string name="relay_format_smpbase64fingerprinthostport">Формат: smp://&lt;base64-відбиток&gt;@хост[:порт]</string>
+    <string name="relay_loading">Завантаження…</string>
+    <string name="relay_must_start_with_smp">Повинно починатися з smp:// і містити хост.</string>
+    <string name="relay_poweruser_setting_the_defaults">Налаштування для просунутих. Стандартні працюють на інфраструктурі.</string>
+    <string name="relay_reset_to_defaults">Скинути до стандартних</string>
+    <string name="relay_simplex_relays">Реле SimpleX</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;відбиток&gt;@хост:порт</string>
+    <string name="relay_using_simplex_defaults">Використовуються стандартні SimpleX.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">Віддалений доступ</string>
+    <string name="remote_access_target_device">Цільовий пристрій</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">Натисніть щоб говорити</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">Подвійний захист.</string>
+    <string name="secure_notes_cancel">Скасувати</string>
+    <string name="secure_notes_delete">Видалити</string>
+    <string name="secure_notes_every_note_photo_video">Кожна нотатка, фото, відео в сховищі.</string>
+    <string name="secure_notes_search_the_vault">Пошук в сховищі…</string>
+    <string name="secure_notes_type_wipe_vault_to">Введіть WIPE VAULT</string>
+    <string name="secure_notes_vault">Сховище</string>
+    <string name="secure_notes_wipe">Очистити</string>
+    <string name="secure_notes_wipe_vault">Очистити сховище</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">Тренування</string>
+    <string name="sentinel_inbox_frontcamera_capture">Зят фронтальної камери</string>
+    <string name="sentinel_inbox_gyroscope_rads">Гіроскоп (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">Знімок зі стадії запису</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">Немає форензичного навантаження для цієї стадії.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">Ще немає подій Sentinel.</string>
+    <string name="sentinel_inbox_sentinel_inbox">Скринька Sentinel</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">Очистити</string>
+    <string name="sentinel_log_no_events_logged_arm">Немає подій. Увімкніть Sentinel.</string>
+    <string name="sentinel_log_sentinel_event_log">Журнал подій Sentinel</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">Налаштуйте під пристрій -- динаміки різняться.</string>
+    <string name="sonar_audio_loop_selftest">Аудіо-петля самотест</string>
+    <string name="sonar_autoarm_at_bedside">Авто-активація біля ліжка</string>
+    <string name="sonar_autocalibrate">Автокалібрування</string>
+    <string name="sonar_automatically_arms_sentinel_when">Автоматично вмикає Sentinel коли телефон кладеться.</string>
+    <string name="sonar_cancel_drill">Скасувати вправу</string>
+    <string name="sonar_contacts_who_receive_silent">Контакти що отримують тихі пінги.</string>
+    <string name="sonar_fires_one_audible_200">Один 200 мс 1 kHz сигнал і вимірює.</string>
+    <string name="sonar_hearing_audible_clicks_drop">Кліки? Зменшіть. Динамік досягає ультразвуку.</string>
+    <string name="sonar_if_you_hear_clicks">Якщо чуєте клацання -- це динамік телефону -- більшість</string>
+    <string name="sonar_latest_reading">Останнє зчитування</string>
+    <string name="sonar_layered_cascade_sonar_proximity">Каскад: сонар, близькість, акселерометр.</string>
+    <string name="sonar_local_event_log_debug">Локальний лог(дебаг)</string>
+    <string name="sonar_logonly_record_events_locally">Лише лог -- без сповіщень</string>
+    <string name="sonar_lower_more_sensitive_compare">Нижче = чутливіше.</string>
+    <string name="sonar_no_contacts_yet_add">Немає контактів -- додайте для сповіщень.</string>
+    <string name="sonar_no_data_yet_tap">немає даних -- натисніть Старт</string>
+    <string name="sonar_notification_throttle">Обмеження сповіщень</string>
+    <string name="sonar_notify_list">Список сповіщень</string>
+    <string name="sonar_place_the_phone_where">Покладіть телефон де він має слухати.</string>
+    <string name="sonar_send_test_notification_to">Надіслати тестове сповіщення до списку</string>
+    <string name="sonar_sentinel_mode">Режим Sentinel</string>
+    <string name="sonar_sentinel_viewers">Глядачі Sentinel</string>
+    <string name="sonar_sonar_raw_data">Сонар -- сирі дані</string>
+    <string name="sonar_status">Стан</string>
+    <string name="sonar_stop_sonar_first_calibrate">Спочатку зупиніть сонар -- калібруванню потрібен ексклюзивний аудіо</string>
+    <string name="sonar_stop_sonar_first_selftest">Спочатку зупиніть сонар -- самотесту потрібен ексклюзивний аудіо</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">Камера</string>
+    <string name="story_screens_new_story">Нова історія</string>
+    <string name="story_screens_photo">Фото</string>
+    <string name="story_screens_remove">Видалити</string>
+    <string name="story_screens_stories">Історії</string>
+    <string name="story_screens_story_not_found">Історію не знайдено.</string>
+    <string name="story_screens_visible_to_every_paired">Видимо кожному контакту 24 години.</string>
+    <string name="story_screens_whats_happening">Що відбувається?</string>
+    <string name="story_screens_your_story">Ваша історія</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">Завжди по центру. Не можна перемістити.</string>
+    <string name="tab_order_nav_order">Порядок навігації</string>
+    <string name="tab_order_reorder_bottom_nav">Переставити навігацію</string>
+    <string name="tab_order_reset_to_default">Скинути до стандартних</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (закріплено по центру)</string>
+    <string name="tab_order_sos_stays_in_the">SOS залишається по центру -- занадто важливо щоб переміщати.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis безкоштовний назавжди. Без реклами. Без відстеження. Дані не продаються.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis відкриється без питань. PIN захищає дані.</string>
+    <string name="tutorial_anyone_who_sees_these">Хто побачить ці слова -- володіє вашим обліковим записом</string>
+    <string name="tutorial_biometric_login_is_convenient">Біометричний вхід зручний але пропускає примус.</string>
+    <string name="tutorial_biometric_skips_duress">Біометрія пропускає примус</string>
+    <string name="tutorial_choose_how_you_unlock">Виберіть спосіб розблокування</string>
+    <string name="tutorial_confirm_pin">Підтвердити PIN</string>
+    <string name="tutorial_continue">Продовжити</string>
+    <string name="tutorial_disable_lock">Вимкнути блокування</string>
+    <string name="tutorial_done">Готово</string>
+    <string name="tutorial_each_node_unlocks_a">Кожний вузол відкриває новий шар захисту.</string>
+    <string name="tutorial_enable_anyway">Увімкнути все одно</string>
+    <string name="tutorial_encrypted_communication_personal_security">Шифрований звʼязок + особиста безпека.</string>
+    <string name="tutorial_enter_aegis">Увійти в Aegis</string>
+    <string name="tutorial_find_your_way_around">Ознайомтеся</string>
+    <string name="tutorial_fingerprint_face">Відбиток / Обличчя</string>
+    <string name="tutorial_get_started">Почати</string>
+    <string name="tutorial_if_it_ever_helps">Якщо це допоможе, підтримайте проєкт Aether.</string>
+    <string name="tutorial_it_is_your_master">Це ваш головний ключ</string>
+    <string name="tutorial_ive_written_it_down">Записав</string>
+    <string name="tutorial_keep_lock">Залишити блокування</string>
+    <string name="tutorial_keep_pin_only">Лише PIN</string>
+    <string name="tutorial_left_to_right_along">Зліва направо внизу:</string>
+    <string name="tutorial_make_sure_no_one">Переконайтесь що ніхто не дивиться</string>
+    <string name="tutorial_new_pin_48_digits">Новий PIN (4–8 цифр)</string>
+    <string name="tutorial_no_lock_screen">Без екрану блокування</string>
+    <string name="tutorial_open_without_a_lock">Відкрити без екрану блокування?</string>
+    <string name="tutorial_part_of_project_aether">Частина Project Aether</string>
+    <string name="tutorial_pattern">Патерн</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN встановлено ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">Фразу відновлення встановлено!</string>
+    <string name="tutorial_save_pin">Зберегти PIN</string>
+    <string name="tutorial_set_your_pin">Встановіть PIN</string>
+    <string name="tutorial_show_the_words_again">Показати слова знову</string>
+    <string name="tutorial_skip">Пропустити</string>
+    <string name="tutorial_skip_check_debug">Пропустити перевірку (дебаг)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS зафіксовано в центрі</string>
+    <string name="tutorial_thank_you">Дякую</string>
+    <string name="tutorial_the_skill_tree">Дерево навичок</string>
+    <string name="tutorial_this_encrypts_your_messages">Шифрує повідомлення та відновлює обліковий запис.</string>
+    <string name="tutorial_this_is_the_only">Це ЄДИНА копія</string>
+    <string name="tutorial_three_tiers_of_trust">Три рівні довіри</string>
+    <string name="tutorial_what_makes_this_different">Що відрізняє</string>
+    <string name="tutorial_you_can_replay_this">Можна повторити цей посібник з Допомоги.</string>
+    <string name="tutorial_your_messages_and_attachments">Повідомлення та вкладення зашифровані цим PIN.</string>
+    <string name="tutorial_your_pin_is_set">PIN встановлено і працює завжди.</string>
+    <string name="tutorial_your_recovery_phrase">Фраза відновлення</string>
+    <string name="tutorial_your_safety_net">Страхувальна мережа</string>
+    <string name="tutorial_youre_ready">Ви готові</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">Не вдалося отримати код безпеки. SimpleX може ще</string>
+    <string name="verify_contact_pick_qr_from_photo">Вибрати QR з фото</string>
+    <string name="verify_contact_safety_code_qr">QR коду безпеки</string>
+    <string name="verify_contact_scan_their_qr">Скануйте їхній QR</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">Заблокувати</string>
+    <string name="header_sentinel_armed">Sentinel активовано</string>
+    <string name="call_island_tap_return">Торкніться щоб повернутися</string>
+    <string name="cyan_stay_safe">— Бережіть себе.</string>
+    <string name="pin_guard_required">PIN додатку потрібен</string>
+    <string name="pin_guard_set_pin">Встановити PIN додатку</string>
+    <string name="update_dialog_later">Пізніше</string>
+    <string name="update_dialog_update">Оновити</string>
+    <string name="voice_slide_cancel">слайд для скасування ←</string>
+    <string name="a11y_group_avatar">аватар групи</string>
+    <string name="a11y_voice_record">голосовий запис</string>
+
+    <string name="chat_react_custom_title">Користувацька реакція</string>
+    <string name="chat_react_custom_hint">Введіть будь-який емодзі.</string>
+    <string name="chat_react_apply">Реакція</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">Система</string>
+    <string name="action_delete">Видалити</string>
+    <string name="action_clear">Очистити</string>
+    <string name="action_add">Додати</string>
+    <string name="action_edit">Редагувати</string>
+    <string name="action_copy">Копіювати</string>
+    <string name="action_share">Поділитися…</string>
+    <string name="action_send">Надіслати</string>
+    <string name="action_change">Змінити</string>
+    <string name="profile_saving">Збереження…</string>
+    <string name="profile_get_started">Почати</string>
+    <string name="contact_notification_sound">Звук сповіщення</string>
+    <string name="chat_add_caption">Додати підпис…</string>
+    <string name="chat_clear">Очистити чат</string>
+    <string name="chat_clear_confirm">Очистити цей чат?</string>
+    <string name="chat_schedule_message">Запланувати повідомлення</string>
+    <string name="chat_cancel_edit">Скасувати редагування</string>
+    <string name="chat_cancel_reply">Скасувати відповідь</string>
+    <string name="chat_voice_message">Голосове повідомлення</string>
+    <string name="chat_file">Файл</string>
+    <string name="chat_location">Місцезнаходження</string>
+    <string name="chat_camera">Камера</string>
+    <string name="sos_emergency">НАДЗВИЧАЙНА СИТУАЦІЯ</string>
+    <string name="sos_stop">СТОП</string>
+    <string name="settings_checking">Перевірка…</string>
+    <string name="settings_enabled">Увімкнено</string>
+    <string name="settings_start">Початок</string>
+    <string name="settings_end">Кінець</string>
+    <string name="settings_how_it_works">Як це працює</string>
+    <string name="settings_message">Повідомлення</string>
+    <string name="settings_checkin_window">Вікно перевірки</string>
+    <string name="status_battery">Батарея</string>
+    <string name="status_charging">Зарядка</string>
+    <string name="remote_locate">Знайти</string>
+    <string name="remote_siren">Сирена</string>
+    <string name="tutorial_bubble_welcome">Ласкаво просимо до Project Aether. Я Cyan — буду вашим гідом.</string>
+    <string name="tutorial_bubble_different">Без номера. Без акаунту. Сервер не зберігає повідомлень. Лише криптографія.</string>
+    <string name="tutorial_bubble_safety">Якщо ви в небезпеці, одна кнопка сповіщає всіх, кому ви довіряєте.</string>
+    <string name="tutorial_bubble_tiers">Ви вирішуєте, хто що бачить.</string>
+    <string name="tutorial_bubble_skill_tree">Зміцнюйте телефон крок за кроком.</string>
+    <string name="tutorial_bubble_tabs">П’ять вкладок внизу. Що робить кожна:</string>
+    <string name="tutorial_bubble_unlock">PIN найбезпечніший. Додайте швидший спосіб — PIN залишається завжди.</string>
+    <string name="tutorial_bubble_ready">Готово. Додайте контакт.</string>
+    <string name="tutorial_bubble_thanks">Дякуємо за вибір Aegis.</string>
+    <string name="tutorial_bullet_protocol">Побудовано на Aegis Protocol</string>
+    <string name="tutorial_bullet_metadata">Нуль метаданих — без профілю, без графа контактів</string>
+    <string name="tutorial_bullet_e2ee">Наскрізне шифрування, завжди</string>
+    <string name="tutorial_bullet_sos_hold">Тримайте SOS 1 секунду — або power ×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS, аудіо та камера передаються контактам</string>
+    <string name="tutorial_bullet_sos_lockscreen">Працює з екрана блокування</string>
+    <string name="tutorial_tier_trusted">Довірений</string>
+    <string name="tutorial_tier_trusted_desc">Все — місцезнаходження, присутність, SOS.</string>
+    <string name="tutorial_tier_emergency">Екстрений</string>
+    <string name="tutorial_tier_emergency_desc">Лише SOS-сповіщення — без щоденних даних.</string>
+    <string name="tutorial_tier_untrusted">Недовірений</string>
+    <string name="tutorial_tier_untrusted_desc">Лише повідомлення — нічого іншого.</string>
+    <string name="tutorial_tab_system_desc">Налаштування, особистість, блокування та оновлення.</string>
+    <string name="tutorial_tab_opsec_desc">Дерево навичок — зміцнюйте телефон крок за кроком.</string>
+    <string name="tutorial_tab_sos_desc">Найважливіше. Тримайте для сповіщення.</string>
+    <string name="tutorial_tab_comms_desc">Ваші зашифровані чати. Пишіть тут.</string>
+    <string name="tutorial_tab_radar_desc">Карта в реальному часі — де ваші контакти і хто онлайн.</string>
+    <string name="tutorial_unlock_pin_desc">Введіть PIN для розблокування. Повний захист від примусу.</string>
+    <string name="tutorial_unlock_pattern_desc">Намалюйте взірець. PIN покриває примус.</string>
+    <string name="tutorial_unlock_bio_desc">Швидке розблокування. Біометрія оминає захист від примусу.</string>
+    <string name="tutorial_unlock_none_desc">Відкрити Aegis без розблокування. PIN захищає примус + дистанційний доступ.</string>
+    <string name="tutorial_pin_explanation_new">PIN блокує Aegis і захищає профілі. Фраза відновлення шифрує повідомлення. 4–8 цифр.</string>
+    <string name="tutorial_pin_already_nice">Вже зроблено. Чудово.</string>
+    <string name="tutorial_pin_set_first">Найголовніше. Встановіть PIN.</string>
+    <string name="tutorial_node_app_pin">ПІН
+додатку</string>
+    <string name="tutorial_node_duress_pin">ПІН
+примусу</string>
+    <string name="tutorial_perm_title">Чому Aegis просить так багато</string>
+    <string name="tutorial_perm_bubble">Натисніть для дозволу — або пропустіть. Я поясню кожен.</string>
+    <string name="tutorial_perm_intro">Додаток безпеки повинен діяти за вас — знайти, попередити, працювати при вимкненому екрані. Ніщо не покидає телефон без вас.</string>
+    <string name="tutorial_perm_background_title">Фонова активність</string>
+    <string name="tutorial_perm_background_why">Найважливіше. Дозволяє Aegis працювати при закритому додатку та вимкненому екрані. Без цього телефон може тихо припинити — особливо на OnePlus, Xiaomi та Oppo.</string>
+    <string name="tutorial_perm_oem_warning">Ваш %1$s телефон має додаткові налаштування батареї які можуть вбити Aegis. Відкрийте це налаштування і дозвольте Aegis автозапуск.</string>
+    <string name="tutorial_perm_notif_title">Сповіщення</string>
+    <string name="tutorial_perm_notif_why">Для повідомлень, дзвінків та SOS — навіть на екрані блокування.</string>
+    <string name="tutorial_perm_location_title">Місцезнаходження</string>
+    <string name="tutorial_perm_location_why">Щоб довірені контакти знайшли вас у надзвичайній ситуації і SOS поділився вашим місцем.</string>
+    <string name="tutorial_perm_camera_title">Камера</string>
+    <string name="tutorial_perm_camera_why">Для фото SOS, магшоту при невірному PIN та відеодзвінків.</string>
+    <string name="tutorial_perm_mic_title">Мікрофон</string>
+    <string name="tutorial_perm_mic_why">Для запису звуку SOS та голосових/відео дзвінків.</string>
+    <string name="tutorial_perm_media_title">Фото, відео та файли</string>
+    <string name="tutorial_perm_media_why">Для надсилання та збереження вкладень. Aegis бачить лише те, що ви ділитесь.</string>
+    <string name="tutorial_perm_phone_title">Телефон та SIM</string>
+    <string name="tutorial_perm_phone_why">Попереджає про зміну SIM — типова ознака викрадення номера.</string>
+    <string name="tutorial_perm_nearby_title">Пристрої поблизу</string>
+    <string name="tutorial_perm_nearby_why">Bluetooth для пошуку людей та пристроїв (Радар та Сонар).</string>
+    <string name="tutorial_perm_install_title">Встановити оновлення</string>
+    <string name="tutorial_perm_install_why">Щоб Aegis оновлювався безпечно без магазину що відстежує.</string>
+    <string name="tutorial_perm_footer">Ви зберігаєте контроль. Пропустіть будь-що і Aegis здебільшого працює — але фонова активність підтримує безпеку.</string>
+    <string name="tutorial_perm_granted">Дозволено ✓</string>
+    <string name="tutorial_perm_denied">Відмовлено</string>
+    <string name="tutorial_perm_allow">Дозволити</string>
+</resources>

@@ -1,0 +1,13 @@
+<!--
+  LunaGlass heart — faceted silhouette, vector, filled.
+  45° upper externals. Same path as ic_aegis_heart.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,7 L8,3 L4,3 L1,6 L1,11 L12,22 L23,11 L23,6 L20,3 L16,3 Z" />
+</vector>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Monochrome adaptive-icon layer (Android 13+ "themed icons"). Same
+  flat-top hex silhouette as ic_notif_shield, scaled to the 108×108
+  adaptive-icon viewport with the content centred in the inner
+  ~72 dp safe zone. When the user picks the themed-icon launcher,
+  Android tints this drawable to their wallpaper accent — so the
+  Aegis tile becomes a clean white hex on whatever colour band the
+  user has set.
+
+  Vertices are canonical LunaGlass flat-top, scaled ×2.25 vs the
+  24-viewport notif icon: outer hex r ≈ 18 at centre 54,54; inner
+  hex r ≈ 9.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer r=45 (108/2.4), inner r=22.5. Same proportions as the
+         24-viewport notif icon at r=10/5: filling ~83 % of the
+         viewport so the launcher tile reads cleanly under the
+         themed-icon tint. -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M99,54 L76.5,92.97 L31.5,92.97 L9,54 L31.5,15.03 L76.5,15.03 Z M76.5,54 L65.25,73.49 L42.75,73.49 L31.5,54 L42.75,34.51 L65.25,34.51 Z" />
+</vector>

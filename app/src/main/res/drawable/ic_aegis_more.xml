@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "More" / overflow menu — three dots stacked vertically. Not in the
+     LunaGlass icons.jsx (28 named icons, no overflow); kept geometric
+     to match the rest of the set. Tiny rounded segments. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,5 L12,5 M12,12 L12,12 M12,19 L12,19" />
+</vector>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Revised settings icon (May 24): 12-tooth gear
+     outline with a flat-top hex inner shaft. The previous path was
+     a crude 22-vertex polygon; this version's geometry is explicit
+     about alternating tooth-tip / tooth-root, so the gear reads as
+     a gear at 24×24 instead of a fuzzy starfish. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M10,2 L14,2 L14,5 L17,6 L19,3.5 L21.5,6 L19,8 L20,11 L23,11 L23,13 L20,13 L19,16 L21.5,18 L19,20.5 L17,18 L14,19 L14,22 L10,22 L10,19 L7,18 L5,20.5 L2.5,18 L5,16 L4,13 L1,13 L1,11 L4,11 L5,8 L2.5,6 L5,3.5 L7,6 L10,5 Z M15,12 L13.5,14.6 L10.5,14.6 L9,12 L10.5,9.4 L13.5,9.4 Z" />
+</vector>

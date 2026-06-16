@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Resource shrinker — keep the Cyan mascot drawables even when
+  CyanGate.enabled is false (the const-folded `if (false)` makes
+  the rememberCyanResId() call sites look dead to R8, which
+  cascades through getIdentifier and lets shrinkResources mark
+  the cyan_* WebPs as unreferenced).
+
+  The gate is meant to be a one-line
+  flip when the developer is ready to light up the mascot — the
+  assets need to survive R8 in the meantime so the flip works
+  against the release APK without a rebuild.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/cyan_splash,@drawable/cyan_sitting,@drawable/cyan_headshot,@drawable/cyan_celebrate,@drawable/cyan_onboard_1,@drawable/cyan_onboard_2,@drawable/cyan_onboard_3,@drawable/cyan_onboard_4" />

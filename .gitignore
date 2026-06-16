@@ -1,0 +1,56 @@
+*.iml
+.gradle
+.kotlin
+/local.properties
+/.idea
+.DS_Store
+/build
+/app/build
+/wear/build
+# Per-module build dirs (any depth) — covers :feature:* and the
+# :core:* trust-container modules (docs/SPEC_TRUST_CONTAINERS.md).
+**/build/
+
+# SimpleX native libs — extracted from upstream APK at build time,
+# see ATTRIBUTION-SimpleX.md and scripts/fetch-simplex-libs.sh.
+# Way too large for git (libsimplex.so is 191 MB uncompressed).
+app/src/main/jniLibs/arm64-v8a/libsimplex.so
+app/src/main/jniLibs/arm64-v8a/libsupport.so
+app/src/main/jniLibs/arm64-v8a/libapp-lib.so
+app/src/main/jniLibs/armeabi-v7a/libsimplex.so
+app/src/main/jniLibs/armeabi-v7a/libsupport.so
+app/src/main/jniLibs/armeabi-v7a/libapp-lib.so
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# Transient secret-bearing backups the build/publish scripts create
+# while they strip the PAT for a clean build (local.properties.bak /
+# .distbak / .nopat). They hold the real PAT, so they must NEVER be
+# committable even for the moment they exist.
+local.properties.*
+*.apk
+# APKs are published as GitHub Release ASSETS now (see
+# scripts/publish-release.sh), NOT committed under builds/ — that kept
+# pouring an ~84 MB blob into git history every build. builds/*.apk are
+# local staging artifacts the publish script uploads; they stay ignored.
+# (The tiny builds/*version.json records remain tracked — Gradle reads
+# version.json as the monotonic versionCode floor.)
+*.aab
+*.jks
+*.keystore
+*.pass
+aegis-release.keystore
+# Release signing — keystore + password live in $HOME/.signing/
+# (never tracked). See docs/SIGNING.md for how to wire them into
+# local.properties for the release buildType.
+/.signing/
+
+
+# Python bytecode cache from tools/ scripts (e.g. tools/genlogo.py when
+# imported for preview/comparison rendering). Never an artifact we ship.
+__pycache__/
+*.pyc
+
+# Local design-mockup scratch (PIL-rendered previews; not shipped)
+.mockups/

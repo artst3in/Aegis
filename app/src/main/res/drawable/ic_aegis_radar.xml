@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Revised radar icon (May 24): diamond shape
+     with a filled upper half and a small "compass needle" inside.
+     Simpler than the previous outer-hex + inner-hex; reads as a
+     classic radar/sonar dial at small sizes. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Diamond outline. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,3 L17,12 L12,21 L7,12 Z" />
+    <!-- Filled upper half — gives the icon a clear "active scope". -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,3 L17,12 L7,12 Z" />
+    <!-- Compass needle / dial marks. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M10.5,10 L10.5,7 L13.5,10 L13.5,7" />
+</vector>

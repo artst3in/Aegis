@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">消息</string>    <string name="action_save">保存</string><string name="action_cancel">取消</string><string name="action_done">完成</string><string name="action_back">返回</string>    <string name="profile_title">你的资料</string><string name="profile_welcome">欢迎使用 Aegis</string><string name="profile_display_name">显示名称</string><string name="profile_your_name">你的名字</string><string name="profile_bio">简介（可选）</string><string name="profile_bio_hint">联系人点击你的名字时看到的内容。</string>    <string name="contact_title">联系人</string><string name="contact_not_found">未找到联系人。</string><string name="contact_add">添加联系人</string><string name="contact_connecting">连接中…</string><string name="contact_nickname">昵称</string><string name="contact_nickname_hint">昵称（你怎么称呼他们）</string><string name="contact_my_nickname">我对他们的昵称</string><string name="contact_save_nickname">保存昵称</string><string name="contact_copy_link">复制链接</string><string name="contact_accept_invite">接受邀请</string><string name="contact_accept_invitation">接受邀请</string><string name="contact_pin">置顶</string><string name="contact_unpin">取消置顶</string><string name="contact_mute">静音</string>    <string name="group_new">新建群组</string><string name="group_name">群组名称</string><string name="group_creating">创建中…</string><string name="group_create">创建群组</string>
+    <string name="call_voice">语音通话</string><string name="call_video">视频通话</string><string name="call_calling">呼叫中…</string>    <string name="sos_title">紧急</string><string name="sos_active">已激活</string><string name="sos_broadcasting">广播中</string>    <string name="duress_confirm_pin">确认 PIN</string><string name="duress_confirm_duress_pin">确认胁迫 PIN</string><string name="duress_change_pin">更改 PIN</string>
+    <string name="settings_title">设置</string><string name="settings_app_lock">应用锁</string><string name="settings_auto_lock">自动锁定</string><string name="settings_calls">通话</string><string name="settings_updates">更新</string><string name="settings_quiet_hours">免打扰时段</string><string name="settings_canary">金丝雀消息</string><string name="settings_wifi_only">仅 Wi-Fi</string>    <string name="status_online">在线</string><string name="status_offline">离线</string><string name="status_away">离开</string>    <string name="update_available">有可用更新</string>    <string name="loki_mugshot_armed">已启用 — %d 次错误 PIN 后拍照。</string><string name="loki_sim_armed">已启用。当前 SIM：</string><string name="loki_canary_armed">已启用。打开应用重置计时器。</string><string name="loki_deadmans_switch">死人开关</string>
+    <string name="nav_security">安全</string>
+    <string name="nav_radar">雷达</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">复制错误</string>
+    <string name="add_contact_generate_a_onetime_link">生成一次性链接</string>
+    <string name="add_contact_generating_link">正在生成链接…</string>
+    <string name="add_contact_got_their_invitation_link">收到链接了? 扫描QR或粘贴.</string>
+    <string name="add_contact_invitation_qr">邀请QR</string>
+    <string name="add_contact_invite_someone">邀请某人</string>
+    <string name="add_contact_joining_a_group_no">加入群组 -- 无需昵称.</string>
+    <string name="add_contact_or_paste_an_invitation">…或粘贴邀请/群组链接</string>
+    <string name="add_contact_pair_via_simplex_exchange">通过SimpleX配对 -- 交换一次性链接.</string>
+    <string name="add_contact_paired">已配对 ✓</string>
+    <string name="add_contact_pick_qr_from_photo">从照片选择QR</string>
+    <string name="add_contact_show_this_qr_to">向他们展示QR或分享链接.</string>
+    <string name="add_contact_they_see_you_as">他们看到你是随机代号 -- 真名隐藏.</string>
+    <string name="add_contact_they_sent_you_a">他们发了链接或QR. 扫描或粘贴.</string>
+    <string name="add_contact_theyll_see_you_as">他们将看到你是随机代号 -- 真名隐藏.</string>
+    <string name="add_contact_waiting_for_them_to">等待接受…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">麦克风测试</string>
+    <string name="call_relayonly_calls">仅中继通话</string>
+    <string name="call_run_mic_test">运行麦克风测试</string>
+    <string name="call_troubleshooting">故障排除</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">多久不打开Aegis</string>
+    <string name="canary_i_havent_checked_in">我已经有一段时间没有登录了. </string>
+    <string name="canary_if_you_dont_open">如果你不打开Aegis، </string>
+    <string name="canary_sent_verbatim_to_every">原文发送给每个配对联系人.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">接受</string>
+    <string name="chat_list_add_contact">添加联系人</string>
+    <string name="chat_list_add_your_first_contact">添加第一个联系人</string>
+    <string name="chat_list_automatically_turn_off_the">一段时间后自动关闭群组模块.</string>
+    <string name="chat_list_disable">禁用</string>
+    <string name="chat_list_enable_group_chat">启用群聊</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">邀请</string>
+    <string name="chat_list_join_via_link">通过链接加入</string>
+    <string name="chat_list_new_group">+ 新群组</string>
+    <string name="chat_list_no_groups_yet_tap">还没有群组. 点击 + 新建群组.</string>
+    <string name="chat_list_pending_invitations">待处理邀请</string>
+    <string name="chat_list_public_groups_increase_your">公开群组增加攻击面.</string>
+    <string name="chat_list_removes_the_group_and">从此设备删除群组及其消息记录.</string>
+    <string name="chat_list_revoke">撤销</string>
+    <string name="chat_list_search_messages">搜索消息…</string>
+    <string name="chat_list_shield_paused_messages_and">护盾暂停 · 消息和SOS已暂停</string>
+    <string name="chat_list_tap_here_or_the">点击此处或下方六角按钮分享邀请链接或扫描QR.</string>
+    <string name="chat_list_video_call">视频通话</string>
+    <string name="chat_list_view">查看</string>
+    <string name="chat_list_voice_call">语音通话</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">随机别名，此联系人独有.</string>
+    <string name="contact_detail_access_denied_wrong_pin">访问被拒绝 -- PIN错误</string>
+    <string name="contact_detail_authenticate">身份验证</string>
+    <string name="contact_detail_battery">电池</string>
+    <string name="contact_detail_delete_contact">删除联系人</string>
+    <string name="contact_detail_device_status">设备状态</string>
+    <string name="contact_detail_enable">启用</string>
+    <string name="contact_detail_group_this_contact_under">在聊天列表中将此联系人分组.</string>
+    <string name="contact_detail_local_only_they_dont">仅本地 -- 他们看不到你的昵称.</string>
+    <string name="contact_detail_no_data_received_yet">尚无数据 -- 等待第一次状态ping.</string>
+    <string name="contact_detail_not_now">稍后</string>
+    <string name="contact_detail_notifications">通知</string>
+    <string name="contact_detail_on_success_their_phone">成功后手机将被锁定并定位.</string>
+    <string name="contact_detail_one_label_per_contact">每个联系人一个标签. 决定他们收到什么.</string>
+    <string name="contact_detail_opening_remote_control">正在打开远程控制…</string>
+    <string name="contact_detail_removes_the_contact_every">删除联系人和所有消息.</string>
+    <string name="contact_detail_repair_contact">重新配对联系人</string>
+    <string name="contact_detail_their_achievements">他们的成就</string>
+    <string name="contact_detail_this_person_will_be">此人将能够定位、锁定和擦除你的手机.</string>
+    <string name="contact_detail_trust_tier">信任等级</string>
+    <string name="contact_detail_wearable">可穿戴设备</string>
+    <string name="contact_detail_you_appear_to_them">他们看到你为</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">碰撞检测</string>
+    <string name="crash_detection_detects_a_vehicle_crash">从撞击中检测车辆碰撞.</string>
+    <string name="crash_detection_sensitivity">灵敏度</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">操作</string>
+    <string name="device_control_audio">音频</string>
+    <string name="device_control_expires_in">到期: </string>
+    <string name="device_control_fix">修复 </string>
+    <string name="device_control_location">位置</string>
+    <string name="device_control_lock_did_not_fire">锁定未触发 -- 设备管理员未注册.</string>
+    <string name="device_control_lock_off">⚠ 锁定关闭</string>
+    <string name="device_control_lockscreen_message">锁屏消息</string>
+    <string name="device_control_no_frame">无帧</string>
+    <string name="device_control_remote_session">远程会话</string>
+    <string name="device_control_send">发送</string>
+    <string name="device_control_this_is_the_last">这是恢复出厂设置前的最后一步.</string>
+    <string name="device_control_this_triggers_a_full">这将在目标上触发完整的恢复出厂设置.</string>
+    <string name="device_control_type_wipe">输入 WIPE</string>
+    <string name="device_control_type_wipe_to_confirm">输入WIPE确认</string>
+    <string name="device_control_wipe_device">擦除设备</string>
+    <string name="device_control_wipe_target_device">擦除目标设备?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">远程访问</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">用力投掷/抓取/拽拉触发SOS.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">入侵检测. 3传感器级联.</string>
+    <string name="experimental_crash_sensitivity_settings">碰撞灵敏度设置 ></string>
+    <string name="experimental_detect_a_vehicle_crash">检测车祸并发送SOS</string>
+    <string name="experimental_event_log">事件日志 →</string>
+    <string name="experimental_here_be_dragons">此处有龙</string>
+    <string name="experimental_inbox">收件箱 →</string>
+    <string name="experimental_relock_experimental_section">重新锁定实验部分</string>
+    <string name="experimental_snatch_detection">抢夺检测</string>
+    <string name="experimental_these_features_are_unfinished">这些功能未完成, 可能消耗电量.</string>
+    <string name="experimental_vehicle_crash_detection">车辆碰撞检测</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">输入备份密码短语</string>
+    <string name="first_run_passphrase">密码短语</string>
+    <string name="first_run_restore">恢复</string>
+    <string name="first_run_restore_from_a_previous">从之前的备份恢复或重新开始.</string>
+    <string name="first_run_start_fresh">重新开始</string>
+    <string name="first_run_welcome_to_aegis">欢迎来到Aegis</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">暂停</string>
+    <string name="geofence_radius">半径</string>
+    <string name="geofence_resume">恢复</string>
+    <string name="geofence_set_a_circular_zone">设置圆形区域。离开时通知。</string>
+    <string name="geofence_zone_centre">区域中心</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">成员</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis启动和后台后需要解锁.</string>
+    <string name="lock_after_too_many_wrong">PIN错误太多次后永久删除数据.</string>
+    <string name="lock_arm">Arm</string>
+    <string name="lock_arm_selfdestruct">启动自毁?</string>
+    <string name="lock_biometric_login_is_convenient">生物识别方便但跳过胁迫.</string>
+    <string name="lock_deletes_the_pin_entirely">完全删除PIN并移除胁迫PIN.</string>
+    <string name="lock_draw_a_pattern_to">用图案代替PIN解锁.</string>
+    <string name="lock_duress_pin_48_digits">胁迫PIN (4-8位)</string>
+    <string name="lock_enable_device_admin">启用设备管理员</string>
+    <string name="lock_entering_this_pin_opens">此PIN打开虚假配置并触发静音SOS.</string>
+    <string name="lock_fast_convenient_but_it">快速方便 -- 但跳过胁迫.</string>
+    <string name="lock_how_long_after_backgrounding">后台后多久重新锁定.</string>
+    <string name="lock_maximum_security_your_encryption">最高安全: 加密密钥从不存储在磁盘上.</string>
+    <string name="lock_pattern_unlock">图案解锁</string>
+    <string name="lock_remove_pin">删除PIN</string>
+    <string name="lock_require_pin_to_open">打开Aegis需要PIN</string>
+    <string name="lock_require_recovery_phrase_on">每次重启需要恢复短语</string>
+    <string name="lock_scramble_pin_pad">打乱PIN键盘</string>
+    <string name="lock_shuffles_digit_positions_on">打乱数字位置以防止窃视.</string>
+    <string name="lock_unlock_with_fingerprint_face">指纹/人脸解锁</string>
+    <string name="lock_when_off_aegis_opens">Aegis直接打开. PIN保护数据.</string>
+    <string name="lock_wipe_after_failed_attempts">失败后擦除</string>
+    <!-- MapScreen -->
+    <string name="map_charging">充电中</string>
+    <string name="map_locate_on_map">在地图上定位</string>
+    <string name="map_radar">雷达</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">重新居中家人</string>
+    <string name="map_solo">单独</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">错误 PIN拍照</string>
+    <string name="mugshot_threshold">阈值</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">关于配置</string>
+    <string name="profiles_active">活跃</string>
+    <string name="profiles_create">创建</string>
+    <string name="profiles_each_profile_is_a">每个配置都是完整独立的Aegis.</string>
+    <string name="profiles_ephemeral_import_a_backup">临时 - 导入备份</string>
+    <string name="profiles_ephemeral_start_fresh">临时 · 重新开始</string>
+    <string name="profiles_ive_written_it_down">已记下 -- 创建</string>
+    <string name="profiles_keep_ephemeral">保持临时</string>
+    <string name="profiles_make_permanent">设为永久?</string>
+    <string name="profiles_make_this_profile_permanent">将此配置设为永久</string>
+    <string name="profiles_new_pin">新PIN</string>
+    <string name="profiles_new_profile">新配置</string>
+    <string name="profiles_permanent_import_a_backup">永久 · 导入备份</string>
+    <string name="profiles_permanent_start_fresh">永久 · 重新开始</string>
+    <string name="profiles_pick_a_short_id">选择短 ID (字母, 数字, - _).</string>
+    <string name="profiles_profile_id">配置文件ID</string>
+    <string name="profiles_sos_alerts_only_fire">SOS警报仅针对活动配置的家人.</string>
+    <string name="profiles_switch">切换</string>
+    <string name="profiles_these_24_words_are">这24个单词是唯一的密钥.</string>
+    <string name="profiles_this_conversation_will_be">此对话将存储在磁盘上并保留.</string>
+    <string name="profiles_write_down_your_recovery">写下恢复短语</string>
+    <string name="profiles_your_current_profile_stays">当前配置在后台保持安全.</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">在设置的时间窗口内静音聊天通知.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">24词短语</string>
+    <string name="recovery_unlock_back_to_pin">返回PIN</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">输入24词恢复短语.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">用短语恢复</string>
+    <string name="recovery_unlock_recovered_set_a_new">已恢复. 设置新PIN.</string>
+    <string name="recovery_unlock_set_pin">设置PIN</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">救援正在路上</string>
+    <string name="s_o_s_no_sos_recipients_promote">没有SOS接收人。至少升级一个联系人。</string>
+    <string name="s_o_s_plays_at_maximum_alarm">以最大音量播放直到解锁</string>
+    <string name="s_o_s_start_siren">启动警笛?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">应用PIN</string>
+    <string name="security_canary">金丝雀</string>
+    <string name="security_device_admin">设备管理员</string>
+    <string name="security_duress_mode_active_some">胁迫模式活跃. 部分面板隐藏.</string>
+    <string name="security_geofence">地理围栏</string>
+    <string name="security_mugshot">拍照存证</string>
+    <string name="security_sim_watch">SIM监控</string>
+    <string name="security_sonar_experimental">Sonar · 实验性</string>
+    <string name="security_your_living_shield_each">你的活盾牌. 每个六角是一个保护功能.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">高级: 覆盖默认SMP服务器.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">新聊天中自动删除.</string>
+    <string name="_autorevoke_unused_11_invite">自动撤销未使用的邀请.</string>
+    <string name="_backup">备份</string>
+    <string name="_block_screenshots">禁止截屏</string>
+    <string name="_clear_all_queued">清除所有队列</string>
+    <string name="_disappearing_default">默认消失</string>
+    <string name="_encrypted_file_backup_data">加密备份 -- 数据存活.</string>
+    <string name="_experimental">实验性</string>
+    <string name="_health_probes_driver_reloads">探针、重载、日志、调试覆盖层.</string>
+    <string name="_language">语言</string>
+    <string name="_multiple_isolated_aegis_profiles">多个独立的Aegis配置 -- 在家庭间切换.</string>
+    <string name="_mute_chat_notifications_at">夜间静音聊天通知. SOS仍会唤醒你.</string>
+    <string name="_notifications">通知</string>
+    <string name="_outbox">发件箱</string>
+    <string name="_perchannel_sound_vibration_and">每个渠道的声音、振动和优先级.</string>
+    <string name="_performance_balanced_power_saver">性能/均衡/省电 + 控制.</string>
+    <string name="_pressandhold_send_call_video">长按发送/通话/视频来触发. 防止意外触发.</string>
+    <string name="_profiles">配置</string>
+    <string name="_project_aether">AETHER项目</string>
+    <string name="_readonly_inventory_of_every">每个发行功能的只读清单.</string>
+    <string name="_rearrange_the_bottom_tabs">重新排列底部标签. SOS保持居中.</string>
+    <string name="_relayonly_ice_and_call">仅中继ICE和通话诊断.</string>
+    <string name="_stops_screenshots_screen_recording">禁止截屏、录屏和预览.</string>
+    <string name="_unfinished_features_hidden_behind">7次点击门后隐藏的未完成功能.</string>
+    <string name="_wifionly_by_default_apks">仅WiFi -- APK ~45-65 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">SIM变更警报</string>
+    <string name="sim_swap_when_the_sim_in">当手机中的SIM变更时, 发送警报.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Aegis标志</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_aegis_polls_github_every">Aegis每24小时检查GitHub。</string>
+    <string name="update_beltandbraces_type_rollback_below">在下方输入ROLLBACK.</string>
+    <string name="update_check_interval">检查间隔</string>
+    <string name="update_how_often_aegis_polls">Aegis多久检查GitHub新版本.</string>
+    <string name="update_roll_back">回滚</string>
+    <string name="update_roll_back_to_previous">回滚到上一版本</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">系统安装器将打开.</string>
+    <string name="update_type_rollback_to_confirm">输入ROLLBACK确认</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">确认</string>
+    <string name="vault_pin_confirm_duress">确认胁迫</string>
+    <string name="vault_pin_current_vault_pin">当前保险箱PIN</string>
+    <string name="vault_pin_entering_this_pin_at">此PIN在保险箱门口打开隐藏的虚假区域.</string>
+    <string name="vault_pin_remove_duress_pin">删除胁迫PIN</string>
+    <string name="vault_pin_vault_pin">保险箱PIN</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">无截屏. 无复制. 无痕迹.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">收件人看到火焰图标. 打开开始倒计时.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">功能</string>
+    <string name="capabilities_device_admin_enable_in">设备管理员: 在设置中启用.</string>
+    <string name="capabilities_device_owner_factoryreset_the">设备所有者: 恢复出厂设置, 控制.</string>
+    <string name="capabilities_live_status_green_active">实时状态. 绿色=活跃. 暗色=需要权限.</string>
+    <string name="capabilities_stay_safe">注意安全.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">在选定时间后自动删除消息.</string>
+    <string name="chat_burn">焚毁</string>
+    <string name="chat_burn_after_reading">阅后即焚</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">为所有人删除</string>
+    <string name="chat_deletes_every_message_in">删除此对话中的所有消息.</string>
+    <string name="chat_disappearing_messages">阀后即焚消息…</string>
+    <string name="chat_editing_message">编辑消息</string>
+    <string name="chat_emergency_contact_they_receive">紧急联系人. 仅接收SOS.</string>
+    <string name="chat_forward">转发</string>
+    <string name="chat_forward_to">转发给…</string>
+    <string name="chat_gallery">相册</string>
+    <string name="chat_loading_preview">加载预览…</string>
+    <string name="chat_no_contacts_paired_yet">还没有联系人.</string>
+    <string name="chat_pick_when_to_send">选择发送时间. Aegis每分钟轮询.</string>
+    <string name="chat_pinned">已固定</string>
+    <string name="chat_reply">回复</string>
+    <string name="chat_save_to_device">保存到设备</string>
+    <string name="chat_save_to_notes">保存到笔记</string>
+    <string name="chat_video">视频</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">所有已知接收器为空.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ 为空。</string>
+    <string name="diagnostics_building_usage_history">正在构建使用历史…</string>
+    <string name="diagnostics_close">关闭</string>
+    <string name="diagnostics_copy">复制</string>
+    <string name="diagnostics_device_owner">设备所有者</string>
+    <string name="diagnostics_diagnostics">诊断</string>
+    <string name="diagnostics_empty">(空)</string>
+    <string name="diagnostics_erase_all_aegis_data">删除所有Aegis数据?</string>
+    <string name="diagnostics_erase_everything">全部删除</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">无需重启即可重置子系统.</string>
+    <string name="diagnostics_how_much_data_aegis">Aegis传输的数据量.</string>
+    <string name="diagnostics_kills_the_aegis_process">终止Aegis进程并重启.</string>
+    <string name="diagnostics_mainthread_sample_30_100">主线程采样 (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">未检测到篡改信号.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">不会向任何地方发送任何内容.</string>
+    <string name="diagnostics_process">进程</string>
+    <string name="diagnostics_reconnect_now">立即重连</string>
+    <string name="diagnostics_relays">中继</string>
+    <string name="diagnostics_reset">重置</string>
+    <string name="diagnostics_reset_simplex_core">重置SimpleX核心?</string>
+    <string name="diagnostics_restart">重启</string>
+    <string name="diagnostics_restart_aegis">重启Aegis?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">重启Aegis(完整)</string>
+    <string name="diagnostics_signer_sha256">签名者SHA-256</string>
+    <string name="diagnostics_stop_all_sos">停止所有SOS</string>
+    <string name="diagnostics_storage">存储</string>
+    <string name="diagnostics_subsystems_shut_off_as">电量下降时子系统关闭.</string>
+    <string name="diagnostics_tap_to_open">点击打开</string>
+    <string name="diagnostics_this_is_irreversible_it">不可逆转. 恢复出厂设置.</string>
+    <string name="diagnostics_threads">线程</string>
+    <string name="diagnostics_wipe_all_aegis_data">删除所有Aegis数据.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">擦除SimpleX数据库.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">没有联系人. 先配对某人.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">发送给联系人</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">省电模式下所有效果已禁用.</string>
+    <string name="graphics_cyan_mascot">Cyan吉祥物</string>
+    <string name="graphics_data_rain">数据雨</string>
+    <string name="graphics_effects_intensity">效果强度</string>
+    <string name="graphics_effects_suppressed_in_power">省电模式下效果被抑制</string>
+    <string name="graphics_faint_repeating_hex_pattern">每个屏幕后面的淡色重复六角图案.</string>
+    <string name="graphics_graphics">图形</string>
+    <string name="graphics_graphics_profile">图形配置</string>
+    <string name="graphics_hex_grid_backdrop">六角网格背景</string>
+    <string name="graphics_scan_line">扫描线</string>
+    <string name="graphics_scan_line_data_rain">扫描线 + 数据雨透明度.</string>
+    <string name="graphics_show_the_chibi_mascot">在启动、空屏幕和关于中显示chibi吉祥物.</string>
+    <string name="graphics_single_cyan_line_crawling">每30秒一条青色线从上到下爬行.</string>
+    <string name="graphics_tiny_hex_particles_drifting">微小六角粒子向下飘动. 三者中最重.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">删除群组</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">消息</string>
+    <string name="group_chat_removes_the_group_and">删除群组及其消息记录.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">显示给每个成员的短注.</string>
+    <string name="group_members_about_this_group">关于此群组</string>
+    <string name="group_members_active_in_this_group">在此群组中活跃</string>
+    <string name="group_members_anonymous_the_group_sees">匿名 -- 群组看到随机名称.</string>
+    <string name="group_members_apply">应用</string>
+    <string name="group_members_armed">已启动</string>
+    <string name="group_members_autoburn_messages_in_this">自动删除此群组的消息.</string>
+    <string name="group_members_autodisable_timer">自动禁用计时器</string>
+    <string name="group_members_autodisable_timer_for_this">此群组的自动禁用计时器</string>
+    <string name="group_members_configure">配置 ›</string>
+    <string name="group_members_demote_to_member">降为成员</string>
+    <string name="group_members_description">描述</string>
+    <string name="group_members_disappearing_messages">阀后即焚消息</string>
+    <string name="group_members_every_paired_contact_is">每个已配对的联系人都已在此群组中.</string>
+    <string name="group_members_group_description">群组描述</string>
+    <string name="group_members_group_image">群组图片</string>
+    <string name="group_members_group_name">群组名称</string>
+    <string name="group_members_groups_are_always_incognito">群组始终匿名. 配置保持隐藏.</string>
+    <string name="group_members_invite_member">邀请成员</string>
+    <string name="group_members_leave">退出</string>
+    <string name="group_members_leave_group">离开群组</string>
+    <string name="group_members_make_sure_the_photo">确保照片不显示你或你的位置.</string>
+    <string name="group_members_minutes_min_1">分钟 (min 1)</string>
+    <string name="group_members_mute_group">群组静音</string>
+    <string name="group_members_no_members_yet_the">还没有成员. 机器人和成员将显示在这里.</string>
+    <string name="group_members_off_1_min_1">关闭 / 1分 - 1年.</string>
+    <string name="group_members_promote_to_admin">升为管理员</string>
+    <string name="group_members_remove_from_group">从群组移除</string>
+    <string name="group_members_removes_the_group_locally">本地删除群组并通知主机.</string>
+    <string name="group_members_rename">重命名</string>
+    <string name="group_members_rename_group">重命名群组</string>
+    <string name="group_members_save">保存</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">当窗口在你缺席时到期.</string>
+    <string name="group_members_youll_stop_receiving_messages">你将不再收到此群组的消息.</string>
+    <string name="group_members_your_identity_here">你在这里的身份</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">基础</string>
+    <string name="help_design_decisions">设计决策</string>
+    <string name="help_experimental">实验性</string>
+    <string name="help_help">帮助</string>
+    <string name="help_how_aegis_works">Aegis工作原理</string>
+    <string name="help_loading">加载中…</string>
+    <string name="help_privacy">隐私</string>
+    <string name="help_security">安全</string>
+    <string name="help_technical">技术</string>
+    <string name="help_the_same_documents_that">与源代码中相同的文档 -- 内置于应用.</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">按住时长</string>
+    <string name="hold_to_execute_hold_to_send_call">长按发送/拨打</string>
+    <string name="hold_to_execute_send_voice_call_and">发送和拨号按钮需要长按.</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">1:1邀请链接有效直到过期.</string>
+    <string name="invitation_expiry_about_this_setting">关于此设置</string>
+    <string name="invitation_expiry_invitation_expiry">邀请过期</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis支持17种语言。</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">忘记PIN?</string>
+    <string name="lock_hold_for_silent_emergency">长按静音紧急求助</string>
+    <string name="lock_use_fingerprint_or_face">使用指纹或面部</string>
+    <string name="lock_use_pattern">使用图案</string>
+    <string name="lock_use_pin">使用PIN</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">删除笔记</string>
+    <string name="note_editor_folder">文件夹</string>
+    <string name="note_editor_unfiled">未分类</string>
+    <string name="note_editor_write">写…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis建立在已保护数百万人的技术之上.</string>
+    <string name="origins_origins">起源</string>
+    <string name="origins_where_this_came_from">这来自哪里</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">成就</string>
+    <string name="profile_avatar">头像</string>
+    <string name="profile_pick_avatar">选择头像</string>
+    <string name="profile_proof_your_safety_net">你的安全网络在运作的证据.</string>
+    <string name="profile_set_your_name_and">设置名称和可选照片.</string>
+    <string name="profile_tap_to_change_photo">点击更换照片</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">添加中继</string>
+    <string name="relay_current_relays">当前中继</string>
+    <string name="relay_format_smpbase64fingerprinthostport">格式: smp://&lt;base64指纹&gt;@主机[:端口]</string>
+    <string name="relay_loading">加载中…</string>
+    <string name="relay_must_start_with_smp">必须以smp://开头并包含主机.</string>
+    <string name="relay_poweruser_setting_the_defaults">高级用户设置. 默认值运行在基础设施上.</string>
+    <string name="relay_reset_to_defaults">重置为默认</string>
+    <string name="relay_simplex_relays">SimpleX中继</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;指纹&gt;@主机:端口</string>
+    <string name="relay_using_simplex_defaults">使用SimpleX默认值.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">远程访问</string>
+    <string name="remote_access_target_device">目标设备</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">按住说话</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">双重保护.</string>
+    <string name="secure_notes_cancel">取消</string>
+    <string name="secure_notes_delete">删除</string>
+    <string name="secure_notes_every_note_photo_video">保险箱中的每个笔记、照片、视频.</string>
+    <string name="secure_notes_search_the_vault">搜索保险箱…</string>
+    <string name="secure_notes_type_wipe_vault_to">输入 WIPE VAULT 确认</string>
+    <string name="secure_notes_vault">保险箱</string>
+    <string name="secure_notes_wipe">擦除</string>
+    <string name="secure_notes_wipe_vault">擦除保险箱</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">演练</string>
+    <string name="sentinel_inbox_frontcamera_capture">前置摄像头拍摄</string>
+    <string name="sentinel_inbox_gyroscope_rads">陀螺仪 (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">来自录制阶段的拍照</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">此阶段无取证负载.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">还没有Sentinel事件.</string>
+    <string name="sentinel_inbox_sentinel_inbox">Sentinel收件箱</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">清除</string>
+    <string name="sentinel_log_no_events_logged_arm">无事件. 启动Sentinel.</string>
+    <string name="sentinel_log_sentinel_event_log">Sentinel事件日志</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">按设备调整 -- 扬声器不同.</string>
+    <string name="sonar_audio_loop_selftest">音频环路自测</string>
+    <string name="sonar_autoarm_at_bedside">床边自动启动</string>
+    <string name="sonar_autocalibrate">自动校准</string>
+    <string name="sonar_automatically_arms_sentinel_when">放下手机时自动启动Sentinel.</string>
+    <string name="sonar_cancel_drill">取消演练</string>
+    <string name="sonar_contacts_who_receive_silent">接收静音ping的联系人.</string>
+    <string name="sonar_fires_one_audible_200">发出一次200 ms 1 kHz声音并测量.</string>
+    <string name="sonar_hearing_audible_clicks_drop">听到卡塔声? 降低. 扬声器到达超声波.</string>
+    <string name="sonar_if_you_hear_clicks">如果听到卡塔声 -- 是手机扬声器 -- 大多数</string>
+    <string name="sonar_latest_reading">最新读数</string>
+    <string name="sonar_layered_cascade_sonar_proximity">级联: 声纳、近距、加速度.</string>
+    <string name="sonar_local_event_log_debug">本地日志(调试)</string>
+    <string name="sonar_logonly_record_events_locally">仅日志 -- 不通知</string>
+    <string name="sonar_lower_more_sensitive_compare">越低 = 越敏感.</string>
+    <string name="sonar_no_contacts_yet_add">无联系人 -- 添加以启用通知.</string>
+    <string name="sonar_no_data_yet_tap">无数据 -- 点击开始</string>
+    <string name="sonar_notification_throttle">通知限制</string>
+    <string name="sonar_notify_list">通知列表</string>
+    <string name="sonar_place_the_phone_where">将手机放在你希望它监听的地方.</string>
+    <string name="sonar_send_test_notification_to">向列表发送测试通知</string>
+    <string name="sonar_sentinel_mode">Sentinel模式</string>
+    <string name="sonar_sentinel_viewers">Sentinel观察者</string>
+    <string name="sonar_sonar_raw_data">声纳 -- 原始数据</string>
+    <string name="sonar_status">状态</string>
+    <string name="sonar_stop_sonar_first_calibrate">先停止声纳 -- 校准需要独占音频</string>
+    <string name="sonar_stop_sonar_first_selftest">先停止声纳 -- 自测需要独占音频</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">相机</string>
+    <string name="story_screens_new_story">新动态</string>
+    <string name="story_screens_photo">照片</string>
+    <string name="story_screens_remove">移除</string>
+    <string name="story_screens_stories">动态</string>
+    <string name="story_screens_story_not_found">未找到故事.</string>
+    <string name="story_screens_visible_to_every_paired">对每个联系人可见24小时.</string>
+    <string name="story_screens_whats_happening">发生了什么?</string>
+    <string name="story_screens_your_story">你的故事</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">始终在中间. 无法移动.</string>
+    <string name="tab_order_nav_order">导航顺序</string>
+    <string name="tab_order_reorder_bottom_nav">重新排序导航</string>
+    <string name="tab_order_reset_to_default">重置为默认</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (居中锁定)</string>
+    <string name="tab_order_sos_stays_in_the">SOS留在中间 -- 太重要不能移动.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis永久免费. 无广告. 无跟踪. 不卖数据.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis将无需确认即可打开. PIN保护数据.</string>
+    <string name="tutorial_anyone_who_sees_these">看到这些词的人拥有你的账户</string>
+    <string name="tutorial_biometric_login_is_convenient">生物识别登录方便但跳过胁迫.</string>
+    <string name="tutorial_biometric_skips_duress">生物识别跳过胁迫</string>
+    <string name="tutorial_choose_how_you_unlock">选择解锁方式</string>
+    <string name="tutorial_confirm_pin">确认PIN</string>
+    <string name="tutorial_continue">继续</string>
+    <string name="tutorial_disable_lock">禁用锁定</string>
+    <string name="tutorial_done">完成</string>
+    <string name="tutorial_each_node_unlocks_a">每个节点解锁新的保护层.</string>
+    <string name="tutorial_enable_anyway">仍然启用</string>
+    <string name="tutorial_encrypted_communication_personal_security">加密通信 + 个人安全.</string>
+    <string name="tutorial_enter_aegis">进入Aegis</string>
+    <string name="tutorial_find_your_way_around">熟悉应用</string>
+    <string name="tutorial_fingerprint_face">指纹 / 面部</string>
+    <string name="tutorial_get_started">开始</string>
+    <string name="tutorial_if_it_ever_helps">如果有帮助, 你可以支持Aether项目.</string>
+    <string name="tutorial_it_is_your_master">这是你的主密钥</string>
+    <string name="tutorial_ive_written_it_down">已记下</string>
+    <string name="tutorial_keep_lock">保留锁定</string>
+    <string name="tutorial_keep_pin_only">仅PIN</string>
+    <string name="tutorial_left_to_right_along">从左到右沿底部:</string>
+    <string name="tutorial_make_sure_no_one">确保没人看着</string>
+    <string name="tutorial_new_pin_48_digits">新PIN (4–8位)</string>
+    <string name="tutorial_no_lock_screen">无锁屏</string>
+    <string name="tutorial_open_without_a_lock">无锁屏开启?</string>
+    <string name="tutorial_part_of_project_aether">Project Aether的一部分</string>
+    <string name="tutorial_pattern">图案</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN已设置 ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">恢复短语已设置!</string>
+    <string name="tutorial_save_pin">保存PIN</string>
+    <string name="tutorial_set_your_pin">设置PIN</string>
+    <string name="tutorial_show_the_words_again">再次显示单词</string>
+    <string name="tutorial_skip">跳过</string>
+    <string name="tutorial_skip_check_debug">跳过检查 (调试)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS锁定在中心</string>
+    <string name="tutorial_thank_you">谢谢</string>
+    <string name="tutorial_the_skill_tree">技能树</string>
+    <string name="tutorial_this_encrypts_your_messages">加密你的消息并恢复你的账户.</string>
+    <string name="tutorial_this_is_the_only">这是唯一副本</string>
+    <string name="tutorial_three_tiers_of_trust">三级信任</string>
+    <string name="tutorial_what_makes_this_different">什么让它与众不同</string>
+    <string name="tutorial_you_can_replay_this">可以从帮助中重播此教程.</string>
+    <string name="tutorial_your_messages_and_attachments">消息和附件用此PIN加密.</string>
+    <string name="tutorial_your_pin_is_set">PIN已设置并始终有效.</string>
+    <string name="tutorial_your_recovery_phrase">恢复短语</string>
+    <string name="tutorial_your_safety_net">安全网</string>
+    <string name="tutorial_youre_ready">准备就绪</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">无法获取安全码. SimpleX可能仍在</string>
+    <string name="verify_contact_pick_qr_from_photo">从照片选择QR</string>
+    <string name="verify_contact_safety_code_qr">安全码QR</string>
+    <string name="verify_contact_scan_their_qr">扫描他们的QR</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">立即锁定</string>
+    <string name="header_sentinel_armed">Sentinel已启动</string>
+    <string name="call_island_tap_return">点击返回</string>
+    <string name="cyan_stay_safe">— 注意安全.</string>
+    <string name="pin_guard_required">需要应用PIN</string>
+    <string name="pin_guard_set_pin">设置应用PIN</string>
+    <string name="update_dialog_later">稍后</string>
+    <string name="update_dialog_update">更新</string>
+    <string name="voice_slide_cancel">滑动取消 ←</string>
+    <string name="a11y_group_avatar">群组头像</string>
+    <string name="a11y_voice_record">语音录音</string>
+
+    <string name="chat_react_custom_title">自定义反应</string>
+    <string name="chat_react_custom_hint">输入任何表情符号.</string>
+    <string name="chat_react_apply">反应</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">系统</string>
+    <string name="action_delete">删除</string>
+    <string name="action_clear">清除</string>
+    <string name="action_add">添加</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_copy">复制</string>
+    <string name="action_share">分享…</string>
+    <string name="action_send">发送</string>
+    <string name="action_change">更改</string>
+    <string name="profile_saving">保存中…</string>
+    <string name="profile_get_started">开始</string>
+    <string name="contact_notification_sound">通知声音</string>
+    <string name="chat_add_caption">添加说明…</string>
+    <string name="chat_clear">清除聊天</string>
+    <string name="chat_clear_confirm">清除此聊天？</string>
+    <string name="chat_schedule_message">定时消息</string>
+    <string name="chat_cancel_edit">取消编辑</string>
+    <string name="chat_cancel_reply">取消回复</string>
+    <string name="chat_voice_message">语音消息</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_location">位置</string>
+    <string name="chat_camera">相机</string>
+    <string name="sos_emergency">紧急情况</string>
+    <string name="sos_stop">停止</string>
+    <string name="settings_checking">检查中…</string>
+    <string name="settings_enabled">已启用</string>
+    <string name="settings_start">开始</string>
+    <string name="settings_end">结束</string>
+    <string name="settings_how_it_works">工作原理</string>
+    <string name="settings_message">消息</string>
+    <string name="settings_checkin_window">签到窗口</string>
+    <string name="status_battery">电池</string>
+    <string name="status_charging">充电中</string>
+    <string name="remote_locate">定位</string>
+    <string name="remote_siren">警笛</string>
+    <string name="tutorial_bubble_welcome">欢迎来到 Project Aether。我是 Cyan — 我将引导你。</string>
+    <string name="tutorial_bubble_different">无电话号。无账户。没有服务器存储你的消息。只有加密。</string>
+    <string name="tutorial_bubble_safety">如果你有危险，一个按钮通知所有你信任的人。</string>
+    <string name="tutorial_bubble_tiers">你决定谁看什么。</string>
+    <string name="tutorial_bubble_skill_tree">一步一步加固手机。</string>
+    <string name="tutorial_bubble_tabs">底部五个标签。每个做什么：</string>
+    <string name="tutorial_bubble_unlock">PIN最安全。添加更快方式 — PIN始终有效。</string>
+    <string name="tutorial_bubble_ready">准备好了。添加联系人开始。</string>
+    <string name="tutorial_bubble_thanks">感谢选择 Aegis。</string>
+    <string name="tutorial_bullet_protocol">基于 Aegis Protocol 构建</string>
+    <string name="tutorial_bullet_metadata">零元数据 — 无个人资料，无联系人图</string>
+    <string name="tutorial_bullet_e2ee">端到端加密，始终</string>
+    <string name="tutorial_bullet_sos_hold">按住 SOS按钮 1 秒 — 或电源键×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS、音频和摄像头传输给联系人</string>
+    <string name="tutorial_bullet_sos_lockscreen">从锁屏工作</string>
+    <string name="tutorial_tier_trusted">可信</string>
+    <string name="tutorial_tier_trusted_desc">一切 — 位置、在线、SOS。</string>
+    <string name="tutorial_tier_emergency">紧急</string>
+    <string name="tutorial_tier_emergency_desc">仅SOS警报 — 无日常数据。</string>
+    <string name="tutorial_tier_untrusted">不可信</string>
+    <string name="tutorial_tier_untrusted_desc">仅消息 — 其他什么都没有。</string>
+    <string name="tutorial_tab_system_desc">设置、身份、应用锁和更新。</string>
+    <string name="tutorial_tab_opsec_desc">技能树 — 逐步加固手机。</string>
+    <string name="tutorial_tab_sos_desc">最重要的。长按通知所有人。</string>
+    <string name="tutorial_tab_comms_desc">加密聊天。在这里发消息。</string>
+    <string name="tutorial_tab_radar_desc">实时地图 — 联系人位置和在线状态。</string>
+    <string name="tutorial_unlock_pin_desc">输入PIN解锁。完整胁迫保护。</string>
+    <string name="tutorial_unlock_pattern_desc">画图案解锁。PIN仍覆盖胁迫。</string>
+    <string name="tutorial_unlock_bio_desc">快速解锁。生物识别跳过胁迫保护。</string>
+    <string name="tutorial_unlock_none_desc">无锁打开Aegis。PIN保护胁迫+远程访问。</string>
+    <string name="tutorial_pin_explanation_new">PIN锁定Aegis并保护配置。恢复短语加密消息。4–8位。</string>
+    <string name="tutorial_pin_already_nice">已完成。很好。</string>
+    <string name="tutorial_pin_set_first">先做最重要的。设置应用PIN。</string>
+    <string name="tutorial_node_app_pin">应用
+PIN</string>
+    <string name="tutorial_node_duress_pin">胁迫
+PIN</string>
+    <string name="tutorial_perm_title">为什么Aegis要求这么多</string>
+    <string name="tutorial_perm_bubble">点击允许 — 或跳过。我会解释每一个。</string>
+    <string name="tutorial_perm_intro">安全应用必须能为你行动 — 找到你、通知亲人、屏幕关闭时运行。没有你的允许，什么都不会离开手机。</string>
+    <string name="tutorial_perm_background_title">后台活动</string>
+    <string name="tutorial_perm_background_why">最重要。让Aegis在关闭或屏幕关闭时继续运行。没有这个，手机可能惄惄停止 — 尤其是OnePlus、Xiaomi和Oppo。</string>
+    <string name="tutorial_perm_oem_warning">你的%1$s手机有额外电池设置可能会杀死Aegis。打开此设置确保Aegis可以自动启动。</string>
+    <string name="tutorial_perm_notif_title">通知</string>
+    <string name="tutorial_perm_notif_why">提醒消息、通话和SOS — 即使在锁屏上。</string>
+    <string name="tutorial_perm_location_title">位置</string>
+    <string name="tutorial_perm_location_why">让信任的联系人在紧急时找到你，SOS共享你的位置。</string>
+    <string name="tutorial_perm_camera_title">相机</string>
+    <string name="tutorial_perm_camera_why">用于SOS拍照、错误密码拍照和视频通话。</string>
+    <string name="tutorial_perm_mic_title">麦克风</string>
+    <string name="tutorial_perm_mic_why">用于SOS录音和语音/视频通话。</string>
+    <string name="tutorial_perm_media_title">照片、视频和文件</string>
+    <string name="tutorial_perm_media_why">发送和保存附件。Aegis只看你分享的。</string>
+    <string name="tutorial_perm_phone_title">电话和SIM</string>
+    <string name="tutorial_perm_phone_why">警告SIM更换 — 号码被盗的常见迹象。</string>
+    <string name="tutorial_perm_nearby_title">附近设备</string>
+    <string name="tutorial_perm_nearby_why">蓝牙查找人和设备（雷达和声纳）。</string>
+    <string name="tutorial_perm_install_title">安装更新</string>
+    <string name="tutorial_perm_install_why">让Aegis安全更新，无需追踪你的应用商店。</string>
+    <string name="tutorial_perm_footer">你保持控制。跳过任何一个Aegis大部分仍然工作 — 但后台活动维持安全功能。</string>
+    <string name="tutorial_perm_granted">已允许 ✓</string>
+    <string name="tutorial_perm_denied">已拒绝</string>
+    <string name="tutorial_perm_allow">允许</string>
+</resources>
