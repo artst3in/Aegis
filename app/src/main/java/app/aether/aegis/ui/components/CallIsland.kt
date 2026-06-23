@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -109,7 +109,7 @@ fun CallIsland(navController: NavController) {
 
         Surface(
             color = AegisPanel,
-            shape = RoundedCornerShape(50),
+            shape = CutCornerShape(50),
             border = BorderStroke(1.dp, AegisCyan),
             modifier = Modifier
                 .fillMaxWidth()

@@ -869,7 +869,7 @@ private fun RadarHeaderChip(
 ) {
     Surface(
         modifier = modifier,
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(50),
+        shape = androidx.compose.foundation.shape.CutCornerShape(50),
         color = AegisPanel.copy(alpha = 0.78f),
         border = androidx.compose.foundation.BorderStroke(1.dp, AegisBorder),
     ) {

@@ -112,6 +112,16 @@ object ShieldTierEngine {
 
     /** Snapshot of the current shield tier for this profile. */
     fun currentTier(context: Context): ShieldTier {
+        // >>> DEBUG-ONLY (stripped for public build) — honour a debug tier
+        // override so the metal/holographic medal treatments can be previewed
+        // without earning nodes. Gated on the debug channel so a release build
+        // ignores the pref even if it is somehow present.
+        if (app.aether.aegis.BuildConfig.HAS_DEBUG_CHANNEL) {
+            app.aether.aegis.prefs.ExperimentalPrefs(context).debugTierOverride?.let { name ->
+                runCatching { return ShieldTier.valueOf(name) }
+            }
+        }
+        // <<< DEBUG-ONLY
         return tierFor(activeNodes(context))
     }
 }

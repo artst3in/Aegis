@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.R
 import app.aether.aegis.ui.components.AegisIcon
@@ -10,7 +12,7 @@ import app.aether.aegis.ui.theme.AegisOnSurfaceDim
 import app.aether.aegis.ui.theme.AegisSOS
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -66,7 +68,7 @@ fun RemoteAccessScreen(peerKey: String, navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = {
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -157,11 +159,11 @@ fun RemoteAccessScreen(peerKey: String, navController: NavController) {
             // from the ContactDetailScreen extraction.
             RemoteAccessPanel(peer = resolvedPeer, navController = navController)
 
-            // Reciprocal block — "I won't let THIS peer remote-access
-            // me." Lives on the same screen now so the full
-            // remote-access mental model is in one place: what I can
-            // do TO them (top), what they can do TO me (bottom).
-            RemoteAccessControlRow(peer = resolvedPeer)
+            // The reciprocal "block THIS peer from accessing me" control was
+            // removed from here: this is the OPERATOR screen (what I can do TO
+            // them), an odd home for "what they can do TO me". That control now
+            // lives only in the Remote Access Hub (settings/remote-access-hub),
+            // the single place who-can-reach-this-phone is managed.
         }
     }
 }
@@ -290,7 +292,7 @@ private fun RemoteAccessMap(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(220.dp)
-                .clip(RoundedCornerShape(12.dp)),
+                .clip(androidx.compose.ui.graphics.RectangleShape),
             update = { view ->
                 view.overlays.removeAll { it is Marker }
                 if (lat != null && lng != null) {
@@ -326,7 +328,7 @@ private fun RemoteAccessMap(
         captionText?.let { text ->
             Surface(
                 color = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f),
-                shape = RoundedCornerShape(6.dp),
+                shape = CutCornerShape(6.dp),
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(8.dp),

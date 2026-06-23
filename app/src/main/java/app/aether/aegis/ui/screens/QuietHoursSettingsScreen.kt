@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexSlider
+
 import app.aether.aegis.quiet.QuietHoursStore
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -47,11 +52,11 @@ fun QuietHoursSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.settings_quiet_hours)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -106,7 +111,7 @@ fun QuietHoursSettingsScreen(navController: NavController) {
                     Text(stringResource(R.string.settings_start), fontWeight = FontWeight.SemiBold)
                     Text(fmtTime(startMin),
                         color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
-                    Slider(
+                    HexSlider(
                         value = startMin.toFloat(),
                         // Snap explicitly to the nearest half-hour
                         // boundary on every drag. The previous
@@ -131,7 +136,7 @@ fun QuietHoursSettingsScreen(navController: NavController) {
                     // Same half-hour-snapped slider as Start (see that
                     // block for why the range/steps are 0..1410 / 46). Snap
                     // on every drag; commit to the store only on release.
-                    Slider(
+                    HexSlider(
                         value = endMin.toFloat(),
                         onValueChange = {
                             endMin = snapHalfHour(it)

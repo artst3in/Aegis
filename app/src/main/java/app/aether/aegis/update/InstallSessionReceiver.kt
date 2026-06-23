@@ -47,6 +47,15 @@ class InstallSessionReceiver : BroadcastReceiver() {
                     Log.w(TAG, "PENDING_USER_ACTION without EXTRA_INTENT")
                     return
                 }
+                // Intent Redirection mitigation: validate that the nested
+                // intent targets a system package (PackageInstaller) before
+                // launching. Blocks any non-system intent from being
+                // redirected through this receiver.
+                val targetPkg = confirm.`package` ?: confirm.component?.packageName
+                if (targetPkg != null && !isSystemPackage(context, targetPkg)) {
+                    Log.w(TAG, "EXTRA_INTENT targets non-system package: $targetPkg — blocked")
+                    return
+                }
                 confirm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 // ALWAYS post the heads-up notification. Previously
                 // we tried startActivity first and only fell back to
@@ -117,6 +126,20 @@ class InstallSessionReceiver : BroadcastReceiver() {
         if (androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled()) {
             androidx.core.app.NotificationManagerCompat.from(context)
                 .notify(CONFIRM_NOTIF_ID, notif)
+        }
+    }
+
+    /**
+     * Check if a package is a system app. Only system packages
+     * (PackageInstaller, system UI) should be producing the
+     * confirmation intent we launch.
+     */
+    private fun isSystemPackage(context: Context, packageName: String): Boolean {
+        return try {
+            val ai = context.packageManager.getApplicationInfo(packageName, 0)
+            (ai.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
+        } catch (e: Exception) {
+            false // unknown package — block
         }
     }
 

@@ -10,10 +10,12 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.*
+import app.aether.aegis.ui.components.AegisButtonShape
 import app.aether.aegis.ui.components.AegisIcon
 import app.aether.aegis.ui.components.AegisIcons
 import app.aether.aegis.ui.components.HexShape
@@ -26,6 +28,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
 import app.aether.aegis.AegisApp
 import app.aether.aegis.R
@@ -233,7 +237,7 @@ fun CallScreen(peerPubkey: String, peerName: String, video: Boolean, navControll
                     Row(
                         modifier = Modifier
                             .padding(top = 2.dp)
-                            .clip(androidx.compose.foundation.shape.RoundedCornerShape(6.dp))
+                            .clip(androidx.compose.foundation.shape.CutCornerShape(6.dp))
                             .clickable {
                                 val ep = java.net.URLEncoder.encode(peerPubkey, "UTF-8")
                                 navController.navigate("verify/$ep")
@@ -494,12 +498,21 @@ private fun CallConnectingOverlay(peerName: String, statusLine: String) {
             // Pulsing metal-framed hex with the peer monogram — the same
             // LunaGlass avatar geometry used across the app, breathing while
             // the call sets up. scale/alpha carry the "ringing" pulse.
+            //
+            // The hex is hosted in a deliberately OVERSIZED container (240 dp
+            // around a 188 dp hex) and centred. HexShape draws its medal frame
+            // ~5.7 dp beyond its own size box (outer trapezoid at r + w/2) and
+            // its glow halo ~0.6·size from centre — both overflow the hex's own
+            // bounds, so without surrounding room the frame + glow clip and the
+            // avatar looks small + cropped (user report 2026-06-23). The larger
+            // container gives the frame and glow room so nothing is cut off; the
+            // bigger hex itself answers "too small".
             Box(
-                modifier = Modifier.scale(scale).alpha(alpha),
+                modifier = Modifier.size(240.dp).scale(scale).alpha(alpha),
                 contentAlignment = Alignment.Center,
             ) {
                 HexShape(
-                    size = 160.dp,
+                    size = 188.dp,
                     borderColor = AegisCyan,
                     borderWidth = 6.dp,
                     fillBrush = Brush.verticalGradient(
@@ -515,7 +528,7 @@ private fun CallConnectingOverlay(peerName: String, statusLine: String) {
                     Text(
                         peerName.firstOrNull()?.uppercase() ?: "?",
                         color = AegisCyan,
-                        fontSize = 56.sp,
+                        fontSize = 64.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 }
@@ -733,19 +746,23 @@ private fun DynamicCallBackground(state: CallState?) {
 }
 
 /**
- * One LunaGlass call control: a metal-framed flat-top [HexShape] over a
- * dark glass plate, with either a LunaGlass [iconRes] or a short [glyph]
- * inside, and a caption below. Replaces the old Material `CircleShape`
- * pill so the call screen speaks the same hex/cyan language as the rest
- * of the app.
+ * One LunaGlass call control: a hex-shaped ([HexagonShape]) FLAT FILLED
+ * plate with either a LunaGlass [iconRes] or a short [glyph] inside, and a
+ * caption below.
+ *
+ * Idle controls are a solid accent-tinted plate (a real "filled button"
+ * surface), NOT a thin outline over a dark recessed centre — that hollow
+ * dark-glass look read as an empty avatar frame waiting for a photo rather
+ * than a button (user report 2026-06-23; earlier 2026-06-16 report killed
+ * the chunky metal-medal rim for the same reason). Engaged controls flood
+ * the plate with the full accent.
  *
  * @param accent frame + content colour — cyan for a neutral control,
  *   amber for an "engaged / muted / camera-off" state, red for End.
- * @param engaged fills the plate with the accent (toggled-on look); off
- *   leaves the recessed dark-glass plate so the control reads as idle.
+ * @param engaged floods the plate with the full accent (toggled-on look);
+ *   idle keeps the subtler accent-tinted plate.
  *
- * The whole hex is the tap target (HexShape wires [onClick] with the
- * standard LunaGlass haptic); this only paints + captions it.
+ * The whole frame is the tap target.
  */
 @Composable
 private fun CallControlButton(
@@ -757,26 +774,33 @@ private fun CallControlButton(
     engaged: Boolean = false,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        HexShape(
-            size = 58.dp,
-            borderColor = accent,
-            // Proportional to the hex (matches the avatar-frame rule) so the
-            // medalFrame bevel reads as a chunky metal rim, not a hairline.
-            borderWidth = (58f * 0.055f).dp,
-            // Engaged → accent-filled plate; idle → recessed dark glass.
-            fillBrush = if (engaged) {
-                Brush.verticalGradient(
-                    listOf(accent.copy(alpha = 0.85f), accent.copy(alpha = 0.6f)),
+        // HEXAGON (HexagonShape) — the LunaGlass geometry the rest of the app
+        // uses, not the cut-corner shape that read as an octagon on a square
+        // button (user request: call buttons must be hex).
+        val shape = app.aether.aegis.ui.components.HexagonShape
+        Box(
+            modifier = Modifier
+                .size(58.dp)
+                .clip(shape)
+                .background(
+                    // FLAT FILLED plate. Engaged → full accent gradient; idle →
+                    // a solid accent-tinted plate (panel lerped 22% toward the
+                    // accent). The idle plate is deliberately a single flat fill,
+                    // NOT the old dark recessed gradient (AegisPanel→Background)
+                    // whose hollow centre read as an empty avatar frame rather
+                    // than a button (user report 2026-06-23).
+                    if (engaged) {
+                        Brush.verticalGradient(
+                            listOf(accent.copy(alpha = 0.85f), accent.copy(alpha = 0.6f)),
+                        )
+                    } else {
+                        SolidColor(lerp(AegisPanel, accent, 0.22f))
+                    },
                 )
-            } else {
-                Brush.verticalGradient(
-                    listOf(AegisPanel.copy(alpha = 0.85f), AegisBackground.copy(alpha = 0.85f)),
-                )
-            },
-            // Static metal bevel so the frame looks like the avatar medals
-            // even with the animated sheen toggle off.
-            medalFrame = true,
-            onClick = onClick,
+                // Thin hairline border (was ~3.2 dp medal rim).
+                .border(1.5.dp, accent, shape)
+                .clickable(onClick = onClick),
+            contentAlignment = Alignment.Center,
         ) {
             // Content colour flips to dark on a filled (engaged) plate so an
             // icon/glyph stays legible against the bright accent.

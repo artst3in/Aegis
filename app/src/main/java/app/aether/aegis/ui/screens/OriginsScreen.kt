@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -463,17 +465,14 @@ private val ORIGINS = listOf(
 fun OriginsScreen(navController: NavController) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.origins_origins)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         AegisIcon(AegisIcons.Back, "back")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                ),
-            )
+                            )
         },
     ) { pad ->
         LazyColumn(

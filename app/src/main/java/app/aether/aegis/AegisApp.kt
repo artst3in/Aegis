@@ -1255,6 +1255,19 @@ class AegisApp : Application() {
             val senderName = peer?.displayName?.takeIf { it.isNotBlank() }
                 ?: msg.fromKey.removePrefix("simplex:").ifBlank { "Aegis" }
 
+            // Notification content privacy. FULL shows name + text; NAME_ONLY
+            // keeps the name but redacts the body to "New message"; HIDDEN
+            // also replaces the name with the app name so nothing about who
+            // or what leaks to the shade / lock screen. SOS is exempt and
+            // never routed here. (See NotificationPrivacyPrefs.)
+            val privacy = app.aether.aegis.prefs.NotificationPrivacyPrefs(this@AegisApp).level
+            val shownName = if (privacy == app.aether.aegis.prefs.NotificationPrivacy.HIDDEN) {
+                getString(R.string.app_name)
+            } else senderName
+            val shownBody = if (privacy == app.aether.aegis.prefs.NotificationPrivacy.FULL) {
+                msg.body
+            } else "New message"
+
             // Tap → open the chat. For group messages we send the user
             // to the group conversation; the sender's 1:1 chat is the
             // wrong destination since they may have spoken in the group
@@ -1271,7 +1284,13 @@ class AegisApp : Application() {
             val tapPI = openChat?.let {
                 android.app.PendingIntent.getActivity(
                     this@AegisApp,
-                    msg.fromKey.hashCode(),
+                    // Key the request code to the CONVERSATION (openTarget),
+                    // matching the notify id below. Keying it to the raw
+                    // sender let a group message and a 1:1 from that same
+                    // sender share one PendingIntent — FLAG_UPDATE_CURRENT
+                    // then overwrote its deep-link with whichever posted last,
+                    // so a tap could open the wrong conversation.
+                    openTarget.hashCode(),
                     it,
                     android.app.PendingIntent.FLAG_UPDATE_CURRENT or
                         android.app.PendingIntent.FLAG_IMMUTABLE,
@@ -1285,15 +1304,20 @@ class AegisApp : Application() {
                 .setKey("self")
                 .build()
             val sender = androidx.core.app.Person.Builder()
-                .setName(senderName)
+                .setName(shownName)
                 .setKey(msg.fromKey)
                 .build()
 
             // RemoteInput for inline + Android Auto voice reply. The
             // reply broadcast carries the peer key so MessageReplyReceiver
             // knows where to route the response.
+            // Reply label leaks the name when expanded — keep it generic when
+            // the user chose to hide names.
+            val replyLabel =
+                if (privacy == app.aether.aegis.prefs.NotificationPrivacy.HIDDEN) "Reply"
+                else "Reply to $senderName"
             val remoteInput = androidx.core.app.RemoteInput.Builder(MessageReplyReceiver.KEY_REPLY_TEXT)
-                .setLabel("Reply to $senderName")
+                .setLabel(replyLabel)
                 .build()
             val replyIntent = android.content.Intent(
                 this@AegisApp, MessageReplyReceiver::class.java
@@ -1364,12 +1388,20 @@ class AegisApp : Application() {
                 .setStyle(
                     NotificationCompat.MessagingStyle(me).addMessage(
                         NotificationCompat.MessagingStyle.Message(
-                            msg.body,
+                            shownBody,
                             msg.timestamp,
                             sender,
                         )
                     )
                 )
+                // Lock-screen visibility follows the privacy choice: any level
+                // above FULL marks the notification SECRET so the lock screen
+                // doesn't re-expose what the shade redacted.
+                .apply {
+                    if (privacy != app.aether.aegis.prefs.NotificationPrivacy.FULL) {
+                        setVisibility(NotificationCompat.VISIBILITY_SECRET)
+                    }
+                }
                 // In quiet hours: silent (no sound, no vibration). Notification
                 // still posts so the shade shows it; sos + control alerts
                 // are unaffected (different code paths).
@@ -1503,6 +1535,28 @@ class AegisApp : Application() {
         }
     }
 
+    /**
+     * Apply the user's notification-content-privacy choice to a non-SOS
+     * "follower" alert (geofence, sentinel, …). At FULL the builder is
+     * returned untouched. Above FULL the lock screen is marked SECRET so it
+     * can't re-expose what the shade redacts; at HIDDEN the title/text are
+     * replaced with a generic shield line so no contact name or event detail
+     * leaks to a shoulder-surfer.
+     *
+     * MUST NOT be called on SOS/duress notifications — safety overrides
+     * privacy there, and the user has to see "SOS ALERT" immediately.
+     */
+    private fun NotificationCompat.Builder.applyContentPrivacy(): NotificationCompat.Builder {
+        val privacy = app.aether.aegis.prefs.NotificationPrivacyPrefs(this@AegisApp).level
+        if (privacy == app.aether.aegis.prefs.NotificationPrivacy.FULL) return this
+        setVisibility(NotificationCompat.VISIBILITY_SECRET)
+        if (privacy == app.aether.aegis.prefs.NotificationPrivacy.HIDDEN) {
+            setContentTitle(getString(R.string.app_name))
+            setContentText("New alert")
+        }
+        return this
+    }
+
     private fun notifyGeofence(fromKey: String, jsonBody: String) {
         notifScope.launch {
             runCatching {
@@ -1514,6 +1568,9 @@ class AegisApp : Application() {
                     .setColor(BRAND_SOS_ARGB)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(true)
+                    // Geofence carries a contact name + location event — follow
+                    // the content-privacy choice (SOS does not; this is not SOS).
+                    .applyContentPrivacy()
                     .build()
                 if (canNotify()) {
                     NotificationManagerCompat.from(this@AegisApp)
@@ -1830,6 +1887,60 @@ class AegisApp : Application() {
             }
         )
         return channelId
+    }
+
+    /**
+     * Memory-pressure handler. On a low-RAM device (the budget OEMs Aegis
+     * has to survive on) a smaller idle footprint is not just tidiness — it
+     * directly lowers the chance the OS kills our process under pressure,
+     * and a killed process is one that stops delivering messages. So when
+     * the system signals it wants RAM back, drop everything that's purely
+     * re-derivable.
+     *
+     * Levels aren't strictly ordered by urgency in the docs, but every trim
+     * constant except the gentlest (RUNNING_MODERATE) is >= RUNNING_LOW, so
+     * the two thresholds below read cleanly:
+     *   - any trim signal  → drop UI-only caches (decoded thumbnails, link
+     *     previews) AND decrypted scratch files (also a security win — no
+     *     plaintext lingering once the screen is gone);
+     *   - real pressure / deep background → additionally release the cached
+     *     call WebView (tens of MB kept warm for fast reconnect), but only
+     *     when no call is live.
+     */
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        if (level < android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE) return
+        runCatching { trimReclaimableCaches() }
+            .onFailure { android.util.Log.w("AegisApp", "trimReclaimableCaches failed", it) }
+        if (level >= android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) {
+            runCatching { releaseIdleCallWebView() }
+                .onFailure { android.util.Log.w("AegisApp", "releaseIdleCallWebView failed", it) }
+        }
+    }
+
+    /** Drop UI-only, re-derivable IN-MEMORY caches. Each item is independently
+     *  guarded so one failure can't skip the rest.
+     *
+     *  Deliberately does NOT touch the decrypted-attachment scratch files
+     *  (ChatAttachmentSeal / VaultAttachmentCrypto): those live on DISK, so
+     *  dropping them frees no RAM, yet deleting one while it's on screen pulls
+     *  the file out from under Coil (whose in-memory bitmap we just cleared) and
+     *  the media renders BLACK (user-reported). The scratch is plaintext that's
+     *  already wiped at the real security boundary — every lock event, via the
+     *  PinSession lock listener — so memory pressure has no business clearing it. */
+    private fun trimReclaimableCaches() {
+        runCatching { coil.Coil.imageLoader(this).memoryCache?.clear() }
+        runCatching { app.aether.aegis.util.LinkPreview.clear() }
+    }
+
+    /** Tear down the warm call WebView when memory is tight — but never
+     *  mid-call (that would drop the call). CallStore.active is the live
+     *  call; destroyWebView() is main-thread-safe internally. */
+    private fun releaseIdleCallWebView() {
+        if (app.aether.aegis.call.CallStore.active.value != null) return
+        if (app.aether.aegis.call.CallManager.cachedWebView() == null) return
+        android.util.Log.i("AegisApp", "memory pressure: releasing idle call WebView")
+        app.aether.aegis.call.CallManager.destroyWebView()
     }
 
     companion object {

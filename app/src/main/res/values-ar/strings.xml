@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">تشخيصات ICE والمكالمات عبر الريلي فقط.</string>
     <string name="_stops_screenshots_screen_recording">يمنع لقطات الشاشة والتسجيل.</string>
     <string name="_unfinished_features_hidden_behind">ميزات غير مكتملة خلف بوابة 7 نقرات.</string>
-    <string name="_wifionly_by_default_apks">WiFi فقط -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">WiFi فقط -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">تنبيه تغيير SIM</string>
     <string name="sim_swap_when_the_sim_in">عند تغيير SIM في الهاتف يرسل تنبيه.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">شعار Aegis</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis يتحقق من GitHub كل 24 ساعة.</string>
+    <string name="update_how_it_works_body">يتحقق Aegis من GitHub كل 24 ساعة للبحث عن إصدارات جديدة. حجم كل APK حوالي 100 ميغابايت. بشكل افتراضي نقوم بالتنزيل عبر WiFi فقط — تنزيل هذا الحجم عبر بيانات الجوال مع كل إصدار سيكلف أموالاً حقيقية.</string>
     <string name="update_beltandbraces_type_rollback_below">اكتب ROLLBACK أدناه.</string>
     <string name="update_check_interval">فترة التحقق</string>
     <string name="update_how_often_aegis_polls">عدد مرات استعلام Aegis لـ GitHub.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis مجاني للأبد. بدون إعلانات. بدون تتبع. بدون بيع بيانات.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis يفتح بدون سؤال. PIN يحمي البيانات.</string>
+    <string name="tutorial_aegis_will_open_without">سيفتح Aegis بدون طلب أي شيء. رمز PIN لا يزال موجودًا — للإكراه والتحكم عن بعد وتشفير رسائلك. يمكنك إعادة تفعيل القفل في أي وقت من الإعدادات.</string>
     <string name="tutorial_anyone_who_sees_these">أي شخص يرى هذه الكلمات يملك حسابك</string>
-    <string name="tutorial_biometric_login_is_convenient">تسجيل الدخول بالبيومتري مريح لكنه يتخطى الإكراه.</string>
+    <string name="tutorial_biometric_login_is_convenient">تسجيل الدخول البيومتري مريح لكنه يتجاوز حماية الإكراه. إذا أجبرك شخص على استخدام بصمتك، يفتح الملف الحقيقي. يُوصى باستخدام رمز PIN للأمان الأقصى.</string>
     <string name="tutorial_biometric_skips_duress">البيومتري يتخطى الإكراه</string>
     <string name="tutorial_choose_how_you_unlock">اختر كيف تفتح</string>
     <string name="tutorial_confirm_pin">تأكيد الرمز</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">تعرف على التطبيق</string>
     <string name="tutorial_fingerprint_face">بصمة / وجه</string>
     <string name="tutorial_get_started">ابدأ</string>
-    <string name="tutorial_if_it_ever_helps">إذا ساعدك، يمكنك دعم مشروع Aether.</string>
-    <string name="tutorial_it_is_your_master">هذا مفتاحك الرئيسي</string>
+    <string name="tutorial_if_it_ever_helps">إذا ساعدك يومًا، يمكنك دعم مشروع Aether من النظام → حول.</string>
+    <string name="tutorial_it_is_your_master">هذا هو مفتاحك الرئيسي، يُعرض مرة واحدة. لا نخزنه أبدًا ولن نعرضه مرة أخرى — ليس خلف رمز PIN ولا خلف بصمتك. إذا لم تكتبه، فهذا ثمن أن يكون ملكك حقًا. احتفظ بنسختك الورقية في مكان آمن.</string>
     <string name="tutorial_ive_written_it_down">كتبتها</string>
     <string name="tutorial_keep_lock">إبقاء القفل</string>
     <string name="tutorial_keep_pin_only">PIN فقط</string>
     <string name="tutorial_left_to_right_along">من اليسار إلى اليمين على طول الأسفل:</string>
-    <string name="tutorial_make_sure_no_one">تأكد أن لا أحد ينظر</string>
+    <string name="tutorial_make_sure_no_one">تأكد أن لا أحد يراقب ولا شيء يسجل شاشتك. لقطات الشاشة محظورة — لقطة الشاشة تذهب للمعرض وتُزامن مع السحابة ويمكن لأي شخص لديه هاتفك رؤيتها. امسح اللوحة أدناه لكشف كلماتك الـ24 واكتبها على ورقة واحتفظ بها في مكان آمن.</string>
     <string name="tutorial_new_pin_48_digits">PIN جديد (4–8 أرقام)</string>
     <string name="tutorial_no_lock_screen">بدون شاشة قفل</string>
     <string name="tutorial_open_without_a_lock">فتح بدون شاشة قفل؟</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">إظهار الكلمات مرة أخرى</string>
     <string name="tutorial_skip">تخطي</string>
     <string name="tutorial_skip_check_debug">تخطي الفحص (تصحيح)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS مقفل في الوسط</string>
+    <string name="tutorial_sos_stays_locked_in">SOS مثبت في الوسط. يمكنك إعادة ترتيب الباقي من النظام → التنقل.</string>
     <string name="tutorial_thank_you">شكراً</string>
     <string name="tutorial_the_skill_tree">شجرة المهارات</string>
-    <string name="tutorial_this_encrypts_your_messages">هذا يشفر رسائلك ويسترد حسابك.</string>
-    <string name="tutorial_this_is_the_only">هذه النسخة الوحيدة</string>
+    <string name="tutorial_this_encrypts_your_messages">هذا يشفر رسائلك ويستعيد حسابك إذا نسيت رمز PIN أو فقدت بصمتك. إذا فقدته، لا أحد — لا نحن ولا أي شخص — يمكنه استعادة بياناتك.</string>
+    <string name="tutorial_this_is_the_only">هذه هي النسخة الوحيدة. لا نحتفظ بشيء. لا يوجد \"نسيت العبارة\"، لا إعادة تعيين، ولا طريقة لإنشاء واحدة جديدة — لا برمز PIN ولا ببصمتك ولا من خلالنا. إذا فقدت هذه الورقة، بياناتك ستختفي للأبد ولا أحد على وجه الأرض يمكنه استعادتها. اكتبها الآن.</string>
     <string name="tutorial_three_tiers_of_trust">ثلاث مستويات ثقة</string>
     <string name="tutorial_what_makes_this_different">ما يجعله مختلفا</string>
     <string name="tutorial_you_can_replay_this">يمكنك إعادة التشغيل من المساعدة.</string>
     <string name="tutorial_your_messages_and_attachments">رسائلك ومرفقاتك مشفرة تحت هذا PIN.</string>
-    <string name="tutorial_your_pin_is_set">PIN معيّن ويعمل دائماً.</string>
+    <string name="tutorial_your_pin_is_set">تم تعيين رمز PIN ويعمل دائمًا — هذا ما يستخدمه وضع الإكراه والتحكم عن بعد. هذه اختصارات اختيارية فوقه.</string>
     <string name="tutorial_your_recovery_phrase">عبارة الاسترداد</string>
     <string name="tutorial_your_safety_net">شبكة الأمان</string>
     <string name="tutorial_youre_ready">أنت جاهز</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">يشحن</string>
     <string name="remote_locate">تحديد الموقع</string>
     <string name="remote_siren">صفارة</string>
-    <string name="tutorial_bubble_welcome">مرحبا بك في Project Aether. أنا Cyan — سأكون مرشدك.</string>
+    <string name="tutorial_bubble_welcome">مرحبًا بك في مشروع Aether. أنا سيان — سأكون دليلك. أحضر قلمًا وورقة — سأطلب منك كتابة 24 كلمة تحمي رسائلك.</string>
     <string name="tutorial_bubble_different">لا رقم هاتف. لا حساب. لا خادم يخزن رسائلك. فقط تشفير.</string>
     <string name="tutorial_bubble_safety">إذا كنت في خطر، زر واحد ينبه كل من تثق بهم.</string>
     <string name="tutorial_bubble_tiers">أنت تقرر من يرى ماذا.</string>
@@ -736,4 +736,31 @@
     <string name="tutorial_perm_granted">ممنوح ✓</string>
     <string name="tutorial_perm_denied">مرفوض</string>
     <string name="tutorial_perm_allow">سماح</string>
+
+    <string name="tutorial_perm_oem_title">إعدادات بطارية %1$s</string>
+    <string name="tutorial_perm_oem_open">افتح إعدادات %1$s</string>
+    <string name="tutorial_perm_denied_note">يمكنك تفعيل هذا لاحقًا — انقر لفتح الإعدادات.</string>
+    <string name="tutorial_pin_explanation_existing">رمز PIN يفتح Aegis وهو المفتاح الذي تُشفَّر به رسائلك. 4–8 أرقام.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">خزنة\nPIN</string>
+    <string name="tutorial_node_device_owner">مالك\nالجهاز</string>
+    <string name="tutorial_node_app_duress">تطبيق\nإكراه</string>
+    <string name="tutorial_skill_tree_explanation">PIN التطبيق يفتح الإكراه والصورة والخزنة والكناري ومراقبة SIM والسياج الجغرافي — اضبطه مرة واحدة والباقي يفتح. القمة هي مالك الجهاز.</string>
+    <string name="tutorial_phrase_intro">في الشاشة التالية سترى 24 كلمة. امسح اللوحة لكشفها ثم اكتبها جميعًا على ورقة.</string>
+    <string name="tutorial_phrase_show">أظهر العبارة</string>
+    <string name="tutorial_phrase_scratch">امسح للكشف ثم اكتب جميع الـ24 كلمة بالترتيب.</string>
+    <string name="tutorial_phrase_confirm">تأكد أنك حفظتها. أدخل الكلمات %1$s من ورقتك.</string>
+    <string name="tutorial_phrase_word_n">كلمة #%1$d</string>
+    <string name="tutorial_phrase_mismatch">الكلمات لا تتطابق. تحقق من ورقتك.</string>
+    <string name="tutorial_phrase_write_down">اكتب هذه الـ24 كلمة على ورقة. إنها مفتاح كل شيء.</string>
+    <string name="tutorial_phrase_already_saved">تم الحفظ. احتفظ بنسختك الورقية في مكان آمن.</string>
+    <string name="tutorial_draw_pattern">ارسم نمطك</string>
+    <string name="tutorial_draw_pattern_confirm">ارسمه مرة أخرى للتأكيد</string>
+    <string name="tutorial_pattern_min_dots">استخدم %1$d نقاط على الأقل.</string>
+    <string name="tutorial_pattern_mismatch">لا يتطابق — أعد المحاولة.</string>
+    <string name="tutorial_bio_need_pin_first">أعد PIN أولاً ثم أضف البيومترية.</string>
+    <string name="tutorial_bio_failed">تعذر تفعيل البيومترية. حاول مرة أخرى.</string>
+    <string name="tutorial_pin_save_error">تعذر حفظ PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">لم يُحفظ PIN — تحقق من التشخيصات.</string>
 </resources>

@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.gesture.HoldToExecuteStore
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -16,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.aether.aegis.ui.components.GlassPanel
+import app.aether.aegis.ui.components.HexRadio
 
 /**
  * Configures hold-to-execute. When enabled,
@@ -47,11 +52,11 @@ fun HoldToExecuteSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.hold_to_execute_hold_to_send_call)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -138,7 +143,7 @@ fun HoldToExecuteSettingsScreen(navController: NavController) {
                                 .padding(vertical = 2.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            RadioButton(
+                            HexRadio(
                                 selected = selected,
                                 onClick = {
                                     // Mirror then persist; selection is by

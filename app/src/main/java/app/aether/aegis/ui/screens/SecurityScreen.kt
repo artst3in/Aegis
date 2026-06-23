@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.aether.aegis.AegisApp
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
 import app.aether.aegis.ui.components.SkillNode
 import app.aether.aegis.ui.components.SkillTreeView
 import kotlinx.coroutines.launch
@@ -77,6 +79,16 @@ fun SecurityScreen(navController: NavController) {
     val isDeviceOwner = remember {
         app.aether.aegis.admin.DeviceOwnerStatus.isActive(context)
     }
+    // Remote-access hub node lights only once Device Admin is active AND at
+    // least one trusted Aegis contact is enlisted as a remote operator
+    // (remoteAccessEnabled). Observed so the node + row update live when a grant
+    // is toggled in the hub.
+    val peers by aegisApp.repository.observeKnownPeers()
+        .collectAsState(initial = emptyList())
+    val remoteOperatorOn = peers.any {
+        it.trustTier == app.aether.aegis.data.TrustTier.TRUSTED.name &&
+            it.isAegis && it.remoteAccessEnabled
+    }
 
     // Skill-tree feature list — used both for the visual tree
     // (above) and the descriptive row list (below). The tree gates
@@ -126,6 +138,16 @@ fun SecurityScreen(navController: NavController) {
             if (isDeviceOwner) "Full unattended control"
             else "ADB-only after factory reset",
             locked = !isDeviceOwner,
+        ),
+        // Remote access — the emergency operator grant. Branches off Device
+        // Admin (the capability is inert without it), so it's locked until
+        // admin is active, then grey until a trusted operator is enlisted.
+        ShieldHex(
+            "Remote access", remoteOperatorOn, "settings/remote-access-hub",
+            if (deviceAdminOn)
+                (if (remoteOperatorOn) "Trusted operators enlisted" else "Add a trusted operator")
+            else "Enable Device Admin first",
+            locked = !deviceAdminOn,
         ),
     )
 
@@ -184,6 +206,7 @@ fun SecurityScreen(navController: NavController) {
             mugshotOn     = mugshotOn,
             deviceAdminOn = deviceAdminOn,
             isDeviceOwner = isDeviceOwner,
+            remoteOperatorOn = remoteOperatorOn,
         )
         SkillTreeView(
             nodes = treeNodes,
@@ -338,6 +361,7 @@ private const val ID_MUGSHOT      = "mugshot"
 // ID_SOS removed with the SOS Drill node (not wired yet).
 private const val ID_ADMIN        = "deviceAdmin"
 private const val ID_DO           = "deviceOwner"
+private const val ID_REMOTE_HUB   = "remoteAccessHub"
 
 private val SKILL_TREE_EDGES: List<Pair<String, String>> = listOf(
     // App PIN → seven direct children (every PIN-gated node).
@@ -371,6 +395,11 @@ private val SKILL_TREE_EDGES: List<Pair<String, String>> = listOf(
     // Admin is impossible by construction).
     ID_PIN    to ID_ADMIN,
     ID_ADMIN  to ID_DO,
+    // Remote access hangs off Device Admin (one short branch to its left): the
+    // remote LOCATE/lock/wipe capability is inert without admin, so the tree
+    // shows the dependency literally — you can't light Remote access until
+    // Device Admin is lit first.
+    ID_ADMIN  to ID_REMOTE_HUB,
 )
 
 private fun buildSkillTreeNodes(
@@ -384,6 +413,7 @@ private fun buildSkillTreeNodes(
     mugshotOn: Boolean,
     deviceAdminOn: Boolean,
     isDeviceOwner: Boolean,
+    remoteOperatorOn: Boolean,
 ): List<SkillNode> = listOf(
     // Trunk — App PIN. Nudged one cell UP from the origin
     // (layout review): at (0, 0) it sat flush against
@@ -490,19 +520,39 @@ private fun buildSkillTreeNodes(
         locked = !appPinOn,
         route  = "settings/deviceadmin",
     ),
+    // Remote access — short branch down-left of Device Admin (0,1) into the
+    // open pocket left of the trunk. Moved off the cramped (-1,1) where it
+    // overlapped the App PIN / Device Admin cluster (user report). Stays ABOVE
+    // the GROUND line — it's an in-app feature, not the NG+ Device-Owner zone
+    // below — so it sits at the same vertical level as Device Admin, two cells
+    // to its left.
+    SkillNode(
+        id = ID_REMOTE_HUB,
+        label = "Remote Access",
+        q = -2, r = 2,
+        // Lit only once admin is on AND a trusted operator is enlisted.
+        active = deviceAdminOn && remoteOperatorOn,
+        // HARD gate: locked AND inaccessible without Device Admin (no
+        // tapWhenLocked). The only way to unlock it is to activate the parent
+        // Device Admin node — the "give the app admin rights" rule made literal.
+        // Once admin is on it's reachable (grey until a contact is enlisted).
+        locked = !deviceAdminOn,
+        route  = "settings/remote-access-hub",
+    ),
     SkillNode(
         id = ID_DO,
         label = "Device Owner",
         q = 0, r = 3,
         active = isDeviceOwner,
-        // Locked is a poor frame — the user CAN do it, just not from
-        // in-aegisApp. Leave it tappable so a tap navigates to the
-        // explainer in About / settings. Reaching DO via
-        // `dpm set-device-owner` automatically activates the admin
-        // receiver, so achieving this node also lights up
-        // [ID_ADMIN] for free — "two points for Owner" per the
-        // tier-engine count semantics.
-        locked = false,
+        // Until it's actually provisioned, Device Owner is an UNAVAILABLE node
+        // (ADB-only after factory reset) and must READ as locked — dark + a
+        // padlock — not as a plain tappable hex (user report: it "looks
+        // tappable" but isn't enableable in-app). tapWhenLocked keeps the
+        // explainer reachable on tap. Reaching DO via `dpm set-device-owner`
+        // auto-activates the admin receiver, so achieving this also lights
+        // [ID_ADMIN] for free ("two points for Owner" in the tier count).
+        locked = !isDeviceOwner,
+        tapWhenLocked = true,
         route  = "settings/deviceadmin",
     ),
 )
@@ -538,23 +588,25 @@ private fun ShieldRow(feature: ShieldHex, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
-                modifier = Modifier.size(10.dp),
+                modifier = Modifier.size(12.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                val dotChar = when {
-                    feature.locked -> "🔒"
-                    feature.active -> "●"
-                    else           -> "○"
+                // Locked → LunaGlass padlock (was the raw 🔒 emoji); active →
+                // filled cyan dot; available-but-off → hollow dot.
+                if (feature.locked) {
+                    AegisIcon(
+                        AegisIcons.Lock,
+                        contentDescription = "locked",
+                        tint = AegisOnSurfaceDim.copy(alpha = 0.5f),
+                        modifier = Modifier.size(12.dp),
+                    )
+                } else {
+                    Text(
+                        if (feature.active) "●" else "○",
+                        color = if (feature.active) AegisCyan else AegisOnSurfaceDim,
+                        fontSize = 10.sp,
+                    )
                 }
-                Text(
-                    dotChar,
-                    color = when {
-                        feature.locked -> AegisOnSurfaceDim.copy(alpha = 0.5f)
-                        feature.active -> AegisCyan
-                        else           -> AegisOnSurfaceDim
-                    },
-                    fontSize = 10.sp,
-                )
             }
             Spacer(modifier = Modifier.width(10.dp))
             Column(modifier = Modifier.weight(1f)) {

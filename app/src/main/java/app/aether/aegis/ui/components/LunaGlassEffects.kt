@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -45,9 +45,9 @@ import kotlin.random.Random
  * pass and is much heavier — this is the intended fallback.
  */
 fun Modifier.lunaGlass(corner: Dp = 12.dp): Modifier = this
-    .clip(RoundedCornerShape(corner))
+    .clip(CutCornerShape(corner))
     .background(AegisGlassFill)
-    .border(1.dp, AegisGlassBorder, RoundedCornerShape(corner))
+    .border(1.dp, AegisGlassBorder, CutCornerShape(corner))
 
 /**
  * Hex grid background tile. Faint flat-top hexagon

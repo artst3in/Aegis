@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">Yalnızca röle ICE ve arama tanılaması.</string>
     <string name="_stops_screenshots_screen_recording">Ekran görüntüsü, ekran kaydı ve</string>
     <string name="_unfinished_features_hidden_behind">Tamamlanmamış özellikler 7 dokunma kapısının arkasında.</string>
-    <string name="_wifionly_by_default_apks">Yalnizca WiFi -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">Yalnizca WiFi -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM degisikligi uyarisi</string>
     <string name="sim_swap_when_the_sim_in">Telefondaki SIM değiştiğinde uyarı gönderir.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Aegis logosu</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis her 24 saatte GitHub kontrol eder.</string>
+    <string name="update_how_it_works_body">Aegis her 24 saatte GitHub\'da yeni sürüm kontrol eder. Her APK ~100 MB\'dır. Varsayılan olarak yalnızca WiFi üzerinden indiriyoruz — her sürümde bu kadarını mobil veri üzerinden indirmek gerçek paraya mal olur.</string>
     <string name="update_beltandbraces_type_rollback_below">Onaylamak için aşağıya ROLLBACK yaz.</string>
     <string name="update_check_interval">Kontrol aralığı</string>
     <string name="update_how_often_aegis_polls">Aegis\'in GitHub\'u ne sıklıkla sorgu yapacağı.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis sonsuza kadar ücretsiz. Reklam yok. İzleme yok. Veri satışı yok.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis hiçbir şey sormadan açılacak. PIN\'in hala</string>
+    <string name="tutorial_aegis_will_open_without">Aegis hiçbir şey sormadan açılacak. PIN\'iniz hâlâ mevcut — zorlama, uzaktan erişim ve mesajlarınızı şifrelemek için. Kilidi istediğiniz zaman Ayarlar\'dan yeniden etkinleştirebilirsiniz.</string>
     <string name="tutorial_anyone_who_sees_these">Bu kelimeleri gören kişi hesabına sahip olur</string>
-    <string name="tutorial_biometric_login_is_convenient">Biyometrik giriş rahat ama tehdit korumasını atlar.</string>
+    <string name="tutorial_biometric_login_is_convenient">Biyometrik giriş kullanışlıdır ancak zorlama korumasını atlar. Birisi parmak izinizi zorlarsa gerçek profil açılır. Maksimum güvenlik için PIN önerilir.</string>
     <string name="tutorial_biometric_skips_duress">Biyometri tehdidi atlar</string>
     <string name="tutorial_choose_how_you_unlock">Nasıl kilit açacağını seç</string>
     <string name="tutorial_confirm_pin">PIN onayla</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">Uygulamayı keşfet</string>
     <string name="tutorial_fingerprint_face">Parmak izi / Yüz</string>
     <string name="tutorial_get_started">Başla</string>
-    <string name="tutorial_if_it_ever_helps">Sana bir gün yardımcı olursa, Project Aether\'i herhangi bir</string>
-    <string name="tutorial_it_is_your_master">Bu ana anahtariniz, bir kez gosterilir.</string>
+    <string name="tutorial_if_it_ever_helps">Size yardımcı olursa, Sistem → Hakkında\'dan Proje Aether\'ı destekleyebilirsiniz.</string>
+    <string name="tutorial_it_is_your_master">Bu ana anahtarınızdır, bir kez gösterilir. Asla saklamayız ve bir daha göstermeyiz — ne PIN\'inizin ne de parmak izinizin arkasında. Yazmadıysanız, gerçekten size ait olmasının bedeli budur. Kağıt kopyanızı güvenli tutun.</string>
     <string name="tutorial_ive_written_it_down">Yazdım</string>
     <string name="tutorial_keep_lock">Kilidi tut</string>
     <string name="tutorial_keep_pin_only">Yalnızca PIN</string>
     <string name="tutorial_left_to_right_along">Her ekranın altında soldan sağa:</string>
-    <string name="tutorial_make_sure_no_one">Kimsenin bakmadiginda emin ol.</string>
+    <string name="tutorial_make_sure_no_one">Kimsenin izlemediğinden ve hiçbir şeyin ekranınızı kaydetmediğinden emin olun. Ekran görüntüleri engellendi — ekran görüntüsü galeriye gider, buluta senkronize olur ve telefonunuza erişimi olan herkes görebilir. 24 kelimeyi görmek için aşağıdaki paneli kazıyın, kağıda yazın ve o kağıdı güvenli bir yerde saklayın.</string>
     <string name="tutorial_new_pin_48_digits">Yeni PIN (4–8 basamak)</string>
     <string name="tutorial_no_lock_screen">Kilit ekranı yok</string>
     <string name="tutorial_open_without_a_lock">Kilit ekranı olmadan açılsın mı?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">Kelimeleri tekrar göster</string>
     <string name="tutorial_skip">Atla</string>
     <string name="tutorial_skip_check_debug">Kontrolü atla (hata ayıklama)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS ortada kilitli.</string>
+    <string name="tutorial_sos_stays_locked_in">SOS ortada sabit kalır. Geri kalanı Sistem → Gezinme\'den yeniden sıralayabilirsiniz.</string>
     <string name="tutorial_thank_you">Teşekkürler</string>
     <string name="tutorial_the_skill_tree">Yetenek ağacı</string>
-    <string name="tutorial_this_encrypts_your_messages">Bu mesajlarını şifreler ve hesabını kurtarır eğer</string>
-    <string name="tutorial_this_is_the_only">Bu TEK kopya. Hicbir sey saklamiyoruz.</string>
+    <string name="tutorial_this_encrypts_your_messages">Bu mesajlarınızı şifreler ve PIN\'inizi unutursanız veya parmak izinizi kaybederseniz hesabınızı kurtarır. Bunu kaybederseniz, hiç kimse — ne biz ne de başka biri — verilerinizi kurtaramaz.</string>
+    <string name="tutorial_this_is_the_only">Bu TEK kopyadır. Hiçbir şey saklamıyoruz. \"İfadeyi unuttum\" yok, sıfırlama yok ve yeni bir tane oluşturmanın yolu yok — ne PIN ile, ne parmak izi ile, ne de bizim tarafımızdan. Bu kağıdı kaybederseniz verileriniz sonsuza dek kaybolur ve yeryüzünde hiç kimse onları geri getiremez. Şimdi yazın.</string>
     <string name="tutorial_three_tiers_of_trust">Üç güven seviyesi</string>
     <string name="tutorial_what_makes_this_different">Onu farklı kılan ne</string>
     <string name="tutorial_you_can_replay_this">Bu eğitimi istediğin zaman Yardım\'dan tekrarlayabilirsin.</string>
     <string name="tutorial_your_messages_and_attachments">Mesajların ve eklerin bu PIN ile şifrelenir.</string>
-    <string name="tutorial_your_pin_is_set">PIN\'in ayarlandı ve her zaman çalışır — tehdit ve uzaktan kontrolün</string>
+    <string name="tutorial_your_pin_is_set">PIN\'iniz ayarlandı ve her zaman çalışır — zorlama modu ve uzaktan erişimin kullandığı budur. Bunlar üstündeki isteğe bağlı kısayollardır.</string>
     <string name="tutorial_your_recovery_phrase">Kurtarma ifaden</string>
     <string name="tutorial_your_safety_net">Güvenlik ağın</string>
     <string name="tutorial_youre_ready">Hazırsın</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">Şarj oluyor</string>
     <string name="remote_locate">Bul</string>
     <string name="remote_siren">Siren</string>
-    <string name="tutorial_bubble_welcome">Project Aether\'a hoş geldiniz. Ben Cyan — rehberiniz olacağım.</string>
+    <string name="tutorial_bubble_welcome">Project Aether\'e hoş geldiniz. Ben Cyan — rehberiniz olacağım. Kalem ve kağıt alın — mesajlarınızı koruyan 24 kelimeyi yazmanızı isteyeceğim.</string>
     <string name="tutorial_bubble_different">Telefon numarası yok. Hesap yok. Hiçbir sunucu mesajlarınızı saklamaz. Sadece kriptografi.</string>
     <string name="tutorial_bubble_safety">Tehlikedeysen, bir düğme güvendiğin herkesi uyarır.</string>
     <string name="tutorial_bubble_tiers">Kimin neyi göreceğine sen karar verirsin.</string>
@@ -736,4 +736,31 @@ PIN</string>
     <string name="tutorial_perm_granted">Verildi ✓</string>
     <string name="tutorial_perm_denied">Reddedildi</string>
     <string name="tutorial_perm_allow">İzin ver</string>
+
+    <string name="tutorial_perm_oem_title">%1$s pil ayarları</string>
+    <string name="tutorial_perm_oem_open">%1$s ayarlarını aç</string>
+    <string name="tutorial_perm_denied_note">Bunu daha sonra etkinleştirebilirsiniz — Ayarları açmak için dokunun.</string>
+    <string name="tutorial_pin_explanation_existing">PIN\'iniz Aegis\'i açar ve mesajlarınızın şifrelendiği anahtardır. 4–8 rakam.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">Kasa\nPIN</string>
+    <string name="tutorial_node_device_owner">Cihaz\nSahibi</string>
+    <string name="tutorial_node_app_duress">Uygulama\nZorlama</string>
+    <string name="tutorial_skill_tree_explanation">Uygulama PIN\'i zorlama, fotoğraf, kasa, kanarya, SIM izleme ve coğrafi çiti açar — bir kez ayarlayın ve gerisi açılır. Zirve cihaz sahibidir.</string>
+    <string name="tutorial_phrase_intro">Sonraki ekranda 24 kelime göreceksiniz. Paneli kazıyarak ortaya çıkarın ve hepsini kağıda yazın.</string>
+    <string name="tutorial_phrase_show">İfadeyi göster</string>
+    <string name="tutorial_phrase_scratch">Kazıyarak ortaya çıkarın, sonra 24 kelimeyi sırayla yazın.</string>
+    <string name="tutorial_phrase_confirm">Kaydettiğinizi onaylayın. Kağıdınızdan %1$s kelimelerini girin.</string>
+    <string name="tutorial_phrase_word_n">Kelime #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Kelimeler eşleşmiyor. Kağıdınızı kontrol edin.</string>
+    <string name="tutorial_phrase_write_down">Bu 24 kelimeyi kağıda yazın. Her şeyin anahtarı.</string>
+    <string name="tutorial_phrase_already_saved">Zaten kaydedildi. Kağıt kopyanızı güvenli tutun.</string>
+    <string name="tutorial_draw_pattern">Deseninizi çizin</string>
+    <string name="tutorial_draw_pattern_confirm">Onaylamak için tekrar çizin</string>
+    <string name="tutorial_pattern_min_dots">En az %1$d nokta kullanın.</string>
+    <string name="tutorial_pattern_mismatch">Eşleşmiyor — tekrar başlayın.</string>
+    <string name="tutorial_bio_need_pin_first">Önce PIN\'inizi ayarlayın, sonra biyometri ekleyin.</string>
+    <string name="tutorial_bio_failed">Biyometri etkinleştirilemedi. Tekrar deneyin.</string>
+    <string name="tutorial_pin_save_error">PIN kaydedilemedi: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN kaydedilmedi — Tanılama\'yı kontrol edin.</string>
 </resources>

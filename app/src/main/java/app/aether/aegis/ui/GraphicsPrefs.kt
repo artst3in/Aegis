@@ -157,6 +157,48 @@ class GraphicsPrefs(context: Context) {
             return values.getOrElse(ord) { GraphicsProfile.Balanced }
         }
 
+        /**
+         * First-launch graphics default chosen from device RAM. Writes
+         * [KEY_PREFERRED] + [KEY_HEX_ENRICHMENT] so it's a one-time default
+         * the user can override afterwards (and so it never runs again — the
+         * caller gates on KEY_PREFERRED being absent).
+         *
+         * Deliberately conservative: a security app that gets killed by an
+         * OEM memory manager for being too GPU-heavy is worse than one with
+         * simpler visuals. Low-RAM / [android.app.ActivityManager.isLowRamDevice]
+         * devices get PowerSaver; everyone else gets Balanced. Performance is
+         * NEVER auto-selected — it's opt-in (uncapped frame rate + battery
+         * cost). Per-hex glass enrichment (the gradient fill / edge lighting /
+         * breathing glow that IS the LunaGlass look) is enabled only at ≥6 GB,
+         * where there's headroom to spare.
+         *
+         * NOTE: the approved spec's code snippet mapped ≥6 GB to Performance,
+         * which contradicts both its own table (≥6 GB → Balanced) and its
+         * rule "Performance is never auto-selected." The table + rule are
+         * authoritative, so ≥6 GB resolves to Balanced + glass ON here.
+         *
+         * Best-effort: any failure to read ActivityManager leaves the prefs
+         * untouched, so the existing Balanced default stands and detection
+         * simply retries on the next launch.
+         */
+        private fun applyFirstLaunchDefaults(ctx: Context, p: SharedPreferences) {
+            val am = ctx.getSystemService(Context.ACTIVITY_SERVICE)
+                as? android.app.ActivityManager ?: return
+            val mem = android.app.ActivityManager.MemoryInfo().also { am.getMemoryInfo(it) }
+            val totalRamMb = mem.totalMem / (1024L * 1024L)
+            // 3 GB / 6 GB cutoffs per the approved spec table.
+            val profile = if (am.isLowRamDevice || totalRamMb < 3_000L) {
+                GraphicsProfile.PowerSaver
+            } else {
+                GraphicsProfile.Balanced
+            }
+            val glass = totalRamMb >= 6_000L
+            p.edit()
+                .putInt(KEY_PREFERRED, profile.ordinal)
+                .putBoolean(KEY_HEX_ENRICHMENT, glass)
+                .apply()
+        }
+
         // Process-wide singletons so multiple GraphicsPrefs
         // constructions across the UI hierarchy share state.
         @Volatile private var prefsInstance: SharedPreferences? = null
@@ -195,6 +237,16 @@ class GraphicsPrefs(context: Context) {
     }
 
     init {
+        // First-launch graphics auto-detection: only when the user has never
+        // chosen a profile (KEY_PREFERRED unset) do we pick a default profile
+        // + glass state from device RAM, so low-end phones aren't killed by an
+        // OEM memory manager for being too GPU-heavy while high-RAM phones keep
+        // the full LunaGlass look. A user choice in Settings writes
+        // KEY_PREFERRED, after which this never runs again. Runs before
+        // republishAll so the flows hydrate from the freshly-written default.
+        if (!prefs.contains(KEY_PREFERRED)) {
+            applyFirstLaunchDefaults(context.applicationContext, prefs)
+        }
         // First-construct hydration — make sure the flows reflect what
         // SharedPrefs currently says (defaults if never written).
         republishAll(prefs)

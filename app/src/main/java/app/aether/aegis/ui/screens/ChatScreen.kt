@@ -352,48 +352,48 @@ fun ChatScreen(memberId: String, navController: NavController) {
     }
     val isOnline = presence == app.aether.aegis.ui.components.PeerStatus.Online
 
-    Column(modifier = Modifier.fillMaxSize().imePadding()) {
-        // LunaGlass chat header: back arrow + 34dp hex avatar + name +
-        // "online · SimpleX". Border-bottom 1dp AegisBorder.
+    // navigationBarsPadding() BEFORE imePadding(): with 3-button navigation the
+    // system back/home/recents bar would otherwise cover the message composer
+    // (user report). The nav-bar inset is ~0 under gesture nav and the button
+    // height under 3-button nav, so this auto-adapts with no mode detection.
+    // Order matters: the nav-bar inset is consumed first, so imePadding then
+    // pads only the REMAINING keyboard height — total = max(navBar, keyboard).
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding().imePadding()) {
+        // Row 1 (back + the shared ActionCluster) is published to the ONE
+        // persistent bar via AegisTopBar — exactly like the group chat and every
+        // other sub-screen — so entering a 1:1 chat no longer tears the bar down
+        // and rebuilds it (user report: bar disappears on 1:1 chat). Only the
+        // second row below (avatar + name + presence + call/video) is custom.
+        app.aether.aegis.ui.components.AegisTopBar(
+            title = {},
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    AegisIcon(app.aether.aegis.ui.components.AegisIcons.Back, "back")
+                }
+            },
+        )
+        // Second row — call/video + chat overflow. Split out of the header row
+        // (owner's call) so the action cluster above isn't crowded against the
+        // name. Long-press to call (hold-to-execute) so a stray scroll-tap
+        // can't ring someone; video left, voice right (messenger convention).
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface)
-                // Own the status-bar inset here. The hosting Scaffold
-                // runs contentWindowInsets = 0 (each bar owns its own
-                // inset, so tab + sub routes don't double-pad), which
-                // means a sub-route like this one gets innerPadding.top
-                // = 0 — nothing reserves the notification-bar strip for
-                // us. Without this the header collides with the system
-                // clock / status icons. Order matters: statusBarsPadding
-                // sits AFTER background so the surface still fills behind
-                // the status bar (solid chrome, nothing bleeds through),
-                // while the back-arrow / avatar / name row is pushed
-                // clear of the notification bar.
-                .statusBarsPadding()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = 16.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                "←",
-                color = app.aether.aegis.ui.theme.AegisCyan,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.clickable { navController.popBackStack() },
-            )
-            Spacer(modifier = Modifier.width(12.dp))
-            // Canonical avatar — same metal-frame + engraved-plate renderer as
-            // the chat list / grid / radar / contact detail, so the header and
-            // the list row stay visually consistent.
+            // Contact identity on the second row: avatar + name + presence take
+            // the left (weight 1f), call/video + overflow pushed to the right.
             val peerForFrame = peers.firstOrNull { it.publicKey == memberId }
             val reportedTierName = peerForFrame?.peerReportedTier
             val reportedTier = remember(reportedTierName) {
                 runCatching { app.aether.aegis.admin.ShieldTier.valueOf(reportedTierName.orEmpty()) }
                     .getOrNull()
             }
-            // Trust gate (2026.06 security fix): only a TRUSTED peer's announced
-            // avatar is rendered — never a stranger's self-supplied image
-            // (impersonation + leak vector). Fail closed → monogram otherwise.
+            // Trust gate: only a TRUSTED peer's announced avatar is rendered —
+            // never a stranger's self-supplied image (impersonation + leak). Fail
+            // closed → monogram otherwise.
             val peerTrusted = peerForFrame?.trustTier
                 ?.let { runCatching { app.aether.aegis.data.TrustTier.valueOf(it) }.getOrNull() } ==
                 app.aether.aegis.data.TrustTier.TRUSTED
@@ -418,8 +418,8 @@ fun ChatScreen(memberId: String, navController: NavController) {
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                 )
-                // Tick once per second so the typing indicator can
-                // expire automatically when the peer pauses for >5 s.
+                // Tick once per second so the typing indicator can expire when
+                // the peer pauses for >5 s.
                 var now by remember { mutableStateOf(System.currentTimeMillis()) }
                 LaunchedEffect(memberId) {
                     while (true) {
@@ -430,12 +430,6 @@ fun ChatScreen(memberId: String, navController: NavController) {
                 val typing = remember(memberId, now) {
                     app.aether.aegis.chat.TypingTracker.isTyping(memberId)
                 }
-                // Peer-local-time append was removed 2026.05.632 —
-                // showing the contact's wall-clock derived from their
-                // longitude was more confusing than useful next to
-                // a "last seen" / presence stamp that's in the
-                // viewer's own time. All time displays now stay in
-                // the local user's frame.
                 val presenceLabel = when (presence) {
                     app.aether.aegis.ui.components.PeerStatus.Online -> "online · SimpleX"
                     app.aether.aegis.ui.components.PeerStatus.Away -> "away · SimpleX"
@@ -456,15 +450,7 @@ fun ChatScreen(memberId: String, navController: NavController) {
                     fontSize = 11.sp,
                 )
             }
-            // Call icons + overflow menu — kept inline rather than in a
-            // TopAppBar so the LunaGlass header layout owns the row.
-            // Long-press to call (hold-to-execute) so
-            // a stray tap while scrolling doesn't accidentally ring
-            // someone. Tap shows a teaching toast — both prevents
-            // accidents AND makes the button's purpose discoverable.
-            // Video left, voice right — convention every messenger
-            // (WhatsApp, Signal, Telegram, iMessage) uses. Used to
-            // be voice-then-video and the muscle memory kept misfiring.
+            Spacer(modifier = Modifier.width(8.dp))
             CallActionIcon(
                 icon = app.aether.aegis.ui.components.AegisIcons.Play,
                 label = stringResource(R.string.call_video),
@@ -485,25 +471,6 @@ fun ChatScreen(memberId: String, navController: NavController) {
                     expanded = chatMenuOpen,
                     onDismissRequest = { chatMenuOpen = false },
                 ) {
-                    // Help + Notes reachable from
-                    // every screen. Chat's header row is already
-                    // crowded with call icons, so the overflow menu
-                    // carries them. Two taps, always available.
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.help_help)) },
-                        onClick = {
-                            chatMenuOpen = false
-                            navController.navigate("help")
-                        },
-                    )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.secure_notes_vault)) },
-                        onClick = {
-                            chatMenuOpen = false
-                            navController.navigate("notes")
-                        },
-                    )
-                    androidx.compose.material3.HorizontalDivider()
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.chat_schedule_message)) },
                         onClick = {
@@ -1961,8 +1928,7 @@ private suspend fun readCurrentLocationForCompose(
 }
 
 @Composable
-private fun VideoBubble(path: String, name: String?, size: Long, mime: String) {
-    val context = LocalContext.current
+internal fun VideoBubble(path: String, name: String?, size: Long, navController: NavController) {
     // Pull a thumbnail from the first frame so the bubble previews
     // the video without a custom VideoView. MediaMetadataRetriever's
     // setDataSource + frameAtTime decode a video frame and can block for
@@ -1988,17 +1954,17 @@ private fun VideoBubble(path: String, name: String?, size: Long, mime: String) {
         modifier = Modifier
             .clip(MaterialTheme.shapes.small)
             .clickable {
-                val uri = androidx.core.content.FileProvider.getUriForFile(
-                    context, "${context.packageName}.fileprovider", java.io.File(path),
-                )
-                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
-                    setDataAndType(uri, mime)
-                    addFlags(
-                        android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION or
-                            android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-                    )
-                }
-                runCatching { context.startActivity(intent) }
+                // Play IN-APP (VideoViewerScreen). Routing to an external
+                // player over a content:// URI failed for sealed video — the
+                // ".tmp" scratch resolves to octet-stream and inbound video
+                // carries a "video/*" wildcard mime, so no player matched —
+                // and would have leaked the decrypted plaintext to a 3rd-party
+                // app. In-app keeps the bytes inside Aegis.
+                val enc = java.net.URLEncoder.encode(path, "UTF-8")
+                val nameQuery = name?.let {
+                    "?name=" + java.net.URLEncoder.encode(it, "UTF-8")
+                } ?: ""
+                navController.navigate("video/$enc$nameQuery")
             },
         contentAlignment = Alignment.Center,
     ) {
@@ -2067,7 +2033,7 @@ private fun VideoBubble(path: String, name: String?, size: Long, mime: String) {
  *                  resurrect it, so no tap is offered.
  */
 @Composable
-private fun DeferredAttachmentChip(msg: Message, mime: String, selfKey: String) {
+internal fun DeferredAttachmentChip(msg: Message, mime: String, selfKey: String) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val size = msg.attachmentSize ?: 0L
@@ -2167,7 +2133,7 @@ private fun DeferredAttachmentChip(msg: Message, mime: String, selfKey: String) 
  *  edge cases. Same outer shape as [FileChip] so the bubble layout
  *  doesn't jump on lock/unlock. */
 @Composable
-private fun LockedAttachmentChip(mime: String, size: Long) {
+internal fun LockedAttachmentChip(mime: String, size: Long) {
     val label = when {
         mime.startsWith("image/") -> "Photo (locked)"
         mime.startsWith("audio/") -> "Voice note (locked)"
@@ -2215,7 +2181,7 @@ private fun LockedAttachmentChip(mime: String, size: Long) {
  * flight we show a one-shot "Opening…" toast so the tap feels alive.
  */
 @Composable
-private fun FileChip(
+internal fun FileChip(
     msg: Message,
     name: String,
     mime: String,
@@ -2321,7 +2287,7 @@ private fun FileChip(
  *  outer shape as [FileChip] / [LockedAttachmentChip] so the bubble
  *  doesn't jump when the real preview swaps in. */
 @Composable
-private fun DecryptingAttachmentChip(mime: String, size: Long) {
+internal fun DecryptingAttachmentChip(mime: String, size: Long) {
     val label = when {
         mime.startsWith("image/") -> "Photo"
         mime.startsWith("audio/") -> "Voice note"
@@ -2454,7 +2420,7 @@ private fun CallLogChip(msg: Message, selfKey: String) {
         horizontalArrangement = Arrangement.Center,
     ) {
         Surface(
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(50),
+            shape = androidx.compose.foundation.shape.CutCornerShape(50),
             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
             border = androidx.compose.foundation.BorderStroke(1.dp, app.aether.aegis.ui.theme.AegisBorder),
             modifier = Modifier.clickable {
@@ -3148,7 +3114,7 @@ private fun MessageBubble(
                                             path = vp,
                                             name = msg.attachmentName,
                                             size = attachSize,
-                                            mime = attachMime,
+                                            navController = navController,
                                         )
                                 }
                             }
@@ -3191,11 +3157,10 @@ private fun MessageBubble(
                             if (total != null && total > 0L) {
                                 val frac = (xfer.bytesTransferred.toFloat() / total.toFloat())
                                     .coerceIn(0f, 1f)
-                                LinearProgressIndicator(
-                                    progress = { frac },
-                                    modifier = Modifier.fillMaxWidth().height(2.dp),
+                                app.aether.aegis.ui.components.HexProgressBar(
+                                    progress = frac,
+                                    modifier = Modifier.fillMaxWidth(),
                                     color = app.aether.aegis.ui.theme.AegisCyan,
-                                    drawStopIndicator = {},
                                 )
                             } else {
                                 LinearProgressIndicator(
@@ -3355,7 +3320,7 @@ private fun MessageBubble(
                             fontWeight = FontWeight.SemiBold,
                             modifier = Modifier
                                 .padding(top = 3.dp)
-                                .clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp))
+                                .clip(androidx.compose.ui.graphics.RectangleShape)
                                 .clickable {
                                     val target = replyKids[cycle % replyKids.size]
                                     cycle++
@@ -3940,7 +3905,7 @@ private val URL_REGEX = Regex(
     RegexOption.IGNORE_CASE,
 )
 
-private fun buildLinkifiedString(text: String): androidx.compose.ui.text.AnnotatedString {
+internal fun buildLinkifiedString(text: String): androidx.compose.ui.text.AnnotatedString {
     // Cheap precheck: the vast majority of messages contain no URL, so skip the
     // regex scan + annotated-string assembly entirely unless a URL marker is
     // even possible. This runs per bubble as items scroll in; the regex isn't
@@ -4183,10 +4148,9 @@ private fun InFlightFilesBanner(peerKey: String) {
                     if (total != null && total > 0L) {
                         val frac = (e.bytesTransferred.toFloat() / total.toFloat())
                             .coerceIn(0f, 1f)
-                        LinearProgressIndicator(
-                            progress = { frac },
+                        app.aether.aegis.ui.components.HexProgressBar(
+                            progress = frac,
                             modifier = Modifier.fillMaxWidth().padding(top = 2.dp),
-                            drawStopIndicator = {},
                         )
                         Text(
                             "%.1f / %.1f MB".format(
@@ -4368,7 +4332,7 @@ private fun GeoBubblePreview(lat: Double, lng: Double) {
         modifier = Modifier
             .fillMaxWidth()
             .height(180.dp)
-            .clip(androidx.compose.foundation.shape.RoundedCornerShape(10.dp))
+            .clip(androidx.compose.ui.graphics.RectangleShape)
             .clickable {
                 runCatching {
                     val intent = android.content.Intent(
@@ -4504,7 +4468,7 @@ private fun NestedQuoteChain(
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 1.dp)
-                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp))
+                    .clip(androidx.compose.ui.graphics.RectangleShape)
                     .clickable { expanded = !expanded }
                     .padding(horizontal = 4.dp, vertical = 2.dp),
             )

@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisButton
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.core.identifier
 import androidx.compose.foundation.layout.*
@@ -7,6 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexCheckbox
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,8 +65,11 @@ fun GroupCreateScreen(navController: NavController) {
     var creating by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBar(
+    // Own the status-bar inset (bare Column, not a Scaffold); TopAppBar
+    // insets zeroed so we don't pad twice.
+    Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+        AegisTopBar(
+            windowInsets = WindowInsets(0, 0, 0, 0),
             title = { Text(stringResource(R.string.group_new)) },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
@@ -102,7 +109,7 @@ fun GroupCreateScreen(navController: NavController) {
                         )
                     },
                     trailingContent = {
-                        Checkbox(
+                        HexCheckbox(
                             checked = isSelected,
                             onCheckedChange = {
                                 if (isSelected) selected.remove(member.identifier)
@@ -114,7 +121,7 @@ fun GroupCreateScreen(navController: NavController) {
             }
         }
 
-        Button(
+        AegisButton(
             // Protected Mode: group creation can be locked so a child
             // can't spin up / wander into groups they find online.
             enabled = !creating && name.isNotBlank() && selected.isNotEmpty() &&

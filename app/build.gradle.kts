@@ -230,7 +230,7 @@ android {
             ndk { abiFilters += "arm64-v8a" }
 
             buildConfigField("boolean", "HAS_DEBUG_CHANNEL", "true")
-            buildConfigField("String",  "UPDATE_REPO",       "\"artst3in/Aegis\"")
+            buildConfigField("String",  "UPDATE_REPO",       "\"artst3in/aegis-dev\"")
             buildConfigField("String",  "RELEASE_CHANNEL",   "\"debug\"")
 
             // NO minify on debug. The only reason it was ever minified was

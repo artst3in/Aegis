@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">リレー専用ICEと通話診断.</string>
     <string name="_stops_screenshots_screen_recording">スクショ、録画、プレビューをブロック.</string>
     <string name="_unfinished_features_hidden_behind">7タップゲートの後ろに未完成機能.</string>
-    <string name="_wifionly_by_default_apks">WiFiのみ -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">WiFiのみ -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM変更アラート</string>
     <string name="sim_swap_when_the_sim_in">電話のSIMが変わるとアラートを送信.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Aegisロゴ</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegisは24時間ごとにGitHubを確認。</string>
+    <string name="update_how_it_works_body">Aegisは24時間ごとにGitHubで新しいビルドを確認します。各APKは約100MBです。デフォルトではWiFiのみでダウンロードします — モバイルデータで毎回これだけダウンロードすると本当のお金がかかります。</string>
     <string name="update_beltandbraces_type_rollback_below">下にROLLBACKと入力.</string>
     <string name="update_check_interval">確認間隔</string>
     <string name="update_how_often_aegis_polls">AegisがGitHubに新ビルドを確認する頻度.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegisは永久無料. 広告なし. トラッキングなし. データ販売なし.</string>
-    <string name="tutorial_aegis_will_open_without">Aegisは確認なしで開きます. PINがデータを保護.</string>
+    <string name="tutorial_aegis_will_open_without">Aegisは何も聞かずに開きます。PINはまだ存在します — 強制、リモートアクセス、メッセージの暗号化のために。設定からいつでもロックを再有効化できます。</string>
     <string name="tutorial_anyone_who_sees_these">この言葉を見た人があなたのアカウントを所有</string>
-    <string name="tutorial_biometric_login_is_convenient">生体認証ログインは便利だが強制をスキップ.</string>
+    <string name="tutorial_biometric_login_is_convenient">生体認証ログインは便利ですが、強制保護をスキップします。誰かがあなたの指紋を強制使用すると、本物のプロファイルが開きます。最大のセキュリティにはPINを推奨します。</string>
     <string name="tutorial_biometric_skips_duress">生体認証は強制をスキップ</string>
     <string name="tutorial_choose_how_you_unlock">ロック解除方法を選択</string>
     <string name="tutorial_confirm_pin">PIN確認</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">アプリを知る</string>
     <string name="tutorial_fingerprint_face">指紋 / 顔</string>
     <string name="tutorial_get_started">開始</string>
-    <string name="tutorial_if_it_ever_helps">役に立てば、Aetherプロジェクトをサポート.</string>
-    <string name="tutorial_it_is_your_master">これがマスターキーです</string>
+    <string name="tutorial_if_it_ever_helps">お役に立てたら、システム→概要からProject Aetherを支援できます。</string>
+    <string name="tutorial_it_is_your_master">これはあなたのマスターキーで、一度だけ表示されます。保存することはなく、二度と表示しません — PINの裏にも、指紋の裏にも。書き留めなかったなら、それが本当にあなたのものである代償です。紙のコピーを安全に保管してください。</string>
     <string name="tutorial_ive_written_it_down">書き留めた</string>
     <string name="tutorial_keep_lock">ロックを維持</string>
     <string name="tutorial_keep_pin_only">PINのみ</string>
     <string name="tutorial_left_to_right_along">左から右へ下部に沿って:</string>
-    <string name="tutorial_make_sure_no_one">誰も見ていないことを確認</string>
+    <string name="tutorial_make_sure_no_one">誰も見ていないこと、画面を録画していないことを確認してください。スクリーンショットはブロックされています — スクリーンショットはギャラリーに保存され、クラウドに同期され、スマホにアクセスできる人は誰でも見られます。下のパネルをスクラッチして24の単語を表示し、紙に書いて安全な場所に保管してください。</string>
     <string name="tutorial_new_pin_48_digits">新PIN (4–8桁)</string>
     <string name="tutorial_no_lock_screen">ロック画面なし</string>
     <string name="tutorial_open_without_a_lock">ロック画面なしで開く?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">単語を再表示</string>
     <string name="tutorial_skip">スキップ</string>
     <string name="tutorial_skip_check_debug">チェックをスキップ (デバッグ)</string>
-    <string name="tutorial_sos_stays_locked_in">SOSは中央に固定</string>
+    <string name="tutorial_sos_stays_locked_in">SOSは中央に固定されています。残りはシステム→ナビゲーションで並べ替えできます。</string>
     <string name="tutorial_thank_you">ありがとう</string>
     <string name="tutorial_the_skill_tree">スキルツリー</string>
-    <string name="tutorial_this_encrypts_your_messages">メッセージを暗号化しアカウントを復元.</string>
-    <string name="tutorial_this_is_the_only">これが唯一のコピーです</string>
+    <string name="tutorial_this_encrypts_your_messages">これはメッセージを暗号化し、PINを忘れたり指紋を失ったりした場合にアカウントを復元します。これを失うと、誰も — 私たちも、誰も — あなたのデータを復元できません。</string>
+    <string name="tutorial_this_is_the_only">これが唯一のコピーです。何も保存しません。\"フレーズを忘れた\"はなく、リセットもなく、新しいものを作る方法もありません — PINでも、指紋でも、私たちでも。この紙を失うと、データは永遠に消え、地球上の誰も取り戻すことはできません。今すぐ書き留めてください。</string>
     <string name="tutorial_three_tiers_of_trust">3段階の信頼</string>
     <string name="tutorial_what_makes_this_different">何が違うのか</string>
     <string name="tutorial_you_can_replay_this">ヘルプからチュートリアルを再生可能.</string>
     <string name="tutorial_your_messages_and_attachments">メッセージと添付ファイルはこのPINで暗号化.</string>
-    <string name="tutorial_your_pin_is_set">PINが設定され常に機能.</string>
+    <string name="tutorial_your_pin_is_set">PINが設定され、常に機能します。強制モードとリモートアクセスが使用するものです。これらはその上のオプションのショートカットです。</string>
     <string name="tutorial_your_recovery_phrase">復元フレーズ</string>
     <string name="tutorial_your_safety_net">セーフティネット</string>
     <string name="tutorial_youre_ready">準備完了</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">充電中</string>
     <string name="remote_locate">検索</string>
     <string name="remote_siren">サイレン</string>
-    <string name="tutorial_bubble_welcome">Project Aetherへようこそ。Cyanです — ガイドします。</string>
+    <string name="tutorial_bubble_welcome">Project Aetherへようこそ。私はCyanです — ガイドを務めます。ペンと紙を用意してください — メッセージを守る24の単語を書き留めてもらいます。</string>
     <string name="tutorial_bubble_different">電話番号なし。アカウントなし。サーバーはメッセージを保存しません。暗号化のみ。</string>
     <string name="tutorial_bubble_safety">危険なとき、ボタン一つで信頼する全員に通知。</string>
     <string name="tutorial_bubble_tiers">誰が何を見るか、あなたが決めます。</string>
@@ -712,14 +712,14 @@ PIN</string>
 PIN</string>
     <string name="tutorial_perm_title">なぜAegisは多く求めるのか</string>
     <string name="tutorial_perm_bubble">タップして許可 — またはスキップ。それぞれの理由を説明します。</string>
-    <string name="tutorial_perm_intro">セキュリティアプリはあなたに代わって行動できる必要があります — 位置検索、通知、画面オフ時の動作。あなたなしでは何も電話から出ません。</string>
+    <string name="tutorial_perm_intro">セキュリティアプリはあなたに代わって行動できる必要があります — 位置検索、通知、画面オフ時の動作。リストが長いのはそのためです。カードをタップして今すぐ許可するか、機能が必要になった時に後で許可してください。あなたなしでは何も電話から出ません。</string>
     <string name="tutorial_perm_background_title">バックグラウンド活動</string>
     <string name="tutorial_perm_background_why">最も重要。Aegisを閉じても画面オフでも動作させます。これがないとメッセージやSOSが届かなくなります — 特にOnePlus、Xiaomi、Oppoで。</string>
-    <string name="tutorial_perm_oem_warning">%1$sの電話にAegisを殺す追加バッテリー設定があります。この設定を開いてAegisの自動起動を許可してください。</string>
+    <string name="tutorial_perm_oem_warning">%1$sの電話にはAegisをバックグラウンドで停止させる追加のバッテリー設定があります。この設定を開いてAegisの自動起動とバックグラウンド実行を許可してください — そうしないとメッセージやSOSアラートが届かなくなる場合があります。</string>
     <string name="tutorial_perm_notif_title">通知</string>
     <string name="tutorial_perm_notif_why">メッセージ、通話、SOSの通知 — ロック画面でも。</string>
     <string name="tutorial_perm_location_title">位置情報</string>
-    <string name="tutorial_perm_location_why">緊急時に信頼できる連絡先があなたを見つけ、SOSが位置を共有するため。</string>
+    <string name="tutorial_perm_location_why">緊急時に信頼できる連絡先があなたを見つけ、SOSが位置を共有するため。（バックグラウンド位置情報は画面オフ時用に設定で別途許可されます。）</string>
     <string name="tutorial_perm_camera_title">カメラ</string>
     <string name="tutorial_perm_camera_why">SOS写真、誤PINでのマグショット、ビデオ通話用。</string>
     <string name="tutorial_perm_mic_title">マイク</string>
@@ -727,13 +727,40 @@ PIN</string>
     <string name="tutorial_perm_media_title">写真、動画、ファイル</string>
     <string name="tutorial_perm_media_why">添付ファイルの送受信用。Aegisは共有したものだけ見ます。</string>
     <string name="tutorial_perm_phone_title">電話とSIM</string>
-    <string name="tutorial_perm_phone_why">SIM交換を警告 — 番号乗っ取りの典型的兆候。</string>
+    <string name="tutorial_perm_phone_why">SIMカードが交換された場合に警告します — 番号乗っ取りの典型的な兆候です。</string>
     <string name="tutorial_perm_nearby_title">近くのデバイス</string>
     <string name="tutorial_perm_nearby_why">Bluetoothで人やデバイスを検索（レーダーとソナー）。</string>
     <string name="tutorial_perm_install_title">アップデートインストール</string>
-    <string name="tutorial_perm_install_why">Aegisが追跡なしで安全に更新するため。</string>
+    <string name="tutorial_perm_install_why">あなたを追跡する可能性のあるアプリストアなしで、Aegisが安全に自己更新するため。</string>
     <string name="tutorial_perm_footer">あなたが管理します。スキップしてもAegisの大部分は動作 — でもバックグラウンドがセキュリティを維持。</string>
     <string name="tutorial_perm_granted">許可済み ✓</string>
     <string name="tutorial_perm_denied">拒否</string>
     <string name="tutorial_perm_allow">許可</string>
+
+    <string name="tutorial_perm_oem_title">%1$sのバッテリー設定</string>
+    <string name="tutorial_perm_oem_open">%1$sの設定を開く</string>
+    <string name="tutorial_perm_denied_note">後で有効にできます — タップして設定を開きます。</string>
+    <string name="tutorial_pin_explanation_existing">PINはAegisのロック解除キーであり、メッセージの暗号化キーです。4〜8桁。</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">金庫\nPIN</string>
+    <string name="tutorial_node_device_owner">デバイス\nオーナー</string>
+    <string name="tutorial_node_app_duress">アプリ\n強制</string>
+    <string name="tutorial_skill_tree_explanation">アプリPINで強制、写真、金庫、カナリア、SIM監視、ジオフェンスが解放されます。一度設定すれば残りは開きます。頂点はデバイスオーナーです。</string>
+    <string name="tutorial_phrase_intro">次の画面で24の単語が表示されます。パネルをスクラッチして表示し、すべて紙に書き留めてください。</string>
+    <string name="tutorial_phrase_show">フレーズを表示</string>
+    <string name="tutorial_phrase_scratch">スクラッチして表示し、24の単語を順番に書き留めてください。</string>
+    <string name="tutorial_phrase_confirm">保存を確認してください。紙から単語%1$sを入力してください。</string>
+    <string name="tutorial_phrase_word_n">単語 #%1$d</string>
+    <string name="tutorial_phrase_mismatch">単語が一致しません。紙を確認してください。</string>
+    <string name="tutorial_phrase_write_down">この24の単語を紙に書いてください。すべての鍵です。</string>
+    <string name="tutorial_phrase_already_saved">保存済み。紙のコピーを安全に保管してください。</string>
+    <string name="tutorial_draw_pattern">パターンを描く</string>
+    <string name="tutorial_draw_pattern_confirm">確認のためもう一度描く</string>
+    <string name="tutorial_pattern_min_dots">少なくとも%1$d個の点を使用してください。</string>
+    <string name="tutorial_pattern_mismatch">一致しません — やり直してください。</string>
+    <string name="tutorial_bio_need_pin_first">先にPINを設定してから生体認証を追加してください。</string>
+    <string name="tutorial_bio_failed">生体認証を有効にできませんでした。もう一度お試しください。</string>
+    <string name="tutorial_pin_save_error">PINを保存できませんでした: %1$s</string>
+    <string name="tutorial_pin_persist_error">PINが保存されませんでした — 診断を確認してください。</string>
 </resources>

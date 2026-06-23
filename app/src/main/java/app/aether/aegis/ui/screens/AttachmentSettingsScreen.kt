@@ -1,5 +1,8 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexSlider
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,6 +19,7 @@ import app.aether.aegis.attachment.AttachmentPrefs
 import app.aether.aegis.attachment.MediaType
 import app.aether.aegis.ui.components.AegisIcon
 import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.HexSwitch
 import app.aether.aegis.ui.components.GlassPanel
 import kotlin.math.roundToInt
 
@@ -49,7 +53,7 @@ fun AttachmentSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text("Attachment downloads") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -100,7 +104,7 @@ fun AttachmentSettingsScreen(navController: NavController) {
                         )
                     }
                     Spacer(modifier = Modifier.width(12.dp))
-                    Switch(
+                    HexSwitch(
                         checked = wifiOnly,
                         onCheckedChange = { on -> wifiOnly = on; prefs.wifiOnly = on },
                     )
@@ -120,7 +124,7 @@ fun AttachmentSettingsScreen(navController: NavController) {
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Text(type.label, modifier = Modifier.weight(1f))
-                            Switch(
+                            HexSwitch(
                                 checked = type in autoTypes,
                                 onCheckedChange = { on ->
                                     // Build the new set, mirror, persist.
@@ -149,7 +153,7 @@ fun AttachmentSettingsScreen(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     var sizeStep by remember { mutableStateOf(stepForBytes(maxBytes).toFloat()) }
-                    Slider(
+                    HexSlider(
                         value = sizeStep,
                         onValueChange = { sizeStep = it },
                         onValueChangeFinished = {

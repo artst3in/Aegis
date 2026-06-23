@@ -1,5 +1,8 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexRadio
+
 import app.aether.aegis.crashdetection.CrashDetectionStore
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import app.aether.aegis.ui.components.AegisIcon
 import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.HexSwitch
 import app.aether.aegis.ui.components.GlassPanel
 import androidx.compose.ui.res.stringResource
 import app.aether.aegis.R
@@ -50,7 +54,7 @@ fun CrashDetectionSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.crash_detection_crash_detection)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -102,7 +106,7 @@ fun CrashDetectionSettingsScreen(navController: NavController) {
                             fontSize = 12.sp,
                         )
                     }
-                    Switch(
+                    HexSwitch(
                         checked = enabled,
                         onCheckedChange = {
                             // Mirror then persist (see field declarations).
@@ -144,7 +148,7 @@ fun CrashDetectionSettingsScreen(navController: NavController) {
                                     .padding(horizontal = 12.dp, vertical = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
-                                RadioButton(
+                                HexRadio(
                                     selected = sensitivity == s,
                                     onClick = {
                                         sensitivity = s

@@ -38,6 +38,15 @@
     <!-- Boot receiver for auto-start -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Doze exemption. Required for the direct per-app "allow background
+         activity" dialog (Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS):
+         without this permission declared the system SILENTLY drops that intent
+         (startActivity does not even throw), so the onboarding row appeared to
+         "lead nowhere". A safety app must survive Doze to deliver panic/sentinel
+         alerts in the background — it qualifies for the Play exemption category
+         (apps maintaining a persistent connection for real-time messaging). -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <!-- Notifications -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 

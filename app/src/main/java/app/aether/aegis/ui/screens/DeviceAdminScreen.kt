@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -69,7 +73,7 @@ fun DeviceAdminScreen(navController: NavController) {
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.security_device_admin), fontWeight = FontWeight.SemiBold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -120,7 +124,7 @@ fun DeviceAdminScreen(navController: NavController) {
                     // once active the button has nothing to do and is hidden.
                     if (!adminActive) {
                         Spacer(modifier = Modifier.height(10.dp))
-                        Button(onClick = {
+                        AegisButton(onClick = {
                             // Fire the OS device-admin confirmation dialog.
                             // The `explanation` is what the system shows the
                             // user as the justification. runCatching guards

@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.data.SecureNoteEntity
 import androidx.compose.foundation.background
@@ -102,11 +104,11 @@ fun SecureNotesScreen(navController: NavController) {
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.secure_notes_vault)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
                 actions = {

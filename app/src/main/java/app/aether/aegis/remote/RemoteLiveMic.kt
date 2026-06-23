@@ -160,14 +160,13 @@ object RemoteLiveMic {
         watchdog?.cancel(); watchdog = null
         callObserver?.cancel(); callObserver = null
         main.post {
-            // Each step is independently guarded: a failure tearing down one
-            // resource must not skip releasing the others.
             runCatching { CallManager.hangUp() }
-            runCatching { CallManager.detachWebView() }
-            runCatching {
-                webView?.stopLoading()
-                webView?.destroy()
-            }
+            // destroyWebView() nulls CallManager.webView AND destroys the
+            // Chromium renderer. The old code called detachWebView() + manual
+            // destroy, which left CallManager.webView pointing at a DESTROYED
+            // instance — the next normal call reused the dead WebView and got
+            // no video / no JS / hung at WaitCapabilities. (Fixes #36)
+            runCatching { CallManager.destroyWebView() }
             webView = null
             Log.i(TAG, "live-mic stream torn down")
         }

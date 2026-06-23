@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.AegisApp
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -72,7 +77,7 @@ fun RelaySettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.relay_simplex_relays)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -194,7 +199,7 @@ fun RelaySettingsScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Button(
+                AegisButton(
                     enabled = !working && isValidSmpUri(inputUri.trim()),
                     modifier = Modifier.weight(1f),
                     onClick = {
@@ -224,7 +229,7 @@ fun RelaySettingsScreen(navController: NavController) {
                 // interprets as "fall back to the bundled SimpleX servers".
                 // This is the always-available escape hatch back to a known
                 // working configuration if a custom relay broke delivery.
-                OutlinedButton(
+                AegisOutlinedButton(
                     enabled = !working,
                     modifier = Modifier.weight(1f),
                     onClick = {

@@ -99,6 +99,9 @@ fun LockScreen() {
     // replaces the pad entirely.
     var showRecovery by remember { mutableStateOf(false) }
     val recoveryAvailable = remember { store.hasRecoveryPhrase }
+    // >>> DEBUG-ONLY (stripped for public build)
+    var showResetConfirm by remember { mutableStateOf(false) }
+    // <<< DEBUG-ONLY
     if (showRecovery) {
         RecoveryUnlockScreen(
             onCancel = { showRecovery = false },
@@ -184,7 +187,15 @@ fun LockScreen() {
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 6.sp,
+                // >>> DEBUG-ONLY (stripped for public build)
+                modifier = app.aether.aegis.lock.debugLockResetModifier(
+                    onTriggered = { showResetConfirm = true },
+                ),
+                // <<< DEBUG-ONLY
             )
+            // >>> DEBUG-ONLY (stripped for public build)
+            app.aether.aegis.lock.DebugLockResetHint()
+            // <<< DEBUG-ONLY
 
             if (locked) {
                 Text(
@@ -448,6 +459,19 @@ fun LockScreen() {
             )
         }
 
+        // >>> DEBUG-ONLY (stripped for public build)
+        app.aether.aegis.lock.DebugLockResetConfirmation(
+            show = showResetConfirm,
+            onDismiss = { showResetConfirm = false },
+            onConfirmed = {
+                showResetConfirm = false
+                pinEntry = ""
+                error = null
+                lockoutUntil = 0L
+                lockState.unlock()
+            },
+        )
+        // <<< DEBUG-ONLY
     }
 }
 

@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -128,7 +128,7 @@ fun BurnBubble(
     // burns the message, so the sender's own row must not trigger it.
     Surface(
         color = AegisPanel,
-        shape = RoundedCornerShape(12.dp),
+        shape = CutCornerShape(12.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, tint),
         modifier = Modifier
             .widthIn(max = 280.dp)
@@ -176,7 +176,7 @@ fun BurnTtlPickerDialog(
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             color = AegisPanel,
-            shape = RoundedCornerShape(12.dp),
+            shape = CutCornerShape(12.dp),
             border = androidx.compose.foundation.BorderStroke(1.dp, AegisCyan),
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
@@ -307,8 +307,8 @@ fun BurnViewerDialog(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .border(1.dp, AegisBorder, RoundedCornerShape(12.dp))
-                        .background(AegisPanel, RoundedCornerShape(12.dp))
+                        .border(1.dp, AegisBorder, CutCornerShape(12.dp))
+                        .background(AegisPanel, CutCornerShape(12.dp))
                         .padding(16.dp),
                 ) {
                     Text(
@@ -363,13 +363,11 @@ private fun BurnCountdown(ttlSeconds: Int, onElapsed: () -> Unit) {
                 fontWeight = FontWeight.SemiBold,
             )
             Spacer(modifier = Modifier.width(8.dp))
-            LinearProgressIndicator(
-                progress = { ticks.toFloat() / totalTicks.toFloat() },
+            app.aether.aegis.ui.components.HexProgressBar(
+                progress = ticks.toFloat() / totalTicks.toFloat(),
                 color = AegisCyan,
                 trackColor = AegisBorder,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(4.dp),
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

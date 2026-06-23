@@ -54,13 +54,58 @@ class PowerButtonSOSReceiver(
                         val sos = app.aether.aegis.AegisApp.instance.sosHandler
                         val active = sos.state.value
                         when {
-                            active == null -> sos.trigger(SOSTrigger.BUTTON)
+                            active == null -> {
+                                sos.trigger(SOSTrigger.BUTTON)
+                                // Haptic confirmation — three felt buzzes so the
+                                // user KNOWS the trigger landed even screen-off /
+                                // in a pocket. This is what makes the "press
+                                // slowly, keep pressing until you feel it"
+                                // instruction usable: no buzz = it didn't fire
+                                // (you went too fast and Android's camera (2×) /
+                                // Emergency-SOS (5×) gestures ate the presses
+                                // upstream — an OS limit we can't override).
+                                // ONLY on the voluntary BUTTON trigger — NEVER on
+                                // the duress-cancel below, which must stay utterly
+                                // silent so a coercer gets no tell that the hidden
+                                // SOS was just killed.
+                                vibrateConfirm()
+                            }
                             active.trigger == SOSTrigger.DURESS -> sos.cancel()
                             else -> { /* visible SOS already running — leave it */ }
                         }
                     }.onFailure { Log.w(TAG, "power-button sos handling failed", it) }
                 }
             }
+        }
+    }
+
+    /** Vibrator for the fire-confirmation buzz. Lazily resolved; null on the
+     *  rare device with no vibrator (the SOS still fires — only the haptic is
+     *  absent). */
+    private val vibrator: android.os.Vibrator? by lazy {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            (appContext.getSystemService(Context.VIBRATOR_MANAGER_SERVICE)
+                as? android.os.VibratorManager)?.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            appContext.getSystemService(Context.VIBRATOR_SERVICE) as? android.os.Vibrator
+        }
+    }
+
+    /** Three felt buzzes confirming a power-button SOS fired. 60 ms pulses —
+     *  clearly feelable through a pocket. (An earlier worry that these hummed
+     *  audibly was a mis-attribution: the sound was the SOS *notification*, not
+     *  the vibration motor.) Waveform = [delay, buzz, pause, buzz, pause, buzz],
+     *  no repeat. Fired only on the voluntary BUTTON trigger, never on
+     *  duress-cancel. */
+    private fun vibrateConfirm() {
+        runCatching {
+            vibrator?.vibrate(
+                android.os.VibrationEffect.createWaveform(
+                    longArrayOf(0, 60, 90, 60, 90, 60),
+                    -1,
+                ),
+            )
         }
     }
 

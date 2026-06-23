@@ -7,10 +7,12 @@ import app.aether.aegis.core.Protocol
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisTopBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -203,83 +205,125 @@ fun GroupChatScreen(groupId: String, navController: NavController) {
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize().imePadding()) {
-        TopAppBar(
-            title = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    // Part 1: group avatar in the header (glyph fallback).
-                    app.aether.aegis.ui.components.GroupAvatar(
-                        avatarPath = group?.avatarPath,
-                        size = 32.dp,
-                        glyphFontSize = 15.sp,
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(group?.name ?: "Group", fontWeight = FontWeight.SemiBold)
-                            if (muted) {
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    "🔕",
-                                    fontSize = 13.sp,
-                                )
-                            }
-                        }
-                        Text(
-                            "${memberKeys.size} member${if (memberKeys.size == 1) "" else "s"}",
-                            fontSize = 11.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-            },
+    // Group media: pick an image/video, stage it (Attachments.import copies it
+    // in + derives mime/size), then send through the group enclave via
+    // sendFileToGroup. The group input previously had NO attach affordance at
+    // all — "group media don't work" because they were never wired (the
+    // backend sendFileToGroup existed but had no caller). Images + video only;
+    // both are always metadata-scrubbed for anonymous groups inside the send.
+    val groupMediaLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia(),
+    ) { uri ->
+        val g = liveGroup
+        if (uri == null || g == null) return@rememberLauncherForActivityResult
+        val sgid = g.simplexGroupId
+        val gAegisId = g.id
+        scope.launch {
+            val local = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                app.aether.aegis.util.Attachments.import(context, uri)
+            } ?: return@launch
+            sendGroupAttachment(gAegisId, sgid, local)
+        }
+    }
+
+    // Own the status-bar inset here (mirrors ChatScreen): this screen is a
+    // bare Column, not a Scaffold, so nothing else pads the top — without
+    // this the TopAppBar drew UNDER the system status bar (user-reported
+    // overlap). statusBarsPadding on the Column lifts everything below the
+    // bar; the TopAppBar's own windowInsets are zeroed so we don't pad twice.
+    // navigationBarsPadding() so 3-button navigation doesn't cover the message
+    // composer (user report). ~0 under gesture nav, button-height under 3-button
+    // nav — auto-adapts, no mode detection. Before imePadding() so the inset
+    // math gives total bottom = max(navBar, keyboard).
+    Column(modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().imePadding()) {
+        AegisTopBar(
+            windowInsets = WindowInsets(0, 0, 0, 0),
+            // Group identity + controls live in the SECOND row below — the top
+            // bar carries only back + the shared ActionCluster. Cramming the
+            // group name into the title slot squeezed it to a truncated 3-line
+            // wedge beside the cluster (user report).
+            title = {},
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
                     AegisIcon(app.aether.aegis.ui.components.AegisIcons.Back, stringResource(R.string.action_back))
                 }
             },
-            actions = {
-                IconButton(onClick = { menuOpen = true }) {
-                    AegisIcon(app.aether.aegis.ui.components.AegisIcons.More, "Group actions")
-                }
-                DropdownMenu(
-                    expanded = menuOpen,
-                    onDismissRequest = { menuOpen = false },
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(if (muted) "Unmute group" else stringResource(R.string.group_members_mute_group)) },
-                        onClick = {
-                            menuOpen = false
-                            val next = !muted
-                            mutePrefs.setMuted(peerKey, next)
-                            muted = next
-                        },
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Members (${memberKeys.size})") },
-                        onClick = {
-                            menuOpen = false
-                            navController.navigate("group/$groupId/members")
-                        },
-                    )
-                    HorizontalDivider()
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.group_chat_delete_group)) },
-                        leadingIcon = {
-                            AegisIcon(
-                                icon = app.aether.aegis.ui.components.AegisIcons.Delete,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.error,
-                            )
-                        },
-                        onClick = {
-                            menuOpen = false
-                            confirmDelete = true
-                        },
-                    )
-                }
-            },
         )
+
+        // Second row — group identity (avatar + name + member count) and the
+        // group-actions overflow, full width so the name gets the whole row
+        // instead of fighting the action cluster.
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 12.dp, end = 4.dp, top = 2.dp, bottom = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            app.aether.aegis.ui.components.GroupAvatar(
+                avatarPath = group?.avatarPath,
+                size = 32.dp,
+                glyphFontSize = 15.sp,
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        group?.name ?: "Group",
+                        fontWeight = FontWeight.SemiBold,
+                        maxLines = 1,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                    )
+                    if (muted) {
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("🔕", fontSize = 13.sp)
+                    }
+                }
+                Text(
+                    "${memberKeys.size} member${if (memberKeys.size == 1) "" else "s"}",
+                    fontSize = 11.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            IconButton(onClick = { menuOpen = true }) {
+                AegisIcon(app.aether.aegis.ui.components.AegisIcons.More, "Group actions")
+            }
+            DropdownMenu(
+                expanded = menuOpen,
+                onDismissRequest = { menuOpen = false },
+            ) {
+                DropdownMenuItem(
+                    text = { Text(if (muted) "Unmute group" else stringResource(R.string.group_members_mute_group)) },
+                    onClick = {
+                        menuOpen = false
+                        val next = !muted
+                        mutePrefs.setMuted(peerKey, next)
+                        muted = next
+                    },
+                )
+                DropdownMenuItem(
+                    text = { Text("Members (${memberKeys.size})") },
+                    onClick = {
+                        menuOpen = false
+                        navController.navigate("group/$groupId/members")
+                    },
+                )
+                HorizontalDivider()
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.group_chat_delete_group)) },
+                    leadingIcon = {
+                        AegisIcon(
+                            icon = app.aether.aegis.ui.components.AegisIcons.Delete,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.error,
+                        )
+                    },
+                    onClick = {
+                        menuOpen = false
+                        confirmDelete = true
+                    },
+                )
+            }
+        }
 
         if (confirmDelete && group != null) {
             AlertDialog(
@@ -394,6 +438,7 @@ fun GroupChatScreen(groupId: String, navController: NavController) {
                         msg = msg,
                         selfKey = selfKey,
                         resolveName = nameResolver,
+                        navController = navController,
                         canManage = canManage,
                         isReadme = msg.id == readmeId,
                         onToggleReadme = {
@@ -408,6 +453,23 @@ fun GroupChatScreen(groupId: String, navController: NavController) {
             modifier = Modifier.fillMaxWidth().padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            // Attach image/video → group media picker.
+            IconButton(
+                onClick = {
+                    groupMediaLauncher.launch(
+                        androidx.activity.result.PickVisualMediaRequest(
+                            androidx.activity.result.contract.ActivityResultContracts
+                                .PickVisualMedia.ImageAndVideo,
+                        ),
+                    )
+                },
+            ) {
+                AegisIcon(
+                    icon = app.aether.aegis.ui.components.AegisIcons.Gallery,
+                    contentDescription = "Attach media",
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            }
             OutlinedTextField(
                 value = draft,
                 onValueChange = { draft = it },
@@ -466,19 +528,69 @@ private suspend fun sendGroupMessage(
     // groupId we stored when the group was created — if missing (legacy
     // groups created before the migration) fall through to fan-out.
     val simplex = aegisApp.transports.filterIsInstance<app.aether.aegis.simplex.SimpleXTransport>().firstOrNull()
-    val ok = if (simplexGroupId != null) {
-        simplex?.sendToGroup(simplexGroupId, body) ?: false
-    } else false
+    // Group messages stay in the group enclave. If the SimpleX
+    // group send fails, the message fails. Group content must
+    // never escape into 1:1 protocol channels.
+    if (simplexGroupId != null) {
+        simplex?.sendToGroup(simplexGroupId, body)
+    }
+}
 
+/**
+ * Send a picked image/video into the group. Mirrors ChatScreen's
+ * sendStagedAttachment, but addressed to the group enclave: the row is
+ * recorded locally (peerKey "group:<id>") so the sender's chat updates at
+ * once, then sendFileToGroup pushes it over SimpleX. Group media is always
+ * metadata-scrubbed inside sendFileToGroup (anonymous groups), and never
+ * falls back to a 1:1 channel — if the group has no native id there's
+ * nowhere safe to send it.
+ */
+private suspend fun sendGroupAttachment(
+    groupAegisId: String,
+    simplexGroupId: Long?,
+    local: app.aether.aegis.util.Attachments.Local,
+) {
+    val aegisApp = AegisApp.instance
+    val isImage = local.mime.startsWith("image/")
+    // Video shares the PHOTO row type (rendered by MIME), same as 1:1.
+    val type = if (isImage || local.mime.startsWith("video/")) {
+        MessageType.PHOTO
+    } else {
+        MessageType.FILE
+    }
+    val msg = aegisApp.repository.recordSentAttachment(
+        toKey = "group:$groupAegisId",
+        caption = "",
+        attachmentPath = local.path,
+        attachmentMime = local.mime,
+        attachmentSize = local.size,
+        attachmentName = local.name,
+        protocol = Protocol.SIMPLEX,
+        type = type,
+    )
+    if (simplexGroupId == null) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+            android.widget.Toast.makeText(
+                aegisApp,
+                "This group isn't fully connected yet — media can't be sent.",
+                android.widget.Toast.LENGTH_LONG,
+            ).show()
+        }
+        return
+    }
+    val simplex = aegisApp.transports
+        .filterIsInstance<app.aether.aegis.simplex.SimpleXTransport>().firstOrNull()
+    val ok = simplex?.sendFileToGroup(
+        groupId = simplexGroupId,
+        filePath = local.path,
+        isImage = isImage,
+        caption = "",
+        localMessageId = msg.id,
+    ) ?: false
     if (!ok) {
-        // SimpleX wasn't reachable — fan out via the regular sendMessage
-        // flow so members on LAN/Loopback still get it. They won't see
-        // it as a "group" message on receive (sender's 1:1 view), but
-        // the content is delivered.
-        memberKeys.forEach { peer ->
-            if (peer != aegisApp.identity.deviceId) {
-                pm.sendMessage(peer, "[#$simplexGroupName] $body", MessageType.TEXT)
-            }
+        val why = simplex?.lastSendError ?: "Couldn't send media to the group"
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+            android.widget.Toast.makeText(aegisApp, why, android.widget.Toast.LENGTH_LONG).show()
         }
     }
 }
@@ -576,6 +688,7 @@ private fun GroupBubble(
     msg: Message,
     selfKey: String,
     resolveName: (String) -> String,
+    navController: NavController,
     canManage: Boolean = false,
     isReadme: Boolean = false,
     onToggleReadme: () -> Unit = {},
@@ -645,11 +758,125 @@ private fun GroupBubble(
                             fontWeight = FontWeight.SemiBold,
                         )
                     }
-                    Text(
-                        msg.content,
-                        color = if (outgoing) MaterialTheme.colorScheme.onPrimary
-                                else MaterialTheme.colorScheme.onSurface,
-                    )
+                    // Attachment rendering — mirrors 1:1 ChatScreen so group
+                    // media is actually usable: a DEFERRED file (held by the
+                    // Wi-Fi-only/size gate that groups now honour) shows a
+                    // tap-to-download chip; a COMPLETED file decrypts-if-sealed
+                    // and renders the image, or a file chip for non-previewable
+                    // types. Reuses the same internal chips as 1:1.
+                    val attachPath = msg.attachmentPath
+                    val attachMime = msg.attachmentMime
+                    val isDeferredMedia = attachPath == null && attachMime != null &&
+                        (msg.type == MessageType.PHOTO || msg.type == MessageType.VOICE ||
+                            msg.type == MessageType.FILE)
+                    if (isDeferredMedia) {
+                        DeferredAttachmentChip(msg = msg, mime = attachMime!!, selfKey = selfKey)
+                    }
+                    if (attachPath != null && attachMime != null) {
+                        val attachSize = msg.attachmentSize ?: 0L
+                        val needsDecrypt = msg.sealedDek != null &&
+                            app.aether.aegis.lock.ChatAttachmentSeal.isEncrypted(attachPath)
+                        val canUnseal = AegisApp.instance.repository.canUnsealAttachments
+                        val previewable = attachMime.startsWith("image/") ||
+                            attachMime.startsWith("video/")
+                        when {
+                            needsDecrypt && !canUnseal ->
+                                LockedAttachmentChip(mime = attachMime, size = attachSize)
+                            previewable -> {
+                                // Decrypt off the composition thread (large
+                                // sealed files would ANR if resolved in
+                                // remember{}); re-renders when the path lands.
+                                val viewable by androidx.compose.runtime.produceState<String?>(
+                                    initialValue = if (needsDecrypt) null else attachPath,
+                                    key1 = msg.id,
+                                    key2 = msg.sealedDek?.contentHashCode(),
+                                ) {
+                                    value = if (!needsDecrypt) {
+                                        attachPath
+                                    } else {
+                                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                                            AegisApp.instance.repository
+                                                .viewableAttachmentPath(msg, context)
+                                        }
+                                    }
+                                }
+                                val vp = viewable
+                                when {
+                                    vp == null ->
+                                        DecryptingAttachmentChip(mime = attachMime, size = attachSize)
+                                    // Video can't be drawn by Coil (it decodes
+                                    // stills) — it was rendering blank. Route it
+                                    // through the shared VideoBubble (frame
+                                    // thumbnail + in-app player), same as 1:1.
+                                    attachMime.startsWith("video/") ->
+                                        VideoBubble(
+                                            path = vp,
+                                            name = msg.attachmentName,
+                                            size = attachSize,
+                                            navController = navController,
+                                        )
+                                    else ->
+                                        coil.compose.AsyncImage(
+                                            model = java.io.File(vp),
+                                            contentDescription = msg.attachmentName ?: "image",
+                                            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                                            modifier = Modifier
+                                                .heightIn(max = 240.dp)
+                                                .widthIn(max = 260.dp)
+                                                .clip(MaterialTheme.shapes.small)
+                                                .combinedClickable(
+                                                    onClick = {
+                                                        val enc = java.net.URLEncoder.encode(vp, "UTF-8")
+                                                        val nameQ = msg.attachmentName?.let {
+                                                            "?name=" + java.net.URLEncoder.encode(it, "UTF-8")
+                                                        } ?: ""
+                                                        navController.navigate("photo/$enc$nameQ")
+                                                    },
+                                                    onLongClick = { menuOpen = true },
+                                                ),
+                                        )
+                                }
+                            }
+                            else -> FileChip(
+                                msg = msg,
+                                name = msg.attachmentName ?: "file",
+                                mime = attachMime,
+                                size = attachSize,
+                                sealed = needsDecrypt,
+                            )
+                        }
+                    }
+                    // Caption / text — only when there's actually text (an
+                    // image-only send has a blank body, no empty line).
+                    if (msg.content.isNotBlank()) {
+                        val textColor = if (outgoing) MaterialTheme.colorScheme.onPrimary
+                                        else MaterialTheme.colorScheme.onSurface
+                        // Linkify URLs (clickable) — shared with 1:1 via
+                        // buildLinkifiedString. Plain Text when there's no URL
+                        // (cheaper, and selection still works via long-press Copy).
+                        val annotated = remember(msg.content) { buildLinkifiedString(msg.content) }
+                        if (annotated.getStringAnnotations("URL", 0, annotated.length).isEmpty()) {
+                            Text(msg.content, color = textColor)
+                        } else {
+                            androidx.compose.foundation.text.ClickableText(
+                                text = annotated,
+                                style = androidx.compose.ui.text.TextStyle(color = textColor),
+                                onClick = { offset ->
+                                    annotated.getStringAnnotations("URL", offset, offset)
+                                        .firstOrNull()?.let { ann ->
+                                            runCatching {
+                                                context.startActivity(
+                                                    android.content.Intent(
+                                                        android.content.Intent.ACTION_VIEW,
+                                                        android.net.Uri.parse(ann.item),
+                                                    ).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
+                                                )
+                                            }
+                                        }
+                                },
+                            )
+                        }
+                    }
                     // Reaction chips — shared with 1:1 chat.
                     app.aether.aegis.ui.components.ReactionChipsRow(
                         reactionsJson = msg.reactionsJson,
@@ -665,6 +892,20 @@ private fun GroupBubble(
                     onReact = { emote, add -> menuOpen = false; react(emote, add) },
                     onCustom = { menuOpen = false; showCustomEmote = true },
                 )
+                // Copy the message text — groups had no way to copy at all.
+                if (msg.content.isNotBlank()) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.action_copy)) },
+                        onClick = {
+                            menuOpen = false
+                            val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE)
+                                as? android.content.ClipboardManager
+                            cm?.setPrimaryClip(
+                                android.content.ClipData.newPlainText("message", msg.content),
+                            )
+                        },
+                    )
+                }
                 // …README toggle only for OWNER/ADMIN on text messages.
                 if (canManage && msg.type == MessageType.TEXT) {
                     DropdownMenuItem(

@@ -26,17 +26,21 @@ import androidx.compose.ui.viewinterop.AndroidView
  * Lifecycle (attach on create, detach/destroy at call end) is owned by
  * the CALLER via [CallManager.detachWebView] / [CallManager.destroyWebView]
  * — this composable only constructs/reuses + attaches.
+ *
+ * Origin: loads call.html from https://appassets.androidplatform.net via
+ * [WebViewAssetLoader]. The https secure-context origin is required for
+ * the e2e encryption Worker (call.js creates a Blob-URL Worker for
+ * RTCRtpScriptTransform); the old file:///android_asset origin blocked
+ * Worker creation due to same-origin / CSP restrictions, which silently
+ * killed the encryption pipeline and left incoming encrypted frames
+ * undecrypted → black remote video. RemoteLiveCamera / RemoteLiveMic
+ * already used WebViewAssetLoader for exactly this reason.
  */
 @Composable
 fun CallVideoSurface(modifier: Modifier = Modifier) {
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
-            // Port of upstream simplex-chat CallView.android.kt
-            // (WebRTCView). file:android_asset URL (not the synthetic
-            // https asset-loader scheme) because upstream's
-            // onPermissionRequest grants only `file:/` origins, so the
-            // matching URL scheme is required for getUserMedia to ask.
             // Static WebView reuse (upstream pattern): a cached instance
             // has its page loaded, mic permission granted to that exact
             // Chromium renderer, and the JS pipeline alive — detach from
@@ -46,15 +50,22 @@ fun CallVideoSurface(modifier: Modifier = Modifier) {
                 (cached.parent as? android.view.ViewGroup)?.removeView(cached)
                 cached
             } else WebView(ctx).apply {
+                val assetLoader = androidx.webkit.WebViewAssetLoader.Builder()
+                    .addPathHandler(
+                        "/assets/",
+                        androidx.webkit.WebViewAssetLoader.AssetsPathHandler(ctx),
+                    )
+                    .build()
                 webChromeClient = object : android.webkit.WebChromeClient() {
                     override fun onPermissionRequest(
                         req: android.webkit.PermissionRequest,
                     ) {
-                        if (req.origin.toString().startsWith("file:/")) {
-                            req.grant(req.resources)
-                        } else {
-                            req.deny()
-                        }
+                        // Grant getUserMedia for both the appassets origin
+                        // (normal calls via WebViewAssetLoader) and file://
+                        // (legacy / cached WebViews). The WebView only
+                        // loads our own bundled assets so any origin it
+                        // presents is ours.
+                        req.grant(req.resources)
                     }
                     // Pipe console.* / JS errors to logcat under "CallJS".
                     override fun onConsoleMessage(
@@ -72,7 +83,12 @@ fun CallVideoSurface(modifier: Modifier = Modifier) {
                         return true
                     }
                 }
-                webViewClient = object : android.webkit.WebViewClient() {
+                webViewClient = object : androidx.webkit.WebViewClientCompat() {
+                    override fun shouldInterceptRequest(
+                        view: WebView,
+                        request: android.webkit.WebResourceRequest,
+                    ) = assetLoader.shouldInterceptRequest(request.url)
+
                     override fun onPageFinished(view: WebView, url: String?) {
                         CallManager.onPageLoaded()
                     }
@@ -81,14 +97,12 @@ fun CallVideoSurface(modifier: Modifier = Modifier) {
                 clearCache(true)
                 setBackgroundColor(android.graphics.Color.BLACK)
                 WebView.setWebContentsDebuggingEnabled(true)
-                settings.allowFileAccess = true
-                settings.allowContentAccess = true
                 settings.javaScriptEnabled = true
                 settings.domStorageEnabled = true
                 settings.mediaPlaybackRequiresUserGesture = false
                 settings.cacheMode = android.webkit.WebSettings.LOAD_NO_CACHE
                 CallManager.attachWebView(this)
-                loadUrl("file:///android_asset/www/android/call.html")
+                loadUrl("https://appassets.androidplatform.net/assets/www/android/call.html")
             }
         },
     )

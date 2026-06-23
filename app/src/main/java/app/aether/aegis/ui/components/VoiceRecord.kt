@@ -160,49 +160,21 @@ fun VoiceRecordHex(
  */
 @Composable
 fun VoicePlayer(path: String, modifier: Modifier = Modifier) {
-    var playing by remember { mutableStateOf(false) }
-    val player = remember { MediaPlayer() }
-    // Re-prepare whenever the source path changes; release on leave so the
-    // native MediaPlayer (a scarce system resource) never leaks. Keyed on
-    // `path` so reusing this composable for a different clip rebinds.
-    DisposableEffect(path) {
-        runCatching {
-            player.reset()
-            player.setDataSource(path)
-            player.prepare()
-            // Reset the toggle when playback finishes naturally so the label
-            // flips back to ▶ without the user tapping pause.
-            player.setOnCompletionListener { playing = false }
-        }
-        onDispose {
-            runCatching { player.stop() }
-            runCatching { player.release() }
-        }
-    }
+    // Render from the SHARED controller's state so this bubble shows ❚❚ only
+    // while ITS clip is the one playing, and flips back to ▶ the moment
+    // another clip takes over or playback finishes.
+    val state by VoicePlaybackController.state.collectAsState()
+    val isThisPlaying = state.path == path && state.playing
     Row(
         modifier = modifier
             .clip(MaterialTheme.shapes.small)
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .clickable {
-                if (playing) {
-                    runCatching { player.pause() }
-                    playing = false
-                } else {
-                    // Restart from the head on each play — these are short
-                    // one-shot clips with no scrubbing, so resume isn't worth
-                    // tracking a position for.
-                    runCatching {
-                        player.seekTo(0)
-                        player.start()
-                    }
-                    playing = true
-                }
-            }
+            .clickable { VoicePlaybackController.toggle(path) }
             .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            if (playing) "❚❚" else "▶",
+            if (isThisPlaying) "❚❚" else "▶",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
@@ -213,5 +185,65 @@ fun VoicePlayer(path: String, modifier: Modifier = Modifier) {
             fontSize = 13.sp,
             color = MaterialTheme.colorScheme.onSurface,
         )
+    }
+}
+
+/**
+ * Process-wide single-clip voice playback.
+ *
+ * WHY a singleton with ONE MediaPlayer: every [VoicePlayer] bubble used to
+ * own its own MediaPlayer, so tapping several played them ALL at once (user
+ * report 2026-06-16: "you can tap to play more than one simultaneously"),
+ * and a prepare()/start() failure was swallowed into a runCatching with no
+ * log so a clip that wouldn't play looked silently dead ("SOS recordings are
+ * not playing"). Routing every bubble through one shared player makes
+ * "only one at a time" structural, and the failures are now LOGGED.
+ *
+ * Voice clips are short one-shots with no scrubbing, so each [toggle] either
+ * pauses the current clip or (re)starts the tapped one from the head.
+ */
+object VoicePlaybackController {
+    data class State(val path: String?, val playing: Boolean)
+
+    private val player = MediaPlayer()
+    private val _state = kotlinx.coroutines.flow.MutableStateFlow(State(null, false))
+    val state: kotlinx.coroutines.flow.StateFlow<State> = _state
+
+    /** Tap handler: pause if [path] is the clip currently playing, else stop
+     *  whatever is playing and (re)start [path] from the head. */
+    @Synchronized
+    fun toggle(path: String) {
+        val cur = _state.value
+        if (cur.path == path && cur.playing) {
+            runCatching { player.pause() }
+            _state.value = cur.copy(playing = false)
+            return
+        }
+        runCatching {
+            player.reset()
+            player.setDataSource(path)
+            player.setOnCompletionListener { _state.value = State(path, false) }
+            player.setOnErrorListener { _, what, extra ->
+                android.util.Log.w("VoicePlayback", "MediaPlayer error what=$what extra=$extra path=$path")
+                _state.value = State(null, false)
+                true
+            }
+            player.prepare()
+            player.start()
+            _state.value = State(path, true)
+        }.onFailure {
+            // Was silently swallowed before — log so a non-playing clip is
+            // diagnosable (bad codec, truncated file, decrypt produced an
+            // unreadable temp, etc.).
+            android.util.Log.w("VoicePlayback", "play failed for $path", it)
+            _state.value = State(null, false)
+        }
+    }
+
+    /** Stop + reset — e.g. when leaving the chat. Idempotent. */
+    @Synchronized
+    fun stop() {
+        runCatching { if (player.isPlaying) player.stop() }
+        _state.value = State(null, false)
     }
 }

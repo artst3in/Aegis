@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.prefs.ExperimentalPrefs
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -39,7 +43,7 @@ fun ExperimentalSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string._experimental)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -207,6 +211,73 @@ fun ExperimentalSettingsScreen(navController: NavController) {
             // 7-tap gate. Backing prefs are unchanged (ExperimentalPrefs), so
             // existing choices carried over. See GraphicsSettingsScreen.
 
+            // >>> DEBUG-ONLY (stripped for public build) — tier selector +
+            // live medal preview. Pick a tier to override the shield tier
+            // app-wide (the nav medals update live via debugTierFlow); each
+            // row also previews that tier's medal here, so the chrome
+            // (Bronze/Silver/Gold) vs holographic foil (Cyan crown) treatment
+            // is visible without earning the nodes. Gated on the debug channel.
+            if (app.aether.aegis.BuildConfig.HAS_DEBUG_CHANNEL) {
+                val dbgPrefs = remember { app.aether.aegis.prefs.ExperimentalPrefs(context) }
+                val dbgOverride by dbgPrefs.debugTierFlow.collectAsState()
+                GlassPanel(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Text("Tier preview (debug)", fontWeight = FontWeight.SemiBold)
+                        Text(
+                            "Override the shield tier to preview each medal's shine. " +
+                                "Bronze/Silver/Gold are chrome; the Cyan crown is " +
+                                "holographic foil. Enable \"Real glass\" above to see it.",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 12.sp,
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        // null = "Auto" → clear the override (use the real count).
+                        val options = listOf<app.aether.aegis.admin.ShieldTier?>(
+                            null,
+                            app.aether.aegis.admin.ShieldTier.None,
+                            app.aether.aegis.admin.ShieldTier.Bronze,
+                            app.aether.aegis.admin.ShieldTier.Silver,
+                            app.aether.aegis.admin.ShieldTier.Gold,
+                            app.aether.aegis.admin.ShieldTier.Cyan,
+                        )
+                        options.forEach { tier ->
+                            val selected = dbgOverride == tier?.name
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { dbgPrefs.debugTierOverride = tier?.name }
+                                    .padding(vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                // Live medal preview for a real tier (None/Auto
+                                // get a blank spacer to keep the rows aligned).
+                                if (tier != null && tier != app.aether.aegis.admin.ShieldTier.None) {
+                                    app.aether.aegis.ui.components.HexShape(
+                                        size = 34.dp,
+                                        borderColor = tier.color(),
+                                        fillColor = androidx.compose.ui.graphics.Color.Transparent,
+                                        medalSheen = true,
+                                    )
+                                } else {
+                                    Box(Modifier.size(34.dp))
+                                }
+                                Spacer(Modifier.width(12.dp))
+                                Text(
+                                    tier?.displayName ?: "Auto (earned)",
+                                    modifier = Modifier.weight(1f),
+                                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                                    color = if (selected) app.aether.aegis.ui.theme.AegisCyan
+                                            else MaterialTheme.colorScheme.onSurface,
+                                )
+                                if (selected) {
+                                    Text("●", color = app.aether.aegis.ui.theme.AegisCyan)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // <<< DEBUG-ONLY
 
             // Protected Mode — accident-prevention guard-rails behind a
             // 4th PIN (lock wipe / contact-delete / trust changes / etc.
@@ -251,7 +322,7 @@ fun ExperimentalSettingsScreen(navController: NavController) {
             // About before it reappears. Note this hides the SECTION; it does
             // NOT disarm the features toggled on above (Sentinel, snatch,
             // crash, Protected Mode keep running on their own stores).
-            OutlinedButton(
+            AegisOutlinedButton(
                 onClick = {
                     prefs.lock()
                     navController.navigateUp()

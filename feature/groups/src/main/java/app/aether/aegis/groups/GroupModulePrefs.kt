@@ -110,6 +110,12 @@ class GroupModulePrefs(context: Context) {
          *  just the durable backing. */
         fun currentEnabled(): Boolean = _enabledFlow.value
 
+        /** Process-wide enabled state as an observable flow, for non-UI
+         *  reactive consumers (e.g. the unread-dot tracker) that must stop
+         *  surfacing group state the instant the module is toggled off.
+         *  Same single source of truth as [currentEnabled]. */
+        fun enabledFlowStatic(): StateFlow<Boolean> = _enabledFlow
+
         /** Snapshot for the WorkManager worker. */
         fun currentAutoDisableEnabled(): Boolean = _autoDisableEnabledFlow.value
         fun currentAutoDisableMinutes(): Int = _autoDisableMinutesFlow.value

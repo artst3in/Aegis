@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.prefs.ChatDefaultsPrefs
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -43,7 +45,7 @@ fun ChatDefaultsSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string._disappearing_default)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {

@@ -42,11 +42,17 @@ object TierBroadcaster {
      *  often; the per-peer aegis-gate suppresses sends to non-Aegis
      *  peers. */
     suspend fun broadcastNow(context: Context) = withContext(Dispatchers.IO) {
-        val tier = runCatching { ShieldTierEngine.currentTier(context) }
-            .getOrElse {
-                Log.w(TAG, "broadcastNow: tier compute failed", it)
-                return@withContext
-            }
+        // The REAL earned tier — tierFor(activeNodes), NOT currentTier(), which
+        // honours the debug-only preview override. Announcing currentTier() let
+        // a debug device previewing a Cyan medal broadcast a FAKE Cyan to its
+        // contacts, pinning their peerReportedTier to Cyan (user-reported wrong
+        // tier). The override is a local display preview and must never leak.
+        val tier = runCatching {
+            ShieldTierEngine.tierFor(ShieldTierEngine.activeNodes(context))
+        }.getOrElse {
+            Log.w(TAG, "broadcastNow: tier compute failed", it)
+            return@withContext
+        }
         val targets = runCatching { AegisApp.instance.repository.trustedTargets() }
             .getOrNull() ?: return@withContext
         if (targets.isEmpty()) return@withContext

@@ -1,5 +1,12 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import android.Manifest
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -12,7 +19,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -117,11 +124,11 @@ fun DiagnosticsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.diagnostics_diagnostics)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -421,7 +428,10 @@ private fun runProbes(ctx: Context): List<Probe> {
             status = if (bg) ProbeStatus.OK else ProbeStatus.WARN,
             detail = if (bg) "always allowed"
             else "only while using app — fixes pause when Aegis is backgrounded",
-            fix = if (bg) null else { c -> openAppDetails(c) },
+            // Fire the system "Allow all the time" request directly rather
+            // than dropping the user on the generic App-info page to hunt
+            // for the toggle (user request).
+            fix = if (bg) null else { c -> requestBackgroundLocation(c) },
         )
     }
 
@@ -553,6 +563,51 @@ private fun openAppDetails(ctx: Context) {
         addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
     }
     runCatching { ctx.startActivity(intent) }
+}
+
+/** Request the background-location ("Allow all the time") upgrade DIRECTLY
+ *  through the system permission flow, instead of dropping the user on the
+ *  generic App-info page to hunt for the toggle.
+ *
+ *  Android requires foreground location to be granted FIRST, so the probe
+ *  only offers this once ACCESS_FINE_LOCATION is held; on API 30+ the OS then
+ *  presents its own "Allow all the time" choice. We don't handle the result —
+ *  the screen recomputes the probes on resume, so the row clears itself once
+ *  granted. Falls back to App-info when we can't reach a hosting Activity (the
+ *  request needs one) or below Android 10, where no separate background-
+ *  location permission exists. */
+private fun requestBackgroundLocation(ctx: Context) {
+    val activity = ctx.activityOrNull()
+    if (activity == null ||
+        android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q
+    ) {
+        openAppDetails(ctx)
+        return
+    }
+    runCatching {
+        androidx.core.app.ActivityCompat.requestPermissions(
+            activity,
+            arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+            REQ_BACKGROUND_LOCATION,
+        )
+    }.onFailure { openAppDetails(ctx) }
+}
+
+/** requestPermissions code for the background-location upgrade. We never read
+ *  it back (the resume recompute re-reads the grant), it just has to be a
+ *  stable non-negative int. */
+private const val REQ_BACKGROUND_LOCATION = 0xB6
+
+/** Unwrap a (possibly Compose- or theme-wrapped) [Context] to its hosting
+ *  Activity, or null if none is in the wrapper chain — ActivityCompat
+ *  .requestPermissions needs a real Activity to surface the system dialog. */
+private fun Context.activityOrNull(): android.app.Activity? {
+    var c: Context? = this
+    while (c is android.content.ContextWrapper) {
+        if (c is android.app.Activity) return c
+        c = c.baseContext
+    }
+    return null
 }
 
 /** Open the per-app notification settings page directly. Falls back to
@@ -816,7 +871,7 @@ private fun DangerZoneCard(context: Context, scope: kotlinx.coroutines.Coroutine
                 fontWeight = if (sosActive) FontWeight.SemiBold else FontWeight.Normal,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Button(
+            AegisButton(
                 onClick = { runCatching { AegisApp.instance.sosHandler.cancel() } },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = AegisSOS),
@@ -963,7 +1018,7 @@ private fun DangerZoneCard(context: Context, scope: kotlinx.coroutines.Coroutine
                 fontSize = 12.sp,
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Button(
+            AegisButton(
                 onClick = { confirmText = ""; showDialog = true },
                 // Protected Mode: the Danger Zone can be locked so a child
                 // can't wipe the whole app (and their safety net with it).
@@ -1095,6 +1150,27 @@ private fun QuickActionsCard(context: Context, scope: kotlinx.coroutines.Corouti
                 fontSize = 11.sp,
             )
             Spacer(modifier = Modifier.height(10.dp))
+            // Non-destructive remote-wipe readiness check. Run this on the
+            // device you intend to wipe BEFORE triggering the (one-shot,
+            // irreversible) remote wipe — it verifies Device-Owner + clears
+            // and re-checks the factory-reset block, and reports READY or the
+            // exact blocker, WITHOUT wiping anything.
+            var wipeReadiness by remember { mutableStateOf<String?>(null) }
+            DiagButton("Check remote-wipe readiness") {
+                wipeReadiness = runCatching {
+                    app.aether.aegis.remote.RemoteCommandHandler.wipePreflight()
+                }.getOrElse { "preflight error: ${it.message}" }
+            }
+            wipeReadiness?.let { report ->
+                AlertDialog(
+                    onDismissRequest = { wipeReadiness = null },
+                    title = { Text("Remote-wipe readiness") },
+                    text = { Text(report, fontSize = 13.sp) },
+                    confirmButton = {
+                        TextButton(onClick = { wipeReadiness = null }) { Text(stringResource(R.string.diagnostics_close)) }
+                    },
+                )
+            }
             DiagButton("Re-arm location stream") {
                 context.sendBroadcast(
                     Intent(app.aether.aegis.services.ProtocolService.ACTION_REARM_LOCATION)
@@ -1176,7 +1252,7 @@ private fun QuickActionsCard(context: Context, scope: kotlinx.coroutines.Corouti
                     },
                 )
             }
-            OutlinedButton(
+            AegisOutlinedButton(
                 onClick = { confirmRestart = true },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -1241,7 +1317,7 @@ private fun restartProcess(context: Context) {
  *  (Destructive controls use a red-tinted variant inline.) */
 @Composable
 private fun DiagButton(label: String, onClick: () -> Unit) {
-    OutlinedButton(
+    AegisOutlinedButton(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
@@ -1251,6 +1327,101 @@ private fun DiagButton(label: String, onClick: () -> Unit) {
         ),
     ) {
         Text(label, fontSize = 12.sp)
+    }
+}
+
+/**
+ * Live PSS memory breakdown — the same numbers `adb shell dumpsys meminfo`
+ * reports, surfaced in-app so a real leak can be diagnosed without a PC.
+ * Reads [android.os.Debug.MemoryInfo] summary stats (API 23+) on a 2 s
+ * ticker, off the main thread (getMemoryInfo walks /proc maps and isn't
+ * free).
+ *
+ * Why this matters: OEM "Running services" memory screens often show
+ * VIRTUAL / memory-mapped size, which for Aegis (native SimpleX core +
+ * SQLCipher DB + mmapped attachments) can read as several GB while actual
+ * physical use is a fraction of that. **Total PSS** is the real physical
+ * footprint. The breakdown localises a leak: Graphics big = leaked
+ * bitmaps/surfaces; Native big = buffers / the SimpleX core; Java big =
+ * unbounded in-memory collections.
+ */
+@Composable
+private fun MemoryCard() {
+    data class Mem(
+        val totalPssKb: Long, val javaKb: Long, val nativeKb: Long,
+        val graphicsKb: Long, val codeKb: Long, val stackKb: Long,
+        val otherKb: Long, val swapKb: Long,
+    )
+    var mem by remember { mutableStateOf<Mem?>(null) }
+    LaunchedEffect(Unit) {
+        fun sample(): Mem {
+            val mi = android.os.Debug.MemoryInfo()
+            android.os.Debug.getMemoryInfo(mi)
+            fun stat(k: String) = mi.getMemoryStat(k)?.toLongOrNull() ?: 0L
+            return Mem(
+                totalPssKb = stat("summary.total-pss"),
+                javaKb = stat("summary.java-heap"),
+                nativeKb = stat("summary.native-heap"),
+                graphicsKb = stat("summary.graphics"),
+                codeKb = stat("summary.code"),
+                stackKb = stat("summary.stack"),
+                otherKb = stat("summary.private-other"),
+                swapKb = stat("summary.total-swap"),
+            )
+        }
+        mem = withContext(Dispatchers.IO) { sample() }
+        while (true) {
+            kotlinx.coroutines.delay(2_000L)
+            mem = withContext(Dispatchers.IO) { sample() }
+        }
+    }
+    val m = mem ?: return
+    fun mb(kb: Long) = "%,.0f MB".format(kb / 1024.0)
+    // Total PSS colour: a chat app's real footprint is a few hundred MB.
+    // Green < 500 MB, amber < 1 GB, red beyond — a multi-GB PSS is a real
+    // leak (vs a multi-GB *virtual* figure on the OEM screen, which isn't).
+    val totalColor = when {
+        m.totalPssKb > 1_000_000L -> AegisSOS
+        m.totalPssKb > 500_000L -> AegisWarning
+        else -> AegisOnline
+    }
+    GlassPanel(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                HeaderTick()
+                Text(
+                    "MEMORY (PSS)",
+                    color = AegisCyan,
+                    fontSize = 11.sp,
+                    letterSpacing = 1.5.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    "real RAM · 0.5 Hz",
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 10.sp,
+                    color = AegisOnSurfaceDim,
+                )
+            }
+            Spacer(modifier = Modifier.height(6.dp))
+            ProcessRow("Total PSS", mb(m.totalPssKb), totalColor)
+            ProcessRow("Java heap", mb(m.javaKb))
+            ProcessRow("Native heap", mb(m.nativeKb))
+            ProcessRow("Graphics", mb(m.graphicsKb))
+            ProcessRow("Code", mb(m.codeKb))
+            ProcessRow("Stack", mb(m.stackKb))
+            ProcessRow("Other", mb(m.otherKb))
+            if (m.swapKb > 0L) ProcessRow("Swap", mb(m.swapKb))
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                "Total PSS is real physical memory (not the inflated virtual " +
+                    "figure OEM task managers show). Graphics large = leaked " +
+                    "bitmaps; Native = buffers/core; Java = in-memory objects.",
+                color = AegisOnSurfaceDim,
+                fontSize = 10.sp,
+            )
+        }
     }
 }
 
@@ -1787,7 +1958,15 @@ private fun NetworkHealthCard() {
             health.checks.forEach { CheckRow(it) }
 
             // --- Per-relay detail (the SMP hosts our queues live on) ---
-            if (snap.relays.isNotEmpty()) {
+            // Only MESSAGE relays — XFTP file-transfer servers are connected
+            // on-demand during an attachment transfer and idle out otherwise,
+            // so listing them here as "down" was pure noise (it's what made
+            // the card look mostly-broken when delivery was fine). They don't
+            // gate delivery health, so they don't belong in this list.
+            val msgRelays = remember(snap.relays) {
+                snap.relays.filterNot { app.aether.aegis.ui.isFileRelay(it.host) }
+            }
+            if (msgRelays.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     stringResource(R.string.diagnostics_relays),
@@ -1796,9 +1975,19 @@ private fun NetworkHealthCard() {
                     letterSpacing = 1.5.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
+                // A "down" relay here is almost always just idle, not broken:
+                // SimpleX connects to a server only while it has live work
+                // there and reconnects on demand. Say so, so the red rows
+                // don't read as an outage when delivery is actually fine.
+                Text(
+                    stringResource(R.string.diagnostics_relays_idle_note),
+                    color = AegisOnSurfaceDim,
+                    fontSize = 9.sp,
+                    lineHeight = 12.sp,
+                )
                 Spacer(modifier = Modifier.height(4.dp))
                 val now = System.currentTimeMillis()
-                snap.relays.forEach { relay -> RelayRow(relay.host, relay.connected, now - relay.sinceMs) }
+                msgRelays.forEach { relay -> RelayRow(relay.host, relay.connected, now - relay.sinceMs) }
             }
 
             // --- Errors, only when present ---
@@ -1808,7 +1997,7 @@ private fun NetworkHealthCard() {
 
             // --- One-tap recovery ---
             Spacer(modifier = Modifier.height(12.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 onClick = {
                     scope.launch { runCatching { transport.restart() } }
                 },
@@ -1842,7 +2031,7 @@ private fun CheckRow(check: HealthCheck) {
         Box(
             modifier = Modifier
                 .size(9.dp)
-                .clip(RoundedCornerShape(50))
+                .clip(CutCornerShape(50))
                 .background(if (check.state == CheckState.PASS) color else Color.Transparent)
                 .then(
                     if (check.state != CheckState.PASS)
@@ -1877,7 +2066,7 @@ private fun RelayRow(host: String, connected: Boolean, ageMs: Long) {
         Box(
             modifier = Modifier
                 .size(6.dp)
-                .clip(RoundedCornerShape(50))
+                .clip(CutCornerShape(50))
                 .background(color),
         )
         Spacer(modifier = Modifier.width(10.dp))
@@ -2222,7 +2411,8 @@ private fun SystemLogCard(
  *  mic. All filtered to our PID already by the logcat tail. */
 private val CALL_LOG_TAGS = setOf(
     "CallJS", "CallManager", "CallStore", "CallAudioRouter",
-    "RemoteAccessHandler", "RemoteLiveCamera", "CallVideoSurface",
+    "RemoteAccessHandler", "RemoteCommandHandler", "RemoteLiveCamera",
+    "CallVideoSurface",
     "chromium", "cr_media", "WebRtcAudioManager", "WebRtcAudioRecord",
     "WebRtcAudioTrack",
 )
@@ -2546,7 +2736,7 @@ private fun HeaderTick(accent: Color = AegisCyan) {
     Box(
         modifier = Modifier
             .size(width = 3.dp, height = 12.dp)
-            .clip(RoundedCornerShape(2.dp))
+            .clip(CutCornerShape(2.dp))
             .background(accent),
     )
     Spacer(modifier = Modifier.width(8.dp))
@@ -2640,11 +2830,11 @@ fun DeveloperToolsScreen(navController: NavController) {
     }
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text("Developer tools") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -2656,6 +2846,7 @@ fun DeveloperToolsScreen(navController: NavController) {
         ) {
             val card: Modifier = Modifier.graphicsLayer()
             item("process") { Box(modifier = card) { ProcessViewerCard() } }
+            item("memory") { Box(modifier = card) { MemoryCard() } }
             item("sysLog") {
                 Box(modifier = card) {
                     SystemLogCard(sysLog, onCopy = {

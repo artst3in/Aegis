@@ -42,6 +42,11 @@ object LinkPreview {
 
     fun cached(url: String): Snapshot? = cache[url]
 
+    /** Drop the in-memory preview cache. Called on memory pressure
+     *  (AegisApp.onTrimMemory) — every entry is re-derivable by re-fetching,
+     *  so it's pure reclaimable RAM. */
+    fun clear() = cache.clear()
+
     suspend fun fetch(url: String): Result = withContext(Dispatchers.IO) {
         cache[url]?.let { return@withContext Result.Ok(it) }
         runCatching {

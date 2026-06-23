@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everything Is Light — A Wave Theory of Reality</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #050508;
+    color: #c8c8d0;
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.15), transparent),
+      radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,0.1), transparent),
+      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.12), transparent),
+      radial-gradient(1px 1px at 70% 70%, rgba(255,255,255,0.08), transparent),
+      radial-gradient(1px 1px at 90% 30%, rgba(255,255,255,0.1), transparent),
+      radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.06), transparent),
+      radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.08), transparent),
+      radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.05), transparent),
+      radial-gradient(1.5px 1.5px at 25% 35%, rgba(255,200,100,0.1), transparent),
+      radial-gradient(1.5px 1.5px at 75% 55%, rgba(100,150,255,0.1), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 25%, #ffffff 50%, #6bc5ff 75%, #4488ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .hero .axiom {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(14px, 2vw, 22px);
+    font-weight: 300;
+    color: #ffd700;
+    letter-spacing: 0.06em;
+    margin-bottom: 24px;
+    opacity: 0.8;
+  }
+
+  .hero .tagline {
+    font-size: clamp(14px, 1.8vw, 20px);
+    font-style: italic;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* PARTICLE GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }

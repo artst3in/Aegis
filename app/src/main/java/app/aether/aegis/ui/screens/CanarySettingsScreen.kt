@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.canary.CanaryStore
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -43,11 +47,11 @@ fun CanarySettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.settings_canary)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )

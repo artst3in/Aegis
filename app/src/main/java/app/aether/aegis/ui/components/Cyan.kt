@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.GenericShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -242,8 +241,16 @@ fun CyanSpeechBubble(
     // a stray line across the tail's base — the rect's own border
     // showing through (a redundant line where the
     // arrow is). A path union has no internal edge there.
+    // ONE shape: the CHAMFERED (cut-corner) body UNIONed with the tail
+    // triangle, so the border traces the whole silhouette as a single
+    // outline. Cut corners (not rounded) so the bubble speaks the LunaGlass
+    // hex/angular language like GlassPanel — was a soft RoundedCornerShape
+    // that clashed with it (user report 2026-06-16).
     val density = LocalDensity.current
-    val cornerPx = with(density) { 14.dp.toPx() }
+    // Share the chat message-bubble facet dimension (FacetedBubble.FACET_CUT_DP
+    // = 14dp) so every LunaGlass surface cuts identically — one facet depth
+    // across bubbles, panels, and switches.
+    val cornerPx = with(density) { FACET_CUT_DP.dp.toPx() }
     val tailWpx = with(density) { 18.dp.toPx() }
     val tailHpx = with(density) { tailH.toPx() }
     val shape = remember(tail, cornerPx, tailWpx, tailHpx) {
@@ -253,13 +260,33 @@ fun CyanSpeechBubble(
             val down = tail == BubbleTail.Down
             val bodyTop = if (up) tailHpx else 0f
             val bodyBottom = if (down) size.height - tailHpx else size.height
+            // Clamp the chamfer so its 45° HYPOTENUSE (length c·√2 — the cut
+            // edge you actually see) never exceeds the flat straight segment
+            // of the edge it bounds (length edge − 2c). Setting
+            //     c·√2 ≤ edge − 2c   ⇒   c ≤ edge / (2 + √2) ≈ 0.293·edge
+            // means each side of the octagon reads hypotenuse ≤ flat ≥
+            // hypotenuse — the three pieces are at most equal, with the flat
+            // never shorter than a cut. An earlier edge/3 cap left the
+            // hypotenuse (~0.47·edge) clearly longer than the flat
+            // (~0.33·edge), which looked wrong on a single-line bubble (user
+            // report 2026-06-16). Binding dimension is the shorter edge — the
+            // body height for one-liners. Body height (not the tail-inclusive
+            // size.height) is what the cut actually bounds.
+            val bodyH = bodyBottom - bodyTop
+            val maxCutFraction = 1f / (2f + kotlin.math.sqrt(2f))  // ≈ 0.293
+            val c = minOf(cornerPx, bodyH * maxCutFraction, size.width * maxCutFraction)
+            // Cut-corner (chamfered) rectangle: each corner is sliced flat,
+            // clockwise from the top edge.
             val body = Path().apply {
-                addRoundRect(
-                    androidx.compose.ui.geometry.RoundRect(
-                        0f, bodyTop, size.width, bodyBottom,
-                        androidx.compose.ui.geometry.CornerRadius(cornerPx, cornerPx),
-                    ),
-                )
+                moveTo(c, bodyTop)
+                lineTo(size.width - c, bodyTop)
+                lineTo(size.width, bodyTop + c)
+                lineTo(size.width, bodyBottom - c)
+                lineTo(size.width - c, bodyBottom)
+                lineTo(c, bodyBottom)
+                lineTo(0f, bodyBottom - c)
+                lineTo(0f, bodyTop + c)
+                close()
             }
             if (up || down) {
                 // Triangle base overlaps the body by 1px so the union

@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">Диагностика ICE и звонков только через реле.</string>
     <string name="_stops_screenshots_screen_recording">Блокирует скриншоты, запись экрана и</string>
     <string name="_unfinished_features_hidden_behind">Незавершённые функции скрыты за воротами из 7 нажатий.</string>
-    <string name="_wifionly_by_default_apks">Tolko WiFi -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">Tolko WiFi -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">Opoveshchenie o zamene SIM</string>
     <string name="sim_swap_when_the_sim_in">При смене SIM в телефоне отправляется оповещение.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Logo Aegis</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis proveryaet GitHub kazhdye 24 chasa.</string>
+    <string name="update_how_it_works_body">Aegis проверяет GitHub каждые 24 часа на наличие новых сборок. Каждый APK ~100 МБ. По умолчанию загрузка только через WiFi — загружать столько через мобильные данные при каждом обновлении стоило бы реальных денег.</string>
     <string name="update_beltandbraces_type_rollback_below">Введите ROLLBACK ниже.</string>
     <string name="update_check_interval">Интервал проверки</string>
     <string name="update_how_often_aegis_polls">Как часто Aegis опрашивает GitHub.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis бесплатен навсегда. Без рекламы. Без отслеживания. Данные не продаются.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis откроется без запросов. Ваш PIN по-прежнему</string>
+    <string name="tutorial_aegis_will_open_without">Aegis откроется без запроса. Ваш PIN по-прежнему существует — для принуждения, удалённого доступа и шифрования сообщений. Вы можете снова включить блокировку в Настройках в любое время.</string>
     <string name="tutorial_anyone_who_sees_these">Кто увидит эти слова -- владеет вашим аккаунтом</string>
-    <string name="tutorial_biometric_login_is_convenient">Биометрический вход удобен но пропускает защиту принуждения.</string>
+    <string name="tutorial_biometric_login_is_convenient">Биометрический вход удобен, но обходит защиту от принуждения. Если кто-то заставит использовать ваш отпечаток, откроется настоящий профиль. PIN рекомендуется для максимальной безопасности.</string>
     <string name="tutorial_biometric_skips_duress">Биометрия пропускает принуждение</string>
     <string name="tutorial_choose_how_you_unlock">Выберите как разблокировать</string>
     <string name="tutorial_confirm_pin">Подтвердить PIN</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">Освойте приложение</string>
     <string name="tutorial_fingerprint_face">Отпечаток / Лицо</string>
     <string name="tutorial_get_started">Начать</string>
-    <string name="tutorial_if_it_ever_helps">Если это когда-нибудь поможет, вы можете поддержать Project Aether любым</string>
-    <string name="tutorial_it_is_your_master">Eto vash glavny klyuch, pokazannyj odin raz.</string>
+    <string name="tutorial_if_it_ever_helps">Если это когда-нибудь поможет, вы можете поддержать Проект Aether в Система → О приложении.</string>
+    <string name="tutorial_it_is_your_master">Это ваш главный ключ, показанный один раз. Мы его никогда не храним и никогда больше не покажем — ни за PIN-кодом, ни за отпечатком. Если вы его не записали, это цена того, что он действительно ваш. Храните бумажную копию в безопасности.</string>
     <string name="tutorial_ive_written_it_down">Записал</string>
     <string name="tutorial_keep_lock">Оставить блокировку</string>
     <string name="tutorial_keep_pin_only">Только PIN</string>
     <string name="tutorial_left_to_right_along">Слева направо вдоль нижней части каждого экрана:</string>
-    <string name="tutorial_make_sure_no_one">Ubedites chto nikto ne smotrit.</string>
+    <string name="tutorial_make_sure_no_one">Убедитесь что никто не смотрит и ничего не записывает экран. Скриншоты заблокированы — скриншот попадает в галерею, синхронизируется с облаком и доступен любому с вашим телефоном. Сотрите панель ниже чтобы увидеть ваши 24 слова, запишите их на бумаге и храните её в безопасном месте.</string>
     <string name="tutorial_new_pin_48_digits">Новый PIN (4–8 цифр)</string>
     <string name="tutorial_no_lock_screen">Без экрана блокировки</string>
     <string name="tutorial_open_without_a_lock">Открыть без экрана блокировки?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">Показать слова снова</string>
     <string name="tutorial_skip">Пропустить</string>
     <string name="tutorial_skip_check_debug">Пропустить проверку (отладка)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS zafixirovan v centre.</string>
+    <string name="tutorial_sos_stays_locked_in">SOS закреплён в центре. Остальное можно переставить в Система → Навигация.</string>
     <string name="tutorial_thank_you">Спасибо</string>
     <string name="tutorial_the_skill_tree">Дерево навыков</string>
-    <string name="tutorial_this_encrypts_your_messages">Это шифрует ваши сообщения и восстанавливает аккаунт если</string>
-    <string name="tutorial_this_is_the_only">Eto EDINSTVENNAYA kopiya. My nichego ne khranim.</string>
+    <string name="tutorial_this_encrypts_your_messages">Это шифрует ваши сообщения и восстанавливает аккаунт, если вы забудете PIN или потеряете отпечаток. Если вы это потеряете, никто — ни мы, ни кто-либо — не сможет восстановить ваши данные.</string>
+    <string name="tutorial_this_is_the_only">Это ЕДИНСТВЕННАЯ копия. Мы ничего не храним. Нет \"забыл фразу\", нет сброса и нет способа создать новую — ни с PIN, ни с отпечатком, ни через нас. Если вы потеряете эту бумагу, ваши данные исчезнут навсегда и никто на земле не сможет их вернуть. Запишите сейчас.</string>
     <string name="tutorial_three_tiers_of_trust">Три уровня доверия</string>
     <string name="tutorial_what_makes_this_different">Что делает это особенным</string>
     <string name="tutorial_you_can_replay_this">Вы можете повторить этот туториал из Помощи в любое время.</string>
     <string name="tutorial_your_messages_and_attachments">Ваши сообщения и вложения зашифрованы этим PIN.</string>
-    <string name="tutorial_your_pin_is_set">Ваш PIN установлен и всегда работает — именно его используют принуждение и удалённое</string>
+    <string name="tutorial_your_pin_is_set">Ваш PIN установлен и всегда работает — его используют режим принуждения и удалённый доступ. Это дополнительные ярлыки поверх него.</string>
     <string name="tutorial_your_recovery_phrase">Ваша фраза восстановления</string>
     <string name="tutorial_your_safety_net">Ваша страховочная сеть</string>
     <string name="tutorial_youre_ready">Вы готовы</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">Зарядка</string>
     <string name="remote_locate">Найти</string>
     <string name="remote_siren">Сирена</string>
-    <string name="tutorial_bubble_welcome">Добро пожаловать в Project Aether. Я Cyan — буду вашим гидом.</string>
+    <string name="tutorial_bubble_welcome">Добро пожаловать в Проект Aether. Я Cyan — буду вашим гидом. Возьмите ручку и бумагу — я попрошу вас записать 24 слова которые защищают ваши сообщения.</string>
     <string name="tutorial_bubble_different">Без номера телефона. Без аккаунта. Сервер не хранит ваши сообщения. Только криптография.</string>
     <string name="tutorial_bubble_safety">Если вы в опасности, одна кнопка оповещает всех, кому вы доверяете.</string>
     <string name="tutorial_bubble_tiers">Вы решаете, кто что видит.</string>
@@ -736,4 +736,31 @@
     <string name="tutorial_perm_granted">Разрешено ✓</string>
     <string name="tutorial_perm_denied">Отказано</string>
     <string name="tutorial_perm_allow">Разрешить</string>
+
+    <string name="tutorial_perm_oem_title">Настройки батареи %1$s</string>
+    <string name="tutorial_perm_oem_open">Открыть настройки %1$s</string>
+    <string name="tutorial_perm_denied_note">Вы можете включить это позже — нажмите чтобы открыть Настройки.</string>
+    <string name="tutorial_pin_explanation_existing">Ваш PIN разблокирует Aegis и является ключом шифрования ваших сообщений. 4–8 цифр.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">PIN\nхранилища</string>
+    <string name="tutorial_node_device_owner">Владелец\nустройства</string>
+    <string name="tutorial_node_app_duress">Приложение\nПринуждение</string>
+    <string name="tutorial_skill_tree_explanation">PIN приложения открывает принуждение, фото, хранилище, канарейку, мониторинг SIM и геозону — установите один раз и остальное откроется. Вершина — владелец устройства.</string>
+    <string name="tutorial_phrase_intro">На следующем экране вы увидите 24 слова. Сотрите панель чтобы увидеть их и запишите все на бумаге.</string>
+    <string name="tutorial_phrase_show">Показать фразу</string>
+    <string name="tutorial_phrase_scratch">Сотрите чтобы увидеть, затем запишите все 24 слова по порядку.</string>
+    <string name="tutorial_phrase_confirm">Подтвердите сохранение. Введите слова %1$s с вашей бумаги.</string>
+    <string name="tutorial_phrase_word_n">Слово #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Слова не совпадают. Проверьте бумагу.</string>
+    <string name="tutorial_phrase_write_down">Запишите эти 24 слова на бумаге. Это ключ ко всему.</string>
+    <string name="tutorial_phrase_already_saved">Уже сохранено. Храните бумажную копию в безопасности.</string>
+    <string name="tutorial_draw_pattern">Нарисуйте свой узор</string>
+    <string name="tutorial_draw_pattern_confirm">Нарисуйте ещё раз для подтверждения</string>
+    <string name="tutorial_pattern_min_dots">Используйте минимум %1$d точек.</string>
+    <string name="tutorial_pattern_mismatch">Не совпадает — начните заново.</string>
+    <string name="tutorial_bio_need_pin_first">Сначала установите PIN, затем добавьте биометрию.</string>
+    <string name="tutorial_bio_failed">Не удалось включить биометрию. Попробуйте снова.</string>
+    <string name="tutorial_pin_save_error">Не удалось сохранить PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN не сохранён — проверьте Диагностику.</string>
 </resources>

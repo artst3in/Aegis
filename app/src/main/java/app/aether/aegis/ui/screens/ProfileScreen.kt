@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.MainActivity
 import app.aether.aegis.util.Attachments
@@ -60,10 +64,15 @@ fun ProfileScreen(navController: NavController, isOnboarding: Boolean) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            // Own the status-bar inset (bare Column, not a Scaffold), OUTSIDE
+            // the scroll so the top bar clears the system status bar instead
+            // of drawing under it; TopAppBar insets zeroed to avoid double-pad.
+            .statusBarsPadding()
             .imePadding()
             .verticalScroll(rememberScrollState()),
     ) {
-        TopAppBar(
+        AegisTopBar(
+            windowInsets = WindowInsets(0, 0, 0, 0),
             title = { Text(if (isOnboarding) stringResource(R.string.profile_welcome) else stringResource(R.string.profile_title)) },
             navigationIcon = {
                 if (!isOnboarding) {
@@ -153,7 +162,7 @@ fun ProfileScreen(navController: NavController, isOnboarding: Boolean) {
             maxLines = 4,
         )
 
-        Button(
+        AegisButton(
             enabled = !busy && displayName.trim().isNotEmpty(),
             onClick = {
                 busy = true

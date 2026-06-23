@@ -1,5 +1,11 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -71,11 +77,11 @@ fun SentinelInboxScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.sentinel_inbox_sentinel_inbox)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -203,7 +209,7 @@ private fun InboxEventCard(row: SentinelInbox.Row, inbox: SentinelInbox) {
                 // persisting per-row ack state isn't worth it for a drill.
                 var confirmed by remember { mutableStateOf(false) }
                 Spacer(modifier = Modifier.height(6.dp))
-                OutlinedButton(
+                AegisOutlinedButton(
                     onClick = {
                         if (!confirmed) {
                             inbox.sendDrillAck(row.fromPeerKey)

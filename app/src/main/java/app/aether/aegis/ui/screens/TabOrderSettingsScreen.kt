@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -43,7 +47,7 @@ fun TabOrderSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.tab_order_nav_order)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -117,7 +121,7 @@ fun TabOrderSettingsScreen(navController: NavController) {
             // on the flow, so the rows above reorder without any extra
             // local-state plumbing.
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 onClick = { prefs.reset() },
                 modifier = Modifier.fillMaxWidth(),
             ) { Text(stringResource(R.string.tab_order_reset_to_default)) }

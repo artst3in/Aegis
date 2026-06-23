@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisButton
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -125,7 +127,7 @@ fun RecoveryUnlockScreen(onCancel: () -> Unit, onRecovered: () -> Unit) {
                     Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                Button(
+                AegisButton(
                     enabled = !working && phrase.isNotBlank(),
                     onClick = {
                         val words = RecoveryPhrase.normalize(phrase)
@@ -133,7 +135,7 @@ fun RecoveryUnlockScreen(onCancel: () -> Unit, onRecovered: () -> Unit) {
                         // before the heavier Argon2id verify/derive.
                         if (!RecoveryPhrase.isValid(words)) {
                             error = "That's not a valid 24-word phrase. Check for typos."
-                            return@Button
+                            return@AegisButton
                         }
                         working = true
                         error = null
@@ -205,7 +207,7 @@ fun RecoveryUnlockScreen(onCancel: () -> Unit, onRecovered: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                Button(
+                AegisButton(
                     // 4–8 digits, and confirm must match. setPinGateOnly sets
                     // ONLY the PIN gate — the seal keypair is already restored
                     // and re-wrapped into the TEE from the phrase above, so

@@ -171,11 +171,14 @@ object RemoteLiveCamera {
         callObserver?.cancel(); callObserver = null
         main.post {
             runCatching { CallManager.hangUp() }
-            runCatching { CallManager.detachWebView() }
-            runCatching {
-                webView?.stopLoading()
-                webView?.destroy()
-            }
+            // destroyWebView() nulls CallManager.webView AND destroys the
+            // underlying Chromium renderer. The old code called detachWebView()
+            // (clears queued commands but does NOT null the field) then manually
+            // destroyed the WebView — leaving CallManager.webView pointing at a
+            // DESTROYED instance. The next normal call's CallVideoSurface saw
+            // cachedWebView() != null, tried to reuse the dead WebView, and got
+            // no video / no JS / hung at WaitCapabilities. (Fixes #36)
+            runCatching { CallManager.destroyWebView() }
             webView = null
             Log.i(TAG, "live-cam stream torn down")
         }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
@@ -208,7 +209,11 @@ fun SkillTreeView(
                     else         -> AegisOnSurfaceDim
                 }
                 val fill = when {
-                    node.locked  -> Color.Transparent
+                    // Locked → dark scrim so the hex reads as switched-OFF and
+                    // clearly NOT tappable. A transparent fill made locked nodes
+                    // (e.g. Device Owner) look identical to available ones —
+                    // they appeared tappable when they aren't (user report).
+                    node.locked  -> Color.Black.copy(alpha = 0.45f)
                     node.active  -> AegisCyanGlow.copy(alpha = 0.6f)
                     else         -> Color.Transparent
                 }
@@ -229,14 +234,40 @@ fun SkillTreeView(
                     breathing = node.pulse,
                     onClick = tapHandler,
                 ) {
-                    Text(
-                        text = node.label.replace(' ', '\n'),
-                        color = labelColor,
-                        fontSize = 8.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center,
-                        lineHeight = 9.sp,
-                    )
+                    // Locked nodes show a small LunaGlass padlock ABOVE the
+                    // label (not instead of it) so the node reads as locked AND
+                    // you can still see WHAT it is / what's gated behind what
+                    // (user report: a bare padlock hid which node was which).
+                    if (node.locked) {
+                        androidx.compose.foundation.layout.Column(
+                            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+                            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
+                        ) {
+                            AegisIcon(
+                                AegisIcons.Lock,
+                                contentDescription = "locked",
+                                tint = AegisOnSurfaceDim.copy(alpha = 0.7f),
+                                modifier = Modifier.size(11.dp),
+                            )
+                            Text(
+                                text = node.label.replace(' ', '\n'),
+                                color = labelColor,
+                                fontSize = 7.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center,
+                                lineHeight = 8.sp,
+                            )
+                        }
+                    } else {
+                        Text(
+                            text = node.label.replace(' ', '\n'),
+                            color = labelColor,
+                            fontSize = 8.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center,
+                            lineHeight = 9.sp,
+                        )
+                    }
                 }
             }
         }

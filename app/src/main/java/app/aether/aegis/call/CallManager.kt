@@ -57,6 +57,14 @@ object CallManager {
     @Volatile private var jsReady = false
     /** Commands queued before the JS engine signalled ready. */
     private val pendingJsCommands = ArrayDeque<JSONObject>()
+    /** Guards [jsReady] + [pendingJsCommands] as one unit. They're touched
+     *  from BOTH the WebRTC-event coroutine (handleJsResponse) and the main
+     *  thread (sendJsCommand from UI, end, attach/detach), so the
+     *  check-then-enqueue and the flip-then-flush must be atomic — otherwise
+     *  a command enqueued exactly as the flush flips jsReady=true is orphaned
+     *  forever (a lost offer/answer/ICE → the call silently never connects),
+     *  and the plain ArrayDeque can be mutated concurrently. */
+    private val jsLock = Any()
 
     /**
      * Called by CallScreen once it has constructed the WebView and the
@@ -97,7 +105,7 @@ object CallManager {
             runCatching { prior.post { runCatching { prior.destroy() } } }
         }
         webView = wv
-        jsReady = false
+        resetJsPipeline()
         // COMPLETE fix for the JNI global-ref overflow crash: prefer a
         // WebMessageListener over addJavascriptInterface. The GIN Java-bridge
         // dispatches every @JavascriptInterface call through a freshly
@@ -137,7 +145,7 @@ object CallManager {
      *  device routing, matching upstream simplex-chat's pattern.
      *  Explicit destroy happens in destroyWebView() at call end. */
     fun detachWebView() {
-        pendingJsCommands.clear()
+        synchronized(jsLock) { pendingJsCommands.clear() }
     }
 
     /** Hard teardown — call ended, the user wants the WebView gone.
@@ -146,8 +154,7 @@ object CallManager {
     fun destroyWebView() {
         val outgoing = webView
         webView = null
-        jsReady = false
-        pendingJsCommands.clear()
+        resetJsPipeline()
         outgoing?.let { wv ->
             runCatching {
                 wv.post {
@@ -431,11 +438,26 @@ object CallManager {
             }
         }
         CallStore.set(null)
+        // A panel-hosted live cam/mic is just a call under the hood; clear the
+        // "this peer's incoming call is a live stream" arming whenever that
+        // call ENDS for ANY reason — target hung up, WebRTC dropped, never
+        // connected — not only the operator's explicit Stop/Exit (the only
+        // paths that cleared it before). A leaked flag made the NEXT normal
+        // call from that peer auto-answer silently with no notification (user
+        // report: "the other side connects without touching the phone").
+        // stopLiveStream only clears when the key matches, so ending an
+        // unrelated call can't wipe a genuinely-armed stream for another peer.
+        active?.let {
+            runCatching {
+                app.aether.aegis.remote.RemoteAccessSession.stopLiveStream(it.peerPubkey)
+            }
+        }
         dismissIncomingNotification()
         // Force-mark the JS pipeline ready so any queued `end` command
         // doesn't just sit there forever. The page is going away
-        // anyway when CallScreen detaches.
-        jsReady = true
+        // anyway when CallScreen detaches. No flush — don't replay stale
+        // offers into an engine we're tearing down.
+        forceJsReady()
         if (active != null) {
             scope.launch {
                 runCatching { transport()?.callEnd(active.peerPubkey) }
@@ -471,12 +493,11 @@ object CallManager {
         val active = CallStore.active.value
         when (type) {
             "capabilities" -> {
-                jsReady = true
-                // Flush queued commands the SimpleX event handlers may have
-                // posted before the WebView finished loading.
-                while (pendingJsCommands.isNotEmpty()) {
-                    sendJsCommand(pendingJsCommands.removeFirst())
-                }
+                // Atomically flip ready + flush everything the SimpleX event
+                // handlers queued before the WebView finished loading. (Was a
+                // racy flag-set + non-locked drain that could orphan a queued
+                // command → the call silently never connected.)
+                markJsReadyAndFlush()
                 // Outgoing-call leg: now that JS told us its capabilities,
                 // construct the CallType and dispatch /_call invite. Per
                 // upstream order (CallView.desktop.kt:38-44).
@@ -649,8 +670,8 @@ object CallManager {
                 app.aether.aegis.diag.DiagLog.e(TAG, "JS reported error: $message · audio[$audioSnap]")
                 // Unblock the pipeline so the End button works — without
                 // this, the user is stuck on "Preparing…" with no way
-                // out except force-quit.
-                jsReady = true
+                // out except force-quit. No flush: the engine just errored.
+                forceJsReady()
                 // Park the full text on a StateFlow so CallScreen can
                 // render it in an AlertDialog with a Copy button. A
                 // toast truncates the audio snapshot exactly at the
@@ -829,10 +850,20 @@ object CallManager {
     }
 
     private fun sendJsCommand(cmd: JSONObject) {
-        if (!jsReady) {
-            pendingJsCommands.add(cmd)
-            return
+        // Atomically decide queue-vs-dispatch under the lock. Dispatch itself
+        // happens OUTSIDE the lock (it only posts to the WebView looper).
+        val dispatchNow = synchronized(jsLock) {
+            if (!jsReady) {
+                pendingJsCommands.add(cmd)
+                false
+            } else true
         }
+        if (dispatchNow) dispatchJs(cmd)
+    }
+
+    /** Wrap [cmd] in call.js's `{corrId, command}` envelope and evaluate it on
+     *  the WebView looper. Must only run once the JS engine is ready. */
+    private fun dispatchJs(cmd: JSONObject) {
         // call.js expects `{corrId, command:{...}}` (see processCommand
         // line 290 in call.js: `const { corrId, command } = body`).
         // Passing the raw command makes JS destructure `command` as
@@ -842,7 +873,41 @@ object CallManager {
             .put("corrId", nextCorrId())
             .put("command", cmd)
         val js = "processCommand(${envelope})"
-        webView?.post { webView?.evaluateJavascript(js, null) }
+        // Capture the WebView ref once. The old `webView?.post { webView?.
+        // evaluateJavascript(…) }` re-read the volatile field inside the
+        // posted runnable; if destroyWebView() nulled it between post and
+        // execution the JS command was silently dropped — the "end" command
+        // in particular, leaving the peer's WebRTC connection dangling.
+        val wv = webView ?: return
+        wv.post { wv.evaluateJavascript(js, null) }
+    }
+
+    /** Flip the pipeline to ready and flush everything queued, atomically.
+     *  Draining inside the lock (into a local list) then dispatching outside
+     *  it means no command added concurrently is lost and the deque is never
+     *  mutated while iterated. */
+    private fun markJsReadyAndFlush() {
+        val drained = synchronized(jsLock) {
+            jsReady = true
+            val copy = pendingJsCommands.toList()
+            pendingJsCommands.clear()
+            copy
+        }
+        drained.forEach { dispatchJs(it) }
+    }
+
+    /** Force-ready WITHOUT flushing — used on JS error / call-end where we
+     *  want the End command to get through but must NOT replay stale queued
+     *  offers into a dying engine. */
+    private fun forceJsReady() {
+        synchronized(jsLock) { jsReady = true }
+    }
+
+    private fun resetJsPipeline() {
+        synchronized(jsLock) {
+            jsReady = false
+            pendingJsCommands.clear()
+        }
     }
 
     private var corrIdCounter = 0

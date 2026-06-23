@@ -107,11 +107,11 @@ class SOSLiveStream(private val context: Context) {
         streaming = false
         main.post {
             runCatching { CallManager.hangUp() }
-            runCatching { CallManager.detachWebView() }
-            runCatching {
-                webView?.stopLoading()
-                webView?.destroy()
-            }
+            // destroyWebView() nulls CallManager.webView AND destroys the
+            // Chromium renderer. Same fix as RemoteLiveCamera / RemoteLiveMic:
+            // the old detachWebView() + manual destroy left a stale reference
+            // in CallManager → the next normal call reused a dead WebView.
+            runCatching { CallManager.destroyWebView() }
             webView = null
         }
     }

@@ -1,5 +1,11 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -275,11 +281,11 @@ fun StoryComposerScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.story_screens_new_story)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
                 actions = {
@@ -328,7 +334,7 @@ fun StoryComposerScreen(navController: NavController) {
             // Attachments.import off the main thread (it copies the picked
             // file into app-private storage) before exposing it as state.
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedButton(onClick = {
+                AegisOutlinedButton(onClick = {
                     activity?.pickAttachment("image/*") { uri ->
                         scope.launch {
                             val local = withContext(Dispatchers.IO) {
@@ -346,7 +352,7 @@ fun StoryComposerScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(stringResource(R.string.story_screens_photo))
                 }
-                OutlinedButton(onClick = {
+                AegisOutlinedButton(onClick = {
                     activity?.takePhoto { uri ->
                         scope.launch {
                             val local = withContext(Dispatchers.IO) {

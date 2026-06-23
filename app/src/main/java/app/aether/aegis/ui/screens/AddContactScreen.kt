@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.peer.QrCodes
 import android.widget.Toast
@@ -7,7 +12,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import app.aether.aegis.ui.components.AegisIcon
@@ -64,13 +69,14 @@ fun AddContactScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = {
                     Text(
                         when (mode) {
                             Mode.Pick -> stringResource(R.string.contact_add)
                             Mode.Invite -> stringResource(R.string.add_contact_invite_someone)
                             Mode.Accept -> stringResource(R.string.contact_accept_invitation)
+                            Mode.JoinGroup -> "Join a group"
                         },
                         fontWeight = FontWeight.SemiBold,
                     )
@@ -114,12 +120,20 @@ fun AddContactScreen(
                         }
                     },
                 )
+                Mode.JoinGroup -> JoinGroupFlow(
+                    onDone = { navController.popBackStack() },
+                    onJoinedGroup = { gid ->
+                        navController.navigate("group/$gid") {
+                            popUpTo("chats")
+                        }
+                    },
+                )
             }
         }
     }
 }
 
-enum class Mode { Pick, Invite, Accept }
+enum class Mode { Pick, Invite, Accept, JoinGroup }
 
 /** Step 1 — pick which side of the pairing the user is on. Two big
  *  hex-tile buttons; intuitive without reading. */
@@ -165,7 +179,7 @@ private fun AddContactChoice(
     Surface(
         modifier = Modifier.fillMaxWidth(),
         color = app.aether.aegis.ui.theme.AegisSurface,
-        shape = RoundedCornerShape(12.dp),
+        shape = CutCornerShape(12.dp),
         onClick = onClick,
     ) {
         Row(
@@ -313,7 +327,7 @@ private fun InviteFlow(onDone: () -> Unit) {
                     // exemption to the LunaGlass palette rule.
                     Surface(
                         color = Color.White,
-                        shape = RoundedCornerShape(12.dp),
+                        shape = CutCornerShape(12.dp),
                         modifier = Modifier.padding(8.dp),
                     ) {
                         Image(
@@ -326,13 +340,13 @@ private fun InviteFlow(onDone: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        OutlinedButton(
+                        AegisOutlinedButton(
                             onClick = {
                                 copyToClipboard(context, "aegis-invite", currentLink)
                             },
                             modifier = Modifier.weight(1f),
                         ) { Text(stringResource(R.string.contact_copy_link)) }
-                        OutlinedButton(
+                        AegisOutlinedButton(
                             onClick = {
                                 val send = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
                                     type = "text/plain"
@@ -396,7 +410,7 @@ private fun InviteFlow(onDone: () -> Unit) {
                     fontSize = 11.sp,
                     textAlign = TextAlign.Center,
                 )
-                Button(
+                AegisButton(
                     onClick = {
                         scope.launch {
                             val finalName = nickname.trim()
@@ -427,6 +441,13 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
     var nickname by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
+    // Is this Accept actually a RE-PAIR? ContactDetailScreen armed
+    // RepairIntent right before navigating here. If so, the nickname is
+    // IRRELEVANT (the new connection merges into the existing contact row,
+    // keeping its name/history/tier) — and worse, typing the same name would
+    // trip bindContact's localDisplayName-collision rename and CREATE a
+    // duplicate. So we tell the user what's happening and hide the field.
+    val repairing = remember { app.aether.aegis.contact.RepairIntent.peek() != null }
 
     Column(
         modifier = Modifier
@@ -434,6 +455,25 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
+        if (repairing) {
+            // Re-pair banner: reassure the user their existing contact +
+            // history survive, and that no nickname is needed.
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(androidx.compose.foundation.shape.CutCornerShape(8.dp))
+                    .background(app.aether.aegis.ui.theme.AegisCyan.copy(alpha = 0.12f))
+                    .padding(12.dp),
+            ) {
+                Text(
+                    "Re-pairing an existing contact. Scan or paste their fresh " +
+                        "invite link and accept — their name, chat history and " +
+                        "trust tier are kept. No nickname needed.",
+                    color = app.aether.aegis.ui.theme.AegisCyan,
+                    fontSize = 13.sp,
+                )
+            }
+        }
         Text(
             stringResource(R.string.add_contact_got_their_invitation_link),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -441,7 +481,7 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
         )
 
         // Primary CTA — scan. Big, obvious, hex-bordered.
-        Button(
+        AegisButton(
             onClick = {
                 val activity = context as? app.aether.aegis.MainActivity
                 activity?.scanQr("Scan the invitation QR from their phone") { scanned ->
@@ -463,7 +503,7 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
         // hook, just sourced from MediaStore via the system photo
         // picker. Lets users hand Aegis a screenshot of an invite
         // link instead of pointing the camera at another screen.
-        OutlinedButton(
+        AegisOutlinedButton(
             onClick = {
                 val activity = context as? app.aether.aegis.MainActivity
                 activity?.pickQrFromGallery { scanned ->
@@ -528,7 +568,7 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
         // link shape. If the core rejects it after submit, the error
         // surfaces below.
 
-        if (!isGroupLink) {
+        if (!isGroupLink && !repairing) {
             OutlinedTextField(
                 value = nickname,
                 onValueChange = { nickname = it },
@@ -558,7 +598,7 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
             )
         }
 
-        Button(
+        AegisButton(
             // Contact joins need a nickname; group joins don't.
             // Only gate on link-present + not-busy. Nickname is
             // optional now (for contact joins where the user didn't
@@ -640,6 +680,127 @@ private fun AcceptFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit = {})
                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
             ) {
                 Text(stringResource(R.string.add_contact_copy_error), fontSize = 11.sp)
+            }
+        }
+    }
+}
+
+/**
+ * Group-join flow — a DEDICATED, group-only window. No nickname field (a
+ * group's name comes from the invite, and per-user nicknames don't apply),
+ * group-framed copy throughout. Kept separate from the contact [AcceptFlow]
+ * so joining a group and adding a contact never share one confusing adaptive
+ * window that asks for a nickname and then hides it (user report 2026-06-16).
+ * The wire path is identical — acceptInvitation → the core resolves a `/g`
+ * link to a group join — only the UI differs.
+ */
+@Composable
+private fun JoinGroupFlow(onDone: () -> Unit, onJoinedGroup: (String) -> Unit) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var link by remember { mutableStateOf("") }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    // Protected Mode: a child can't join rooms they find on the net.
+    val gated = isGatedNow(app.aether.aegis.protectedmode.ProtectedMode.Gate.GROUPS)
+
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Text(
+            "Scan or paste a GROUP invite link. The group's name comes from " +
+                "the invite — there's no nickname to set.",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 13.sp,
+        )
+        if (gated) {
+            Text(
+                "Joining groups is locked in Protected Mode.",
+                color = app.aether.aegis.ui.theme.AegisWarning,
+                fontSize = 12.sp,
+            )
+        }
+        AegisButton(
+            onClick = {
+                val activity = context as? app.aether.aegis.MainActivity
+                activity?.scanQr("Scan the group invite QR") { scanned ->
+                    if (scanned.isNotBlank()) link = scanned
+                }
+            },
+            modifier = Modifier.fillMaxWidth().height(56.dp),
+        ) {
+            app.aether.aegis.ui.components.AegisIcon(
+                icon = app.aether.aegis.ui.components.AegisIcons.Camera,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.size(20.dp),
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Scan group QR", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+        }
+        AegisOutlinedButton(
+            onClick = {
+                val activity = context as? app.aether.aegis.MainActivity
+                activity?.pickQrFromGallery { scanned -> if (scanned.isNotBlank()) link = scanned }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            androidx.compose.foundation.Image(
+                painter = androidx.compose.ui.res.painterResource(app.aether.aegis.R.drawable.ic_aegis_gallery),
+                contentDescription = null,
+                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(app.aether.aegis.ui.theme.AegisCyan),
+                modifier = Modifier.size(18.dp),
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(stringResource(R.string.add_contact_pick_qr_from_photo), color = app.aether.aegis.ui.theme.AegisCyan)
+        }
+        OutlinedTextField(
+            value = link,
+            onValueChange = { link = it },
+            label = { Text("Group invite link") },
+            placeholder = { Text("https://…/g#…   or   simplex:/…") },
+            singleLine = false,
+            maxLines = 4,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        val trimmedLink = link.trim()
+        AegisButton(
+            enabled = !busy && trimmedLink.isNotEmpty() && !gated,
+            onClick = {
+                busy = true; error = null
+                scope.launch {
+                    val transport = AegisApp.instance.transports
+                        .filterIsInstance<app.aether.aegis.simplex.SimpleXTransport>().firstOrNull()
+                    // Empty nickname — groups don't take one.
+                    val ok = withContext(Dispatchers.IO) {
+                        transport?.acceptInvitation(trimmedLink, "") ?: false
+                    }
+                    busy = false
+                    if (ok) {
+                        val joinedGroup = transport?.lastJoinedGroupAegisId
+                        Toast.makeText(
+                            context,
+                            if (joinedGroup != null) "Opening group…" else "Joining group…",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                        if (joinedGroup != null) onJoinedGroup(joinedGroup) else onDone()
+                    } else {
+                        error = transport?.lastJoinError
+                            ?: "Couldn't join — SimpleX returned no specific error."
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxWidth().height(48.dp),
+        ) {
+            Text(
+                if (busy) stringResource(R.string.contact_connecting) else "Join group",
+                fontSize = 15.sp,
+            )
+        }
+        error?.let { msg ->
+            androidx.compose.foundation.text.selection.SelectionContainer {
+                Text(msg, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
             }
         }
     }

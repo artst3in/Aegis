@@ -89,6 +89,29 @@ object RemoteAccessSession {
     }
 
     /**
+     * Timestamp of the most recent AUTH we (as operator) SENT to each peer.
+     *
+     * Ties an inbound duress-SOS to an operation WE initiated. The AUTH-duress
+     * trap on the target fires the operator's silent SOS BEFORE any session
+     * exists (the auth itself was the duress), so the active-session gate in
+     * onDuressSos can't vouch for it — but a recent OUTBOUND auth to that peer
+     * can. Anti-spoof preserved: a peer we never tried to authenticate to
+     * cannot trip our SOS by sending an unsolicited duress-SOS frame.
+     */
+    private val authSentAt = java.util.concurrent.ConcurrentHashMap<String, Long>()
+
+    /** Record that we just sent an AUTH to [peerKey] (operator side). */
+    fun markAuthSent(peerKey: String) {
+        authSentAt[peerKey] = System.currentTimeMillis()
+    }
+
+    /** True if we sent an AUTH to [peerKey] within [windowMs] (default 2 min) —
+     *  long enough to cover relay latency, short enough that a stale attempt
+     *  can't be replayed into an SOS. */
+    fun recentlyAttemptedAuth(peerKey: String, windowMs: Long = 2L * 60_000L): Boolean =
+        (System.currentTimeMillis() - (authSentAt[peerKey] ?: 0L)) in 0..windowMs
+
+    /**
      * The peer whose LIVE WebRTC stream (camera or mic) the operator is
      * currently viewing INSIDE the device-control panel. Set when the
      * operator starts a live cam/mic from the panel; the incoming stealth
@@ -100,20 +123,39 @@ object RemoteAccessSession {
     private val _liveStreamPeer = MutableStateFlow<String?>(null)
     val liveStreamPeer: StateFlow<String?> = _liveStreamPeer.asStateFlow()
 
+    /** When [startLiveStream] last armed. The target's stealth call-back
+     *  arrives within seconds of arming, so the auto-answer only needs to
+     *  fire in a short window after it. Bounding [isLiveStreamPeer] to this
+     *  window means a flag that lingered (e.g. the target never called back
+     *  and the operator stayed in the panel) can't silently auto-answer a
+     *  NORMAL call placed minutes later. */
+    @Volatile private var _liveStreamArmedAt: Long = 0L
+    private val LIVE_STREAM_ARM_WINDOW_MS = 90_000L
+
     /** Operator started a live cam/mic for [peerKey] — arm the panel to
      *  host the incoming stream and tell CallManager to auto-answer it. */
-    fun startLiveStream(peerKey: String) { _liveStreamPeer.value = peerKey }
+    fun startLiveStream(peerKey: String) {
+        _liveStreamPeer.value = peerKey
+        _liveStreamArmedAt = System.currentTimeMillis()
+    }
 
     /** Operator stopped the live stream (or left the panel). Only clears
      *  if [peerKey] is the one currently armed, so a stale stop for a
      *  different peer can't wipe an active stream. */
     fun stopLiveStream(peerKey: String) {
-        if (_liveStreamPeer.value == peerKey) _liveStreamPeer.value = null
+        if (_liveStreamPeer.value == peerKey) {
+            _liveStreamPeer.value = null
+            _liveStreamArmedAt = 0L
+        }
     }
 
     /** True when [peerKey]'s incoming call should be treated as a
-     *  panel-hosted live stream (auto-answer, no separate call UI). */
-    fun isLiveStreamPeer(peerKey: String): Boolean = _liveStreamPeer.value == peerKey
+     *  panel-hosted live stream (auto-answer, no separate call UI). Gated on
+     *  the arm window so only the call-back that promptly follows arming is
+     *  auto-answered — a lingering flag won't silently accept a later call. */
+    fun isLiveStreamPeer(peerKey: String): Boolean =
+        _liveStreamPeer.value == peerKey &&
+            (System.currentTimeMillis() - _liveStreamArmedAt) < LIVE_STREAM_ARM_WINDOW_MS
 
     fun isActive(peerKey: String): Boolean {
         val s = _sessions.value[peerKey] ?: return false

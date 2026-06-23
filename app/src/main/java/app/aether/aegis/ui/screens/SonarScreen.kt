@@ -1,5 +1,13 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexSlider
+import app.aether.aegis.ui.components.HexRadio
+import app.aether.aegis.ui.components.HexCheckbox
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -20,6 +28,7 @@ import androidx.navigation.NavController
 import app.aether.aegis.R
 import app.aether.aegis.ui.components.AegisIcon
 import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.HexSwitch
 import app.aether.aegis.ui.components.GlassPanel
 import kotlin.math.PI
 import kotlin.math.ln
@@ -62,7 +71,7 @@ fun SonarScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.sonar_sonar_raw_data)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -84,7 +93,7 @@ fun SonarScreen(navController: NavController) {
             // user can always toggle the engine regardless of how many
             // tuning panels live below — earlier the button sat after
             // every other section and got cut off on shorter screens.
-            Button(
+            AegisButton(
                 onClick = { if (running) engine.stop() else engine.start() },
                 modifier = Modifier.fillMaxWidth(),
                 colors = if (running)
@@ -113,7 +122,7 @@ fun SonarScreen(navController: NavController) {
                         fontSize = 11.sp,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(
+                    AegisButton(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !calibrateBusy && !selfTestBusy && !running,
                         onClick = {
@@ -199,7 +208,7 @@ fun SonarScreen(navController: NavController) {
                         fontSize = 11.sp,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !selfTestBusy && !running,
                         onClick = {
@@ -300,7 +309,7 @@ fun SonarScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp,
                     )
-                    Slider(
+                    HexSlider(
                         value = amplitude,
                         onValueChange = {
                             amplitude = it
@@ -328,7 +337,7 @@ fun SonarScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp,
                     )
-                    Slider(
+                    HexSlider(
                         value = frequency.toFloat(),
                         onValueChange = {
                             frequency = it.toInt()
@@ -363,7 +372,7 @@ fun SonarScreen(navController: NavController) {
                     // delta on a quiet device, the ceiling well above any
                     // real movement, so the whole usable sensitivity band
                     // fits one slider. Lower = more sensitive.
-                    Slider(
+                    HexSlider(
                         value = threshold,
                         onValueChange = {
                             threshold = it
@@ -489,7 +498,7 @@ private fun SentinelControlPanel() {
                         fontSize = 11.sp,
                     )
                 }
-                Switch(
+                HexSwitch(
                     checked = armed,
                     onCheckedChange = { on ->
                         if (on) engine.arm() else engine.disarm()
@@ -571,7 +580,7 @@ private fun SentinelNotifyListPicker(prefs: app.aether.aegis.sentinel.SentinelPr
                     .padding(vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Checkbox(checked = ackLogOnly, onCheckedChange = null)
+                HexCheckbox(checked = ackLogOnly, onCheckedChange = null)
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     stringResource(R.string.sonar_logonly_record_events_locally),
@@ -592,7 +601,7 @@ private fun SentinelNotifyListPicker(prefs: app.aether.aegis.sentinel.SentinelPr
                         .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Checkbox(
+                    HexCheckbox(
                         checked = isOn,
                         onCheckedChange = null,  // row click handles it
                     )
@@ -624,7 +633,7 @@ private fun SentinelThrottlePicker(prefs: app.aether.aegis.sentinel.SentinelPref
                         .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    RadioButton(selected = current == t, onClick = null)
+                    HexRadio(selected = current == t, onClick = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Column {
                         Text(t.label, fontSize = 13.sp)
@@ -673,7 +682,7 @@ private fun SentinelAutoArmRow(prefs: app.aether.aegis.sentinel.SentinelPrefs) {
                         fontSize = 11.sp,
                     )
                 }
-                Switch(
+                HexSwitch(
                     checked = autoArm,
                     onCheckedChange = {
                         autoArm = it
@@ -705,7 +714,7 @@ private fun SentinelViewerLinks(navController: NavController) {
         Column(modifier = Modifier.padding(14.dp)) {
             Text(stringResource(R.string.sonar_sentinel_viewers), fontWeight = FontWeight.SemiBold)
             Spacer(modifier = Modifier.height(6.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { navController.navigate("settings/sentinel/inbox") },
             ) {
@@ -717,14 +726,14 @@ private fun SentinelViewerLinks(navController: NavController) {
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { navController.navigate("settings/sentinel/log") },
             ) {
                 Text(stringResource(R.string.sonar_local_event_log_debug), fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.height(4.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     // Synthesises one SENTINEL_EVENT for each
@@ -779,7 +788,7 @@ private fun SentinelDrillRow() {
         // fully elapsed, and there's at least one notify-list recipient to
         // confirm receipt — a drill with nobody to ack proves nothing.
         val canRun = !drillActive && cooldownMs == 0L && prefs.notifyList.isNotEmpty()
-        OutlinedButton(
+        AegisOutlinedButton(
             modifier = Modifier.fillMaxWidth(),
             enabled = canRun,
             onClick = { engine.startDrill() },
@@ -809,7 +818,7 @@ private fun SentinelDrillRow() {
                 fontFamily = FontFamily.Monospace,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { engine.cancelDrill() },
             ) {

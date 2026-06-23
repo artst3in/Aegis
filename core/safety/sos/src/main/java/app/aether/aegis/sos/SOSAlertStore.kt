@@ -109,6 +109,16 @@ object SOSAlertStore {
         var latestSnapshotPath: String? by mutableStateOf(null)
         var latestSnapshotAt: Long by mutableStateOf(0L)
 
+        /** Per-lens latest frames. The SOS phone fans out BOTH the rear
+         *  (scene/surroundings) and front (who's with the victim) cameras,
+         *  tagged `[aegis:sos-frame:rear|front]`; the panic dashboard shows
+         *  each in its correctly-labelled slot. An untagged legacy frame is
+         *  treated as rear. null until the first frame of that lens lands. */
+        var latestFrontSnapshotPath: String? by mutableStateOf(null)
+        var latestFrontSnapshotAt: Long by mutableStateOf(0L)
+        var latestRearSnapshotPath: String? by mutableStateOf(null)
+        var latestRearSnapshotAt: Long by mutableStateOf(0L)
+
         val active: Boolean get() = endedAt == null
         val durationMs: Long get() = (endedAt ?: System.currentTimeMillis()) - startedAt
     }
@@ -266,12 +276,23 @@ object SOSAlertStore {
     }
 
     /** Record the path of the latest `[aegis:sos-frame]` JPEG
-     *  received from [victimKey]. Receiver-side display only;
-     *  dashboards observe via the Alert. */
-    fun setLatestSnapshot(victimKey: String, path: String) {
+     *  received from [victimKey], for a given [lens] ("front" / "rear";
+     *  anything else, incl. a legacy untagged frame, counts as rear).
+     *  Receiver-side display only; dashboards observe via the Alert. */
+    fun setLatestSnapshot(victimKey: String, path: String, lens: String = "rear") {
         alerts[victimKey]?.let {
+            val now = System.currentTimeMillis()
+            // Keep the legacy single-frame fields pointing at the newest of
+            // either lens, so anything still reading them sees fresh frames.
             it.latestSnapshotPath = path
-            it.latestSnapshotAt = System.currentTimeMillis()
+            it.latestSnapshotAt = now
+            if (lens == "front") {
+                it.latestFrontSnapshotPath = path
+                it.latestFrontSnapshotAt = now
+            } else {
+                it.latestRearSnapshotPath = path
+                it.latestRearSnapshotAt = now
+            }
         }
     }
 }

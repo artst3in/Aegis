@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -45,6 +48,7 @@ import androidx.navigation.NavController
 import app.aether.aegis.protectedmode.ProtectedMode
 import app.aether.aegis.ui.components.AegisIcon
 import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.HexSwitch
 import app.aether.aegis.ui.components.GlassPanel
 import app.aether.aegis.ui.theme.AegisCyan
 import app.aether.aegis.ui.theme.AegisOnSurfaceDim
@@ -105,17 +109,14 @@ fun ProtectedModeScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text("Protected Mode") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         AegisIcon(AegisIcons.Back, "back")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                ),
-            )
+                            )
         },
     ) { pad ->
         Column(
@@ -175,7 +176,7 @@ fun ProtectedModeScreen(navController: NavController) {
                     Text(it, color = AegisSOS, fontSize = 12.sp)
                 }
                 Spacer(Modifier.height(8.dp))
-                Button(
+                AegisButton(
                     // Length 4–12 matches the PinField cap; the match check
                     // is deferred to onClick so the user sees a reason rather
                     // than a silently-disabled button on a typo.
@@ -259,7 +260,7 @@ fun ProtectedModeScreen(navController: NavController) {
 
             // ── Arm / Disarm ───────────────────────────────────────────
             if (armed) {
-                Button(
+                AegisButton(
                     onClick = { showDisarmPrompt = true },
                     colors = ButtonDefaults.buttonColors(containerColor = AegisSOS),
                     modifier = Modifier.fillMaxWidth(),
@@ -267,7 +268,7 @@ fun ProtectedModeScreen(navController: NavController) {
             } else {
                 // Can't arm without a PIN (nothing would disarm it) or with
                 // an empty selection (nothing would be locked).
-                Button(
+                AegisButton(
                     enabled = hasPin && selected.isNotEmpty(),
                     onClick = { ProtectedMode.arm(selected) },
                     modifier = Modifier.fillMaxWidth(),
@@ -321,7 +322,7 @@ private fun GateToggle(
                 )
                 Text(desc, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp)
             }
-            Switch(checked = checked, enabled = enabled, onCheckedChange = onCheckedChange)
+            HexSwitch(checked = checked, enabled = enabled, onCheckedChange = onCheckedChange)
         }
     }
 }

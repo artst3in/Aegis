@@ -94,21 +94,27 @@ object SOSSnapshotStream {
         if (!budget.shouldRunCameraStream()) return
         if (!budget.shouldShipAudioChunks()) return
         val dir = File(ctx.cacheDir, "sos_frames").apply { mkdirs() }
-        val out = File(dir, "frame-${System.currentTimeMillis()}.jpg")
-        val ok = runCatching {
-            capture(ctx, out, CameraSelector.LENS_FACING_BACK)
+        val ts = System.currentTimeMillis()
+        // Ship BOTH lenses so responders see the SCENE (rear) AND who's with
+        // the victim (front), each correctly tagged so the panic dashboard
+        // routes them to the right slot. Previously only the rear camera was
+        // shipped and the dashboard mislabelled it "front" (user report:
+        // "the front camera sends back camera photos"). Rear first (the
+        // stolen/grabbed-phone default angle), then front.
+        val rear = File(dir, "frame-$ts-rear.jpg")
+        val rearOk = runCatching {
+            capture(ctx, rear, CameraSelector.LENS_FACING_BACK)
         }.getOrDefault(false)
-        if (!ok) {
-            // Fall back to front camera so devices without a rear
-            // lens still produce frames.
-            runCatching { capture(ctx, out, CameraSelector.LENS_FACING_FRONT) }
-        }
-        if (out.exists() && out.length() > 0L) {
-            ship(out)
-        }
+        if (rearOk && rear.exists() && rear.length() > 0L) ship(rear, "rear")
+
+        val front = File(dir, "frame-$ts-front.jpg")
+        val frontOk = runCatching {
+            capture(ctx, front, CameraSelector.LENS_FACING_FRONT)
+        }.getOrDefault(false)
+        if (frontOk && front.exists() && front.length() > 0L) ship(front, "front")
     }
 
-    private suspend fun ship(file: File) {
+    private suspend fun ship(file: File, lens: String) {
         val pm = AegisApp.instance.protocolManager
         val selfKey = AegisApp.instance.identity.deviceId
         val targets = runCatching {
@@ -125,7 +131,7 @@ object SOSSnapshotStream {
                     peerPubkey = peer.publicKey,
                     filePath = file.absolutePath,
                     isImage = true,
-                    caption = "[aegis:sos-frame] ${file.name}",
+                    caption = "[aegis:sos-frame:$lens] ${file.name}",
                     // Duress evidence to enrolled responders — GPS +
                     // timestamp are DELIBERATELY kept so they can find
                     // the user. Exempt from the outbound metadata scrub.

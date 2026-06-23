@@ -326,7 +326,7 @@
     <string name="_relayonly_ice_and_call">Relay pekee ICE na uchunguzi wa simu.</string>
     <string name="_stops_screenshots_screen_recording">Inazuia picha za skrini na kurekodi.</string>
     <string name="_unfinished_features_hidden_behind">Vipengele visivyokamilika vilivyofichwa nyuma ya lango la kugusa 7.</string>
-    <string name="_wifionly_by_default_apks">WiFi pekee — APK ni ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">WiFi pekee — APK ni ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">Tahadhari ya kubadilisha SIM</string>
     <string name="sim_swap_when_the_sim_in">SIM inapobadilika, arifa itatumwa.</string>
@@ -334,7 +334,7 @@
     <string name="splash_aegis_logo">Nembo ya Aegis</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis inaangalia GitHub kila masaa 24 kwa matoleo mapya.</string>
+    <string name="update_how_it_works_body">Aegis hukagua GitHub kila masaa 24 kwa miundo mipya. Kila APK ni ~100 MB. Kwa chaguo-msingi tunapakua kupitia WiFi pekee — kupakua kiasi hicho kupitia data ya simu kwa kila toleo kungetumia pesa halisi.</string>
     <string name="update_beltandbraces_type_rollback_below">Usalama mara mbili -- andika ROLLBACK hapa chini.</string>
     <string name="update_check_interval">Muda wa kuangalia</string>
     <string name="update_how_often_aegis_polls">Mara ngapi Aegis inaangalia. Chini zaidi hutumia betri zaidi.</string>
@@ -608,9 +608,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis ni bure milele. Hakuna matangazo. Hakuna ufuatiliaji.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis itafunguka bila kuuliza. PIN bado inalinda data.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis itafunguka bila kuomba chochote. PIN yako bado ipo — kwa kulazimishwa, ufikiaji wa mbali, na kusimba ujumbe wako. Unaweza kuwezesha kufuli tena wakati wowote katika Mipangilio.</string>
     <string name="tutorial_anyone_who_sees_these">Yeyote anayeona maneno haya anamiliki akaunti yako</string>
-    <string name="tutorial_biometric_login_is_convenient">Kuingia kwa baiometriki ni rahisi lakini kunaruka ulinzi wa kulazimishwa.</string>
+    <string name="tutorial_biometric_login_is_convenient">Kuingia kwa biometriki ni rahisi lakini inaruka ulinzi wa kulazimishwa. Mtu akiilazimisha alama ya kidole chako, wasifu halisi unafunguka. PIN inapendekezwa kwa usalama wa juu.</string>
     <string name="tutorial_biometric_skips_duress">Baiometriki inaruka kulazimishwa</string>
     <string name="tutorial_choose_how_you_unlock">Chagua jinsi unavyofungua</string>
     <string name="tutorial_confirm_pin">Thibitisha PIN</string>
@@ -624,13 +624,13 @@
     <string name="tutorial_find_your_way_around">Jifunze kuzunguka</string>
     <string name="tutorial_fingerprint_face">Alama ya kidole / Uso</string>
     <string name="tutorial_get_started">Anza</string>
-    <string name="tutorial_if_it_ever_helps">Ikiwa itawahi kusaidia, unaweza kuunga mkono Mradi Aether.</string>
-    <string name="tutorial_it_is_your_master">Hii ndiyo ufunguo wako mkuu, unaonyeshwa mara moja.</string>
+    <string name="tutorial_if_it_ever_helps">Ikikusaidia siku moja, unaweza kuunga mkono Mradi Aether kutoka Mfumo → Kuhusu.</string>
+    <string name="tutorial_it_is_your_master">Hii ni ufunguo wako mkuu, unaonyeshwa mara moja. Hatuhifadhi kamwe na hatutauonyesha tena — si nyuma ya PIN yako, si nyuma ya alama ya kidole chako. Ikiwa haukuiandika, hiyo ndiyo bei ya kuwa yako kweli. Hifadhi nakala yako ya karatasi salama.</string>
     <string name="tutorial_ive_written_it_down">Nimeandika</string>
     <string name="tutorial_keep_lock">Weka kufuli</string>
     <string name="tutorial_keep_pin_only">Weka PIN pekee</string>
     <string name="tutorial_left_to_right_along">Kushoto kwenda kulia kando ya chini:</string>
-    <string name="tutorial_make_sure_no_one">Hakikisha hakuna mtu anayeangalia.</string>
+    <string name="tutorial_make_sure_no_one">Hakikisha hakuna mtu anayetazama na hakuna kinachorekodia skrini yako. Picha za skrini zimezuiwa — picha ya skrini inaenda kwenye galeria, inasawazishwa na wingu na mtu yeyote mwenye simu yako anaweza kuiona. Parua paneli hapa chini kuonyesha maneno yako 24, yaandike kwenye karatasi na uhifadhi karatasi hiyo mahali salama.</string>
     <string name="tutorial_new_pin_48_digits">PIN mpya (tarakimu 4-8)</string>
     <string name="tutorial_no_lock_screen">Bila skrini ya kufuli</string>
     <string name="tutorial_open_without_a_lock">Fungua bila skrini ya kufuli?</string>
@@ -644,16 +644,16 @@
     <string name="tutorial_show_the_words_again">Onyesha maneno tena</string>
     <string name="tutorial_skip">Ruka</string>
     <string name="tutorial_skip_check_debug">Ruka ukaguzi (utatuzi)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS imefungwa katikati. Panga upya zilizobaki.</string>
+    <string name="tutorial_sos_stays_locked_in">SOS inabaki katikati. Unaweza kupanga upya mengine katika Mfumo → Urambazaji.</string>
     <string name="tutorial_thank_you">Asante</string>
     <string name="tutorial_the_skill_tree">Mti wa ujuzi</string>
-    <string name="tutorial_this_encrypts_your_messages">Hii inasimba ujumbe wako na kurejesha akaunti yako.</string>
-    <string name="tutorial_this_is_the_only">Hii ndiyo nakala PEKEE. Hatuhifadhi chochote.</string>
+    <string name="tutorial_this_encrypts_your_messages">Hii inasimba ujumbe wako na kurejesha akaunti yako ukisahau PIN au kupoteza alama ya kidole. Ukiipoteza, hakuna mtu — si sisi, si yeyote — anayeweza kurejesha data yako.</string>
+    <string name="tutorial_this_is_the_only">Hii ni nakala PEKEE. Hatuhifadhi chochote. Hakuna \"nilisahau msemo\", hakuna kuweka upya, na hakuna njia ya kutengeneza mpya — si kwa PIN, si kwa alama ya kidole, si kupitia sisi. Ukipoteza karatasi hii, data yako itatoweka milele na hakuna mtu duniani anayeweza kuirejesha. Iandike sasa.</string>
     <string name="tutorial_three_tiers_of_trust">Viwango vitatu vya uaminifu</string>
     <string name="tutorial_what_makes_this_different">Kinachofanya hii tofauti</string>
     <string name="tutorial_you_can_replay_this">Unaweza kurudia mafunzo haya kutoka Msaada.</string>
     <string name="tutorial_your_messages_and_attachments">Ujumbe na viambatanisho vimesimbwa chini ya PIN hii.</string>
-    <string name="tutorial_your_pin_is_set">PIN yako imewekwa na inafanya kazi kila wakati.</string>
+    <string name="tutorial_your_pin_is_set">PIN yako imewekwa na inafanya kazi kila wakati — hii ndiyo hali ya kulazimishwa na ufikiaji wa mbali hutumia. Hizi ni njia za mkato za hiari juu yake.</string>
     <string name="tutorial_your_recovery_phrase">Fraza yako ya urejeshaji</string>
     <string name="tutorial_your_safety_net">Mtandao wako wa usalama</string>
     <string name="tutorial_youre_ready">Uko tayari</string>
@@ -724,7 +724,7 @@
     <string name="chat_react_custom_title">Mmenyuko maalum</string>
     <string name="chat_react_custom_hint">Andika emoji yoyote.</string>
     <string name="chat_react_apply">Itikia</string>
-    <string name="tutorial_bubble_welcome">Karibu Project Aether. Mimi ni Cyan — nitakuwa mwongozi wako.</string>
+    <string name="tutorial_bubble_welcome">Karibu katika Mradi Aether. Mimi ni Cyan — nitakuwa mwongozaji wako. Chukua kalamu na karatasi — nitakuomba uandike maneno 24 yanayolinda ujumbe wako.</string>
     <string name="tutorial_bubble_different">Hakuna nambari ya simu. Hakuna akaunti. Hakuna seva inayohifadhi ujumbe wako. Kriptografia tu.</string>
     <string name="tutorial_bubble_safety">Ukiwa hatarini, kitufe kimoja kinaarifu wote unaoamini.</string>
     <string name="tutorial_bubble_tiers">Wewe unaamua nani anaona nini.</string>
@@ -787,4 +787,31 @@ Kulazimishwa</string>
     <string name="tutorial_perm_granted">Imeruhusiwa ✓</string>
     <string name="tutorial_perm_denied">Imekataliwa</string>
     <string name="tutorial_perm_allow">Ruhusu</string>
+
+    <string name="tutorial_perm_oem_title">Mipangilio ya betri ya %1$s</string>
+    <string name="tutorial_perm_oem_open">Fungua mipangilio ya %1$s</string>
+    <string name="tutorial_perm_denied_note">Unaweza kuwezesha hii baadaye — gusa kufungua Mipangilio.</string>
+    <string name="tutorial_pin_explanation_existing">PIN yako inafungua Aegis na ni ufunguo ambao ujumbe wako unasimbwa nao. Tarakimu 4–8.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">PIN\nya kabati</string>
+    <string name="tutorial_node_device_owner">Mmiliki\nwa kifaa</string>
+    <string name="tutorial_node_app_duress">Programu\nKulazimisha</string>
+    <string name="tutorial_skill_tree_explanation">PIN ya programu inafungua kulazimishwa, picha, kabati, kanari, uangalizi wa SIM na uzio — iweke mara moja na mengine yatafunguka. Kilele ni mmiliki wa kifaa.</string>
+    <string name="tutorial_phrase_intro">Kwenye skrini inayofuata utaona maneno 24. Parua paneli kuyaonyesha na uyaandike yote kwenye karatasi.</string>
+    <string name="tutorial_phrase_show">Onyesha msemo</string>
+    <string name="tutorial_phrase_scratch">Parua kuonyesha, kisha andika maneno yote 24 kwa mpangilio.</string>
+    <string name="tutorial_phrase_confirm">Thibitisha umehifadhi. Ingiza maneno %1$s kutoka karatasi yako.</string>
+    <string name="tutorial_phrase_word_n">Neno #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Maneno hayalingani. Angalia karatasi yako.</string>
+    <string name="tutorial_phrase_write_down">Andika maneno haya 24 kwenye karatasi. Ni ufunguo wa kila kitu.</string>
+    <string name="tutorial_phrase_already_saved">Tayari imehifadhiwa. Hifadhi nakala ya karatasi salama.</string>
+    <string name="tutorial_draw_pattern">Chora muundo wako</string>
+    <string name="tutorial_draw_pattern_confirm">Chora tena kuthibitisha</string>
+    <string name="tutorial_pattern_min_dots">Tumia angalau nukta %1$d.</string>
+    <string name="tutorial_pattern_mismatch">Hailingani — anza tena.</string>
+    <string name="tutorial_bio_need_pin_first">Weka PIN kwanza, kisha ongeza biometriki.</string>
+    <string name="tutorial_bio_failed">Haiwezekani kuwezesha biometriki. Jaribu tena.</string>
+    <string name="tutorial_pin_save_error">Haiwezekani kuhifadhi PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN haikuhifadhiwa — angalia Uchunguzi.</string>
 </resources>

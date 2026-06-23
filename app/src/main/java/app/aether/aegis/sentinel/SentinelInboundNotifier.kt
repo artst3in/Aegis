@@ -28,6 +28,20 @@ object SentinelInboundNotifier {
             val nm = NotificationManagerCompat.from(context)
             if (!nm.areNotificationsEnabled()) return
             val batt = batteryPct?.let { " · battery $it%" } ?: ""
+            // Notification content privacy. A sentinel event names a contact
+            // and what their cascade detected — sensitive metadata, so it
+            // follows the user's privacy choice. HIDDEN redacts both the
+            // contact name and the event detail; any level above FULL marks
+            // the lock screen SECRET. (SOS is exempt; this is not SOS.)
+            val privacy = app.aether.aegis.prefs.NotificationPrivacyPrefs(context).level
+            val full = privacy == app.aether.aegis.prefs.NotificationPrivacy.FULL
+            val hidden = privacy == app.aether.aegis.prefs.NotificationPrivacy.HIDDEN
+            val title = if (hidden) {
+                context.getString(app.aether.aegis.R.string.app_name)
+            } else "$peerName · Sentinel: $stage"
+            val body = if (full) {
+                "Open Aegis to view event + 3D-model recording$batt"
+            } else "New alert"
             // Tap intent: open MainActivity with an extra that the
             // activity reads to navigate into settings/sentinel/inbox.
             val openIntent = android.content.Intent(
@@ -49,13 +63,14 @@ object SentinelInboundNotifier {
             )
                 .setSmallIcon(app.aether.aegis.R.drawable.ic_notif_shield)
                 .setColor(app.aether.aegis.AegisApp.BRAND_CYAN_ARGB)
-                .setContentTitle("$peerName · Sentinel: $stage")
-                .setContentText("Open Aegis to view event + 3D-model recording$batt")
+                .setContentTitle(title)
+                .setContentText(body)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setOnlyAlertOnce(true)
                 .setSilent(true)
                 .setAutoCancel(true)
                 .setContentIntent(pi)
+                .apply { if (!full) setVisibility(NotificationCompat.VISIBILITY_SECRET) }
                 .build()
             // Unique id per notification so multiple inbound events
             // stack in the shade rather than overwriting each other.

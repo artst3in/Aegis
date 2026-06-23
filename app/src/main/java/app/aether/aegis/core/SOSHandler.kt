@@ -499,13 +499,13 @@ class SOSHandler(private val context: Context) {
     private fun startNewAudioSegment() {
         runCatching {
             val outputFile = File(context.cacheDir, "sos_audio_${System.currentTimeMillis()}.m4a")
-            recordingFile = outputFile
-            recordedSegments.add(outputFile)
-            recorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                MediaRecorder(context)
-            } else {
-                @Suppress("DEPRECATION") MediaRecorder()
-            }.apply {
+            val rec = (
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    MediaRecorder(context)
+                } else {
+                    @Suppress("DEPRECATION") MediaRecorder()
+                }
+                ).apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
                 setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                 setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
@@ -514,7 +514,21 @@ class SOSHandler(private val context: Context) {
                 prepare()
                 start()
             }
-        }.onFailure { recorder = null }
+            // Only register the file as the live segment AFTER start() succeeds,
+            // so audioPath() (and the SOS UI's "Audio: recording" line) report a
+            // recording ONLY when the mic FGS was actually claimed. start()
+            // throws on Android 14+ when a background-triggered SOS can't hold
+            // the microphone FGS type — previously recordingFile was set BEFORE
+            // start(), so a failed start still showed "recording" (dishonest;
+            // #33). On failure we now leave recordingFile null → UI shows "no mic".
+            recorder = rec
+            recordingFile = outputFile
+            recordedSegments.add(outputFile)
+        }.onFailure {
+            recorder = null
+            recordingFile = null
+            android.util.Log.w("SOSHandler", "SOS audio segment failed to start (mic FGS unavailable?)", it)
+        }
     }
 
     /** Stops the current segment, returns its File (now closed + flushed),

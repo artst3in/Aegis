@@ -360,7 +360,7 @@
     <string name="_relayonly_ice_and_call">Alleen-relay ICE en beldiagnose.</string>
     <string name="_stops_screenshots_screen_recording">Blokkeert screenshots, schermopname en de</string>
     <string name="_unfinished_features_hidden_behind">Onafgemaakte functies achter de 7-tik poort.</string>
-    <string name="_wifionly_by_default_apks">Alleen WiFi standaard -- APKs ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">Alleen WiFi standaard -- APKs ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM-wissel melding</string>
     <string name="sim_swap_when_the_sim_in">Als de SIM verandert, wordt een melding gestuurd.</string>
@@ -368,7 +368,7 @@
     <string name="splash_aegis_logo">Aegis-logo</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis controleert GitHub elke 24 uur.</string>
+    <string name="update_how_it_works_body">Aegis controleert GitHub elke 24 uur op nieuwe builds. Elke APK is ~100 MB. Standaard downloaden we alleen via WiFi — zoveel via mobiele data downloaden bij elke release zou echt geld kosten.</string>
     <string name="update_beltandbraces_type_rollback_below">Dubbele zekerheid -- typ ROLLBACK hieronder.</string>
     <string name="update_check_interval">Controle-interval</string>
     <string name="update_how_often_aegis_polls">Hoe vaak Aegis controleert. Lager = meer batterij.</string>
@@ -642,9 +642,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis is voor altijd gratis. Geen advertenties. Geen tracking. Geen dataverkoop.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis opent zonder iets te vragen. Je PIN</string>
+    <string name="tutorial_aegis_will_open_without">Aegis opent zonder iets te vragen. Je PIN bestaat nog steeds — voor dwang, externe toegang en het versleutelen van je berichten. Je kunt de vergrendeling altijd opnieuw activeren in Instellingen.</string>
     <string name="tutorial_anyone_who_sees_these">Wie deze woorden ziet, bezit je account</string>
-    <string name="tutorial_biometric_login_is_convenient">Biometrische login is handig maar slaat dwangbescherming over.</string>
+    <string name="tutorial_biometric_login_is_convenient">Biometrische login is handig maar slaat dwangbescherming over. Als iemand je vingerafdruk afdwingt, opent het echte profiel. PIN wordt aanbevolen voor maximale beveiliging.</string>
     <string name="tutorial_biometric_skips_duress">Biometrie slaat dwang over</string>
     <string name="tutorial_choose_how_you_unlock">Kies hoe je ontgrendelt</string>
     <string name="tutorial_confirm_pin">PIN bevestigen</string>
@@ -658,13 +658,13 @@
     <string name="tutorial_find_your_way_around">Verken de app</string>
     <string name="tutorial_fingerprint_face">Vingerafdruk / Gezicht</string>
     <string name="tutorial_get_started">Beginnen</string>
-    <string name="tutorial_if_it_ever_helps">Als het je ooit helpt, kun je Project Aether op elke</string>
-    <string name="tutorial_it_is_your_master">Dit is je hoofdsleutel, eenmalig getoond.</string>
+    <string name="tutorial_if_it_ever_helps">Als het je ooit helpt, kun je Project Aether steunen via Systeem → Over.</string>
+    <string name="tutorial_it_is_your_master">Dit is je hoofdsleutel, één keer getoond. We slaan hem nooit op en tonen hem nooit meer — niet achter je PIN, niet achter je vingerafdruk. Als je hem niet hebt opgeschreven, is dat de prijs ervoor dat hij echt van jou is. Bewaar je papieren kopie veilig.</string>
     <string name="tutorial_ive_written_it_down">Ik heb het opgeschreven</string>
     <string name="tutorial_keep_lock">Vergrendeling behouden</string>
     <string name="tutorial_keep_pin_only">Alleen PIN</string>
     <string name="tutorial_left_to_right_along">Van links naar rechts langs de onderkant van elk scherm:</string>
-    <string name="tutorial_make_sure_no_one">Zorg dat niemand meekijkt.</string>
+    <string name="tutorial_make_sure_no_one">Zorg ervoor dat niemand meekijkt en niets je scherm opneemt. Screenshots zijn geblokkeerd — een screenshot gaat naar je galerij, synchroniseert naar de cloud en is zichtbaar voor iedereen met je telefoon. Kras het paneel hieronder om je 24 woorden te onthullen, schrijf ze op papier en bewaar dat papier op een veilige plek.</string>
     <string name="tutorial_new_pin_48_digits">Nieuwe PIN (4–8 cijfers)</string>
     <string name="tutorial_no_lock_screen">Geen vergrendelscherm</string>
     <string name="tutorial_open_without_a_lock">Openen zonder vergrendelscherm?</string>
@@ -678,16 +678,16 @@
     <string name="tutorial_show_the_words_again">Woorden opnieuw tonen</string>
     <string name="tutorial_skip">Overslaan</string>
     <string name="tutorial_skip_check_debug">Controle overslaan (debug)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS vergrendeld in het midden. De rest is herschikbaar.</string>
+    <string name="tutorial_sos_stays_locked_in">SOS blijft in het midden vergrendeld. De rest kun je herordenen in Systeem → Navigatie.</string>
     <string name="tutorial_thank_you">Bedankt</string>
     <string name="tutorial_the_skill_tree">Vaardigheidsboom</string>
-    <string name="tutorial_this_encrypts_your_messages">Dit versleutelt je berichten en herstelt je account als</string>
-    <string name="tutorial_this_is_the_only">Dit is de ENIGE kopie. Wij bewaren niets.</string>
+    <string name="tutorial_this_encrypts_your_messages">Dit versleutelt je berichten en herstelt je account als je je PIN vergeet of je vingerafdruk verliest. Als je het verliest, kan niemand — niet wij, niet iemand anders — je gegevens herstellen.</string>
+    <string name="tutorial_this_is_the_only">Dit is de ENIGE kopie. We bewaren niets. Er is geen \"wachtwoord vergeten\", geen reset en geen manier om een nieuwe te maken — niet met je PIN, niet met je vingerafdruk, niet door ons. Als je dit papier verliest, zijn je gegevens voor altijd weg en niemand ter wereld kan ze terughalen. Schrijf het nu op.</string>
     <string name="tutorial_three_tiers_of_trust">Drie vertrouwensniveaus</string>
     <string name="tutorial_what_makes_this_different">Wat het anders maakt</string>
     <string name="tutorial_you_can_replay_this">Je kunt deze tutorial op elk moment opnieuw bekijken via Help.</string>
     <string name="tutorial_your_messages_and_attachments">Je berichten en bijlagen zijn versleuteld met deze PIN.</string>
-    <string name="tutorial_your_pin_is_set">Je PIN is ingesteld en werkt altijd — het is wat dwang en afstandsbediening</string>
+    <string name="tutorial_your_pin_is_set">Je PIN is ingesteld en werkt altijd — dit is wat dwang en externe toegang gebruiken. Dit zijn optionele snelkoppelingen erboven.</string>
     <string name="tutorial_your_recovery_phrase">Je herstelzin</string>
     <string name="tutorial_your_safety_net">Je vangnet</string>
     <string name="tutorial_youre_ready">Je bent klaar</string>
@@ -758,7 +758,7 @@
     <string name="chat_react_custom_title">Aangepaste reactie</string>
     <string name="chat_react_custom_hint">Typ een emoji om te reageren.</string>
     <string name="chat_react_apply">Reageren</string>
-    <string name="tutorial_bubble_welcome">Welkom bij Project Aether. Ik ben Cyan — ik begeleid je.</string>
+    <string name="tutorial_bubble_welcome">Welkom bij Project Aether. Ik ben Cyan — ik zal je gids zijn. Pak pen en papier — ik ga je vragen 24 woorden op te schrijven die je berichten beschermen.</string>
     <string name="tutorial_bubble_different">Geen telefoonnummer. Geen account. Geen server slaat je berichten op. Alleen cryptografie.</string>
     <string name="tutorial_bubble_safety">Als je ooit in gevaar bent, alarmeert één knop iedereen die je vertrouwt.</string>
     <string name="tutorial_bubble_tiers">Jij bepaalt wie wat ziet.</string>
@@ -821,4 +821,31 @@ PIN</string>
     <string name="tutorial_perm_granted">Toegestaan ✓</string>
     <string name="tutorial_perm_denied">Geweigerd</string>
     <string name="tutorial_perm_allow">Toestaan</string>
+
+    <string name="tutorial_perm_oem_title">%1$s batterij-instellingen</string>
+    <string name="tutorial_perm_oem_open">Open %1$s instellingen</string>
+    <string name="tutorial_perm_denied_note">Je kunt dit later inschakelen — tik om Instellingen te openen.</string>
+    <string name="tutorial_pin_explanation_existing">Je PIN ontgrendelt Aegis en is de sleutel waarmee je berichten worden versleuteld. 4–8 cijfers.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">Kluis\nPIN</string>
+    <string name="tutorial_node_device_owner">Apparaat\neigenaar</string>
+    <string name="tutorial_node_app_duress">App\nDwang</string>
+    <string name="tutorial_skill_tree_explanation">App-PIN ontgrendelt dwang, foto, kluis, kanarie, SIM-bewaking en geofence — stel het eenmaal in en de rest opent. Het hoogste niveau is apparaateigenaar.</string>
+    <string name="tutorial_phrase_intro">Op het volgende scherm zie je 24 woorden. Kras het paneel om ze te onthullen en schrijf ze allemaal op papier.</string>
+    <string name="tutorial_phrase_show">Toon mijn zin</string>
+    <string name="tutorial_phrase_scratch">Kras om te onthullen en schrijf alle 24 woorden op volgorde op.</string>
+    <string name="tutorial_phrase_confirm">Bevestig dat je het hebt opgeslagen. Voer woorden %1$s van je papier in.</string>
+    <string name="tutorial_phrase_word_n">Woord #%1$d</string>
+    <string name="tutorial_phrase_mismatch">De woorden komen niet overeen. Controleer je papier.</string>
+    <string name="tutorial_phrase_write_down">Schrijf deze 24 woorden op papier. Ze zijn de sleutel tot alles.</string>
+    <string name="tutorial_phrase_already_saved">Al opgeslagen. Bewaar je papieren kopie veilig.</string>
+    <string name="tutorial_draw_pattern">Teken je patroon</string>
+    <string name="tutorial_draw_pattern_confirm">Teken het opnieuw ter bevestiging</string>
+    <string name="tutorial_pattern_min_dots">Gebruik minstens %1$d punten.</string>
+    <string name="tutorial_pattern_mismatch">Komt niet overeen — begin opnieuw.</string>
+    <string name="tutorial_bio_need_pin_first">Stel eerst je PIN in en voeg dan biometrie toe.</string>
+    <string name="tutorial_bio_failed">Biometrie kon niet worden ingeschakeld. Probeer opnieuw.</string>
+    <string name="tutorial_pin_save_error">PIN kon niet worden opgeslagen: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN is niet opgeslagen — controleer Diagnostiek.</string>
 </resources>

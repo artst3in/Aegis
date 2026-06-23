@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexSlider
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -85,11 +90,11 @@ fun GraphicsSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.graphics_graphics)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -191,7 +196,7 @@ fun GraphicsSettingsScreen(navController: NavController) {
                             fontSize = 12.sp,
                         )
                     }
-                    Slider(
+                    HexSlider(
                         value = intensity,
                         // Drag updates only the live state for a smooth
                         // preview; persist once on release so we don't
@@ -234,6 +239,22 @@ fun GraphicsSettingsScreen(navController: NavController) {
                 enabled = effectsLive,
                 onCheckedChange = { glass3dOn = it; glassPrefs.glassThreeDEnabled = it },
             )
+            // >>> DEBUG-ONLY — force the rich glass layer ON regardless of the
+            // ≤50 % Voyager battery gate, so the glass / metal-avatar effects
+            // can be reviewed off-charger. NOT gated on effectsLive — that's the
+            // whole point (it overrides the gate that greys the others out).
+            if (app.aether.aegis.BuildConfig.HAS_DEBUG_CHANNEL) {
+                var forceRich by remember { mutableStateOf(glassPrefs.forceRichGraphics) }
+                EffectToggleRow(
+                    title = "Force real glass (debug)",
+                    subtitle = "Keep the rich glass layer on even under 50% battery, " +
+                        "where Voyager would normally drop it. Debug only.",
+                    checked = forceRich,
+                    enabled = true,
+                    onCheckedChange = { forceRich = it; glassPrefs.forceRichGraphics = it },
+                )
+            }
+            // <<< DEBUG-ONLY
 
             // Crown shimmer — the EARNED Cyan-crown reward: once every node is
             // maxed, Cyan + the medals shimmer, and the holder picks HOW. Only
@@ -322,7 +343,7 @@ private fun ProfileSliderPanel(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Slider(
+            HexSlider(
                 value = preferred.ordinal.toFloat(),
                 onValueChange = { v ->
                     val ord = v.toInt().coerceIn(0, GraphicsProfile.values().lastIndex)

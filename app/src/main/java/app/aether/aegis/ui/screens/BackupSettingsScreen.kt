@@ -1,5 +1,11 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+import app.aether.aegis.ui.components.HexRadio
+
 import app.aether.aegis.backup.BackupManager
 import app.aether.aegis.backup.BackupPrefs
 import android.content.Context
@@ -114,7 +120,7 @@ fun BackupSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string._backup)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -158,7 +164,7 @@ fun BackupSettingsScreen(navController: NavController) {
                         fontSize = 12.sp,
                     )
                     Spacer(modifier = Modifier.height(10.dp))
-                    Button(
+                    AegisButton(
                         enabled = !backupBusy,
                         onClick = {
                             // Export requires the REAL PIN even when the app is
@@ -205,10 +211,10 @@ fun BackupSettingsScreen(navController: NavController) {
                         fontSize = 12.sp,
                     )
                     Spacer(modifier = Modifier.height(10.dp))
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         enabled = !restoreBusy,
                         onClick = {
-                            val activity = ctx as? app.aether.aegis.MainActivity ?: return@OutlinedButton
+                            val activity = ctx as? app.aether.aegis.MainActivity ?: return@AegisOutlinedButton
                             activity.openBackupFile { uri ->
                                 if (uri != null) {
                                     pendingRestoreUri = uri
@@ -306,7 +312,7 @@ fun BackupSettingsScreen(navController: NavController) {
                                 .padding(vertical = 2.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            RadioButton(
+                            HexRadio(
                                 selected = interval == days,
                                 onClick = {
                                     interval = days

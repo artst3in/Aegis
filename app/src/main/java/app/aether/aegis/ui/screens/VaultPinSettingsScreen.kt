@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.vault.VaultCrypto
 import app.aether.aegis.vault.VaultLockStore
@@ -63,7 +68,7 @@ fun VaultPinSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.vault_pin_vault_pin)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -136,7 +141,7 @@ fun VaultPinSettingsScreen(navController: NavController) {
             // field is long enough to be a plausible PIN. The actual
             // correctness checks happen in onClick so we can show a precise
             // error rather than just greying the button.
-            Button(
+            AegisButton(
                 enabled = fresh.length >= MIN_PIN && confirm.length >= MIN_PIN &&
                     (!hasPin || current.length >= MIN_PIN),
                 onClick = {
@@ -145,11 +150,11 @@ fun VaultPinSettingsScreen(navController: NavController) {
                     // from overwriting the vault PIN to walk in.
                     if (hasPin && store.verifyPin(current) != VaultLockStore.PinMatch.NORMAL) {
                         error = "Current PIN is wrong"
-                        return@Button
+                        return@AegisButton
                     }
                     if (fresh != confirm) {
                         error = "PINs don't match"
-                        return@Button
+                        return@AegisButton
                     }
                     // Capture the OLD key (if any) before setPin
                     // overwrites the salt — needed to decrypt
@@ -250,13 +255,13 @@ fun VaultPinSettingsScreen(navController: NavController) {
                 // already past the vault gate (unlocked) when they reach
                 // here, so re-authing would be redundant. It does enforce
                 // that the duress PIN differs from the normal one.
-                Button(
+                AegisButton(
                     enabled = duressFresh.length >= MIN_PIN &&
                         duressConfirm.length >= MIN_PIN,
                     onClick = {
                         if (duressFresh != duressConfirm) {
                             error = "Duress PINs don't match"
-                            return@Button
+                            return@AegisButton
                         }
                         // Differ from the NORMAL PIN — we can't
                         // verify the current normal PIN string here
@@ -267,7 +272,7 @@ fun VaultPinSettingsScreen(navController: NavController) {
                         if (store.verifyPin(duressFresh) ==
                             VaultLockStore.PinMatch.NORMAL) {
                             error = "Duress PIN must differ from the normal vault PIN"
-                            return@Button
+                            return@AegisButton
                         }
                         store.setDuressPin(duressFresh)
                         hasDuress = true
@@ -284,7 +289,7 @@ fun VaultPinSettingsScreen(navController: NavController) {
                 // says exactly this so the user isn't misled into thinking
                 // "remove" wipes the hidden vault).
                 if (hasDuress) {
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             store.clearDuressPin()
                             hasDuress = false

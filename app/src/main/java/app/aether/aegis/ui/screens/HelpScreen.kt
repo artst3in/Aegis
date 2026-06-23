@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,7 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -305,17 +307,14 @@ fun HelpScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.help_help)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         AegisIcon(AegisIcons.Back, "back")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                ),
-            )
+                            )
         },
     ) { pad ->
         LazyColumn(
@@ -508,17 +507,14 @@ fun DocViewerScreen(filename: String, navController: NavController) {
     }
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(filename.removeSuffix(".md").replace('_', ' ')) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         AegisIcon(AegisIcons.Back, "back")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                ),
-            )
+                            )
         },
     ) { pad ->
         val text = raw
@@ -630,7 +626,7 @@ private fun MarkdownRender(md: String) {
             line.startsWith("> ") -> {
                 Surface(
                     color = AegisPanel,
-                    shape = RoundedCornerShape(6.dp),
+                    shape = CutCornerShape(6.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 3.dp),
@@ -761,7 +757,7 @@ private fun TableBlock(lines: List<String>) {
 
     Surface(
         color = AegisPanel,
-        shape = RoundedCornerShape(6.dp),
+        shape = CutCornerShape(6.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, AegisBorder),
         modifier = Modifier
             .fillMaxWidth()
@@ -808,7 +804,7 @@ private fun TableBlock(lines: List<String>) {
 private fun CodeBlock(text: String) {
     Surface(
         color = AegisPanel,
-        shape = RoundedCornerShape(6.dp),
+        shape = CutCornerShape(6.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, AegisBorder),
         modifier = Modifier
             .fillMaxWidth()

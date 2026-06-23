@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -91,7 +90,7 @@ fun LogPeriodSlider(
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
         )
-        Slider(
+        HexSlider(
             value = slider,
             onValueChange = { slider = it },
             // Commit to the caller only on release, not on every drag frame —

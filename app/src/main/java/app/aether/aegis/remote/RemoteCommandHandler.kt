@@ -1,10 +1,13 @@
 package app.aether.aegis.remote
 
 import app.aether.aegis.AegisApp
+import app.aether.aegis.admin.AdminGate
 import android.Manifest
 import android.app.admin.DevicePolicyManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
+import android.os.UserManager
 import android.util.Log
 import androidx.core.content.ContextCompat
 import kotlin.coroutines.resume
@@ -130,9 +133,23 @@ object RemoteCommandHandler {
         }
         val dpm = ctx.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
             ?: return "no DPM"
-        runCatching {
+        // FLAG_EVICT_CREDENTIAL_ENCRYPTION_KEY (forces a FULL re-auth on unlock
+        // — no biometric/PIN-shortcut) is ONLY valid on a managed profile with
+        // a separate work challenge. On the PRIMARY user — the Device-Owner
+        // Pixel case — lockNow(flag) throws IllegalArgumentException, so the
+        // screen never locked (user-reported "LOCATE doesn't lock"). Try the
+        // stronger eviction where it's supported, then fall back to a plain
+        // lockNow() so the screen ALWAYS locks.
+        val evicted = runCatching {
             dpm.lockNow(DevicePolicyManager.FLAG_EVICT_CREDENTIAL_ENCRYPTION_KEY)
-        }.onFailure { return "failed: ${it.message}" }
+        }
+        if (evicted.isSuccess) return "locked"
+        Log.w(
+            TAG,
+            "lockDevice: evict-key lock rejected (${evicted.exceptionOrNull()?.message}) — plain lockNow",
+        )
+        runCatching { dpm.lockNow() }
+            .onFailure { return "failed: ${it.message}" }
         return "locked"
     }
 
@@ -189,6 +206,29 @@ object RemoteCommandHandler {
             out.delete()
             null
         }
+    }
+
+    /**
+     * Whether the app is currently foreground-eligible to (re)claim a
+     * microphone/camera foreground service. Capture relies on [ProtocolService]
+     * holding those FGS types, which Android 14+ only grants from a foreground /
+     * visible state (or an exemption); from the background — exactly the
+     * remote-rescue case — the FGS start is refused and capture fails.
+     *
+     * Callers ATTEMPT the capture regardless (so an exempt device that CAN
+     * capture in the background still works) and use this ONLY to choose an
+     * honest error on failure: `capture_unavailable_background` when we were
+     * background-ineligible vs. the generic `capture_failed` for a true
+     * codec/hardware fault. Heuristic by design: reads process importance. A
+     * visible activity reports IMPORTANCE_FOREGROUND (100); a lone running FGS
+     * reports IMPORTANCE_FOREGROUND_SERVICE (125) — which does NOT grant the
+     * right to ADD mic/camera — so we require strictly foreground.
+     */
+    fun captureForegroundEligible(): Boolean {
+        val info = android.app.ActivityManager.RunningAppProcessInfo()
+        android.app.ActivityManager.getMyMemoryState(info)
+        return info.importance <=
+            android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
     }
 
     // ---- DISPLAY ----
@@ -319,29 +359,205 @@ object RemoteCommandHandler {
 
     // ---- WIPE ----
 
-    /** True iff this app is provisioned as Device Owner — the only mode in
-     *  which [fireWipe] can actually factory-reset. Callers check this up
-     *  front so a non-DO target refuses the command (and skips the bogus
-     *  "wiped" broadcast) instead of discovering mid-fire that the wipe is a
-     *  silent no-op. */
-    fun canWipe(): Boolean {
+    // ════════════════════════════════════════════════════════════════════
+    // ██  REMOTE WIPE — DO NOT MODIFY WITHOUT A FULL ON-DEVICE RE-TEST  ██
+    // ════════════════════════════════════════════════════════════════════
+    //
+    // This is the factory-reset path. It is DESTRUCTIVE and IRREVERSIBLE, and
+    // it can only be exercised by actually wiping a real Device-Owner phone —
+    // there is NO non-destructive way to confirm `wipeData` truly resets, so
+    // every change here costs someone a full device wipe + re-provision to
+    // verify. Treat this block as FROZEN.
+    //
+    // It was hard-won. The history that matters:
+    //   • THREE-TIER wipe (the false "wiped" broadcast was the real bug, not the
+    //     attempt — review caught this). A wipe ALWAYS destroys at least Aegis's own data
+    //     (Tier 3 can't fail), so the [aegis:wiped] contact broadcast is never a
+    //     lie, and EVERYTHING outbound is sent + flushed BEFORE the wipe (a
+    //     factory reset kills the process; the Aegis-data wipe destroys the
+    //     SimpleX identity — nothing can be sent after). Tiers:
+    //       1. Device Owner       → wipeDevice()/wipeData() full reset + FRP.
+    //       2. non-DO Device Admin → wipeData() WITHOUT WIPE_RESET_PROTECTION_DATA
+    //          (that flag is DO-only & throws SecurityException for a plain
+    //          admin; stripped, a stock-Android admin reset succeeds — the
+    //          Find-My-Device path. GrapheneOS hardens this → it returns → Tier 3).
+    //       3. always            → [wipeAegisData] destroys DB/vault/keys/msgs/
+    //          media/contacts/prefs (clearApplicationUserData). Phone intact,
+    //          Aegis gone. The guaranteed floor.
+    //     Operator hears the honest outcome: "wiped" (1/2 fired) or "aegis-wiped"
+    //     (fell to 3). [factoryResetCapable] gates the 1/2 attempt only.
+    //   • A lingering DISALLOW_FACTORY_RESET user-restriction makes a Device
+    //     Owner's OWN wipeData() throw SecurityException and SILENTLY no-op.
+    //     This was the 2026-06 field failure: DO provisioned, siren/locate
+    //     worked, but wipe did nothing while the operator saw a false "wiped".
+    //     We clear it (idempotently) immediately before the AUTHORISED wipe.
+    //     PermissionAutoGrant deliberately does NOT clear it globally (that
+    //     would weaken anti-theft) — only right here, on an authorised wipe.
+    //   • Failures used to be swallowed into an unlogged return string, so a
+    //     non-firing wipe was undiagnosable. Everything is logged now.
+    //   • FRP (Factory Reset Protection): the wipe sets
+    //     WIPE_RESET_PROTECTION_DATA so the reset device doesn't boot into an
+    //     FRP lock demanding the old Google account (the real "brick"). DO is
+    //     allowed to clear it; layered fallback if the platform rejects the
+    //     flag. A normal DO device (no registered account) has no FRP anyway.
+    //   • A SUCCESSFUL wipe never returns from wipeData — the process is gone.
+    //     So any return from [fireWipe] means the reset did NOT take.
+    //
+    // Before triggering a real wipe, the owner can run [wipePreflight] on the
+    // target (Diagnostics → "Check remote-wipe readiness"); it performs the
+    // SAME preconditions WITHOUT wiping and reports READY / the exact blocker.
+    // If preflight says READY, the wipe will fire.
+    // ════════════════════════════════════════════════════════════════════
+
+    /** True iff a real FACTORY RESET is plausible — Device Owner (Tier 1) or an
+     *  active Device Admin (Tier 2: non-DO wipeData factory-resets on stock
+     *  Android — GrapheneOS hardens it). When false, [RemoteAccessHandler.handleWipe]
+     *  skips straight to the Tier-3 Aegis-data wipe. This gates the factory-reset
+     *  ATTEMPT only — a wipe always destroys at least Aegis's own data, so the
+     *  command is never a no-op. */
+    fun factoryResetCapable(): Boolean {
         val ctx = AegisApp.instance
         val dpm = ctx.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
-        return dpm?.isDeviceOwnerApp(ctx.packageName) == true
+            ?: return false
+        if (dpm.isDeviceOwnerApp(ctx.packageName)) return true
+        return runCatching { dpm.isAdminActive(AdminGate.component(ctx)) }.getOrDefault(false)
     }
 
+    /**
+     * NON-DESTRUCTIVE readiness check for the remote wipe. Runs every
+     * precondition [fireWipe] needs — Device-Owner status, clearing +
+     * verifying the DISALLOW_FACTORY_RESET restriction, Device-Admin — but
+     * NEVER calls wipeData. Returns a human-readable verdict so the owner can
+     * confirm a one-shot wipe will actually fire BEFORE committing to it.
+     *
+     * Side effect (intentional + safe): it CLEARS DISALLOW_FACTORY_RESET, so
+     * running preflight also pre-arms the device — if it reports READY, the
+     * blocker is already gone.
+     */
+    fun wipePreflight(): String {
+        val ctx = AegisApp.instance
+        val sdk = Build.VERSION.SDK_INT
+        val dpm = ctx.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
+            ?: return "NOT READY — no DevicePolicyManager"
+        if (!dpm.isDeviceOwnerApp(ctx.packageName)) {
+            val adminOn = runCatching { dpm.isAdminActive(AdminGate.component(ctx)) }.getOrDefault(false)
+            return "PARTIAL — not Device Owner (pkg=${ctx.packageName}).\n" +
+                "Factory reset: ${if (adminOn) "Device-Admin tier — works on stock Android, " +
+                    "no-ops on GrapheneOS" else "unavailable (no Device Admin)"}.\n" +
+                "Aegis-data wipe (Tier 3): ALWAYS works — remote wipe will at least " +
+                "destroy all Aegis data. For a full factory reset provision Device " +
+                "Owner: adb shell dpm set-device-owner.\n" +
+                "(DeviceOwner=false, adminActive=$adminOn, sdk=$sdk)"
+        }
+        val admin = AdminGate.component(ctx)
+        val adminActive = runCatching { dpm.isAdminActive(admin) }.getOrDefault(false)
+        // Clear the factory-reset block now (idempotent) and verify it's gone —
+        // the one precondition that silently no-ops a DO wipe.
+        runCatching { dpm.clearUserRestriction(admin, UserManager.DISALLOW_FACTORY_RESET) }
+            .onFailure { Log.w(TAG, "preflight: clear DISALLOW_FACTORY_RESET failed: ${it.message}") }
+        val um = ctx.getSystemService(Context.USER_SERVICE) as? android.os.UserManager
+        val frBlocked = runCatching {
+            um?.hasUserRestriction(UserManager.DISALLOW_FACTORY_RESET) == true
+        }.getOrDefault(false)
+        val verdict = if (frBlocked) {
+            "NOT READY — factory reset is still BLOCKED (DISALLOW_FACTORY_RESET set " +
+                "by a policy this app can't clear). Remote wipe will no-op."
+        } else {
+            "READY ✓ (Device Owner tier) — factory reset allowed. Remote wipe will " +
+                "fire (and clears FRP so the phone won't lock to a Google account after)."
+        }
+        val report = "$verdict\n(DeviceOwner=true, adminActive=$adminActive, " +
+            "factoryResetBlocked=$frBlocked, sdk=$sdk)"
+        Log.i(TAG, "wipePreflight: $report")
+        return report
+    }
+
+    /**
+     * Tier 1/2 factory reset. Device Owner → wipeDevice()/wipeData() with full
+     * flags (incl. FRP clear). Non-DO active Device Admin → wipeData() WITHOUT
+     * WIPE_RESET_PROTECTION_DATA (that flag is DO-only and throws SecurityException
+     * for a plain admin — stripping it is what lets a stock-Android admin reset
+     * succeed; the Find-My-Device path). A SUCCESSFUL reset NEVER returns (the OS
+     * tears the process down mid-call), so ANY return means it did NOT fire and
+     * the caller falls through to [wipeAegisData]. The caller MUST have already
+     * sent + flushed the contact broadcast / operator status — nothing can be
+     * sent after this.
+     */
     fun fireWipe(): String {
         val ctx = AegisApp.instance
         val dpm = ctx.getSystemService(Context.DEVICE_POLICY_SERVICE) as? DevicePolicyManager
             ?: return "no DPM"
-        if (!dpm.isDeviceOwnerApp(ctx.packageName)) {
-            Log.w(TAG, "wipe skipped: not Device Owner")
-            return "skipped: not Device Owner"
+        val admin = AdminGate.component(ctx)
+        val isDO = dpm.isDeviceOwnerApp(ctx.packageName)
+        val isAdmin = runCatching { dpm.isAdminActive(admin) }.getOrDefault(false)
+        if (!isDO && !isAdmin) {
+            Log.w(TAG, "fireWipe: no factory-reset capability (not DO, not active admin)")
+            return "skipped: no factory-reset capability"
         }
-        runCatching {
-            // Nuclear. There is no recovery after this fires.
-            dpm.wipeData(DevicePolicyManager.WIPE_EXTERNAL_STORAGE)
-        }.onFailure { return "failed: ${it.message}" }
-        return "wipe initiated"
+        // DISALLOW_FACTORY_RESET (the documented silent-no-op cause) can only be
+        // cleared by a Device Owner; a non-DO admin can't set/clear restrictions,
+        // so only the DO clears it.
+        if (isDO) {
+            runCatching { dpm.clearUserRestriction(admin, UserManager.DISALLOW_FACTORY_RESET) }
+                .onFailure { Log.w(TAG, "wipe: clear DISALLOW_FACTORY_RESET failed: ${it.message}") }
+        }
+        Log.w(TAG, "wipe: firing factory reset (DO=$isDO, admin=$isAdmin, sdk=${Build.VERSION.SDK_INT})")
+        // DO uses wipeDevice() on API 34+ (a DO's wipeData() on the system user
+        // throws "User 0 is a system user, cannot be removed"). A non-DO admin
+        // must use wipeData() (wipeDevice is DO-only) and must NOT pass
+        // WIPE_RESET_PROTECTION_DATA (DO-only flag → SecurityException).
+        //
+        // Try each flag form IN SEQUENCE. A SUCCESSFUL call never returns, so
+        // reaching the next line means it did NOT fire (threw or silently
+        // no-op'd). DO ordering: FRP-clearing wipe first (anti-brick), then
+        // external-only, then flagless.
+        val attempts = if (isDO) {
+            listOf(
+                DevicePolicyManager.WIPE_EXTERNAL_STORAGE or
+                    DevicePolicyManager.WIPE_RESET_PROTECTION_DATA,
+                DevicePolicyManager.WIPE_EXTERNAL_STORAGE,
+                0,
+            )
+        } else {
+            listOf(DevicePolicyManager.WIPE_EXTERNAL_STORAGE, 0)
+        }
+        for ((i, flags) in attempts.withIndex()) {
+            runCatching {
+                if (isDO && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    dpm.wipeDevice(flags)
+                } else {
+                    @Suppress("DEPRECATION")
+                    dpm.wipeData(flags)
+                }
+            }.onFailure { Log.e(TAG, "wipe: attempt ${i + 1} (flags=$flags) threw", it) }
+            // Still executing → that call didn't reset. Fall to the next form.
+            Log.w(TAG, "wipe: attempt ${i + 1} (flags=$flags) returned without resetting")
+        }
+        Log.w(TAG, "wipe: factory reset did NOT take — caller falls to Aegis-data wipe (Tier 3)")
+        return "no-op: factory reset returned without resetting"
+    }
+
+    /**
+     * Tier-3 floor: destroy ALL of Aegis's own data — encrypted DB, vault, keys,
+     * recovery phrase, messages, photos, contacts, attachments, SharedPreferences,
+     * cache — via the OS's own "clear app storage" primitive
+     * ([android.app.ActivityManager.clearApplicationUserData]). Needs NO admin/DO
+     * and CANNOT meaningfully fail, so it is the guaranteed wipe floor: the phone
+     * is not factory-reset, but everything Aegis held is gone and unrecoverable.
+     * The call clears the data and KILLS the process, so — like a factory reset —
+     * it does not return on success. The caller MUST have already sent + flushed
+     * the broadcast / operator status; the SimpleX identity is about to be
+     * destroyed along with everything else.
+     */
+    fun wipeAegisData(): String {
+        val ctx = AegisApp.instance
+        Log.w(TAG, "wipe: Tier-3 Aegis-data wipe (clearApplicationUserData)")
+        val am = ctx.getSystemService(Context.ACTIVITY_SERVICE) as? android.app.ActivityManager
+        val ok = runCatching { am?.clearApplicationUserData() == true }
+            .onFailure { Log.e(TAG, "wipe: clearApplicationUserData threw", it) }
+            .getOrDefault(false)
+        // Reached only if the clear didn't immediately tear us down.
+        Log.w(TAG, "wipe: clearApplicationUserData returned ok=$ok (process should be dying)")
+        return "aegis-wipe returned (ok=$ok)"
     }
 }

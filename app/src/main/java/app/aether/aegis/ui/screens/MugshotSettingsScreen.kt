@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexSlider
+
 import app.aether.aegis.mugshot.MugshotStore
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -49,11 +54,11 @@ fun MugshotSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.mugshot_mugshot_on_failed_pin)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -138,7 +143,7 @@ fun MugshotSettingsScreen(navController: NavController) {
                         fontSize = 12.sp,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Slider(
+                    HexSlider(
                         // Track the drag live (and clamp to 1..10) so the
                         // label updates continuously; only commit to the store
                         // on release to avoid a write per drag frame. steps=8

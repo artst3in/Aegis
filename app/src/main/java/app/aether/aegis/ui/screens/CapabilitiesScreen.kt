@@ -1,12 +1,16 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -87,8 +91,12 @@ fun CapabilitiesScreen(navController: NavController) {
         ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED
     }
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBar(
+    // Own the status-bar inset (bare Column, not a Scaffold) so the bar
+    // doesn't draw under the system status bar; TopAppBar insets zeroed to
+    // avoid double-padding.
+    Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+        AegisTopBar(
+            windowInsets = WindowInsets(0, 0, 0, 0),
             title = { Text(stringResource(R.string.capabilities_capabilities)) },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {

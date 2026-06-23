@@ -10,10 +10,10 @@ import java.security.SecureRandom
 /**
  * Target-side gate for remote-access commands.
  *
- *  - PIN-failure counter per sender. Auto-revokes after [FAIL_THRESHOLD]
- *    failures within [FAIL_WINDOW_MS]. The threshold is deliberately
- *    low (3 in 60 s) so a coerced user can sabotage themselves by
- *    typing wrong PINs and forcing their target to lock them out.
+ *  - PIN-failure counter per sender. Auto-revokes after [failThreshold]
+ *    failures within [FAIL_WINDOW_MS]. The threshold is owner-configurable
+ *    (default 3 in 60 s) and deliberately low so a coerced user can sabotage
+ *    themselves by typing wrong PINs and forcing their target to lock them out.
  *  - Persistent revoke set (sender pubkeys → "I have blocked them").
  *    Future auth attempts from a revoked sender are dropped server-
  *    side without notifying the sender (and without re-prompting US).
@@ -67,6 +67,25 @@ class RemoteAccessGate(context: Context) {
     private val failures = mutableMapOf<String, MutableList<Long>>()
 
     /**
+     * How many WRONG remote-PIN attempts within [FAIL_WINDOW_MS] auto-revoke a
+     * sender. Owner-configurable (Lock settings); clamped to
+     * [MIN_FAIL_THRESHOLD]..[MAX_FAIL_THRESHOLD] so it can never be set to
+     * "unlimited" — the remote PIN is the device PIN, and unbounded attempts
+     * would be a brute-force hole. Default [DEFAULT_FAIL_THRESHOLD].
+     *
+     * Duress PINs ignore this entirely: a duress code revokes on attempt 1
+     * (handled in RemoteAccessHandler, not here).
+     */
+    var failThreshold: Int
+        get() = prefs.getInt(KEY_FAIL_THRESHOLD, DEFAULT_FAIL_THRESHOLD)
+            .coerceIn(MIN_FAIL_THRESHOLD, MAX_FAIL_THRESHOLD)
+        set(value) {
+            prefs.edit()
+                .putInt(KEY_FAIL_THRESHOLD, value.coerceIn(MIN_FAIL_THRESHOLD, MAX_FAIL_THRESHOLD))
+                .apply()
+        }
+
+    /**
      * Record a failed auth. Returns true if the threshold was tripped
      * by this call (caller should auto-revoke and notify the target).
      * Returns false when the sender is already revoked — duplicates
@@ -81,7 +100,7 @@ class RemoteAccessGate(context: Context) {
         val list = failures.getOrPut(senderKey) { mutableListOf() }
         list.removeAll { it < cutoff }
         list += now
-        return if (list.size >= FAIL_THRESHOLD) {
+        return if (list.size >= failThreshold) {
             failures.remove(senderKey)
             revoke(senderKey)
             true
@@ -166,10 +185,13 @@ class RemoteAccessGate(context: Context) {
     }
 
     companion object {
-        const val FAIL_THRESHOLD = 3
+        const val DEFAULT_FAIL_THRESHOLD = 3
+        const val MIN_FAIL_THRESHOLD = 1
+        const val MAX_FAIL_THRESHOLD = 10
         const val FAIL_WINDOW_MS = 60_000L
         const val SESSION_TTL_MS = 5L * 60_000L  // 5 min idle
 
         private const val KEY_REVOKED = "revoked_senders"
+        private const val KEY_FAIL_THRESHOLD = "fail_threshold"
     }
 }

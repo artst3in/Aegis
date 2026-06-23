@@ -180,6 +180,8 @@
     <string name="chat_list_new_group">+ New group</string>
     <string name="chat_list_no_groups_yet_tap">No groups yet. Tap + New group to create one, </string>
     <string name="chat_list_pending_invitations">PENDING INVITATIONS</string>
+    <string name="pending_invitations_none">No invite links waiting. Links you create to add a contact show up here until they\'re accepted or revoked.</string>
+    <string name="pending_invitations_intro">Unused invite links you created. Each adds one contact when accepted — revoke any you no longer need.</string>
     <string name="chat_list_public_groups_increase_your">Public groups increase your attack surface. Group </string>
     <string name="chat_list_removes_the_group_and">Removes the group and its message history from this device.</string>
     <string name="chat_list_revoke">Revoke</string>
@@ -292,6 +294,9 @@
     <string name="lock_require_pin_to_open">Require PIN to open Aegis</string>
     <string name="lock_require_recovery_phrase_on">Require recovery phrase on every reboot</string>
     <string name="lock_scramble_pin_pad">Scramble PIN pad</string>
+    <string name="lock_remote_pin_lockout_title">Remote PIN attempts before lockout</string>
+    <string name="lock_remote_pin_lockout_desc">Wrong remote-access PINs that revoke a contact\'s access. A duress PIN always locks out on the first try — this is for genuine fumbles.</string>
+    <string name="lock_remote_pin_lockout_warn">⚠ This low, a single fumble of your own can lock you out — you\'d need physical access to the device to restore remote access.</string>
     <string name="lock_shuffles_digit_positions_on">Shuffles digit positions on every unlock to defeat shoulder-</string>
     <string name="lock_unlock_with_fingerprint_face">Unlock with fingerprint / face</string>
     <string name="lock_when_off_aegis_opens">When off, Aegis opens directly. Your PIN is still required </string>
@@ -389,7 +394,7 @@
     <string name="_relayonly_ice_and_call">Relay-only ICE and call diagnostics.</string>
     <string name="_stops_screenshots_screen_recording">Stops screenshots, screen recording, and the </string>
     <string name="_unfinished_features_hidden_behind">Unfinished features hidden behind the 7-tap gate.</string>
-    <string name="_wifionly_by_default_apks">WiFi-only by default — APKs are ~45–65 MB each.</string>
+    <string name="_wifionly_by_default_apks">WiFi-only by default — APKs are ~100 MB each.</string>
 
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM swap alert</string>
@@ -400,7 +405,7 @@
     <string name="splash_splashscale">splash-scale</string>
 
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis polls GitHub every 24 hours for new builds. </string>
+    <string name="update_how_it_works_body">Aegis polls GitHub every 24 hours for new builds. Each APK is ~100 MB. By default we only download over WiFi — pulling that much over a cellular plan every release would eat real money.</string>
     <string name="update_beltandbraces_type_rollback_below">Belt-and-braces — type ROLLBACK below to </string>
     <string name="update_check_interval">Check interval</string>
     <string name="update_how_often_aegis_polls">How often Aegis polls GitHub for a new build. Lower wakes the </string>
@@ -479,6 +484,8 @@
     <string name="diagnostics_process">PROCESS</string>
     <string name="diagnostics_reconnect_now">Reconnect now</string>
     <string name="diagnostics_relays">RELAYS</string>
+    <string name="video_viewer_not_found">Video unavailable.</string>
+    <string name="diagnostics_relays_idle_note">Connect on demand — an idle relay drops off and reconnects when it\'s next needed. Only a stuck outbox or every relay down means messages can\'t go out.</string>
     <string name="diagnostics_reset">Reset</string>
     <string name="diagnostics_reset_simplex_core">Reset SimpleX core?</string>
     <string name="diagnostics_restart">Restart</string>
@@ -707,9 +714,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis is free forever. No ads. No tracking. No data sold.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis will open without asking for anything. Your PIN still </string>
+    <string name="tutorial_aegis_will_open_without">Aegis will open without asking for anything. Your PIN still exists underneath — for duress, remote access, and to encrypt your messages. You can re-enable the lock anytime in Settings.</string>
     <string name="tutorial_anyone_who_sees_these">Anyone who sees these words owns your account</string>
-    <string name="tutorial_biometric_login_is_convenient">Biometric login is convenient but skips duress protection. </string>
+    <string name="tutorial_biometric_login_is_convenient">Biometric login is convenient but skips duress protection. If someone forces your fingerprint, the real profile opens. PIN is recommended for maximum security.</string>
     <string name="tutorial_biometric_skips_duress">Biometric skips duress</string>
     <string name="tutorial_choose_how_you_unlock">Choose how you unlock</string>
     <string name="tutorial_confirm_pin">Confirm PIN</string>
@@ -723,13 +730,13 @@
     <string name="tutorial_find_your_way_around">Find your way around</string>
     <string name="tutorial_fingerprint_face">Fingerprint / Face</string>
     <string name="tutorial_get_started">Get Started</string>
-    <string name="tutorial_if_it_ever_helps">If it ever helps you, you can support Project Aether any </string>
-    <string name="tutorial_it_is_your_master">It is your master key, shown once. We never store it and </string>
+    <string name="tutorial_if_it_ever_helps">If it ever helps you, you can support Project Aether any time from System → About.</string>
+    <string name="tutorial_it_is_your_master">It is your master key, shown once. We never store it and never show it again — not behind your PIN, not behind your fingerprint. If you didn\'t write it down, that\'s the price of it being truly yours. Keep your paper copy safe.</string>
     <string name="tutorial_ive_written_it_down">I\'ve written it down</string>
     <string name="tutorial_keep_lock">Keep lock</string>
     <string name="tutorial_keep_pin_only">Keep PIN only</string>
     <string name="tutorial_left_to_right_along">Left to right along the bottom of every screen:</string>
-    <string name="tutorial_make_sure_no_one">Make sure no one is watching and nothing is recording your </string>
+    <string name="tutorial_make_sure_no_one">Make sure no one is watching and nothing is recording your screen. Screenshots are blocked — a screenshot goes to your gallery, syncs to the cloud, and can be seen by anyone with your phone. Scratch the panel below to reveal your 24 words, write them on paper, then keep that paper somewhere safe.</string>
     <string name="tutorial_new_pin_48_digits">New PIN (4–8 digits)</string>
     <string name="tutorial_no_lock_screen">No lock screen</string>
     <string name="tutorial_open_without_a_lock">Open without a lock screen?</string>
@@ -743,16 +750,16 @@
     <string name="tutorial_show_the_words_again">Show the words again</string>
     <string name="tutorial_skip">Skip</string>
     <string name="tutorial_skip_check_debug">Skip check (debug)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS stays locked in the centre. You can reorder the rest </string>
+    <string name="tutorial_sos_stays_locked_in">SOS stays locked in the centre. You can reorder the rest in System → Nav.</string>
     <string name="tutorial_thank_you">Thank you</string>
     <string name="tutorial_the_skill_tree">The skill tree</string>
-    <string name="tutorial_this_encrypts_your_messages">This encrypts your messages and recovers your account if </string>
-    <string name="tutorial_this_is_the_only">This is the ONLY copy. We keep nothing. There is no </string>
+    <string name="tutorial_this_encrypts_your_messages">This encrypts your messages and recovers your account if you forget your PIN or lose your fingerprint. If you lose it, no one — not us, not anyone — can recover your data.</string>
+    <string name="tutorial_this_is_the_only">This is the ONLY copy. We keep nothing. There is no \"forgot phrase\", no reset, and no way to make a new one — not with your PIN, not with your fingerprint, not by us. If you lose this paper, your data is gone forever, and no one on earth can bring it back. Write it down now.</string>
     <string name="tutorial_three_tiers_of_trust">Three tiers of trust</string>
     <string name="tutorial_what_makes_this_different">What makes this different</string>
     <string name="tutorial_you_can_replay_this">You can replay this tutorial from Help at any time.</string>
     <string name="tutorial_your_messages_and_attachments">Your messages and attachments are encrypted under this PIN.</string>
-    <string name="tutorial_your_pin_is_set">Your PIN is set and always works — it\'s what duress and remote </string>
+    <string name="tutorial_your_pin_is_set">Your PIN is set and always works — it\'s what duress and remote access use. These are optional shortcuts on top of it.</string>
     <string name="tutorial_your_recovery_phrase">Your recovery phrase</string>
     <string name="tutorial_your_safety_net">Your safety net</string>
     <string name="tutorial_youre_ready">You\'re ready</string>
@@ -823,7 +830,7 @@
     <string name="a11y_voice_record">voice record</string>
 
     <!-- Tutorial hardcoded strings (extracted) -->
-    <string name="tutorial_bubble_welcome">Welcome to Project Aether. I\'m Cyan — I\'ll be your guide.</string>
+    <string name="tutorial_bubble_welcome">Welcome to Project Aether. I\'m Cyan — I\'ll be your guide. Grab a pen and paper — I\'ll ask you to write down 24 words that protect your messages.</string>
     <string name="tutorial_bubble_different">No phone number. No account. No server stores your messages. Just cryptography.</string>
     <string name="tutorial_bubble_safety">If you\'re ever in danger, one button alerts everyone you trust.</string>
     <string name="tutorial_bubble_tiers">You decide who sees what.</string>
@@ -854,7 +861,7 @@
     <string name="tutorial_unlock_bio_desc">Fast unlock. Note: biometric skips duress protection.</string>
     <string name="tutorial_unlock_none_desc">Open Aegis without unlocking. PIN still guards duress + remote access.</string>
     <string name="tutorial_pin_explanation_new">Your PIN locks Aegis and protects your duress profiles. Your recovery phrase is what encrypts your messages. 4–8 digits.</string>
-    <string name="tutorial_pin_explanation_existing">Your PIN unlocks Aegis and is the key your messages are </string>
+    <string name="tutorial_pin_explanation_existing">Your PIN unlocks Aegis and is the key your messages are encrypted under. 4–8 digits.</string>
     <string name="tutorial_pin_already_nice">Already done. Nice.</string>
     <string name="tutorial_pin_set_first">First things first. Set your app PIN.</string>
     <string name="tutorial_node_app_pin">App
@@ -894,4 +901,26 @@ PIN</string>
     <string name="tutorial_perm_oem_title">%1$s battery settings</string>
     <string name="tutorial_perm_oem_open">Open %1$s settings</string>
     <string name="tutorial_perm_denied_note">You can enable this later — tap to open Settings.</string>
+
+    <!-- Tutorial — new translatable strings -->
+    <string name="tutorial_node_vault_pin">Vault\nPIN</string>
+    <string name="tutorial_node_device_owner">Device\nOwner</string>
+    <string name="tutorial_skill_tree_explanation">App PIN unlocks Duress, Mugshot, Vault, Canary, SIM Watch and Geofence \u2014 set it once and the rest open up. The full climb ends at Device Owner, the top tier.</string>
+    <string name="tutorial_phrase_intro">On the next screen you\'ll see 24 words. Scratch the panel to reveal them, then write them all down on paper.</string>
+    <string name="tutorial_phrase_show">Show my phrase</string>
+    <string name="tutorial_phrase_scratch">Scratch to reveal, then write all 24 words down in order.</string>
+    <string name="tutorial_phrase_confirm">Confirm you saved it. Enter words %1$s from your paper.</string>
+    <string name="tutorial_phrase_word_n">Word #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Those words don\'t match. Check your paper.</string>
+    <string name="tutorial_phrase_write_down">Write these 24 words on paper. They\'re the key to everything.</string>
+    <string name="tutorial_phrase_already_saved">Already saved. Keep your paper copy somewhere safe.</string>
+    <string name="tutorial_draw_pattern">Draw your pattern</string>
+    <string name="tutorial_draw_pattern_confirm">Draw it again to confirm</string>
+    <string name="tutorial_pattern_min_dots">Use at least %1$d dots.</string>
+    <string name="tutorial_pattern_mismatch">Didn\'t match \u2014 start again.</string>
+    <string name="tutorial_bio_need_pin_first">Set up your PIN first, then add biometric.</string>
+    <string name="tutorial_bio_failed">Couldn\'t enable biometric. Try again.</string>
+    <string name="tutorial_pin_save_error">Couldn\'t save PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN write didn\'t persist \u2014 check Diagnostics.</string>
+    <string name="tutorial_node_app_duress">App\nDuress</string>
 </resources>

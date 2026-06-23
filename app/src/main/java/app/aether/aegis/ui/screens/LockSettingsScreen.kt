@@ -1,5 +1,12 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -68,6 +75,12 @@ fun LockSettingsScreen(navController: NavController) {
     var hasPin by remember { mutableStateOf(if (inDuress) true else store.hasPin) }
     var newPin by remember { mutableStateOf("") }
     var confirmPin by remember { mutableStateOf("") }
+    // Wrong remote-PIN attempts before a contact is auto-revoked. Owner knob;
+    // duress PINs ignore it (they revoke on attempt 1). Local mirror seeded
+    // from the gate; the write is suppressed under duress like the others.
+    var lockoutThreshold by remember {
+        mutableStateOf(AegisApp.instance.remoteAccessGate.failThreshold)
+    }
     var error by remember { mutableStateOf<String?>(null) }
     var timeoutMs by remember { mutableStateOf(store.timeoutMs) }
     var scramble by remember { mutableStateOf(store.scramblePinPad) }
@@ -132,11 +145,11 @@ fun LockSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.settings_app_lock)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -199,7 +212,7 @@ fun LockSettingsScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(8.dp))
                     // Enabled only when 4..8 digits AND the two fields match.
                     // The digit/length filtering happens in onValueChange.
-                    Button(
+                    AegisButton(
                         enabled = newPin.length in 4..8 && newPin == confirmPin,
                         onClick = {
                             // Duress: pretend to save, write nothing.
@@ -212,7 +225,7 @@ fun LockSettingsScreen(navController: NavController) {
                                 newPin = ""
                                 confirmPin = ""
                                 error = null
-                                return@Button
+                                return@AegisButton
                             }
                             // The seal is phrase-rooted, so the PIN is purely
                             // a gate: setting OR changing it never rotates the
@@ -226,7 +239,7 @@ fun LockSettingsScreen(navController: NavController) {
                                     (saveResult.exceptionOrNull()?.message
                                         ?: saveResult.exceptionOrNull()?.toString()
                                         ?: "unknown error")
-                                return@Button
+                                return@AegisButton
                             }
                             // Read-back verification: confirm the hash actually
                             // persisted before we tell the user it's set — a
@@ -235,7 +248,7 @@ fun LockSettingsScreen(navController: NavController) {
                             if (!store.hasPin) {
                                 error = "PIN write didn't persist — " +
                                     "check Diagnostics and report this."
-                                return@Button
+                                return@AegisButton
                             }
                             hasPin = true
                             newPin = ""
@@ -302,6 +315,59 @@ fun LockSettingsScreen(navController: NavController) {
                                 if (!inDuress) store.requireAppLock = it
                             },
                         )
+                    }
+                }
+
+                // Remote-access wrong-PIN lockout threshold. Only the WRONG-pin
+                // count is tunable; a duress PIN always revokes on the first
+                // try. Capped 1–10 (no "unlimited" — the remote PIN is the
+                // device PIN, so unbounded tries would be brute-forceable).
+                GlassPanel(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Text(
+                            stringResource(R.string.lock_remote_pin_lockout_title),
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                        Text(
+                            stringResource(R.string.lock_remote_pin_lockout_desc),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 12.sp,
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Slider(
+                                value = lockoutThreshold.toFloat(),
+                                onValueChange = { lockoutThreshold = it.toInt() },
+                                onValueChangeFinished = {
+                                    if (!inDuress) {
+                                        AegisApp.instance.remoteAccessGate.failThreshold =
+                                            lockoutThreshold
+                                    }
+                                },
+                                valueRange =
+                                    app.aether.aegis.remote.RemoteAccessGate.MIN_FAIL_THRESHOLD.toFloat()..
+                                        app.aether.aegis.remote.RemoteAccessGate.MAX_FAIL_THRESHOLD.toFloat(),
+                                // 10 discrete stops (1..10): steps counts the
+                                // points BETWEEN the ends, so MAX-MIN-1 = 8.
+                                steps = app.aether.aegis.remote.RemoteAccessGate.MAX_FAIL_THRESHOLD -
+                                    app.aether.aegis.remote.RemoteAccessGate.MIN_FAIL_THRESHOLD - 1,
+                                modifier = Modifier.weight(1f),
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                "$lockoutThreshold",
+                                fontWeight = FontWeight.Bold,
+                                color = app.aether.aegis.ui.theme.AegisCyan,
+                            )
+                        }
+                        // Self-lockout warning at the harsh end.
+                        if (lockoutThreshold <= 2) {
+                            Text(
+                                stringResource(R.string.lock_remote_pin_lockout_warn),
+                                color = MaterialTheme.colorScheme.error,
+                                fontSize = 11.sp,
+                            )
+                        }
                     }
                 }
 
@@ -775,7 +841,7 @@ fun LockSettingsScreen(navController: NavController) {
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Button(
+                            AegisButton(
                                 enabled = duressPin.length in 4..8 &&
                                     duressPin == confirmDuressPin,
                                 onClick = {
@@ -832,7 +898,7 @@ fun LockSettingsScreen(navController: NavController) {
                                 },
                             ) { Text(if (hasDuress) "Update duress PIN" else "Save duress PIN") }
                             if (hasDuress) {
-                                OutlinedButton(onClick = {
+                                AegisOutlinedButton(onClick = {
                                     // Remove targets the slot matching the
                                     // current layer: Fake #2 clears DURESS_2,
                                     // real clears DURESS_1. Layer 2 is sealed
@@ -864,7 +930,7 @@ fun LockSettingsScreen(navController: NavController) {
                             fontSize = 12.sp,
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        OutlinedButton(onClick = {
+                        AegisOutlinedButton(onClick = {
                             // In duress, faking a successful disable
                             // would lock-unlock the (fake) state and
                             // possibly drop the attacker back to the

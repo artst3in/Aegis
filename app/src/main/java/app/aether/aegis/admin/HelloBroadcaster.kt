@@ -12,49 +12,39 @@ import kotlinx.coroutines.withContext
  *
  * The per-peer `[aegis:…]` gate in
  * [app.aether.aegis.core.ProtocolManager.gateAegisControl] keeps control
- * envelopes (location, status, typing, tier announces) from
- * leaking as raw text to vanilla SimpleX clients — but the cost
- * is that a fresh Aegis ↔ Aegis pair starts with
- * `known_peers.isAegis = false` on BOTH sides, and the gate then
- * drops every aegis-tagged outbound until the flag flips. The
- * only way the flag flips is by RECEIVING an `[aegis:*]` from the
- * peer, which their side's gate is also dropping. Deadlock.
+ * envelopes (location, status, typing, tier announces) from leaking as raw
+ * text to vanilla SimpleX clients. The control channel is opened for a peer
+ * only once we KNOW they're Aegis — `known_peers.isAegis`, which flips the
+ * first time we RECEIVE an `[aegis:*]` from them.
  *
- * The bootstrap envelope is `[aegis:hello]` (no identity payload),
- * carved out of both gates by design so it's always allowed
- * through. The catch-all in
- * [app.aether.aegis.simplex.SimpleXTransport.handleNewChatItems] (~line 2168)
- * then flips the receiver's isAegis row for the sender, and a
- * symmetric send from the other side completes the handshake.
+ * Bootstrapping a fresh Aegis ↔ Aegis pair: both sides start isAegis=false,
+ * and the discovery probe is the one-shot `[aegis:hello]` sent at pairing by
+ * [app.aether.aegis.simplex.SimpleXTransport.handleContactConnected]. When a
+ * peer RECEIVES that hello, their side flips isAegis for us and the catch-all
+ * in handleNewChatItems records it; a symmetric send completes the handshake.
+ * That single pairing probe is the only control message a NON-Aegis contact
+ * ever sees — the unavoidable cost of auto-detecting whether a new contact
+ * runs Aegis.
  *
- * Two trigger paths populate it:
+ * [broadcastNow] is the cold-start CONVERGENCE retry: it re-greets peers whose
+ * control channel is half-open (no `controlPubKey` yet) so a pairing hello
+ * that didn't land — peer offline, app killed mid-handshake, dropped message —
+ * still converges. It is GATED ON isAegis: a plain SimpleX contact is
+ * isAegis=false forever (they never send us an aegis tag), so they can never
+ * complete the handshake and must NOT be re-greeted — re-greeting every
+ * null-pubkey peer regardless of isAegis sprayed `[aegis:hello]` junk at
+ * vanilla contacts on every launch (user-reported spam). Gating on isAegis
+ * blocks the control channel to non-Aegis peers, which is the whole point of
+ * the gate; a real Aegis peer whose pairing hello was lost still converges as
+ * long as ONE side received a hello (its re-greets reach the other and flip
+ * isAegis there). Only a double-lost pairing hello stays half-open — rare, and
+ * far better than spamming every SimpleX contact.
  *
- *   1. [app.aether.aegis.simplex.SimpleXTransport.handleContactConnected]
- *      fires once per FRESH pairing, sending the hello immediately.
- *      Covers new contacts post-500.
- *   2. [broadcastNow] fires on every cold start for every paired peer
- *      whose `controlPubKey` is still null — i.e. the hello handshake
- *      hasn't completed for that peer yet. This is RESILIENCE for the
- *      current clean-slate flow, not an old-build shim: the path-1 fresh
- *      pairing hello can simply not land (peer offline at pairing, app
- *      killed mid-handshake, a dropped message), leaving the channel
- *      half-open. Re-greeting on the next cold start closes that gap so
- *      the channel always converges. Filtering on the missing pubkey
- *      (not the `isAegis` flag) is deliberate: a peer can be isAegis=true
- *      yet still have no control channel, and that combination silently
- *      kills delivery ticks + typing/status/location/sos control until
- *      re-greeted. The pubkey isn't used to verify 1:1 commands (those
- *      ride the unsigned x.aegis type); it survives purely as this
- *      "already bootstrapped" marker, so once exchanged the peer is
- *      skipped on subsequent starts.
+ * Cost: one tiny SimpleX message per un-converged AEGIS peer per cold start,
+ * zero once the control pubkey is exchanged, and zero ever to a vanilla peer.
  *
- * Cost: one tiny SimpleX message per un-bootstrapped peer per cold
- * start. Zero once the control pubkey is exchanged for that peer.
- *
- * NOTE (clean-slate rule): the "paired before X shipped" history that
- * motivated this is gone, but the mechanism stays — it's how ANY peer,
- * including two brand-new installs, recovers a half-completed handshake.
- * Don't mistake it for migration/compat code.
+ * NOTE (clean-slate rule): not migration/compat — it's how any two installs,
+ * including brand-new ones, recover a half-completed handshake.
  */
 object HelloBroadcaster {
 
@@ -65,16 +55,19 @@ object HelloBroadcaster {
                 Log.w(TAG, "broadcastNow: allKnownPeers failed", it)
                 return@withContext
             }
-            // Re-greet anyone we haven't exchanged a control pubkey with —
-            // this is the signal that the signed control channel isn't
-            // bootstrapped yet, regardless of the older isAegis flag.
-            .filter { it.controlPubKey.isNullOrEmpty() }
+            // GATE THE CONTROL CHANNEL: re-greet only CONFIRMED Aegis peers
+            // (isAegis) whose control channel is still half-open (no
+            // controlPubKey yet). A vanilla SimpleX contact is isAegis=false
+            // and can never complete the handshake, so without this gate the
+            // re-greet sprayed `[aegis:hello]` at them on every cold start.
+            // isAegis only flips on receiving an aegis tag → control stays
+            // blocked to non-Aegis contacts, as it must.
+            .filter { it.isAegis && it.controlPubKey.isNullOrEmpty() }
         if (peers.isEmpty()) return@withContext
         // AEGIS PROTOCOL: hello carries NO identity — only our Ed25519
-        // CONTROL pubkey. The bare prefix alone flips isAegis; the key marks
-        // the channel as bootstrapped (so we stop re-greeting) and seeds the
-        // future signed group path. Same base64url encoding as
-        // SimpleXTransport.sendAegisHello.
+        // CONTROL pubkey. The key marks the channel as bootstrapped (so we
+        // stop re-greeting) and seeds the future signed group path. Same
+        // base64url encoding as SimpleXTransport.sendAegisHello.
         val pubB64 = runCatching {
             val pub = app.aether.aegis.cmdauth.ControlKeypair.publicKey(AegisApp.instance)
             android.util.Base64.encodeToString(
@@ -93,7 +86,7 @@ object HelloBroadcaster {
                 )
             }.onFailure { Log.w(TAG, "hello send to ${peer.publicKey} failed", it) }
         }
-        Log.i(TAG, "broadcast aegis:hello (key=${pubB64.isNotEmpty()}) to ${peers.size} un-bootstrapped peer(s)")
+        Log.i(TAG, "broadcast aegis:hello (key=${pubB64.isNotEmpty()}) to ${peers.size} un-converged Aegis peer(s)")
     }
 
     private const val TAG = "HelloBroadcaster"

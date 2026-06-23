@@ -1,5 +1,10 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.peer.QrCodes
 import androidx.compose.foundation.Image
@@ -76,7 +81,7 @@ fun VerifyContactScreen(peerKey: String, navController: NavController) {
         containerColor = androidx.compose.ui.graphics.Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text("Verify ${peer?.displayName ?: "contact"}") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -200,12 +205,12 @@ fun VerifyContactScreen(peerKey: String, navController: NavController) {
                     // Camera path: scanning requires MainActivity's launcher
                     // plumbing, so bail with a status note if we're somehow
                     // hosted elsewhere rather than crashing on the cast.
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             val activity = context as? app.aether.aegis.MainActivity
                             if (activity == null) {
                                 status = "Scanner unavailable"
-                                return@OutlinedButton
+                                return@AegisOutlinedButton
                             }
                             activity.scanQr(
                                 "Point camera at ${peer?.displayName ?: "their"} safety-code QR",
@@ -223,7 +228,7 @@ fun VerifyContactScreen(peerKey: String, navController: NavController) {
                         Text(stringResource(R.string.verify_contact_scan_their_qr))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             (context as? app.aether.aegis.MainActivity)?.pickQrFromGallery(onCode)
                         },
@@ -235,7 +240,7 @@ fun VerifyContactScreen(peerKey: String, navController: NavController) {
                     // Manual toggle: the out-of-band path (compared the code
                     // by voice/in person, no scan). Passing the code marks
                     // verified; passing null clears it — same call, toggled.
-                    Button(
+                    AegisButton(
                         onClick = {
                             scope.launch {
                                 val simplex = AegisApp.instance.transports

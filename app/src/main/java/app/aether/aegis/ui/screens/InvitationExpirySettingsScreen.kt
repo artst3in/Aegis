@@ -1,5 +1,8 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexRadio
+
 import app.aether.aegis.prefs.InvitationExpiryPrefs
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -41,7 +44,7 @@ fun InvitationExpirySettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.invitation_expiry_invitation_expiry)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -93,7 +96,7 @@ fun InvitationExpirySettingsScreen(navController: NavController) {
                                 .padding(horizontal = 12.dp, vertical = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            RadioButton(
+                            HexRadio(
                                 selected = hours == preset,
                                 onClick = {
                                     // Mirror then persist (same as the row's

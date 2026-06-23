@@ -1,0 +1,139 @@
+package chat.simplex.common.platform
+
+import chat.simplex.common.model.*
+import chat.simplex.common.views.call.RcvCallInvitation
+import chat.simplex.common.views.chatlist.acceptContactRequest
+import chat.simplex.common.views.chatlist.openChat
+import chat.simplex.common.views.helpers.*
+import chat.simplex.common.views.onboarding.OnboardingStage
+import chat.simplex.res.MR
+import kotlinx.coroutines.delay
+
+enum class NotificationAction {
+  ACCEPT_CONTACT_REQUEST
+}
+
+// Spec: spec/services/notifications.md#ntfManager
+lateinit var ntfManager: NtfManager
+
+abstract class NtfManager {
+  fun notifyContactConnected(user: UserLike, contact: Contact) = displayNotification(
+    user = user,
+    chatId = contact.id,
+    displayName = contact.displayName,
+    msgText = generalGetString(MR.strings.notification_contact_connected)
+  )
+
+  fun notifyContactRequestReceived(user: UserLike, cInfo: ChatInfo.ContactRequest) = displayNotification(
+    user = user,
+    chatId = cInfo.id,
+    displayName = cInfo.displayName,
+    msgText = generalGetString(MR.strings.notification_new_contact_request),
+    image = cInfo.image,
+    listOf(
+      NotificationAction.ACCEPT_CONTACT_REQUEST to { acceptContactRequestAction(user.userId, incognito = false, cInfo.id) }
+    )
+  )
+
+  fun notifyMessageReceived(rhId: Long?, user: UserLike, cInfo: ChatInfo, cItem: ChatItem) {
+    if (
+      cItem.showNotification &&
+      cInfo.ntfsEnabled(cItem) &&
+      (
+          allowedToShowNotification() ||
+              chatModel.chatId.value != cInfo.id ||
+              chatModel.remoteHostId() != rhId)
+    ) {
+      displayNotification(user = user, chatId = cInfo.id, displayName = cInfo.displayName, msgText = hideSecrets(cItem, cInfo.isChannel))
+    }
+  }
+
+  fun acceptContactRequestAction(userId: Long?, incognito: Boolean, chatId: ChatId) {
+    val isCurrentUser = ChatModel.currentUser.value?.userId == userId
+    val apiId = chatId.replace("<@", "").toLongOrNull() ?: return
+    // TODO include remote host in notification
+    acceptContactRequest(null, incognito, apiId, isCurrentUser, ChatModel)
+    cancelNotificationsForChat(chatId)
+  }
+
+  fun openChatAction(userId: Long?, chatId: ChatId) {
+    withLongRunningApi {
+      awaitChatStartedIfNeeded(chatModel)
+      if (userId != null && userId != chatModel.currentUser.value?.userId && chatModel.currentUser.value != null) {
+        // TODO include remote host ID in desktop notifications?
+        chatModel.controller.showProgressIfNeeded {
+          chatModel.controller.changeActiveUser(null, userId, null)
+        }
+      }
+      val cInfo = chatModel.getChat(chatId)?.chatInfo
+      chatModel.clearOverlays.value = true
+      if (cInfo != null && (cInfo is ChatInfo.Direct || cInfo is ChatInfo.Group)) openChat(secondaryChatsCtx = null, rhId = null, cInfo)
+    }
+  }
+
+  fun showChatsAction(userId: Long?) {
+    withLongRunningApi {
+      awaitChatStartedIfNeeded(chatModel)
+      if (userId != null && userId != chatModel.currentUser.value?.userId && chatModel.currentUser.value != null) {
+        // TODO include remote host ID in desktop notifications?
+        chatModel.controller.showProgressIfNeeded {
+          chatModel.controller.changeActiveUser(null, userId, null)
+        }
+      }
+      chatModel.chatId.value = null
+      chatModel.clearOverlays.value = true
+    }
+  }
+
+  fun acceptCallAction(chatId: ChatId) {
+    chatModel.clearOverlays.value = true
+    val invitation = chatModel.callInvitations[chatId]
+    if (invitation == null) {
+      AlertManager.shared.showAlertMsg(generalGetString(MR.strings.call_already_ended))
+    } else {
+      chatModel.callManager.acceptIncomingCall(invitation = invitation)
+    }
+  }
+
+  abstract fun notifyCallInvitation(invitation: RcvCallInvitation): Boolean
+  abstract fun hasNotificationsForChat(chatId: String): Boolean
+  abstract fun cancelNotificationsForChat(chatId: String)
+  abstract fun cancelNotificationsForUser(userId: Long)
+  abstract fun displayNotification(user: UserLike, chatId: String, displayName: String, msgText: String, image: String? = null, actions: List<Pair<NotificationAction, () -> Unit>> = emptyList())
+  abstract fun cancelCallNotification()
+  abstract fun cancelAllNotifications()
+  abstract fun showMessage(title: String, text: String)
+  // Android only
+  abstract fun androidCreateNtfChannelsMaybeShowAlert()
+
+  private suspend fun awaitChatStartedIfNeeded(chatModel: ChatModel, timeout: Long = 30_000) {
+    // Still decrypting database
+    if (chatModel.chatRunning.value == null) {
+      val step = 50L
+      for (i in 0..(timeout / step)) {
+        if (chatModel.chatRunning.value == true || chatModel.controller.appPrefs.onboardingStage.get() == OnboardingStage.Step1_SimpleXInfo) {
+          break
+        }
+        delay(step)
+      }
+    }
+  }
+
+  private fun hideSecrets(cItem: ChatItem, isChannel: Boolean = false): String {
+    val md = cItem.formattedText
+    return if (md != null) {
+      var res = ""
+      for (ft in md) {
+        res += if (ft.format is Format.Secret) "..." else ft.text
+      }
+      res
+    } else {
+      val mc = cItem.content.msgContent
+      if (mc is MsgContent.MCReport) {
+        generalGetString(MR.strings.notification_group_report).format(cItem.text(isChannel).ifEmpty { mc.reason.text })
+      } else {
+        cItem.text(isChannel)
+      }
+    }
+  }
+}

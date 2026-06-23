@@ -1,15 +1,17 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -92,7 +94,9 @@ fun DeviceControlScreen(state: ControlState, actions: ControlActions) {
             "notifications_disabled" ->
                 "${err.forCmd}: target has notifications disabled"
             "capture_failed" ->
-                "${err.forCmd}: target couldn't capture audio (encoder error)"
+                "${err.forCmd}: target couldn't capture (encoder / hardware error)"
+            "capture_unavailable_background" ->
+                "${err.forCmd}: target couldn't capture — screen off / app backgrounded. The OS blocks camera & mic from the background; try again with the target's screen on."
             "too_large" ->
                 "${err.forCmd}: recording too large to transmit"
             "rate_limited" ->
@@ -102,13 +106,31 @@ fun DeviceControlScreen(state: ControlState, actions: ControlActions) {
             "needs_reauth" ->
                 "${err.forCmd}: wrong device PIN — nothing was erased"
             "not_device_owner" ->
-                "${err.forCmd}: target isn't Device Owner — can't factory-reset"
+                "${err.forCmd}: target isn't Device Owner — can't factory-reset (a non-DO Device Admin can't wipe)"
+            // Honest wipe outcomes routed through the status channel (not real
+            // errors): the target tells the operator what actually happened.
+            "wiped" ->
+                "${err.forCmd}: phone factory-reset ✓"
+            "aegis-wiped" ->
+                "${err.forCmd}: Aegis data destroyed ✓ — phone still running, identity gone"
             else -> "${err.forCmd}: ${err.msg}"
         }
         android.widget.Toast.makeText(
             context, friendly, android.widget.Toast.LENGTH_LONG,
         ).show()
         app.aether.aegis.remote.RemoteAccessSession.consumeError()
+    }
+    // A guaranteed way OUT. The panic/SOS screen previously had no exit
+    // affordance at all (no TopAppBar, and onExit is null in SOS mode), so
+    // the only escape was a system back gesture (user report: "no exit
+    // button"). This close runs the mode's own teardown (onExit, when the
+    // remote adapter supplies it) THEN pops the back stack — works in both
+    // SOS and remote modes.
+    val backDispatcher = androidx.activity.compose.LocalOnBackPressedDispatcherOwner.current
+        ?.onBackPressedDispatcher
+    val onClose: () -> Unit = {
+        runCatching { actions.onExit?.invoke() }
+        backDispatcher?.onBackPressed()
     }
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -135,7 +157,7 @@ fun DeviceControlScreen(state: ControlState, actions: ControlActions) {
                     .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                HeaderStrip(state)
+                HeaderStrip(state, onClose)
                 FramesRow(state)
                 MapSlot(state)
                 AudioStrip(state)
@@ -159,7 +181,7 @@ fun DeviceControlScreen(state: ControlState, actions: ControlActions) {
  * thresholds, with a charging bolt prefix.
  */
 @Composable
-private fun HeaderStrip(state: ControlState) {
+private fun HeaderStrip(state: ControlState, onClose: () -> Unit) {
     val accent = when (state.mode) {
         ControlMode.SOS  -> AegisSOS
         ControlMode.REMOTE -> AegisOnline
@@ -224,6 +246,14 @@ private fun HeaderStrip(state: ControlState) {
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
+            }
+            // Close — the always-available exit affordance.
+            IconButton(onClick = onClose) {
+                Text(
+                    "✕",
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
         }
     }
@@ -292,7 +322,7 @@ private fun FramesRow(state: ControlState) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(if (isVideo) 240.dp else 72.dp)
-                    .clip(RoundedCornerShape(6.dp))
+                    .clip(androidx.compose.ui.graphics.RectangleShape)
                     .background(Color.Black),
                 contentAlignment = Alignment.Center,
             ) {
@@ -390,7 +420,7 @@ private fun FrameSlot(frame: FrameSnapshot?, label: String, modifier: Modifier =
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp)
-                        .clip(RoundedCornerShape(4.dp))
+                        .clip(androidx.compose.ui.graphics.RectangleShape)
                         .background(Color(0xFF001717)),  // R zeroed (was 111717): no red in a cyan
                     contentAlignment = Alignment.Center,
                 ) {
@@ -415,7 +445,7 @@ private fun FrameSlot(frame: FrameSnapshot?, label: String, modifier: Modifier =
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(max = 220.dp)
-                            .clip(RoundedCornerShape(4.dp)),
+                            .clip(androidx.compose.ui.graphics.RectangleShape),
                         contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                     )
                 }
@@ -516,50 +546,23 @@ private fun AudioStrip(state: ControlState) {
 /**
  * One playable clip row: a play/stop toggle plus the clip's age.
  *
- * Owns a single [android.media.MediaPlayer] scoped to the clip path
- * (re-created if the path changes), released in [onDispose] so the
- * player never leaks when the row leaves composition. All player calls
- * are runCatching-wrapped — a bad/missing file just leaves the toggle
- * showing Play rather than throwing. The `playing` flag is local UI
- * state reset on completion via the completion listener.
+ * Routes through the shared [app.aether.aegis.ui.components.VoicePlaybackController]
+ * so only ONE clip ever plays at a time (across this panel AND the chat
+ * voice bubbles) — previously each row owned its own MediaPlayer, so
+ * tapping several played them all at once. Failures are logged by the
+ * controller rather than swallowed.
  */
 @Composable
 private fun AudioClipRow(clip: AudioClip) {
-    val context = LocalContext.current
-    // playing + player are both keyed on the clip path so a different
-    // clip gets a fresh, independent player and toggle state.
-    var playing by remember(clip.path) { mutableStateOf(false) }
-    val player = remember(clip.path) { android.media.MediaPlayer() }
-    // Release the player when the row is removed — prevents a leaked
-    // native MediaPlayer if the panel is scrolled away or torn down.
-    DisposableEffect(clip.path) {
-        onDispose {
-            runCatching { player.stop() }
-            runCatching { player.release() }
-        }
-    }
+    val playback by app.aether.aegis.ui.components.VoicePlaybackController.state.collectAsState()
+    val playing = playback.path == clip.path && playback.playing
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        OutlinedButton(
+        AegisOutlinedButton(
             modifier = Modifier.weight(1f),
-            onClick = {
-                if (playing) {
-                    runCatching { player.stop() }
-                    runCatching { player.reset() }
-                    playing = false
-                } else {
-                    runCatching {
-                        player.reset()
-                        player.setDataSource(clip.path)
-                        player.prepare()
-                        player.start()
-                        playing = true
-                        player.setOnCompletionListener { playing = false }
-                    }
-                }
-            },
+            onClick = { app.aether.aegis.ui.components.VoicePlaybackController.toggle(clip.path) },
         ) {
             Text(if (playing) "■ Stop" else "▶ Play", fontSize = 11.sp)
         }
@@ -761,6 +764,13 @@ private fun ActionBar(mode: ControlMode, actions: ControlActions) {
     // Accumulate (label, onClick) pairs from whichever lambdas exist.
     // The order here is the on-screen order (chunked two-up below).
     val buttons = mutableListOf<Pair<String, () -> Unit>>()
+    // Responder-facing reach/navigate actions first — on the SOS panic
+    // screen these are the things a responder most urgently needs.
+    actions.onCall?.let { call ->
+        buttons += "Call" to wrap("Calling…") { call(false) }
+        buttons += "Video call" to wrap("Video call…") { call(true) }
+    }
+    actions.onOpenMaps?.let { buttons += "Navigate ↗" to wrap("Open in Maps", it) }
     actions.onPushToTalk?.let { buttons += "Hold to talk" to wrap("PTT ping", it) }
     actions.onListen?.let { listen ->
         // Single fixed 10-second listen-in snapshot (vs the continuous
@@ -822,7 +832,7 @@ private fun ActionBar(mode: ControlMode, actions: ControlActions) {
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     rowPair.forEach { (label, onClick) ->
-                        OutlinedButton(
+                        AegisOutlinedButton(
                             modifier = Modifier.weight(1f),
                             onClick = onClick,
                         ) { Text(label, fontSize = 11.sp) }
@@ -864,7 +874,7 @@ private fun ActionBar(mode: ControlMode, actions: ControlActions) {
 @Composable
 private fun RemoteSosButton(onConfirmed: () -> Unit) {
     var confirming by remember { mutableStateOf(false) }
-    OutlinedButton(
+    AegisOutlinedButton(
         modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
         onClick = { confirming = true },
     ) {
@@ -929,7 +939,7 @@ private fun WipeButtonWithLadder(onConfirmed: (pin: String) -> Unit) {
     val wipeCtx = androidx.compose.ui.platform.LocalContext.current
     val wipeScope = androidx.compose.runtime.rememberCoroutineScope()
     var verifying by remember { mutableStateOf(false) }
-    OutlinedButton(
+    AegisOutlinedButton(
         modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
         onClick = { step = 1 },
     ) {
@@ -1093,7 +1103,7 @@ private fun WipeButtonWithLadder(onConfirmed: (pin: String) -> Unit) {
 private fun DisplayMessageButton(send: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     var msg by remember { mutableStateOf("") }
-    OutlinedButton(
+    AegisOutlinedButton(
         modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
         onClick = { expanded = !expanded },
     ) { Text(if (expanded) "Hide message" else "Show message on lockscreen", fontSize = 11.sp) }
@@ -1106,12 +1116,12 @@ private fun DisplayMessageButton(send: (String) -> Unit) {
             maxLines = 3,
         )
         Row(modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
-            OutlinedButton(
+            AegisOutlinedButton(
                 modifier = Modifier.weight(1f),
                 onClick = { send(msg) },
             ) { Text(stringResource(R.string.device_control_send), fontSize = 11.sp) }
             Spacer(modifier = Modifier.width(6.dp))
-            OutlinedButton(
+            AegisOutlinedButton(
                 modifier = Modifier.weight(1f),
                 onClick = { msg = ""; send("") },
             ) { Text(stringResource(R.string.sentinel_log_clear), fontSize = 11.sp) }
@@ -1298,4 +1308,11 @@ data class ControlActions(
     /** Leave the console — closes the remote session and tears down any
      *  live stream/call so nothing keeps running headless. */
     val onExit: (() -> Unit)? = null,
+    /** Open the peer's last-known location in an external maps app. Present
+     *  on the SOS panic screen so a responder can navigate to the victim
+     *  with one tap. Null when there's no location fix yet. */
+    val onOpenMaps: (() -> Unit)? = null,
+    /** Voice/video call the peer. On the SOS panic screen this lets a
+     *  responder reach the victim directly. [video] picks the media. */
+    val onCall: ((video: Boolean) -> Unit)? = null,
 )

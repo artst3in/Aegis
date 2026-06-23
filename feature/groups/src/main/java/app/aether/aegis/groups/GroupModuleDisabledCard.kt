@@ -1,5 +1,6 @@
 package app.aether.aegis.groups
 
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -82,9 +83,14 @@ fun GroupModuleDisabledCard(
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(16.dp))
+            // Explicit cut-corner shape: the :feature:groups module can't
+            // depend on the app module's AegisOutlinedButton wrapper (the
+            // dependency runs app → feature, not the reverse), so it sets the
+            // LunaGlass facet directly. 8 dp matches AegisButtonShape.
             OutlinedButton(
                 onClick = onEnableClick,
                 modifier = Modifier.fillMaxWidth(),
+                shape = CutCornerShape(8.dp),
             ) {
                 Text("Enable Group Chat", color = brandCyan)
             }

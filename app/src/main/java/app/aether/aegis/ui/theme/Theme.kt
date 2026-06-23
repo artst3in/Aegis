@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.aether.aegis.R
 
@@ -175,6 +176,29 @@ private val AegisTypography = Typography(
     labelSmall     = TextStyle(fontFamily = LunaGlassFont, fontWeight = FontWeight.Normal,   fontSize = 10.sp, letterSpacing = em(0.2f)),
 )
 
+/**
+ * Global LunaGlass shape scale. Material 3 components (Button,
+ * OutlinedButton, TextButton, Card, dialogs, menus, text fields…) read
+ * their corner shape from the theme's [androidx.compose.material3.Shapes],
+ * which otherwise defaults to ROUNDED corners — leaving every untouched
+ * Button rounded no matter how faceted the rest of the surface is.
+ *
+ * Switching the whole scale to [CutCornerShape] facets all 280+ components
+ * that don't pass an explicit shape, in one place and with zero per-call
+ * changes. The size tiers mirror M3's own defaults (4/8/12/16/28 dp rounded)
+ * but cut instead of rounded, scaled to the LunaGlass cut depths already
+ * used across the app (≈12–14 dp on panels/bubbles). The ~51 call sites that
+ * pass an explicit `CutCornerShape` keep doing so — they now MATCH this
+ * theme scale rather than override a rounded default.
+ */
+private val AegisShapes = androidx.compose.material3.Shapes(
+    extraSmall = androidx.compose.foundation.shape.CutCornerShape(4.dp),
+    small      = androidx.compose.foundation.shape.CutCornerShape(6.dp),
+    medium     = androidx.compose.foundation.shape.CutCornerShape(8.dp),
+    large      = androidx.compose.foundation.shape.CutCornerShape(12.dp),
+    extraLarge = androidx.compose.foundation.shape.CutCornerShape(16.dp),
+)
+
 @Composable
 fun AegisTheme(content: @Composable () -> Unit) {
     val ctx = androidx.compose.ui.platform.LocalContext.current
@@ -194,6 +218,14 @@ fun AegisTheme(content: @Composable () -> Unit) {
     // Voyager gate, so the glass / metal-avatar effects can be reviewed
     // off-charger. Structured so scrubbing this block from the public source
     // leaves valid code (rich/backdrops keep their gated values).
+    // >>> DEBUG-ONLY
+    val forceRich by app.aether.aegis.prefs.ExperimentalPrefs(ctx)
+        .forceRichGraphicsFlow.collectAsState()
+    if (app.aether.aegis.BuildConfig.HAS_DEBUG_CHANNEL && forceRich) {
+        rich = true
+        backdrops = true
+    }
+    // <<< DEBUG-ONLY
     androidx.compose.runtime.CompositionLocalProvider(
         app.aether.aegis.ui.LocalGraphicsRich provides rich,
         app.aether.aegis.ui.LocalGraphicsBackdrops provides backdrops,
@@ -201,6 +233,10 @@ fun AegisTheme(content: @Composable () -> Unit) {
         MaterialTheme(
             colorScheme = darkColorSchemeForMode(),
             typography = AegisTypography,
+            // Faceted (cut-corner) shape scale so every Material 3 component
+            // that doesn't pass an explicit shape inherits LunaGlass facets
+            // instead of the rounded M3 default. See [AegisShapes].
+            shapes = AegisShapes,
             content = content,
         )
     }

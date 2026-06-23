@@ -83,7 +83,7 @@ fun PinGuardedContent(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
         )
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedButton(
+        AegisOutlinedButton(
             onClick = { navController.navigate("settings/lock") },
             modifier = Modifier.fillMaxWidth(),
         ) {

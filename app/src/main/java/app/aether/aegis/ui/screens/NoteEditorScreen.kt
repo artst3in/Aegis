@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.AegisApp
 import app.aether.aegis.data.SecureNoteEntity
 import androidx.compose.foundation.background
@@ -208,7 +210,7 @@ fun NoteEditorScreen(noteId: String?, navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(if (loaded == null) "New vault entry" else "Vault entry") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {

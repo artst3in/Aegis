@@ -1,5 +1,8 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.AegisApp
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisTopBar
 import app.aether.aegis.ui.components.GlassPanel
 import app.aether.aegis.ui.theme.AegisCyan
 import androidx.compose.runtime.*
@@ -65,8 +69,11 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
         }.getOrNull()
     }
 
-    Column(modifier = Modifier.fillMaxSize().imePadding()) {
-        TopAppBar(
+    // Own the status-bar inset (bare Column, not a Scaffold); TopAppBar
+    // insets zeroed so we don't pad twice.
+    Column(modifier = Modifier.fillMaxSize().statusBarsPadding().imePadding()) {
+        AegisTopBar(
+            windowInsets = WindowInsets(0, 0, 0, 0),
             title = { Text(stringResource(R.string.contact_title)) },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
@@ -215,7 +222,7 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
         // notification group below so the two notification controls
         // (mute + sound) sit together where the user looks for them —
         // user-reported "per-contact mute … near notification sound".
-        OutlinedButton(
+        AegisOutlinedButton(
             onClick = {
                 scope.launch {
                     AegisApp.instance.repository.setPeerPinned(peer.publicKey, !peer.pinned)
@@ -226,7 +233,7 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
             Text(if (peer.pinned) stringResource(R.string.contact_unpin) else stringResource(R.string.contact_pin))
         }
 
-        OutlinedButton(
+        AegisOutlinedButton(
             onClick = {
                 val encoded = java.net.URLEncoder.encode(peer.publicKey, "UTF-8")
                 navController.navigate("verify/$encoded")
@@ -310,7 +317,7 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            androidx.compose.material3.Switch(
+            app.aether.aegis.ui.components.HexSwitch(
                 checked = peer.muted,
                 // Protected Mode: muting is gated under
                 // contact management. A child could mute a Trusted contact
@@ -366,7 +373,7 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
             }) { Text(stringResource(R.string.action_change)) }
         }
 
-        Button(
+        AegisButton(
             enabled = nickname.trim() != peer.displayName && nickname.trim().isNotEmpty(),
             onClick = {
                 scope.launch {
@@ -476,7 +483,7 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
         // instead of creating a duplicate "Zippy 2".
         var confirmRepair by remember { mutableStateOf(false) }
         Spacer(modifier = Modifier.height(24.dp))
-        OutlinedButton(
+        AegisOutlinedButton(
             onClick = { confirmRepair = true },
             // Protected Mode: re-pair REPLACES this contact's SimpleX queue
             // with whatever link is accepted next — i.e. a child could
@@ -523,9 +530,133 @@ fun ContactDetailScreen(peerKey: String, navController: NavController) {
             )
         }
 
+        // Symmetric duplicate-merge — the fix for "after a re-pair the
+        // contact shows up twice, and the OTHER side always sees me as new."
+        // Re-pairing makes a brand-new SimpleX connection with no link back to
+        // the old contact, and the initiating-side RepairIntent only merges on
+        // ONE side. This lets EITHER side, independently and without a wipe,
+        // absorb the old/dead duplicate into the live one: open the
+        // freshly-connected contact, pick the old duplicate, and its name +
+        // trust tier + chat history move here while THIS contact's live
+        // connection survives. Reuses repairKnownPeer(old=picked, new=this) —
+        // user-confirmed, never silent (a wrong auto-merge would route your
+        // messages to the wrong person).
+        var showMergePicker by remember { mutableStateOf(false) }
+        var mergeTarget by remember { mutableStateOf<app.aether.aegis.data.KnownPeerEntity?>(null) }
+        // Auto-surface a LIKELY duplicate: another contact with the same
+        // display name (after a re-pair, both rows show the peer's real name
+        // once identity is exchanged). One tap opens the SAME confirmed merge
+        // — discovery only, the merge itself is never automatic.
+        val possibleDup = remember(peers, peerKey, peer.displayName) {
+            if (peer.displayName.isBlank()) null
+            else peers.firstOrNull {
+                it.publicKey != peerKey &&
+                    it.displayName.equals(peer.displayName, ignoreCase = true)
+            }
+        }
+        possibleDup?.let { dup ->
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .clip(androidx.compose.foundation.shape.CutCornerShape(8.dp))
+                    .background(app.aether.aegis.ui.theme.AegisWarning.copy(alpha = 0.12f))
+                    .clickable { mergeTarget = dup }
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    "Looks like a duplicate of “${dup.displayName}” — tap to merge them.",
+                    fontSize = 13.sp,
+                    color = app.aether.aegis.ui.theme.AegisWarning,
+                )
+            }
+        }
+        AegisOutlinedButton(
+            onClick = { showMergePicker = true },
+            enabled = !isGatedNow(app.aether.aegis.protectedmode.ProtectedMode.Gate.CONTACTS),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+        ) { Text("Merge a duplicate into this contact") }
+        if (showMergePicker) {
+            val others = peers.filter { it.publicKey != peerKey }
+            AlertDialog(
+                onDismissRequest = { showMergePicker = false },
+                title = { Text("Merge into ${peer.displayName}") },
+                text = {
+                    if (others.isEmpty()) {
+                        Text("No other contacts to merge.")
+                    } else {
+                        androidx.compose.foundation.layout.Column(
+                            modifier = Modifier
+                                .heightIn(max = 360.dp)
+                                .verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                        ) {
+                            Text(
+                                "Pick the OLD / duplicate contact. Its chat history, " +
+                                    "name and trust tier move here; it is removed; THIS " +
+                                    "contact's current connection is what survives.",
+                                fontSize = 12.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            others.forEach { o ->
+                                Text(
+                                    o.displayName.ifBlank { o.publicKey.take(14) + "…" },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable { mergeTarget = o; showMergePicker = false }
+                                        .padding(vertical = 12.dp),
+                                    fontSize = 15.sp,
+                                )
+                            }
+                        }
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = { showMergePicker = false }) {
+                        Text(stringResource(R.string.secure_notes_cancel))
+                    }
+                },
+            )
+        }
+        mergeTarget?.let { t ->
+            AlertDialog(
+                onDismissRequest = { mergeTarget = null },
+                title = { Text("Merge ${t.displayName} here?") },
+                text = {
+                    Text(
+                        "${t.displayName}'s chat history, name and trust tier will " +
+                            "move into this contact, and ${t.displayName} will be " +
+                            "removed. This contact's current connection is kept. " +
+                            "This can't be undone.",
+                    )
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        val absorbedKey = t.publicKey
+                        mergeTarget = null
+                        scope.launch {
+                            // old = the picked duplicate (absorbed), new = THIS
+                            // contact (its live connection survives, adopting the
+                            // picked contact's identity + history).
+                            runCatching {
+                                AegisApp.instance.repository.repairKnownPeer(absorbedKey, peerKey)
+                            }
+                        }
+                    }) { Text("Merge") }
+                },
+                dismissButton = {
+                    TextButton(onClick = { mergeTarget = null }) {
+                        Text(stringResource(R.string.secure_notes_cancel))
+                    }
+                },
+            )
+        }
+
         var confirmDelete by remember { mutableStateOf(false) }
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedButton(
+        AegisOutlinedButton(
             onClick = { confirmDelete = true },
             // Protected Mode: contact management can be locked so a child
             // can't delete their own lifeline (e.g. the parent contact).
@@ -895,7 +1026,7 @@ internal fun RemoteAccessPanel(peer: app.aether.aegis.data.KnownPeerEntity, navC
                 // unblocked, AUTH_OK calls RemoteAccessSession.open()
                 // which clears revokedBy automatically (line 82).
                 // 2026.05.638 user feedback: "revoke is permanent."
-                isRevokedByPeer -> Button(
+                isRevokedByPeer -> AegisButton(
                     enabled = !pending,
                     onClick = { pinSheetOpen = true },
                     modifier = Modifier.fillMaxWidth(),
@@ -906,7 +1037,7 @@ internal fun RemoteAccessPanel(peer: app.aether.aegis.data.KnownPeerEntity, navC
                         fontSize = 12.sp,
                     )
                 }
-                else -> Button(
+                else -> AegisButton(
                     enabled = !pending,
                     onClick = { pinSheetOpen = true },
                     modifier = Modifier.fillMaxWidth(),
@@ -965,6 +1096,10 @@ internal fun RemoteAccessPanel(peer: app.aether.aegis.data.KnownPeerEntity, navC
                         timeoutFlash = true // looks like "no response — offline"
                         return@launch
                     }
+                    // Record the attempt so a duress-SOS bounced back by the
+                    // target (when this PIN is ITS duress code) is honoured even
+                    // though no session opens — see onDuressSos's recent-auth gate.
+                    app.aether.aegis.remote.RemoteAccessSession.markAuthSent(peer.publicKey)
                     AegisApp.instance.protocolManager.sendMessage(
                         to = peer.publicKey,
                         content = app.aether.aegis.remote.RemoteAccessProtocol.encode(
@@ -1032,60 +1167,12 @@ private fun RemoteAccessPinSheet(
     )
 }
 
-/** "Block their access to MY phone" toggle. Driven by
- *  [RemoteAccessGate.revoked]. Toggle-on revokes any active session
- *  from this peer; toggle-off restores normal handling (they can
- *  attempt auth again, subject to the failure-counter). */
-@Composable
-internal fun RemoteAccessControlRow(peer: app.aether.aegis.data.KnownPeerEntity) {
-    val gate = AegisApp.instance.remoteAccessGate
-    val revoked by gate.revoked.collectAsState()
-    val isBlocked = peer.publicKey in revoked
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text("Block ${peer.displayName}'s remote access", fontWeight = FontWeight.SemiBold)
-            Text(
-                if (isBlocked)
-                    "They cannot remote-control your phone, even with the PIN."
-                else "They can attempt remote access with your PIN.",
-                fontSize = 11.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-        app.aether.aegis.ui.components.HexSwitch(
-            checked = isBlocked,
-            onCheckedChange = { now ->
-                if (now) {
-                    // Manual block: silent for now — don't auto-broadcast
-                    // KIND_REVOKED on manual toggle so the blocked peer
-                    // can't tell with certainty whether they're blocked
-                    // or simply offline. (The auto-revoke trip in
-                    // handleAuth DOES broadcast — that's by design,
-                    // since it follows visible PIN failures.)
-                    gate.revoke(peer.publicKey)
-                    // Revocation must also cut any live camera/mic stream the
-                    // peer currently holds — otherwise blocking them leaves an
-                    // in-flight stream running until the idle timeout.
-                    app.aether.aegis.remote.RemoteAccessHandler.stopStreamsFor(peer.publicKey)
-                } else {
-                    // Manual unblock: clear the local gate AND tell the
-                    // peer to drop their sticky "Revoked by <me>" UI
-                    // state. Without the second call the requester
-                    // would stay stuck until they manually retried AUTH
-                    // — user-reported "revoke is permanent" 2026.05.638.
-                    gate.unrevoke(peer.publicKey)
-                    app.aether.aegis.remote.RemoteAccessHandler.broadcastUnrevoked(peer.publicKey)
-                }
-            },
-        )
-    }
-}
+// RemoteAccessControlRow (the per-contact "block their access to MY phone"
+// toggle) was removed when remote-access control was centralised into the
+// Remote Access Hub (settings/remote-access-hub). The hub's per-contact grant
+// switch — turning a grant OFF revokes + tears down streams; turning it ON
+// clears any sticky revoke — plus its "Revoke everyone" panic button now cover
+// everything this row did, in one place, with no duplication.
 
 /** Resolve a notification-sound URI to a human-readable name via
  *  RingtoneManager (e.g. "Beep", "Chime", "Silent"). Best-effort —
@@ -1118,9 +1205,6 @@ private fun TrustTierPicker(peer: app.aether.aegis.data.KnownPeerEntity) {
         .getOrDefault(app.aether.aegis.data.TrustTier.UNTRUSTED)
     var pending by remember { mutableStateOf<app.aether.aegis.data.TrustTier?>(null) }
     var confirmStep by remember { mutableStateOf(0) }
-    // Fires the remote-access grant prompt right after a Trusted promotion
-    // lands (remote-access prompt on trust promotion).
-    var showRemoteAccessPrompt by remember { mutableStateOf(false) }
 
     Text(
         stringResource(R.string.contact_detail_trust_tier),
@@ -1145,7 +1229,7 @@ private fun TrustTierPicker(peer: app.aether.aegis.data.KnownPeerEntity) {
                 app.aether.aegis.data.TrustTier.EMERGENCY -> app.aether.aegis.ui.theme.AegisSOS
                 app.aether.aegis.data.TrustTier.UNTRUSTED -> app.aether.aegis.ui.theme.AegisOnSurfaceDim
             }
-            OutlinedButton(
+            AegisOutlinedButton(
                 onClick = {
                     if (tier != current) {
                         pending = tier
@@ -1198,66 +1282,9 @@ private fun TrustTierPicker(peer: app.aether.aegis.data.KnownPeerEntity) {
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
     )
 
-    // Remote-access toggle — the "changeable later" half of
-    // the simplified-lock flow. Only meaningful for a Trusted contact
-    // (remote access is a Trusted-only capability; demotion revokes it in
-    // Repository.setPeerTier), so it's shown only at that tier.
-    if (current == app.aether.aegis.data.TrustTier.TRUSTED) {
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(stringResource(R.string.device_status_remote_access), fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                Text(
-                    "Let ${peer.displayName} locate, lock, and wipe this phone " +
-                        "with your PIN.",
-                    fontSize = 11.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(modifier = Modifier.width(12.dp))
-            androidx.compose.material3.Switch(
-                checked = peer.remoteAccessEnabled,
-                onCheckedChange = { enabled ->
-                    scope.launch {
-                        AegisApp.instance.repository
-                            .setRemoteAccessEnabled(peer.publicKey, enabled)
-                    }
-                },
-            )
-        }
-    }
-
-    // Remote-access grant prompt, shown once right after a Trusted
-    // promotion. "Not now" leaves it OFF — the
-    // contact keeps the full Trusted tier minus remote control, and can be
-    // granted later via the toggle above.
-    if (showRemoteAccessPrompt) {
-        AlertDialog(
-            onDismissRequest = { showRemoteAccessPrompt = false },
-            title = { Text("Enable remote access for ${peer.displayName}?") },
-            text = {
-                Text(
-                    stringResource(R.string.contact_detail_this_person_will_be) +
-                        "phone using your PIN. They can't do anything without it.",
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    scope.launch {
-                        AegisApp.instance.repository
-                            .setRemoteAccessEnabled(peer.publicKey, true)
-                    }
-                    showRemoteAccessPrompt = false
-                }) { Text(stringResource(R.string.contact_detail_enable)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { showRemoteAccessPrompt = false }) { Text(stringResource(R.string.contact_detail_not_now)) }
-            },
-        )
-    }
+    // Remote access is managed ONLY in the Remote Access Hub (Opsec skill node)
+    // now — no status line and no grant prompt on the contact card (owner's
+    // call: keep the contact card free of remote-access UI entirely).
 
     val target = pending
     if (target != null && confirmStep > 0) {
@@ -1315,20 +1342,13 @@ private fun TrustTierPicker(peer: app.aether.aegis.data.KnownPeerEntity) {
                         // Bump to the second confirmation step.
                         confirmStep = 2
                     } else {
-                        val promotedToTrusted =
-                            target == app.aether.aegis.data.TrustTier.TRUSTED &&
-                                !peer.remoteAccessEnabled
                         scope.launch {
                             AegisApp.instance.repository.setPeerTier(peer.publicKey, target)
                         }
                         pending = null
                         confirmStep = 0
-                        // Ask about remote control at the moment of trust —
-                        // when the user is actively weighing how far they
-                        // trust this person — not buried in settings. Only
-                        // for a real promotion to Trusted (skip if it's
-                        // already granted, e.g. re-confirming the same tier).
-                        if (promotedToTrusted) showRemoteAccessPrompt = true
+                        // (Remote-access grant prompt removed — remote access is
+                        // configured only in the Remote Access Hub now.)
                     }
                 }) {
                     Text(if (isTwoStep && confirmStep == 1) stringResource(R.string.tutorial_continue) else stringResource(R.string.vault_pin_confirm))

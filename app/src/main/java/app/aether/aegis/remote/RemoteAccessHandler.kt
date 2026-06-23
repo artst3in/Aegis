@@ -101,7 +101,15 @@ object RemoteAccessHandler {
             RemoteAccessProtocol.KIND_LOCATE_RESULT -> onLocateResult(fromKey, pkt)
             RemoteAccessProtocol.KIND_WATCH_TICK    -> onLocateResult(fromKey, pkt)
             RemoteAccessProtocol.KIND_LISTEN_RESULT -> onListenResult(fromKey, pkt)
-            RemoteAccessProtocol.KIND_OK            -> { /* best-effort, nothing to do */ }
+            RemoteAccessProtocol.KIND_OK            -> {
+                // Most OKs are best-effort no-ops. The wipe OK carries a human
+                // status in [msg] ("wiped" / "aegis-wiped") — surface it to the
+                // operator (via the same channel as errors) so they learn what
+                // actually happened to the target.
+                if (pkt.forCmd == "wipe") {
+                    pkt.msg?.let { RemoteAccessSession.recordError(fromKey, "wipe", it) }
+                }
+            }
             RemoteAccessProtocol.KIND_ERR           -> onErr(fromKey, pkt)
             RemoteAccessProtocol.KIND_REVOKED       -> onRevoked(fromKey)
             RemoteAccessProtocol.KIND_DURESS_SOS    -> onDuressSos(fromKey)
@@ -157,8 +165,14 @@ object RemoteAccessHandler {
         if (match == LockStore.PinMatch.DURESS_1 || match == LockStore.PinMatch.DURESS_2) {
             gate.revoke(fromKey)
             app.aether.aegis.simplex.ConnectionLog.warn(
-                TAG, "AUTH duress PIN from ${fromKey.take(12)}… — instant revoke",
+                TAG, "AUTH duress PIN from ${fromKey.take(12)}… — instant revoke + duress SOS",
             )
+            // Tell the coerced operator's phone to raise its own SILENT SOS —
+            // the AUTH-prompt half of duress, mirroring the WIPE-prompt path.
+            // Sent FIRST so it isn't lost if the revoke tears anything down. The
+            // operator honours it via a recent-auth check (no session exists
+            // yet — the auth itself was the duress), so the SOS still fires.
+            send(fromKey, RemoteAccessProtocol.Packet(kind = RemoteAccessProtocol.KIND_DURESS_SOS))
             send(fromKey, RemoteAccessProtocol.Packet(kind = RemoteAccessProtocol.KIND_AUTH_DENIED))
             send(fromKey, RemoteAccessProtocol.Packet(kind = RemoteAccessProtocol.KIND_REVOKED))
             return
@@ -332,7 +346,15 @@ object RemoteAccessHandler {
         val seconds = pkt.seconds ?: 10
         val file = RemoteCommandHandler.captureMicAudio(seconds)
         if (file == null) {
-            sendErr(fromKey, "listen", "capture_failed")
+            // Honest reason: a background-triggered capture can't claim the mic
+            // FGS on Android 14+ (#8/#33). Distinguish that from a real
+            // codec/hardware fault so the operator knows to retry with the
+            // screen on rather than thinking the mic is broken.
+            sendErr(
+                fromKey, "listen",
+                if (RemoteCommandHandler.captureForegroundEligible()) "capture_failed"
+                else "capture_unavailable_background",
+            )
             return
         }
         // Cap at ~600 KB raw bytes to keep the JSON envelope
@@ -551,7 +573,14 @@ object RemoteAccessHandler {
             app.aether.aegis.mugshot.MugshotCapture.captureSingleLens(ctx, lens)
         }.getOrNull()
         if (file == null || file.length() == 0L) {
-            return sendErr(fromKey, "snapshot", "capture_failed")
+            // Same honest split as listen: a backgrounded/locked target can't
+            // claim the camera FGS on Android 14+ (#8), so the "no frame" is the
+            // OS blocking background capture, not a broken camera.
+            return sendErr(
+                fromKey, "snapshot",
+                if (RemoteCommandHandler.captureForegroundEligible()) "capture_failed"
+                else "capture_unavailable_background",
+            )
         }
         if (file.length() > 600_000) {
             return sendErr(fromKey, "snapshot", "too_large")
@@ -779,6 +808,30 @@ object RemoteAccessHandler {
         }
     }
 
+    // ════════════════════════════════════════════════════════════════════
+    // ██  REMOTE WIPE AUTH GATE — DO NOT MODIFY WITHOUT A FULL RE-TEST  ██
+    // ════════════════════════════════════════════════════════════════════
+    // Authorisation half of the factory-reset path (the actual reset lives in
+    // RemoteCommandHandler.fireWipe — see the frozen banner there). The order
+    // of these checks is load-bearing and security-critical:
+    //   1. valid session for this exact sender (sid match),
+    //   2. the operator re-proves THIS device's REAL PIN on the wipe packet
+    //      (a warm session is NOT enough to nuke the device),
+    //   3. a DURESS PIN traps: refuse + instant-revoke + silent operator SOS,
+    //      returning the SAME "needs_reauth" an attacker sees for a wrong PIN,
+    //   4. three-tier wipe (announce → flush → wipe): broadcast [aegis:wiped] to
+    //      the target's own Trusted ∪ Emergency contacts ONCE up front (true in
+    //      every tier — Tier 3 always destroys Aegis data), then attempt a real
+    //      factory reset (Tier 1 DO / Tier 2 non-DO admin) and, if it returns
+    //      (didn't fire), fall to the Tier-3 Aegis-data wipe. The operator is
+    //      told the honest outcome ("wiped" vs "aegis-wiped"). The earlier bug
+    //      was the FALSE broadcast (sent before confirming), not the attempt
+    //      (issue #25); everything outbound now flushes before the wipe.
+    //   5. A real wipe (factory reset OR Tier-3 data clear) never returns; any
+    //      return is failure.
+    // Re-test on a real device after ANY change here (DO factory reset, non-DO
+    // admin reset on stock, and the Tier-3 Aegis-data wipe).
+    // ════════════════════════════════════════════════════════════════════
     private suspend fun handleWipe(fromKey: String, pkt: RemoteAccessProtocol.Packet) {
         val gate = AegisApp.instance.remoteAccessGate
         val sid = pkt.sid ?: return sendErr(fromKey, "wipe", "missing sid")
@@ -819,31 +872,52 @@ object RemoteAccessHandler {
         if (!pinOk) {
             return sendErr(fromKey, "wipe", "needs_reauth")
         }
-        // Wipe requires Device Owner. If we're not provisioned as DO the
-        // command CANNOT factory-reset, so refuse it up front: report a
-        // typed error to the operator instead of ACKing KIND_OK, and —
-        // critically — do NOT broadcastWiped (the old path did, falsely
-        // telling the target's contacts the device was wiped while nothing
-        // actually happened).
-        if (!RemoteCommandHandler.canWipe()) {
-            return sendErr(fromKey, "wipe", "not_device_owner")
-        }
-        // Notify the target's OWN contacts that they were
-        // wiped, so they can re-invite once the device comes back.
-        // Fire the broadcast BEFORE wipeData so the messages have a
-        // chance to flush; wipeData may not return.
+        // THREE-TIER wipe (see RemoteCommandHandler's frozen banner). The wipe
+        // ALWAYS destroys at least Aegis's own data (Tier 3 can't fail), so the
+        // [aegis:wiped] contact broadcast is never a lie. EVERYTHING outbound is
+        // sent + flushed BEFORE the wipe — a factory reset kills the process and
+        // the Aegis-data wipe destroys the SimpleX identity, so nothing can be
+        // sent after. Order: announce → flush → wipe.
+        //
+        // ~1.5s flush window: a fire-and-forget SimpleX send isn't delivery-
+        // confirmed, so we give it a beat to actually reach the relay (which then
+        // holds it for the recipients) before tearing the transport down.
+        val flushMs = 1_500L
+
+        // Contact broadcast — TARGET → its own Trusted ∪ Emergency contacts
+        // ("re-invite me"). Sent ONCE, up front: we are certain to destroy Aegis
+        // data, so it's true regardless of which tier lands. This is the message
+        // that once fired FALSELY; it now only goes out when destruction is
+        // guaranteed.
         broadcastWiped()
-        val result = runCatching { RemoteCommandHandler.fireWipe() }.getOrElse { it.message ?: "failed" }
-        // Best-effort ACK — wipeData usually kills us before this
-        // lands, which is fine.
-        send(
-            fromKey,
-            RemoteAccessProtocol.Packet(
-                kind = RemoteAccessProtocol.KIND_OK,
-                forCmd = "wipe",
-                msg = result,
-            ),
-        )
+
+        // Tier 1/2: attempt a real factory reset if the device can (DO, or an
+        // active Device Admin — works on stock Android). fireWipe returns ONLY on
+        // failure. Tell the operator "wiped" and let the sends flush; if the
+        // reset fires the process dies here with the operator already informed.
+        if (RemoteCommandHandler.factoryResetCapable()) {
+            send(fromKey, RemoteAccessProtocol.Packet(
+                kind = RemoteAccessProtocol.KIND_OK, forCmd = "wipe", msg = "wiped",
+            ))
+            kotlinx.coroutines.delay(flushMs)
+            val res = runCatching { RemoteCommandHandler.fireWipe() }.getOrElse { it.message ?: "failed" }
+            // Still alive → factory reset did NOT fire (GrapheneOS / blocked).
+            // Fall through to Tier 3 rather than reporting failure.
+            Log.w(TAG, "wipe: factory reset did not take ($res) — falling to Aegis-data wipe")
+        }
+
+        // Tier 3 floor — destroy Aegis's OWN data (always works, can't fail).
+        // Correct the operator to the HONEST outcome (phone intact, Aegis gone)
+        // and let it flush before the data wipe tears down the SimpleX identity.
+        send(fromKey, RemoteAccessProtocol.Packet(
+            kind = RemoteAccessProtocol.KIND_OK, forCmd = "wipe", msg = "aegis-wiped",
+        ))
+        kotlinx.coroutines.delay(flushMs)
+        val res = runCatching { RemoteCommandHandler.wipeAegisData() }.getOrElse { it.message ?: "failed" }
+        // wipeAegisData kills the process; reaching here means even Tier 3 didn't
+        // tear us down (should not happen). Report the truth.
+        Log.w(TAG, "wipe: Tier-3 returned without clearing ($res)")
+        return sendErr(fromKey, "wipe", "wipe_failed: $res")
     }
 
     /**
@@ -958,9 +1032,16 @@ object RemoteAccessHandler {
      * trip our SOS. Fires SOSTrigger.DURESS — silent, no visible tell.
      */
     private fun onDuressSos(fromKey: String) {
-        if (!RemoteAccessSession.sessions.value.containsKey(fromKey)) {
+        // Honour when we have an active session (the WIPE-duress case) OR we
+        // recently SENT an auth to this peer (the AUTH-duress case, where the
+        // auth itself was the duress so no session ever opened). Either proves
+        // WE initiated the operation, keeping the anti-spoof guarantee: a peer
+        // we aren't operating can't trip our SOS with an unsolicited frame.
+        val active = RemoteAccessSession.sessions.value.containsKey(fromKey)
+        val recentAuth = RemoteAccessSession.recentlyAttemptedAuth(fromKey)
+        if (!active && !recentAuth) {
             app.aether.aegis.simplex.ConnectionLog.warn(
-                TAG, "duress_sos from ${fromKey.take(12)}… ignored — no active session",
+                TAG, "duress_sos from ${fromKey.take(12)}… ignored — no session or recent auth",
             )
             return
         }

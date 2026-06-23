@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+import app.aether.aegis.ui.components.AegisTopBar
+
 import app.aether.aegis.AegisApp
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.clickable
@@ -135,7 +139,7 @@ fun GroupMembersScreen(groupId: String, navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(group?.name ?: "Group") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -286,7 +290,7 @@ fun GroupMembersScreen(groupId: String, navController: NavController) {
                             fontSize = 12.sp,
                         )
                     }
-                    androidx.compose.material3.Switch(
+                    app.aether.aegis.ui.components.HexSwitch(
                         checked = group?.enabled == true,
                         onCheckedChange = { next ->
                             scope.launch {
@@ -360,7 +364,7 @@ fun GroupMembersScreen(groupId: String, navController: NavController) {
                             Spacer(modifier = Modifier.height(12.dp))
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(stringResource(R.string.group_members_armed), modifier = Modifier.weight(1f))
-                                androidx.compose.material3.Switch(
+                                app.aether.aegis.ui.components.HexSwitch(
                                     checked = armed,
                                     onCheckedChange = { armed = it },
                                 )
@@ -428,7 +432,7 @@ fun GroupMembersScreen(groupId: String, navController: NavController) {
                             fontSize = 11.sp,
                         )
                     }
-                    OutlinedButton(onClick = { renameOpen = true }) {
+                    AegisOutlinedButton(onClick = { renameOpen = true }) {
                         Text(stringResource(R.string.group_members_rename), fontSize = 12.sp)
                     }
                 }
@@ -456,7 +460,7 @@ fun GroupMembersScreen(groupId: String, navController: NavController) {
                             fontSize = 11.sp,
                         )
                     }
-                    OutlinedButton(onClick = { ttlOpen = true }) {
+                    AegisOutlinedButton(onClick = { ttlOpen = true }) {
                         Text(stringResource(R.string.group_members_set), fontSize = 12.sp)
                     }
                 }
@@ -587,7 +591,7 @@ fun GroupMembersScreen(groupId: String, navController: NavController) {
                             fontSize = 11.sp,
                         )
                     }
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = { confirmLeave = true },
                         // Protected Mode: leaving a group can be locked so a
                         // child can't drop out of a family/monitored room.
@@ -902,7 +906,7 @@ private fun RoleChip(role: app.aether.aegis.groups.GroupRole) {
     }
     androidx.compose.material3.Surface(
         color = color.copy(alpha = 0.18f),
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(4.dp),
+        shape = androidx.compose.foundation.shape.CutCornerShape(4.dp),
     ) {
         Text(
             label,
@@ -1193,7 +1197,7 @@ private fun GroupImageCard(
                     )
                 }
                 if (canManage) {
-                    OutlinedButton(onClick = onPick) {
+                    AegisOutlinedButton(onClick = onPick) {
                         Text(
                             if (avatarPath.isNullOrBlank()) stringResource(R.string.action_add) else stringResource(R.string.action_change),
                             fontSize = 12.sp,
@@ -1259,7 +1263,7 @@ private fun GroupDescriptionCard(
                     modifier = Modifier.weight(1f),
                 )
                 if (canManage) {
-                    OutlinedButton(onClick = { editing = true }) {
+                    AegisOutlinedButton(onClick = { editing = true }) {
                         Text(
                             if (description.isNullOrBlank()) stringResource(R.string.action_add) else stringResource(R.string.action_edit),
                             fontSize = 12.sp,
@@ -1382,7 +1386,7 @@ private fun GroupLinkCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp,
                 )
-                current == null -> Button(
+                current == null -> AegisButton(
                     enabled = !busy,
                     onClick = {
                         busy = true
@@ -1411,7 +1415,7 @@ private fun GroupLinkCard(
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        OutlinedButton(
+                        AegisOutlinedButton(
                             onClick = {
                                 val cm = ctx.getSystemService(android.content.Context.CLIPBOARD_SERVICE)
                                     as? android.content.ClipboardManager
@@ -1421,7 +1425,7 @@ private fun GroupLinkCard(
                             },
                             modifier = Modifier.weight(1f),
                         ) { Text(stringResource(R.string.diagnostics_copy), fontSize = 12.sp) }
-                        OutlinedButton(
+                        AegisOutlinedButton(
                             onClick = {
                                 val send = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
                                     type = "text/plain"

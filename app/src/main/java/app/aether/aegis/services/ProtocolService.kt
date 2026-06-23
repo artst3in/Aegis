@@ -235,18 +235,16 @@ class ProtocolService : Service(), SensorEventListener {
             // persistent connection — so on 34+ we run as specialUse (the
             // declared always-on E2E messaging link), which has no such cap.
             // Pre-34 has no cap and no specialUse type, so dataSync stays.
-            val persistentType =
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-                    android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
-                else
-                    android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-            val fgsType = android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION or
-                          persistentType or
-                          android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
-                          android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
-            androidx.core.app.ServiceCompat.startForeground(
-                this, NOTIFICATION_ID, buildNotification(paused), fgsType,
-            )
+            // Prefer the FULL mask (mic+camera so capture can use them when
+            // we're foreground-eligible), but DEGRADE rather than die if the OS
+            // refuses — see startForegroundDegrading. A dead transport is the
+            // worst possible outcome, so it must survive a background (re)start
+            // even when mic/camera can't be claimed.
+            if (!startForegroundDegrading()) {
+                android.util.Log.e(TAG, "startForeground failed for every mask; stopping")
+                stopSelf()
+                return
+            }
         } catch (t: Throwable) {
             android.util.Log.e(TAG, "startForeground failed", t)
             stopSelf()
@@ -325,19 +323,70 @@ class ProtocolService : Service(), SensorEventListener {
      * fails. Only invoked on API 34+; a no-op presence on older devices.
      */
     override fun onTimeout(startId: Int) {
-        android.util.Log.w(TAG, "FGS onTimeout(startId=$startId) — re-affirming as specialUse")
-        runCatching {
-            val t = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+        android.util.Log.w(TAG, "FGS onTimeout(startId=$startId) — re-affirming FGS (degrading)")
+        // Re-affirm the foreground, degrading the type mask if the OS refuses
+        // (a background re-affirm can't keep mic/camera on 14+). Surviving on a
+        // reduced mask beats taking the whole app down on the FGS timeout.
+        if (!startForegroundDegrading()) {
+            android.util.Log.e(TAG, "onTimeout re-affirm failed for every mask; stopping to avoid hard crash")
+            stopSelf()
+        }
+    }
+
+    /**
+     * Foreground the service, preferring the FULL type mask but DEGRADING to
+     * progressively smaller ones if the OS refuses, so the always-on transport
+     * SURVIVES instead of being torn down. Returns true if any mask stuck.
+     *
+     * Why this exists: on Android 14+ a microphone/camera-typed FGS cannot be
+     * (re)started from the background — startForeground throws SecurityException
+     * ("…must be in the eligible state … foreground microphone") — and a
+     * background cold-start can also hit ForegroundServiceStartNotAllowed. The
+     * previous code called stopSelf() on ANY startForeground failure, so a
+     * background restart with mic+camera in the mask could kill the whole
+     * transport (and capture stayed broken). We now fall back to the
+     * persistent-only types (specialUse/dataSync, then +location) so the
+     * messaging link stays up. Capture still needs the full mask claimed from a
+     * foreground-eligible state; that on-demand elevation is tracked in #8/#33.
+     */
+    private fun startForegroundDegrading(): Boolean {
+        for (mask in foregroundMaskFallbacks()) {
+            val r = runCatching {
+                androidx.core.app.ServiceCompat.startForeground(
+                    this, NOTIFICATION_ID, buildNotification(paused), mask,
+                )
+            }
+            if (r.isSuccess) return true
+            android.util.Log.w(TAG, "startForeground rejected for mask=$mask — degrading", r.exceptionOrNull())
+        }
+        return false
+    }
+
+    /**
+     * FGS type masks to try in order, WIDEST first. The widest carries
+     * mic+camera (so capture runs when we're foreground/eligible — the call
+     * WebView's getUserMedia and every remote/SOS/mugshot capture need those
+     * types in the live FGS); each fallback drops the types most likely to be
+     * refused from the background. LOCATION keeps GPS callbacks alive; the
+     * PERSISTENT type is specialUse on 34+ (uncapped; dataSync is capped
+     * ~6h/24h and hard-crashes the always-on service) and dataSync below 34.
+     * None of these are time-capped on 34+, so re-affirming can't re-trigger
+     * the timeout.
+     */
+    private fun foregroundMaskFallbacks(): List<Int> {
+        val persistent =
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
                 android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
             else
                 android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-            androidx.core.app.ServiceCompat.startForeground(
-                this, NOTIFICATION_ID, buildNotification(paused), t,
-            )
-        }.onFailure {
-            android.util.Log.e(TAG, "onTimeout re-affirm failed; stopping to avoid hard crash", it)
-            stopSelf()
-        }
+        val location = android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+        val mic = android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
+        val camera = android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
+        return listOf(
+            location or persistent or mic or camera,  // full — capture-capable (foreground/eligible)
+            location or persistent,                    // drop mic+camera (background-safe-ish)
+            persistent,                                // bare always-on type — last resort
+        )
     }
 
     /**

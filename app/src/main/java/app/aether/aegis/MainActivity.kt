@@ -1,5 +1,8 @@
 package app.aether.aegis
 
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -389,6 +392,10 @@ class MainActivity : FragmentActivity() {
             ?.let { intent.extras?.getString(it) }
         val sosDashboardPeer = intent.extras?.getString("open_sos_dashboard")
         val openSentinelInbox = intent.extras?.getBoolean("open_sentinel_inbox", false) == true
+        // Widget deep-link: a fixed in-app route carried by the home-screen
+        // widget (SOS strip, canary countdown, sentinel status). Validated
+        // against the allow-list so a forged extra can't drive navigation.
+        val widgetRoute = intent.extras?.getString("open_route")?.takeIf { it in WIDGET_ROUTES }
 
         val incomingCall = intent.extras?.takeIf {
             it.containsKey("incoming_call_peer")
@@ -411,6 +418,7 @@ class MainActivity : FragmentActivity() {
         intent.removeExtra("incoming_call_video")
         intent.removeExtra("open_sos_dashboard")
         intent.removeExtra("open_sentinel_inbox")
+        intent.removeExtra("open_route")
         intent.extras?.keySet()?.filter {
             it == "open_chat" || it.endsWith(".open_chat")
         }?.forEach { intent.removeExtra(it) }
@@ -468,6 +476,11 @@ class MainActivity : FragmentActivity() {
             }
 
             AegisTheme {
+                // >>> DEBUG-ONLY (stripped for public build)
+                if (app.aether.aegis.BuildConfig.DEBUG) {
+                    CrashReportOverlay()
+                }
+                // <<< DEBUG-ONLY
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -552,6 +565,7 @@ class MainActivity : FragmentActivity() {
                                         incomingCall = incomingCall,
                                         initialSOSDashboardPeer = sosDashboardPeer,
                                         initialOpenSentinelInbox = openSentinelInbox,
+                                        initialWidgetRoute = widgetRoute,
                                     )
                                     // Launch-time "update available — install now?"
                                     // prompt. Only renders when unlocked (here, not
@@ -642,15 +656,27 @@ class MainActivity : FragmentActivity() {
                 it == "open_sos_dashboard" || it.endsWith(".open_sos_dashboard")
             }?.let { extras.getString(it) }
             if (!openSOSDash.isNullOrBlank()) {
-                // Was: only the cold-start path handled the sos
-                // dashboard route, so tapping the notification while
-                // Aegis was already foregrounded did nothing — the
-                // user just saw the banner sit there. Push it through
-                // the same hot flow as chat / call so the Compose
-                // tree picks it up on the next collect.
                 pendingIntentTarget.tryEmit(IntentTarget.SOSDashboard(openSOSDash))
             }
+            extras.getString("open_route")
+                ?.takeIf { it in WIDGET_ROUTES }
+                ?.let { pendingIntentTarget.tryEmit(IntentTarget.Route(it)) }
         }
+        // Consume extras AFTER emitting so an activity recreation (config
+        // change, low-memory kill) doesn't re-read them from the intent
+        // and fire a second startCall / chat-open / sos-dashboard navigate.
+        // onCreate already does this for the cold-start path; onNewIntent
+        // was missing it — the stale incoming_call_peer extra caused a
+        // spontaneous outgoing call on the next activity recreate. (Fixes #35)
+        intent.removeExtra("incoming_call_peer")
+        intent.removeExtra("incoming_call_name")
+        intent.removeExtra("incoming_call_video")
+        intent.removeExtra("open_sos_dashboard")
+        intent.removeExtra("open_sentinel_inbox")
+        intent.removeExtra("open_route")
+        intent.extras?.keySet()?.filter {
+            it == "open_chat" || it.endsWith(".open_chat")
+        }?.forEach { intent.removeExtra(it) }
     }
 
     sealed class IntentTarget {
@@ -660,6 +686,12 @@ class MainActivity : FragmentActivity() {
          *  for that peer (map + audio + camera-feed + Accept call /
          *  PTT). */
         data class SOSDashboard(val peerKey: String) : IntentTarget()
+        /** Tap on a home-screen widget element that should open the app
+         *  to a fixed in-app route (the SOS screen, the canary check-in
+         *  screen, the Sentinel screen). The route string is validated
+         *  against [WIDGET_ROUTES] before it ever reaches the NavHost so a
+         *  forged extra can't navigate to an arbitrary destination. */
+        data class Route(val route: String) : IntentTarget()
     }
 
     companion object {
@@ -669,6 +701,15 @@ class MainActivity : FragmentActivity() {
             replay = 0,
             extraBufferCapacity = 4,
         )
+
+        /** Allow-list of NavHost routes the home-screen widget may deep-link
+         *  into via the `open_route` extra. The widget runs in this same
+         *  process, but the extra still crosses the Intent boundary, so we
+         *  treat it as untrusted input and refuse anything not in this set —
+         *  the widget must never become a way to drive arbitrary navigation.
+         *  Keep in sync with the routes the widget actually links to
+         *  (SOS strip, canary countdown, sentinel status). */
+        val WIDGET_ROUTES = setOf("sos", "settings/canary", "settings/experimental")
 
         /** AGSL shader for "blood stays" selective desaturation (API 33+).
          *  Converts each pixel RGB→HSL hue check. Red hue (0-40° / 320-360°)
@@ -738,6 +779,7 @@ fun AegisMainScreen(
     incomingCall: Triple<String, String, Boolean>? = null,
     initialSOSDashboardPeer: String? = null,
     initialOpenSentinelInbox: Boolean = false,
+    initialWidgetRoute: String? = null,
 ) {
     val navController = rememberNavController()
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
@@ -752,6 +794,23 @@ fun AegisMainScreen(
     // are: Chats / Status / [SOS] / Map / Settings.
     val tabRoutes = setOf("chats", "map", "sos", "security", "settings")
     val isTabRoute = currentRoute in tabRoutes
+    // Non-tab routes that DON'T use the persistent bar — they draw their own
+    // header (1:1 chat) or are full-screen takeovers (active call, media
+    // viewers, splash, first-run, the SOS dashboard + remote-control panels).
+    // EVERY other sub-route uses the persistent bar, so the bar's visibility is
+    // driven by the ROUTE (not the lagging slot) and never blinks off in the
+    // one-frame gap before a freshly-entered screen publishes its title.
+    // (1:1 chat is NOT here — it publishes back+cluster to the persistent bar
+    // like the group chat, keeping only avatar/name on its second row, so the
+    // bar doesn't tear down when entering a chat.)
+    val noBarRoutes = setOf(
+        "first_run", "splash",
+        "sos/dashboard/{peerKey}",
+        "device-control/remote/{peerKey}",
+        "call/{peer}/{name}/{kind}",
+        "photo/{path}?name={name}",
+        "video/{path}?name={name}",
+    )
 
     // These launch-intent navigations must fire EXACTLY ONCE, on the launch
     // that carried the extra — NOT on every recreate. A config change (locale
@@ -773,6 +832,16 @@ fun AegisMainScreen(
         if (!intentNavConsumed && initialOpenSentinelInbox) {
             intentNavConsumed = true
             runCatching { navController.navigate("settings/sentinel/inbox") }
+        }
+    }
+    LaunchedEffect(initialWidgetRoute) {
+        // Widget deep-link on cold start. Route is already allow-listed in
+        // onCreate; the one-shot guard + runCatching mirror the sibling
+        // intent-nav effects so a recreate can't re-fire it and a first-frame
+        // race can't crash before the graph is set.
+        if (!intentNavConsumed && !initialWidgetRoute.isNullOrBlank()) {
+            intentNavConsumed = true
+            runCatching { navController.navigate(initialWidgetRoute) }
         }
     }
     LaunchedEffect(initialChatPeer) {
@@ -835,6 +904,10 @@ fun AegisMainScreen(
                     val encoded = java.net.URLEncoder.encode(target.peerKey, "UTF-8")
                     navController.navigate("sos/dashboard/$encoded")
                 }
+                is MainActivity.IntentTarget.Route -> {
+                    // Already allow-listed at the Intent boundary.
+                    runCatching { navController.navigate(target.route) }
+                }
             }
         }
     }
@@ -842,6 +915,12 @@ fun AegisMainScreen(
     // 1.5 s brand hold it picks either "chats" or "profile/onboard" based
     // on profileStore.onboarded.
 
+    // Provide the NavController to the whole UI (Scaffold incl. the topBar
+    // AegisHeader + every screen's AegisTopBar) so the shared ActionCluster
+    // can navigate without per-screen wiring.
+    androidx.compose.runtime.CompositionLocalProvider(
+        app.aether.aegis.ui.components.LocalNavController provides navController,
+    ) {
     Scaffold(
         containerColor = androidx.compose.ui.graphics.Color.Transparent,
         // Explicit contentColor — Scaffold's default `contentColorFor(Transparent)`
@@ -858,11 +937,13 @@ fun AegisMainScreen(
         // sub-screen title. Letting each bar own its inset removes it with
         // no effect on the tab routes.
         contentWindowInsets = androidx.compose.foundation.layout.WindowInsets(0, 0, 0, 0),
-        topBar = {
-            if (isTabRoute) {
-                app.aether.aegis.ui.components.AegisHeader(navController, currentRoute)
-            }
-        },
+        // No top bar here anymore. The ONE persistent bar (AegisPersistentBar)
+        // is mounted in the content column below, for tab AND sub routes, so it
+        // is never recreated when crossing the tab<->sub boundary (a Scaffold
+        // topBar only renders for tab routes, which forced a separate
+        // sub-screen bar and a redraw on first visit — user report). The
+        // bottomBar (tab nav) is unchanged.
+        topBar = {},
         bottomBar = {
             if (isTabRoute) {
                 app.aether.aegis.ui.components.AegisBottomNav(navController, currentRoute)
@@ -960,37 +1041,66 @@ fun AegisMainScreen(
                 },
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-                // Profile indicator strip.
-                // 2 dp coloured bar at the top of every screen so
-                // the user can tell at a glance WHICH profile is
-                // active. Only visible when >1 profile exists; the
-                // strip is empty for single-profile users so it
-                // doesn't reveal multi-profile capability to a
-                // shoulder-surfer who shouldn't know about it.
+                // THE one persistent bar (see AegisPersistentBar), mounted ONCE
+                // here OUTSIDE the NavHost for tab AND sub routes. One instance →
+                // the chrome (background, divider, ActionCluster) is never
+                // recreated across the tab<->sub boundary; only the left cell
+                // (AEGIS wordmark vs back + title) and actions swap. Sub content
+                // comes from the route-tagged AegisBarSlot; chrome-free / splash
+                // routes (neither a tab nor a publisher) show no bar.
+                val barSlot = app.aether.aegis.ui.components.AegisBarSlot.current
+                // Visibility is ROUTE-driven (not the lagging slot) so the bar
+                // never blinks off in the one-frame gap before a freshly-entered
+                // screen publishes its title (user report: bar disappears +
+                // redraws on first visit). Content still comes from the slot;
+                // on first land it's briefly the previous title, then updates —
+                // the chrome/cluster never leave.
+                val showBar = isTabRoute || (currentRoute != null && currentRoute !in noBarRoutes)
+                if (showBar) {
+                    app.aether.aegis.ui.components.AegisPersistentBar(
+                        navController = navController,
+                        isTabRoute = isTabRoute,
+                        subContent = if (!isTabRoute && barSlot != null && barSlot.first == currentRoute) barSlot.second else null,
+                    )
+                }
+                // Profile indicator strip (2dp; below the bar so it stays
+                // visible) + the floating call island. The strip is only visible
+                // when >1 profile exists, so it doesn't reveal multi-profile
+                // capability to a shoulder-surfer.
                 app.aether.aegis.ui.components.ProfileIndicatorStrip()
-                // Floating call island pinned to the
-                // top whenever a call is active and the user has
-                // navigated away from the call screen. Tap returns.
                 app.aether.aegis.ui.components.CallIsland(navController)
                 val mainCtx = androidx.compose.ui.platform.LocalContext.current
                 val startDest = remember(mainCtx) {
                     if (app.aether.aegis.ui.screens.isFirstRun(mainCtx))
                         "first_run" else "splash"
                 }
-                // Single source of truth for the gap between the shared
-                // AEGIS header and the first row of tab content. Each tab
-                // screen renders its content flush (no leading spacer of
-                // its own) so this 8dp is the ONLY top inset — that's what
-                // makes every tab's content start at the exact same Y.
-                // Sub-routes (chat/x, settings/x …) bring their own
-                // TopAppBar and are excluded.
+                // 8dp gap between the bar and the first row of tab content (tab
+                // screens render flush). Sub-routes sit flush below the bar.
                 if (isTabRoute) {
                     Spacer(modifier = Modifier.height(8.dp))
                 }
                 NavHost(
                     navController = navController,
                     startDestination = startDest,
-                    modifier = Modifier.weight(1f, fill = true),
+                    // When the persistent sub-bar shows it owns the status-bar
+                    // inset; consume it here so sub-screens' own statusBarsPadding
+                    // / nested-Scaffold insets resolve to 0 (no double inset) —
+                    // one central guard instead of editing all 47 screens.
+                    modifier = Modifier.weight(1f, fill = true)
+                        .then(if (showBar) Modifier.consumeWindowInsets(WindowInsets.statusBars) else Modifier),
+                    // NO transition — instant, atomic swap. Sub-screens carry
+                    // their OWN top bar inside this NavHost content, so a
+                    // fade-OUT blanked the bar for a frame before the next
+                    // screen faded in — the bar visibly "disappeared first"
+                    // (user report). The earlier 120ms fade was added to mask a
+                    // content jump that was actually the header height mismatch
+                    // (now fixed via the 48dp band), so the fade is no longer
+                    // needed and only reintroduced the blank-bar gap. Swapping
+                    // content in one frame keeps the bar continuous.
+                    enterTransition = { androidx.compose.animation.EnterTransition.None },
+                    exitTransition = { androidx.compose.animation.ExitTransition.None },
+                    popEnterTransition = { androidx.compose.animation.EnterTransition.None },
+                    popExitTransition = { androidx.compose.animation.ExitTransition.None },
                 ) {
                     composable("first_run") {
                         app.aether.aegis.ui.screens.FirstRunScreen(navController)
@@ -1025,7 +1135,7 @@ fun AegisMainScreen(
             composable("sos/dashboard/{peerKey}") { entry ->
                 val raw = entry.arguments?.getString("peerKey").orEmpty()
                 val pk = java.net.URLDecoder.decode(raw, "UTF-8")
-                SOSAdapter(pk)
+                SOSAdapter(pk, navController)
             }
             // Unified DeviceControlScreen route — entry point for
             // the contact-detail "active remote session" auto-nav.
@@ -1081,12 +1191,19 @@ fun AegisMainScreen(
             composable("settings") { SettingsScreen(navController) }
             composable("settings/lock") { LockSettingsScreen(navController) }
             composable("settings/deviceadmin") { DeviceAdminScreen(navController) }
+            // Centralised remote-access control surface — the single place to
+            // grant/cut who can remotely locate/lock/wipe THIS phone. Hard-gated
+            // behind Device Admin inside the screen.
+            composable("settings/remote-access-hub") {
+                app.aether.aegis.ui.screens.RemoteAccessHubScreen(navController)
+            }
             composable("settings/protectedmode") { ProtectedModeScreen(navController) }
             composable("settings/canary") { CanarySettingsScreen(navController) }
             composable("settings/simswap") { SimSwapSettingsScreen(navController) }
             composable("settings/geofence") { GeofenceSettingsScreen(navController) }
             composable("settings/mugshot") { MugshotSettingsScreen(navController) }
             composable("settings/quiet") { QuietHoursSettingsScreen(navController) }
+            composable("settings/notifications") { NotificationPrivacySettingsScreen(navController) }
             composable("settings/hold") { HoldToExecuteSettingsScreen(navController) }
             composable("settings/updates") { UpdateSettingsScreen(navController) }
             composable("settings/capabilities") { CapabilitiesScreen(navController) }
@@ -1144,11 +1261,22 @@ fun AegisMainScreen(
             // Graphics tab replaced the LunaGlass settings
             // screen. Nothing in-app navigates to it anymore.)
             composable("contact/add") { AddContactScreen(navController) }
+            // Pending invite links live here now, reached from the Alert
+            // Center — they used to sit inline atop the chat list where they
+            // collided with the empty-state mascot / add-contact hex.
+            composable("pending-invitations") {
+                app.aether.aegis.ui.screens.PendingInvitationsScreen(navController)
+            }
             composable("contact/add/invite") {
                 AddContactScreen(navController, start = app.aether.aegis.ui.screens.Mode.Invite)
             }
             composable("contact/add/accept") {
                 AddContactScreen(navController, start = app.aether.aegis.ui.screens.Mode.Accept)
+            }
+            // Dedicated GROUP-join window (no nickname, group copy) — distinct
+            // from the contact accept flow above.
+            composable("group/join") {
+                AddContactScreen(navController, start = app.aether.aegis.ui.screens.Mode.JoinGroup)
             }
             composable("profile") { ProfileScreen(navController, isOnboarding = false) }
             composable("profile/onboard") { ProfileScreen(navController, isOnboarding = true) }
@@ -1190,16 +1318,97 @@ fun AegisMainScreen(
                 else java.net.URLDecoder.decode(rawName, "UTF-8")
                 PhotoViewerScreen(path, name, navController)
             }
+            composable("video/{path}?name={name}") { entry ->
+                val rawPath = entry.arguments?.getString("path").orEmpty()
+                val path = java.net.URLDecoder.decode(rawPath, "UTF-8")
+                val rawName = entry.arguments?.getString("name").orEmpty()
+                val name = if (rawName.isBlank()) null
+                else java.net.URLDecoder.decode(rawName, "UTF-8")
+                VideoViewerScreen(path, name, navController)
+            }
                 }  // close NavHost
             }  // close Column
-            // Notes + help reachable from every screen.
-            // Rendered as a sibling of the Column inside the same Box
-            // so it floats on top without stealing layout space; the
-            // overlay itself uses Modifier.align(TopEnd) inside its
-            // own Box and is hidden on focus surfaces (sos / call /
-            // lock / splash).
-            app.aether.aegis.ui.components.GlobalActionsOverlay(navController)
+            // GlobalActionsOverlay removed — help + notes now live in the
+            // shared ActionCluster carried by every header (tab + sub-screen),
+            // so the floating fallback is redundant.
+            // >>> DEBUG-ONLY (stripped for public build)
+            app.aether.aegis.perf.FrameTimingOverlay()
+            // <<< DEBUG-ONLY
         }  // close outer Box
     }
+    }  // close CompositionLocalProvider(LocalNavController)
 }
 
+// >>> DEBUG-ONLY (stripped for public build)
+/**
+ * Debug-only startup overlay surfacing the most recent uncaught crash
+ * (full stack trace, saved by BootHealthMonitor). Drawn over everything
+ * BEFORE the lock/tutorial so a crash that happens during onboarding is
+ * still visible without adb. Dismiss clears the saved report. Gated on
+ * BuildConfig.DEBUG at the call site so release builds never show it,
+ * and wrapped in DEBUG-ONLY markers so the public scrub strips it.
+ */
+@Composable
+private fun CrashReportOverlay() {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    val monitor = remember { app.aether.aegis.update.BootHealthMonitor(ctx) }
+    // Prefer the JVM stack trace; fall back to Android's exit-reason
+    // registry, which surfaces native (JNI/core) crashes, ANRs, and
+    // low-memory kills that the JVM handler can't see.
+    var report by remember { mutableStateOf(monitor.lastCrashReport() ?: monitor.lastExitReason()) }
+    val text = report ?: return
+    androidx.compose.ui.window.Dialog(
+        onDismissRequest = { monitor.clearCrashReport(); monitor.markExitReasonSeen(); report = null },
+        properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false),
+    ) {
+        Surface(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            color = MaterialTheme.colorScheme.surface,
+        ) {
+            Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                Text(
+                    "⚠ Last crash",
+                    color = app.aether.aegis.ui.theme.AegisSOS,
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                    fontSize = 18.sp,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                androidx.compose.foundation.text.selection.SelectionContainer(
+                    modifier = Modifier.weight(1f),
+                ) {
+                    Text(
+                        text,
+                        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                        fontSize = 11.sp,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Copy BEFORE Dismiss, and Copy does NOT clear — so
+                    // the trace can be lifted to the clipboard and pasted
+                    // into a bug report instead of being lost on dismiss.
+                    AegisOutlinedButton(
+                        onClick = {
+                            runCatching {
+                                val cm = ctx.getSystemService(android.content.Context.CLIPBOARD_SERVICE)
+                                    as android.content.ClipboardManager
+                                cm.setPrimaryClip(
+                                    android.content.ClipData.newPlainText("aegis-crash", text),
+                                )
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                    ) { Text("Copy") }
+                    AegisButton(
+                        onClick = { monitor.clearCrashReport(); monitor.markExitReasonSeen(); report = null },
+                        modifier = Modifier.weight(1f),
+                    ) { Text("Dismiss") }
+                }
+            }
+        }
+    }
+}
+// <<< DEBUG-ONLY

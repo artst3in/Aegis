@@ -376,7 +376,20 @@ class SimpleXTransport(
                     put("keepIntvl", 15)
                     put("keepCnt", 4)
                 })
-                put("smpPingInterval", 1_200_000_000)
+                // SMP application-level keepalive. Microseconds. Shortened from
+                // the upstream 20 min (1200_000_000) to 2 min so a receive
+                // subscription that died SILENTLY — dropped by a NAT/firewall
+                // or a server restart without a TCP reset, which TCP keepalive
+                // can miss — is re-pinged and, if unanswered, re-established
+                // fast. Inbound is server-PUSH over the live subscription, so a
+                // warm session = near-instant delivery; a stale one stalls
+                // messages until it's noticed. Battery cost is marginal: the
+                // socket is already kept warm by the 30 s TCP keepalive above,
+                // so this app-level ping is actually the LESS frequent of the
+                // two, and the app is battery-exempt anyway (a safety app must
+                // hold its delivery channel). smpPingCount=3 → declared dead
+                // after 3 unanswered pings.
+                put("smpPingInterval", 120_000_000)
                 put("smpPingCount", 3)
                 put("logTLSErrors", false)
             }
@@ -1583,6 +1596,10 @@ class SimpleXTransport(
     suspend fun acceptInvitation(
         simplexUri: String,
         label: String,
+        // Set true on the single in-process retry after we clear an
+        // orphaned phantom group record (see the GroupLink Known branch).
+        // Guards against looping if the core won't drop the phantom.
+        phantomRetried: Boolean = false,
     ): Boolean =
         withContext(Dispatchers.IO) {
             lastJoinError = null
@@ -1658,8 +1675,26 @@ class SimpleXTransport(
                                 ConnectionLog.log(TAG, "acceptInvitation: GroupLink Known #${p.knownGroupId} but NO local group — orphaned phantom; clearing core record")
                                 runCatching { send("/_delete #${p.knownGroupId} full notify=off") }
                                     .onFailure { Log.w(TAG, "phantom /_delete #${p.knownGroupId} failed", it) }
+                                if (!phantomRetried) {
+                                    // Clear-and-retry in ONE tap. The /_delete is
+                                    // async, so wait briefly for the core to drop
+                                    // the phantom, then re-plan + connect the SAME
+                                    // link. Previously we returned a red "Tap Join
+                                    // once more to connect" here — but that read as
+                                    // a failure, and if the delete hadn't landed a
+                                    // second manual tap just hit the same phantom
+                                    // again, so the error "never cleared"
+                                    // (user-reported). Retrying in-process makes a
+                                    // single Join actually join.
+                                    ConnectionLog.log(TAG, "acceptInvitation: phantom cleared — auto-retrying join once")
+                                    delay(700)
+                                    return@withContext acceptInvitation(simplexUri, label, phantomRetried = true)
+                                }
+                                // Retried once and the core STILL reports the
+                                // phantom — it won't let go. Surface a real error.
                                 lastJoinError =
-                                    "Cleared a leftover group record from an earlier attempt. Tap Join once more to connect."
+                                    "Couldn't clear a leftover group record from an " +
+                                        "earlier attempt. Restart Aegis and try the link again."
                                 ConnectResult.Error(lastJoinError!!)
                             }
                         }
@@ -3145,7 +3180,11 @@ class SimpleXTransport(
     }
 
     private fun startReceiver() {
-        pumpJob = scope.launch {
+        // Capture THIS pump's own Job so its finally can tell whether it is
+        // still the live pump before touching shared health state (see the
+        // identity guard in the finally below).
+        lateinit var thisJob: Job
+        thisJob = scope.launch {
             // Defensive try/finally: an uncaught throwable from
             // SimpleXCore.recvWait (e.g. JNI surface returning an
             // unexpected error, native lib crash, socket reset) used
@@ -3184,12 +3223,34 @@ class SimpleXTransport(
                     handleEvent(msg)
                 }
             } finally {
-                if (isHealthy) {
+                // Identity guard — ONLY the current pump may flip health.
+                //
+                // recvWait is a BLOCKING JNI call; pumpJob?.cancel() in stop()
+                // can't interrupt it, so a cancelled pump stays parked in
+                // recvWait until its POLL_TIMEOUT_MS elapses. Meanwhile stop()
+                // is serialised with the next start() (startLock), so a fresh
+                // start() may already have set isHealthy=true and launched a
+                // NEW pump by the time this old, cancelled pump finally
+                // unwinds. Without this guard the old pump's finally saw
+                // isHealthy=true and flipped it back to false — knocking the
+                // just-started transport "down" the instant it came up. The
+                // watchdog + onResume nudge then restarted it, the new pump's
+                // predecessor clobbered THAT one too, and the result was a
+                // stop/start storm that pinned the CPU until Android killed
+                // the process for excessive use (user-reported, debug build).
+                //
+                // stop() sets pumpJob=null and start() sets pumpJob=<new job>,
+                // so a superseded pump is never == pumpJob: its exit is by
+                // definition expected (stop already set isHealthy=false) and
+                // must be silent. Only a pump that is STILL the live one may
+                // report an unexpected exit (a genuine recvWait throw).
+                if (pumpJob === thisJob && isHealthy) {
                     ConnectionLog.warn(TAG, "pump exited unexpectedly")
                     isHealthy = false
                 }
             }
         }
+        pumpJob = thisJob
     }
 
     private suspend fun handleEvent(json: String) {
@@ -4993,30 +5054,32 @@ class SimpleXTransport(
         contactName: String,
     ): Boolean {
         val ctx = AegisApp.instance
-        // Group files are out of scope for deferral: the group bubble has no
-        // attachment-placeholder UI yet (GroupBubble renders caption text
-        // only), so a deferred group file would be unretrievable. Until that
-        // UI exists, group attachments auto-download exactly as before. The
-        // trust gate is also 1:1-only — group members aren't known-peer
-        // contacts with a tier to read.
-        if (groupKey != null) return true
         val prefs = app.aether.aegis.attachment.AttachmentPrefs(ctx)
-        // Trust gate: an Untrusted sender's files NEVER auto-pull, regardless
-        // of network / type / size.
-        val tier = runCatching {
-            AegisApp.instance.repository.knownPeerByKey(aegisIdFor(contactName))?.trustTier
-        }.getOrNull()?.let {
-            runCatching { app.aether.aegis.data.TrustTier.valueOf(it) }.getOrNull()
+        // Trust gate — 1:1 ONLY. Group members aren't known-peer contacts of
+        // ours, so there's no per-sender tier to read; group files skip
+        // straight to the network / type / size gates below.
+        if (groupKey == null) {
+            val tier = runCatching {
+                AegisApp.instance.repository.knownPeerByKey(aegisIdFor(contactName))?.trustTier
+            }.getOrNull()?.let {
+                runCatching { app.aether.aegis.data.TrustTier.valueOf(it) }.getOrNull()
+            }
+            // An Untrusted sender's files NEVER auto-pull, regardless of
+            // network / type / size.
+            if (tier == app.aether.aegis.data.TrustTier.UNTRUSTED) return false
         }
-        if (tier == app.aether.aegis.data.TrustTier.UNTRUSTED) return false
-        // Network gate: defer EVERY attachment on a metered link when the
-        // Wi-Fi-only toggle is on.
+        // Network gate: defer EVERY attachment — 1:1 AND group — on a metered
+        // link when the Wi-Fi-only toggle is on. Group files USED to bypass
+        // this entirely (and the size + type gates), so once group media send
+        // was wired they auto-pulled gigabytes over mobile (user-reported
+        // 2026-06-19). Groups honour the same policy now; deferred group files
+        // get a tap-to-download placeholder like 1:1.
         if (prefs.wifiOnly && app.aether.aegis.net.NetworkMetering.isMetered(ctx)) return false
         // Type gate: only the user-selected media buckets auto-pull (any link).
         if (app.aether.aegis.attachment.MediaType.forMcType(mcType) !in prefs.autoTypes) return false
         // Size gate: nothing over the cap auto-pulls (any link). A negative /
         // zero (unknown) size can't be over a positive cap, so it passes —
-        // the trust/network/type gates still governed it.
+        // the network / type gates still governed it.
         val cap = prefs.maxAutoBytes
         if (cap != app.aether.aegis.attachment.AttachmentPrefs.UNLIMITED_BYTES && fileSize > cap) return false
         return true
@@ -5338,9 +5401,15 @@ class SimpleXTransport(
         // ping during a stuck sos clutters the chat with full-
         // resolution photos. The dashboard preview is the only
         // intended surface; the frame file lives only in cacheDir.
-        if (caption.startsWith("[aegis:sos-frame]")) {
+        // Match BOTH the legacy untagged "[aegis:sos-frame]" and the
+        // lens-tagged "[aegis:sos-frame:front|rear]" (no closing bracket in
+        // the prefix, so the ":lens" variants are caught too — otherwise the
+        // tagged frames would fall through and clutter the chat with full-res
+        // photos). Untagged = rear.
+        if (caption.startsWith("[aegis:sos-frame")) {
             if (app.aether.aegis.sos.SOSAlertStore.isActive(id)) {
-                app.aether.aegis.sos.SOSAlertStore.setLatestSnapshot(id, absPath)
+                val lens = if (caption.startsWith("[aegis:sos-frame:front]")) "front" else "rear"
+                app.aether.aegis.sos.SOSAlertStore.setLatestSnapshot(id, absPath, lens)
             }
             return
         }
@@ -5409,14 +5478,26 @@ class SimpleXTransport(
                     else    -> "File"
                 }
             }
+            // Tap → open the CONVERSATION the attachment landed in. For a
+            // group attachment that's the group ("group:<uuid>"), NOT the
+            // sender's 1:1 chat — routing to the sender's DM leaked who-is-in-
+            // which-chat and dropped the user in the wrong place (user report).
+            // Mirror of the text path's `msg.groupKey ?: msg.fromKey`.
+            val openTarget = groupKey ?: id
+            // Key the PendingIntent + notification id on the TARGET, so a group
+            // attachment and a 1:1 message from the same sender don't collide
+            // (FLAG_UPDATE_CURRENT would otherwise let one overwrite the
+            // other's deep-link, since extras aren't part of PendingIntent
+            // identity).
+            val notifId = openTarget.hashCode()
             val intent = aegisApp.packageManager.getLaunchIntentForPackage(aegisApp.packageName)?.apply {
                 addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 addFlags(android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                putExtra("open_chat", id)
+                putExtra("open_chat", openTarget)
             }
             val pi = intent?.let {
                 android.app.PendingIntent.getActivity(
-                    aegisApp, id.hashCode(), it,
+                    aegisApp, notifId, it,
                     android.app.PendingIntent.FLAG_UPDATE_CURRENT or
                         android.app.PendingIntent.FLAG_IMMUTABLE,
                 )
@@ -5431,7 +5512,7 @@ class SimpleXTransport(
                 .apply { pi?.let { setContentIntent(it) } }
                 .build()
             if (androidx.core.app.NotificationManagerCompat.from(aegisApp).areNotificationsEnabled()) {
-                androidx.core.app.NotificationManagerCompat.from(aegisApp).notify(id.hashCode(), notif)
+                androidx.core.app.NotificationManagerCompat.from(aegisApp).notify(notifId, notif)
             }
         }
     }

@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+
 import app.aether.aegis.vault.VaultLockStore
 import app.aether.aegis.vault.VaultSession
 import androidx.compose.foundation.layout.*
@@ -119,7 +123,7 @@ private fun VaultSetupPrompt(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text("Set up the vault lock") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -167,14 +171,14 @@ private fun VaultSetupPrompt(
                 supportingText = { error?.let { Text(it, color = MaterialTheme.colorScheme.error) } },
                 modifier = Modifier.fillMaxWidth(),
             )
-            Button(
+            AegisButton(
                 enabled = pin.length >= MIN_PIN && confirm.length >= MIN_PIN,
                 onClick = {
                     keyboard?.hide()
                     if (pin != confirm) {
                         error = "PINs don't match"
                         confirm = ""
-                        return@Button
+                        return@AegisButton
                     }
                     // Persist the PIN, then unlock with it so the session
                     // key is derived + primed — no second prompt.
@@ -202,7 +206,7 @@ private fun VaultPinPrompt(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text("Vault locked") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -246,7 +250,7 @@ private fun VaultPinPrompt(
                 },
                 modifier = Modifier.fillMaxWidth(),
             )
-            Button(
+            AegisButton(
                 enabled = pin.length >= MIN_PIN,
                 onClick = {
                     keyboard?.hide()

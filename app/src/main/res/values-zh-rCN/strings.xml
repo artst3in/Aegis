@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">仅中继ICE和通话诊断.</string>
     <string name="_stops_screenshots_screen_recording">禁止截屏、录屏和预览.</string>
     <string name="_unfinished_features_hidden_behind">7次点击门后隐藏的未完成功能.</string>
-    <string name="_wifionly_by_default_apks">仅WiFi -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">仅WiFi -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM变更警报</string>
     <string name="sim_swap_when_the_sim_in">当手机中的SIM变更时, 发送警报.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Aegis标志</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis每24小时检查GitHub。</string>
+    <string name="update_how_it_works_body">Aegis每24小时检查GitHub上的新版本。每个APK约100MB。默认仅通过WiFi下载 — 每次更新都通过移动数据下载这么多会花真金白银。</string>
     <string name="update_beltandbraces_type_rollback_below">在下方输入ROLLBACK.</string>
     <string name="update_check_interval">检查间隔</string>
     <string name="update_how_often_aegis_polls">Aegis多久检查GitHub新版本.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis永久免费. 无广告. 无跟踪. 不卖数据.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis将无需确认即可打开. PIN保护数据.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis将直接打开无需任何操作。您的PIN仍然存在——用于胁迫、远程访问和加密消息。您可以随时在设置中重新启用锁定。</string>
     <string name="tutorial_anyone_who_sees_these">看到这些词的人拥有你的账户</string>
-    <string name="tutorial_biometric_login_is_convenient">生物识别登录方便但跳过胁迫.</string>
+    <string name="tutorial_biometric_login_is_convenient">生物识别登录方便但会跳过胁迫保护。如果有人强制使用您的指纹，真实配置文件会打开。建议使用PIN以获得最大安全性。</string>
     <string name="tutorial_biometric_skips_duress">生物识别跳过胁迫</string>
     <string name="tutorial_choose_how_you_unlock">选择解锁方式</string>
     <string name="tutorial_confirm_pin">确认PIN</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">熟悉应用</string>
     <string name="tutorial_fingerprint_face">指纹 / 面部</string>
     <string name="tutorial_get_started">开始</string>
-    <string name="tutorial_if_it_ever_helps">如果有帮助, 你可以支持Aether项目.</string>
-    <string name="tutorial_it_is_your_master">这是你的主密钥</string>
+    <string name="tutorial_if_it_ever_helps">如果对您有帮助，您可以在系统→关于中支持Project Aether。</string>
+    <string name="tutorial_it_is_your_master">这是您的主密钥，只显示一次。我们永远不会存储它，也永远不会再次显示——不在PIN后面，不在指纹后面。如果您没有写下来，这就是它真正属于您的代价。请妥善保管纸质副本。</string>
     <string name="tutorial_ive_written_it_down">已记下</string>
     <string name="tutorial_keep_lock">保留锁定</string>
     <string name="tutorial_keep_pin_only">仅PIN</string>
     <string name="tutorial_left_to_right_along">从左到右沿底部:</string>
-    <string name="tutorial_make_sure_no_one">确保没人看着</string>
+    <string name="tutorial_make_sure_no_one">确保没有人在看，没有东西在录制你的屏幕。截图已被阻止 — 截图会进入相册、同步到云端，任何拿到你手机的人都能看到。刮开下面的面板查看你的24个词，将它们写在纸上，然后将纸保存在安全的地方。</string>
     <string name="tutorial_new_pin_48_digits">新PIN (4–8位)</string>
     <string name="tutorial_no_lock_screen">无锁屏</string>
     <string name="tutorial_open_without_a_lock">无锁屏开启?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">再次显示单词</string>
     <string name="tutorial_skip">跳过</string>
     <string name="tutorial_skip_check_debug">跳过检查 (调试)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS锁定在中心</string>
+    <string name="tutorial_sos_stays_locked_in">SOS固定在中间。其余可在系统→导航中重新排列。</string>
     <string name="tutorial_thank_you">谢谢</string>
     <string name="tutorial_the_skill_tree">技能树</string>
-    <string name="tutorial_this_encrypts_your_messages">加密你的消息并恢复你的账户.</string>
-    <string name="tutorial_this_is_the_only">这是唯一副本</string>
+    <string name="tutorial_this_encrypts_your_messages">这会加密您的消息，并在您忘记PIN或丢失指纹时恢复您的账户。如果您丢失了它，没有人——包括我们——能够恢复您的数据。</string>
+    <string name="tutorial_this_is_the_only">这是唯一的副本。我们什么都不保存。没有\"忘记短语\"，没有重置，也没有办法创建新的——不能用PIN，不能用指纹，我们也不能。如果您丢失这张纸，您的数据将永远消失，地球上没有人能找回它。现在就写下来。</string>
     <string name="tutorial_three_tiers_of_trust">三级信任</string>
     <string name="tutorial_what_makes_this_different">什么让它与众不同</string>
     <string name="tutorial_you_can_replay_this">可以从帮助中重播此教程.</string>
     <string name="tutorial_your_messages_and_attachments">消息和附件用此PIN加密.</string>
-    <string name="tutorial_your_pin_is_set">PIN已设置并始终有效.</string>
+    <string name="tutorial_your_pin_is_set">您的PIN已设置且始终有效——胁迫模式和远程访问使用的就是它。这些是其上的可选快捷方式。</string>
     <string name="tutorial_your_recovery_phrase">恢复短语</string>
     <string name="tutorial_your_safety_net">安全网</string>
     <string name="tutorial_youre_ready">准备就绪</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">充电中</string>
     <string name="remote_locate">定位</string>
     <string name="remote_siren">警笛</string>
-    <string name="tutorial_bubble_welcome">欢迎来到 Project Aether。我是 Cyan — 我将引导你。</string>
+    <string name="tutorial_bubble_welcome">欢迎来到Project Aether。我是Cyan — 我将是你的向导。准备好笔和纸 — 我会让你写下保护消息的24个词。</string>
     <string name="tutorial_bubble_different">无电话号。无账户。没有服务器存储你的消息。只有加密。</string>
     <string name="tutorial_bubble_safety">如果你有危险，一个按钮通知所有你信任的人。</string>
     <string name="tutorial_bubble_tiers">你决定谁看什么。</string>
@@ -712,28 +712,55 @@ PIN</string>
 PIN</string>
     <string name="tutorial_perm_title">为什么Aegis要求这么多</string>
     <string name="tutorial_perm_bubble">点击允许 — 或跳过。我会解释每一个。</string>
-    <string name="tutorial_perm_intro">安全应用必须能为你行动 — 找到你、通知亲人、屏幕关闭时运行。没有你的允许，什么都不会离开手机。</string>
+    <string name="tutorial_perm_intro">安全应用必须能为你行动 — 找到你、通知亲人、屏幕关闭时运行。这就是为什么列表看起来很长。点击卡片立即允许，或稍后在需要功能时授权。没有你的允许，什么都不会离开手机。</string>
     <string name="tutorial_perm_background_title">后台活动</string>
-    <string name="tutorial_perm_background_why">最重要。让Aegis在关闭或屏幕关闭时继续运行。没有这个，手机可能惄惄停止 — 尤其是OnePlus、Xiaomi和Oppo。</string>
-    <string name="tutorial_perm_oem_warning">你的%1$s手机有额外电池设置可能会杀死Aegis。打开此设置确保Aegis可以自动启动。</string>
+    <string name="tutorial_perm_background_why">最重要的一项。让Aegis在关闭或屏幕熄灭时继续运行，确保消息和SOS警报正常到达。没有这个，手机可能悄悄停止投递 — 尤其是OnePlus、小米和Oppo手机。</string>
+    <string name="tutorial_perm_oem_warning">你的%1$s手机有额外电池控制功能，可能会在后台杀死Aegis。打开此设置并确保Aegis可以自动启动和后台运行 — 否则消息和SOS警报可能悄悄停止到达。</string>
     <string name="tutorial_perm_notif_title">通知</string>
     <string name="tutorial_perm_notif_why">提醒消息、通话和SOS — 即使在锁屏上。</string>
     <string name="tutorial_perm_location_title">位置</string>
-    <string name="tutorial_perm_location_why">让信任的联系人在紧急时找到你，SOS共享你的位置。</string>
+    <string name="tutorial_perm_location_why">让信任的联系人在紧急时找到你，SOS可以共享你的位置。（后台定位在设置中单独授权，用于屏幕关闭时。）</string>
     <string name="tutorial_perm_camera_title">相机</string>
-    <string name="tutorial_perm_camera_why">用于SOS拍照、错误密码拍照和视频通话。</string>
+    <string name="tutorial_perm_camera_why">用于SOS拍照、输错PIN时的面部拍照和视频通话。</string>
     <string name="tutorial_perm_mic_title">麦克风</string>
     <string name="tutorial_perm_mic_why">用于SOS录音和语音/视频通话。</string>
     <string name="tutorial_perm_media_title">照片、视频和文件</string>
-    <string name="tutorial_perm_media_why">发送和保存附件。Aegis只看你分享的。</string>
+    <string name="tutorial_perm_media_why">在聊天中发送和保存附件。Aegis只能看到你选择分享的内容。</string>
     <string name="tutorial_perm_phone_title">电话和SIM</string>
-    <string name="tutorial_perm_phone_why">警告SIM更换 — 号码被盗的常见迹象。</string>
+    <string name="tutorial_perm_phone_why">如果你的SIM卡被换掉会发出警告 — 这是号码被盗的常见迹象。</string>
     <string name="tutorial_perm_nearby_title">附近设备</string>
-    <string name="tutorial_perm_nearby_why">蓝牙查找人和设备（雷达和声纳）。</string>
+    <string name="tutorial_perm_nearby_why">蓝牙，用于查找附近的人和设备（雷达和声纳）。</string>
     <string name="tutorial_perm_install_title">安装更新</string>
-    <string name="tutorial_perm_install_why">让Aegis安全更新，无需追踪你的应用商店。</string>
-    <string name="tutorial_perm_footer">你保持控制。跳过任何一个Aegis大部分仍然工作 — 但后台活动维持安全功能。</string>
+    <string name="tutorial_perm_install_why">让Aegis可以安全地自我更新，无需可能追踪你身份的应用商店。</string>
+    <string name="tutorial_perm_footer">你始终掌握控制权。跳过任何一项，Aegis大部分功能仍然可用 — 但后台活动是维持安全功能运行的关键。</string>
     <string name="tutorial_perm_granted">已允许 ✓</string>
     <string name="tutorial_perm_denied">已拒绝</string>
     <string name="tutorial_perm_allow">允许</string>
+
+    <string name="tutorial_perm_oem_title">%1$s电池设置</string>
+    <string name="tutorial_perm_oem_open">打开%1$s设置</string>
+    <string name="tutorial_perm_denied_note">稍后可以启用 — 点击打开设置。</string>
+    <string name="tutorial_pin_explanation_existing">PIN解锁Aegis，也是加密消息的密钥。4–8位数字。</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">保险箱\nPIN</string>
+    <string name="tutorial_node_device_owner">设备\n所有者</string>
+    <string name="tutorial_node_app_duress">应用\n胁迫</string>
+    <string name="tutorial_skill_tree_explanation">应用PIN解锁胁迫、拍照、保险箱、金丝雀、SIM监控和地理围栏 — 设置一次其余全部开启。最高级别是设备所有者。</string>
+    <string name="tutorial_phrase_intro">下一屏你将看到24个词。刮开面板查看，然后全部写在纸上。</string>
+    <string name="tutorial_phrase_show">显示短语</string>
+    <string name="tutorial_phrase_scratch">刮开查看，然后按顺序写下全部24个词。</string>
+    <string name="tutorial_phrase_confirm">确认已保存。输入纸上的第%1$s个词。</string>
+    <string name="tutorial_phrase_word_n">词 #%1$d</string>
+    <string name="tutorial_phrase_mismatch">词不匹配。检查你的纸。</string>
+    <string name="tutorial_phrase_write_down">将这24个词写在纸上。它们是一切的钥匙。</string>
+    <string name="tutorial_phrase_already_saved">已保存。妥善保管纸质副本。</string>
+    <string name="tutorial_draw_pattern">画出你的图案</string>
+    <string name="tutorial_draw_pattern_confirm">再画一次确认</string>
+    <string name="tutorial_pattern_min_dots">至少使用%1$d个点。</string>
+    <string name="tutorial_pattern_mismatch">不匹配 — 重新开始。</string>
+    <string name="tutorial_bio_need_pin_first">先设置PIN，再添加生物识别。</string>
+    <string name="tutorial_bio_failed">无法启用生物识别。请重试。</string>
+    <string name="tutorial_pin_save_error">无法保存PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN未保存 — 检查诊断。</string>
 </resources>

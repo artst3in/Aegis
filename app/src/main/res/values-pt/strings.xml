@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">Diagnósticos somente relé ICE e chamadas.</string>
     <string name="_stops_screenshots_screen_recording">Bloqueia capturas, gravação de tela e o</string>
     <string name="_unfinished_features_hidden_behind">Recursos inacabados escondidos atrás da porta de 7 toques.</string>
-    <string name="_wifionly_by_default_apks">Apenas WiFi -- APKs ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">Apenas WiFi -- APKs ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">Alerta troca de SIM</string>
     <string name="sim_swap_when_the_sim_in">Quando o SIM no telefone muda envia alerta.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Logo Aegis</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis verifica GitHub a cada 24 horas.</string>
+    <string name="update_how_it_works_body">Aegis verifica o GitHub a cada 24 horas em busca de novas versões. Cada APK tem ~100 MB. Por padrão baixamos apenas por WiFi — baixar tanto por dados móveis a cada versão custaria dinheiro real.</string>
     <string name="update_beltandbraces_type_rollback_below">Digite ROLLBACK abaixo para confirmar.</string>
     <string name="update_check_interval">Intervalo de verificação</string>
     <string name="update_how_often_aegis_polls">Frequência de consulta do Aegis ao GitHub.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis é gratuito para sempre. Sem anúncios. Sem rastreamento. Sem vender dados.</string>
-    <string name="tutorial_aegis_will_open_without">O Aegis abrirá sem pedir nada. Seu PIN ainda</string>
+    <string name="tutorial_aegis_will_open_without">Aegis abrirá sem pedir nada. Seu PIN ainda existe — para coação, acesso remoto e criptografia das mensagens. Você pode reativar o bloqueio a qualquer momento nas Configurações.</string>
     <string name="tutorial_anyone_who_sees_these">Quem vir estas palavras possui sua conta</string>
-    <string name="tutorial_biometric_login_is_convenient">O login biométrico é conveniente mas pula a proteção de coação.</string>
+    <string name="tutorial_biometric_login_is_convenient">Login biométrico é conveniente mas pula a proteção contra coação. Se alguém forçar sua impressão digital, o perfil real abre. PIN é recomendado para segurança máxima.</string>
     <string name="tutorial_biometric_skips_duress">Biométrico pula a coação</string>
     <string name="tutorial_choose_how_you_unlock">Escolha como desbloquear</string>
     <string name="tutorial_confirm_pin">Confirmar PIN</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">Conheça o app</string>
     <string name="tutorial_fingerprint_face">Impressão digital / Rosto</string>
     <string name="tutorial_get_started">Começar</string>
-    <string name="tutorial_if_it_ever_helps">Se algum dia te ajudar, você pode apoiar o Project Aether de qualquer</string>
-    <string name="tutorial_it_is_your_master">Esta e sua chave mestre, mostrada uma vez.</string>
+    <string name="tutorial_if_it_ever_helps">Se algum dia ajudar, você pode apoiar o Projeto Aether em Sistema → Sobre.</string>
+    <string name="tutorial_it_is_your_master">Esta é sua chave mestra, mostrada uma vez. Nunca a armazenamos e nunca a mostraremos novamente — nem atrás do PIN, nem da sua impressão digital. Se você não anotou, esse é o preço de ser verdadeiramente sua. Guarde sua cópia em papel em local seguro.</string>
     <string name="tutorial_ive_written_it_down">Anotei</string>
     <string name="tutorial_keep_lock">Manter bloqueio</string>
     <string name="tutorial_keep_pin_only">Apenas PIN</string>
     <string name="tutorial_left_to_right_along">Da esquerda para a direita ao longo da parte inferior de cada tela:</string>
-    <string name="tutorial_make_sure_no_one">Certifique-se de que ninguem esta olhando.</string>
+    <string name="tutorial_make_sure_no_one">Certifique-se de que ninguém está olhando e nada está gravando sua tela. Capturas de tela estão bloqueadas — uma captura vai para a galeria, sincroniza com a nuvem e qualquer pessoa com seu telefone pode vê-la. Raspe o painel abaixo para revelar suas 24 palavras, escreva-as em papel e guarde esse papel em lugar seguro.</string>
     <string name="tutorial_new_pin_48_digits">Novo PIN (4–8 dígitos)</string>
     <string name="tutorial_no_lock_screen">Sem tela de bloqueio</string>
     <string name="tutorial_open_without_a_lock">Abrir sem tela de bloqueio?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">Mostrar as palavras novamente</string>
     <string name="tutorial_skip">Pular</string>
     <string name="tutorial_skip_check_debug">Pular verificação (debug)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS travado no centro. O resto pode ser reorganizado.</string>
+    <string name="tutorial_sos_stays_locked_in">SOS permanece fixo no centro. Você pode reordenar o resto em Sistema → Navegação.</string>
     <string name="tutorial_thank_you">Obrigado</string>
     <string name="tutorial_the_skill_tree">Árvore de habilidades</string>
-    <string name="tutorial_this_encrypts_your_messages">Isso criptografa suas mensagens e recupera sua conta se</string>
-    <string name="tutorial_this_is_the_only">Esta e a UNICA copia. Nao guardamos nada.</string>
+    <string name="tutorial_this_encrypts_your_messages">Isso criptografa suas mensagens e recupera sua conta se você esquecer o PIN ou perder sua impressão digital. Se você perder, ninguém — nem nós, nem ninguém — pode recuperar seus dados.</string>
+    <string name="tutorial_this_is_the_only">Esta é a ÚNICA cópia. Não guardamos nada. Não há \"esqueci a frase\", nem reset, nem como criar uma nova — nem com PIN, nem com impressão digital, nem por nós. Se você perder este papel, seus dados desaparecem para sempre e ninguém na terra pode recuperá-los. Anote agora.</string>
     <string name="tutorial_three_tiers_of_trust">Três níveis de confiança</string>
     <string name="tutorial_what_makes_this_different">O que torna isso diferente</string>
     <string name="tutorial_you_can_replay_this">Você pode repetir este tutorial em Ajuda a qualquer momento.</string>
     <string name="tutorial_your_messages_and_attachments">Suas mensagens e anexos são criptografados com este PIN.</string>
-    <string name="tutorial_your_pin_is_set">Seu PIN está definido e sempre funciona — é o que a coação e o controle remoto</string>
+    <string name="tutorial_your_pin_is_set">Seu PIN está definido e sempre funciona — é o que o modo coação e o acesso remoto usam. São atalhos opcionais acima dele.</string>
     <string name="tutorial_your_recovery_phrase">Sua frase de recuperação</string>
     <string name="tutorial_your_safety_net">Sua rede de segurança</string>
     <string name="tutorial_youre_ready">Você está pronto</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">Carregando</string>
     <string name="remote_locate">Localizar</string>
     <string name="remote_siren">Sirene</string>
-    <string name="tutorial_bubble_welcome">Bem-vindo ao Project Aether. Sou Cyan — serei seu guia.</string>
+    <string name="tutorial_bubble_welcome">Bem-vindo ao Projeto Aether. Sou Cyan — serei seu guia. Pegue caneta e papel — vou pedir que você escreva 24 palavras que protegem suas mensagens.</string>
     <string name="tutorial_bubble_different">Sem número de telefone. Sem conta. Nenhum servidor armazena suas mensagens. Apenas criptografia.</string>
     <string name="tutorial_bubble_safety">Se você estiver em perigo, um botão alerta todos em quem confia.</string>
     <string name="tutorial_bubble_tiers">Você decide quem vê o quê.</string>
@@ -736,4 +736,31 @@ coação</string>
     <string name="tutorial_perm_granted">Concedido ✓</string>
     <string name="tutorial_perm_denied">Negado</string>
     <string name="tutorial_perm_allow">Permitir</string>
+
+    <string name="tutorial_perm_oem_title">Configurações de bateria %1$s</string>
+    <string name="tutorial_perm_oem_open">Abrir configurações %1$s</string>
+    <string name="tutorial_perm_denied_note">Você pode ativar isso depois — toque para abrir Configurações.</string>
+    <string name="tutorial_pin_explanation_existing">Seu PIN desbloqueia o Aegis e é a chave com a qual suas mensagens são criptografadas. 4–8 dígitos.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">PIN\ncofre</string>
+    <string name="tutorial_node_device_owner">Proprietário\ndispositivo</string>
+    <string name="tutorial_node_app_duress">App\ncoação</string>
+    <string name="tutorial_skill_tree_explanation">O PIN do app desbloqueia coação, foto, cofre, canário, vigilância SIM e geocerca — configure uma vez e o resto abre. O topo é proprietário do dispositivo.</string>
+    <string name="tutorial_phrase_intro">Na próxima tela você verá 24 palavras. Raspe o painel para revelá-las e escreva todas em papel.</string>
+    <string name="tutorial_phrase_show">Mostrar frase</string>
+    <string name="tutorial_phrase_scratch">Raspe para revelar, depois escreva todas as 24 palavras em ordem.</string>
+    <string name="tutorial_phrase_confirm">Confirme que salvou. Digite as palavras %1$s do seu papel.</string>
+    <string name="tutorial_phrase_word_n">Palavra #%1$d</string>
+    <string name="tutorial_phrase_mismatch">As palavras não coincidem. Verifique seu papel.</string>
+    <string name="tutorial_phrase_write_down">Escreva estas 24 palavras em papel. São a chave de tudo.</string>
+    <string name="tutorial_phrase_already_saved">Já salvo. Mantenha sua cópia em papel em local seguro.</string>
+    <string name="tutorial_draw_pattern">Desenhe seu padrão</string>
+    <string name="tutorial_draw_pattern_confirm">Desenhe novamente para confirmar</string>
+    <string name="tutorial_pattern_min_dots">Use pelo menos %1$d pontos.</string>
+    <string name="tutorial_pattern_mismatch">Não coincide — comece de novo.</string>
+    <string name="tutorial_bio_need_pin_first">Configure seu PIN primeiro, depois adicione biometria.</string>
+    <string name="tutorial_bio_failed">Não foi possível ativar a biometria. Tente novamente.</string>
+    <string name="tutorial_pin_save_error">Não foi possível salvar o PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN não foi salvo — verifique Diagnósticos.</string>
 </resources>

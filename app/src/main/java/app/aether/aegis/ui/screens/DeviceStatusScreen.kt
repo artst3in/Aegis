@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -59,7 +63,7 @@ fun DeviceStatusScreen(peerKey: String, navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = {
                     Column {
                         Text(displayName, fontWeight = FontWeight.SemiBold)
@@ -106,7 +110,7 @@ fun DeviceStatusScreen(peerKey: String, navController: NavController) {
                 val encodedKey = remember(peerKey) {
                     java.net.URLEncoder.encode(peerKey, "UTF-8")
                 }
-                OutlinedButton(
+                AegisOutlinedButton(
                     onClick = { navController.navigate("remote/$encodedKey") },
                     modifier = Modifier.fillMaxWidth(),
                 ) {

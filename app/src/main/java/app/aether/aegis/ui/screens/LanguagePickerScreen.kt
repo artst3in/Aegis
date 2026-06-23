@@ -1,11 +1,16 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+import app.aether.aegis.ui.components.HexRadio
+
+import app.aether.aegis.ui.components.AegisButton
+
 import app.aether.aegis.i18n.LanguagePrefs
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.LocalTextStyle
@@ -55,7 +60,7 @@ fun LanguagePickerScreen(
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = {
                     Text(
                         if (isFirstRun) "Choose your language" else stringResource(R.string._language),
@@ -98,7 +103,7 @@ fun LanguagePickerScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-            Button(
+            AegisButton(
                 modifier = Modifier.fillMaxWidth().height(48.dp),
                 onClick = {
                     prefs.setLocale(selected)
@@ -153,7 +158,7 @@ private fun LanguageRow(
             .clickable(onClick = onClick),
         color = if (selected) app.aether.aegis.ui.theme.AegisCyan.copy(alpha = 0.18f)
                 else MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(12.dp),
+        shape = CutCornerShape(12.dp),
     ) {
         Row(
             // 6dp vertical (was 12) — the endonym + English subtitle are
@@ -198,7 +203,7 @@ private fun LanguageRow(
             CompositionLocalProvider(
                 androidx.compose.material3.LocalMinimumInteractiveComponentSize provides 0.dp,
             ) {
-                RadioButton(selected = selected, onClick = onClick)
+                HexRadio(selected = selected, onClick = onClick)
             }
         }
     }

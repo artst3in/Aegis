@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+
 import app.aether.aegis.call.CallPrefs
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -36,7 +40,7 @@ fun CallSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.settings_calls)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -119,7 +123,7 @@ fun CallSettingsScreen(navController: NavController) {
                 letterSpacing = 1.5.sp,
                 fontWeight = FontWeight.SemiBold,
             )
-            Button(onClick = { micTestResult = runMicTest(ctx) }) {
+            AegisButton(onClick = { micTestResult = runMicTest(ctx) }) {
                 Text(stringResource(R.string.call_run_mic_test))
             }
             micTestResult?.let {

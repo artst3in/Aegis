@@ -53,23 +53,20 @@ fun ChatListScreen(navController: NavController) {
     // nav stays, hex avatars stay — only the underlying data is fake.
     // The attacker browses what looks like a normal Aegis chat list.
     val inDuress = AegisApp.instance.lockState.inDuressMode
-    val realPeers by AegisApp.instance.repository.observeKnownPeers().collectAsState(initial = emptyList())
+    // initial = null (not emptyList) so we can tell "still loading" from
+    // "genuinely no contacts". The empty-state Cyan mascot must only show once
+    // the query has emitted — otherwise it flashes for a frame on (re)entering
+    // the chats tab, before the list loads (user report: Cyan shows for a frame).
+    val realPeersOrNull by AegisApp.instance.repository.observeKnownPeers().collectAsState(initial = null)
+    val peersLoaded = realPeersOrNull != null
+    val realPeers = realPeersOrNull ?: emptyList()
     val peers = if (inDuress) app.aether.aegis.decoy.DecoyFixtures.peers() else realPeers
-    // Pending 1:1 invitation links,
-    // shown above the contact list in the Contacts tab. Suppressed
-    // under duress — real outstanding links must not surface under a
-    // decoy unlock, same as real contacts are swapped for fixtures.
-    val pendingInvites by AegisApp.instance.repository
-        .observePendingInvitations()
-        .collectAsState(initial = emptyList())
-    val shownPending = if (inDuress) emptyList() else pendingInvites
-    val pendingScope = rememberCoroutineScope()
-    val simplexTransport = remember {
-        AegisApp.instance.transports
-            .filterIsInstance<app.aether.aegis.simplex.SimpleXTransport>()
-            .firstOrNull()
-    }
-    val groups by AegisApp.instance.repository.observeGroups().collectAsState(initial = emptyList())
+    // Pending 1:1 invite links moved OUT of the chat list — they now live on
+    // a dedicated screen surfaced by the Alert Center bell (they used to sit
+    // inline here and collided with the empty-state mascot / add-contact hex).
+    val groupsOrNull by AegisApp.instance.repository.observeGroups().collectAsState(initial = null)
+    val groupsLoaded = groupsOrNull != null
+    val groups = groupsOrNull ?: emptyList()
     // Group module master gate.
     // Off by default; the Groups tab below shows an enable card +
     // warning dialog instead of the groups list when this is false.
@@ -470,7 +467,13 @@ fun ChatListScreen(navController: NavController) {
             // is a one-time action, not worth permanent space at the
             // top of every chat list. Now lives at Settings → Add
             // Contact. The empty-state below routes new users there.
-            if (members.isEmpty()) {
+            // Contacts tab ONLY. Without the tab guard this rendered the
+            // "Add a contact to get started" Cyan mascot on the GROUPS tab
+            // too whenever the user had zero contacts — but the Groups tab
+            // has its own "No groups yet" empty state below, so the mascot
+            // there was a stray (user-reported). Groups never wants the
+            // add-a-contact prompt.
+            if (chatListTab == ChatListTab.Contacts && peersLoaded && members.isEmpty()) {
                 item {
                     // Skip the Pick chooser ("Invite vs. Accept") for
                     // the first-launch user — they have nobody, so
@@ -509,39 +512,10 @@ fun ChatListScreen(navController: NavController) {
                     }
                 }
             }
-            // Pending invitations section
-            // — above the contact list, Contacts tab only, hidden when
-            // empty. Each row is an unused invite link the user can
-            // revoke (kills the link on the relay) right away.
-            if (chatListTab == ChatListTab.Contacts && shownPending.isNotEmpty()) {
-                item(key = "pending-invites-header") {
-                    Text(
-                        stringResource(R.string.chat_list_pending_invitations),
-                        color = app.aether.aegis.ui.theme.AegisCyan,
-                        fontSize = 10.sp,
-                        letterSpacing = 1.5.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 16.dp, top = 12.dp, bottom = 2.dp),
-                    )
-                }
-                items(shownPending, key = { "pending-${it.connId}" }) { inv ->
-                    PendingInvitationRow(
-                        invitation = inv,
-                        onRevoke = {
-                            // Revoke on the relay + drop the row. If the
-                            // transport is down we still clear locally
-                            // (the row would otherwise be unrevokable).
-                            pendingScope.launch {
-                                simplexTransport?.revokePendingInvitation(inv.connId)
-                                    ?: AegisApp.instance.repository
-                                        .removePendingInvitation(inv.connId)
-                            }
-                        },
-                    )
-                }
-            }
+            // Pending 1:1 invite links no longer live inline here — they
+            // collided with the empty-state mascot / add-contact hex on a
+            // fresh install. They now have a dedicated screen reached from
+            // the Alert Center bell (route "pending-invitations").
             // Folder chip row — only render when at least one peer
             // has a folder tag set, otherwise it's clutter.
             if (folders.isNotEmpty() && chatListTab == ChatListTab.Contacts) {
@@ -678,7 +652,7 @@ fun ChatListScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        TextButton(onClick = { navController.navigate("contact/add/accept") }) {
+                        TextButton(onClick = { navController.navigate("group/join") }) {
                             Text(stringResource(R.string.chat_list_join_via_link), fontSize = 12.sp)
                         }
                         Spacer(modifier = Modifier.weight(1f))
@@ -727,7 +701,7 @@ fun ChatListScreen(navController: NavController) {
                         )
                     }
                 }
-                if (groups.isEmpty()) {
+                if (groupsLoaded && groups.isEmpty()) {
                     item(key = "groups-empty") {
                         Text(
                             stringResource(R.string.chat_list_no_groups_yet_tap) +
@@ -848,7 +822,7 @@ fun ChatListScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(stringResource(R.string.group_members_armed), modifier = Modifier.weight(1f))
-                        androidx.compose.material3.Switch(
+                        app.aether.aegis.ui.components.HexSwitch(
                             checked = armed,
                             onCheckedChange = { armed = it },
                         )
@@ -1736,7 +1710,7 @@ private fun ViewModeChips(
             Box(
                 modifier = Modifier
                     .padding(horizontal = 1.dp)
-                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(6.dp))
+                    .clip(androidx.compose.foundation.shape.CutCornerShape(6.dp))
                     .background(bg)
                     .clickable { onSelect(mode) }
                     .padding(horizontal = 8.dp, vertical = 4.dp),
@@ -1855,64 +1829,6 @@ private fun GridContactTile(
             modifier = Modifier.fillMaxWidth(),
             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
         )
-    }
-}
-
-/**
- * One row in the Pending Invitations section: an unused 1:1 invite link with its
- * temporary label, age, and a frictionless Revoke action (no confirm
- * dialog — revoking is low-risk and regenerating is cheap).
- */
-@Composable
-private fun PendingInvitationRow(
-    invitation: app.aether.aegis.data.PendingInvitationEntity,
-    onRevoke: () -> Unit,
-) {
-    ListItem(
-        headlineContent = {
-            Text(invitation.label, fontWeight = FontWeight.Medium)
-        },
-        supportingContent = {
-            Text(
-                "Created ${relativePendingTime(invitation.createdAt)} · unused link",
-                color = app.aether.aegis.ui.theme.AegisOnSurfaceDim,
-                fontSize = 11.sp,
-            )
-        },
-        leadingContent = {
-            Surface(
-                modifier = Modifier.size(48.dp).clip(CircleShape),
-                color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(
-                        "⧗", // hourglass-ish glyph — "pending"
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.secondary,
-                    )
-                }
-            }
-        },
-        trailingContent = {
-            TextButton(onClick = onRevoke) {
-                Text(
-                    stringResource(R.string.chat_list_revoke),
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 12.sp,
-                )
-            }
-        },
-    )
-}
-
-/** Coarse "x min/h/d ago" label for a pending invitation's age. */
-private fun relativePendingTime(epochMs: Long): String {
-    val d = System.currentTimeMillis() - epochMs
-    return when {
-        d < 60_000L -> "just now"
-        d < 3_600_000L -> "${d / 60_000L} min ago"
-        d < 86_400_000L -> "${d / 3_600_000L} h ago"
-        else -> "${d / 86_400_000L} d ago"
     }
 }
 

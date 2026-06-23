@@ -80,6 +80,19 @@ data class NetworkHealth(
     val healthFraction: Float = 0f,
 )
 
+/**
+ * True for a SimpleX XFTP (file-transfer) server, which must NOT count toward
+ * message-delivery health: those are connected only during an attachment
+ * up/download and idle out otherwise. SMP message relays start "smp…", file
+ * servers start "xftp…" (the host arrives as a bare hostname, e.g.
+ * "xftp1.simplex.im"); matched case-insensitively and tolerant of a leading
+ * scheme/userinfo just in case the host ever arrives prefixed.
+ */
+internal fun isFileRelay(host: String): Boolean {
+    val label = host.substringAfterLast('@').substringAfterLast('/')
+    return label.startsWith("xftp", ignoreCase = true)
+}
+
 // A relay that just dropped is treated as "reconnecting" (amber) rather
 // than "down" (red) for this long, so the normal sub-second SMP relay
 // cycling doesn't flash the dot red. SimpleX reconnects fast; a relay
@@ -129,8 +142,25 @@ fun computeNetworkHealth(
     }
 
     // 3. Relays — the SMP transport hosts our contacts' queues live on.
-    val total = snap.relays.size
-    val up = snap.relays.count { it.connected }
+    //
+    // Two things make a naive "every relay must be up" check wrong here:
+    //
+    //  - XFTP (file-transfer) servers are NOT message relays. SimpleX connects
+    //    to them only during an attachment up/download and lets them idle out
+    //    otherwise, so an XFTP server being "down" says nothing about whether
+    //    messages or SOS land. Exclude them from delivery health entirely.
+    //  - SimpleX opens a socket to an SMP relay only when it has live work
+    //    there (a queue to watch, a message to push) and closes idle ones, so
+    //    the relay list accumulates every server touched this session and
+    //    idled-out ones read "down". That is NORMAL — an idle relay reconnects
+    //    on demand. A genuine "can't deliver" surfaces as a backed-up outbox
+    //    (check 4) or as EVERY relay down, not as some servers idling off.
+    //
+    // So we require only that AT LEAST ONE SMP relay is up: a partial count is
+    // healthy, not degraded. We still show the honest count in the detail.
+    val smpRelays = snap.relays.filterNot { isFileRelay(it.host) }
+    val total = smpRelays.size
+    val up = smpRelays.count { it.connected }
     val relayCheck = when {
         // Nothing to connect to: no relay sessions because no contacts.
         total == 0 && snap.pairedContacts == 0 ->
@@ -141,14 +171,19 @@ fun computeNetworkHealth(
             HealthCheck("Relays", CheckState.WARN, "connecting…")
         up == 0 -> {
             // Distinguish a brief reconnect blip from a real outage.
-            val mostRecentChange = snap.relays.maxOfOrNull { it.sinceMs } ?: 0L
+            val mostRecentChange = smpRelays.maxOfOrNull { it.sinceMs } ?: 0L
             if (nowMs - mostRecentChange < RELAY_GRACE_MS)
                 HealthCheck("Relays", CheckState.WARN, "reconnecting…")
             else
                 HealthCheck("Relays", CheckState.FAIL, "all $total down")
         }
-        up < total -> HealthCheck("Relays", CheckState.WARN, "$up of $total up")
-        else -> HealthCheck("Relays", CheckState.PASS, "$up connected")
+        // At least one SMP relay up = the delivery path is live. Idle servers
+        // dropping off is normal, not degradation — PASS, but show the count
+        // honestly so the card still tells the truth about what's connected.
+        else -> HealthCheck(
+            "Relays", CheckState.PASS,
+            if (up < total) "$up of $total up" else "$up connected",
+        )
     }
 
     // 4. Outbox — anything queued means delivery hasn't happened yet, so
@@ -196,10 +231,12 @@ fun computeNetworkHealth(
         total == 0 && snap.pairedContacts == 0 -> 1f          // nothing to connect — fine
         total == 0 -> 0.4f                                    // connecting…
         up == 0 -> {
-            val mostRecentChange = snap.relays.maxOfOrNull { it.sinceMs } ?: 0L
+            val mostRecentChange = smpRelays.maxOfOrNull { it.sinceMs } ?: 0L
             if (nowMs - mostRecentChange < RELAY_GRACE_MS) 0.4f else 0f
         }
-        else -> up.toFloat() / total
+        // At least one SMP relay up = delivery path live; idle servers
+        // dropping off doesn't dim the dot (same rule as the verdict above).
+        else -> 1f
     }
     val gateMul = when {
         coreCheck.state == CheckState.FAIL || pumpCheck.state == CheckState.FAIL -> 0f

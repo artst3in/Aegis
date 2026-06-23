@@ -1,5 +1,8 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -7,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -84,10 +88,10 @@ fun FirstRunScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(40.dp))
 
             // ---- Restore from backup ----
-            Button(
+            AegisButton(
                 enabled = !restoreBusy,
                 onClick = {
-                    val activity = ctx as? app.aether.aegis.MainActivity ?: return@Button
+                    val activity = ctx as? app.aether.aegis.MainActivity ?: return@AegisButton
                     activity.openBackupFile { uri ->
                         if (uri != null) pendingRestoreUri = uri
                     }
@@ -108,8 +112,8 @@ fun FirstRunScreen(navController: NavController) {
                         BackupManager.Stage.Done -> stringResource(R.string.tutorial_done)
                     }
                     if (pct != null) {
-                        LinearProgressIndicator(
-                            progress = { pct / 100f },
+                        app.aether.aegis.ui.components.HexProgressBar(
+                            progress = pct / 100f,
                             modifier = Modifier.fillMaxWidth(),
                         )
                         Text(
@@ -118,7 +122,7 @@ fun FirstRunScreen(navController: NavController) {
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     } else {
-                        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                        LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.CutCornerShape(percent = 50)))
                         Text(
                             "$stageLabel · ${formatBytes(p.bytesProcessed)} read",
                             fontSize = 11.sp,
@@ -127,7 +131,7 @@ fun FirstRunScreen(navController: NavController) {
                     }
                 } ?: run {
                     Spacer(modifier = Modifier.height(8.dp))
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.CutCornerShape(percent = 50)))
                 }
             }
 
@@ -154,7 +158,7 @@ fun FirstRunScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(24.dp))
 
             // ---- Start fresh ----
-            OutlinedButton(
+            AegisOutlinedButton(
                 enabled = !restoreBusy,
                 onClick = {
                     runCatching {

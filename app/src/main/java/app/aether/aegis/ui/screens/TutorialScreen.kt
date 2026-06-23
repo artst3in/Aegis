@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisButton
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -336,7 +338,7 @@ private fun TutorialPageScaffold(
     content: @Composable () -> Unit = {},
 ) {
     if (mascotOnSide) {
-        // Layout (Artur 2026-06-08): instructions span the FULL width
+        // Layout (2026-06-08): instructions span the FULL width
         // across the top; Cyan + her bubble tuck into the BOTTOM-LEFT
         // (bubble directly above her); the interactive widget (phrase
         // grid / pattern pad) fills the space to her RIGHT. Frees the
@@ -447,7 +449,7 @@ private fun TutorialPageScaffold(
 private fun TutorialPageWelcome() {
     TutorialPageScaffold(
         asset = CyanAsset.Sitting, // full-body standing — warm intro
-        bubble = "Welcome to Project Aether. I'm Cyan — I'll be your guide.",
+        bubble = stringResource(R.string.tutorial_bubble_welcome),
     ) {
         // Brand mark, matching the splash treatment so the welcome
         // page reads as the same product the user just launched.
@@ -833,18 +835,39 @@ private fun canRequestPackageInstalls(ctx: android.content.Context): Boolean =
 /** Fire the system "allow background activity" (ignore-battery-optimizations)
  *  dialog for Aegis. The @SuppressLint is deliberate and matches Diagnostics:
  *  Google flags this intent as policy-sensitive, but reliable background
- *  delivery is core to a safety app, so we ask for it directly. Swallows a
- *  missing-Activity failure so an OEM without the dialog can't crash onboarding
- *  (the explainer text still stands as guidance). */
+ *  delivery is core to a safety app, so we ask for it directly.
+ *
+ *  The direct per-app dialog (ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, with
+ *  a `package:` URI) only works when REQUEST_IGNORE_BATTERY_OPTIMIZATIONS is
+ *  declared in the manifest — without it the system SILENTLY drops the intent
+ *  (startActivity returns without throwing and nothing appears), which read as
+ *  the row "leading nowhere". With the permission declared the dialog shows.
+ *
+ *  We still layer two fallbacks so the tap ALWAYS lands somewhere even on an
+ *  OEM that omits the per-app dialog Activity (those DO throw
+ *  ActivityNotFoundException): (2) the system-wide battery-optimization app
+ *  list, which needs no permission, then (3) this app's App-info page. */
 @android.annotation.SuppressLint("BatteryLife")
 private fun requestAllowBackgroundActivity(ctx: android.content.Context) {
-    val intent = android.content.Intent(
+    // 1) Direct per-app exemption dialog — one tap to confirm. Requires the
+    //    REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission (declared in manifest).
+    val direct = android.content.Intent(
         android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
     ).apply {
         data = android.net.Uri.parse("package:${ctx.packageName}")
         addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
     }
-    runCatching { ctx.startActivity(intent) }
+    if (runCatching { ctx.startActivity(direct) }.isSuccess) return
+    // 2) Fallback: the system-wide battery-optimization app list. No permission
+    //    needed; the user finds Aegis and switches it to "Don't optimize".
+    val list = android.content.Intent(
+        android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS,
+    ).apply {
+        addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+    if (runCatching { ctx.startActivity(list) }.isSuccess) return
+    // 3) Last resort: this app's App-info page (always present).
+    openAppDetailsSettings(ctx)
 }
 
 /** Open the per-app "install unknown apps" settings screen so the user can
@@ -899,7 +922,7 @@ private fun OemKillerCard(oem: String, onOpen: () -> Unit) {
                 fontSize = 12.sp,
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Button(onClick = onOpen, modifier = Modifier.fillMaxWidth()) {
+            AegisButton(onClick = onOpen, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.tutorial_perm_oem_open, oem))
             }
         }
@@ -989,11 +1012,11 @@ private fun TutorialPageDifferent() {
     TutorialPageScaffold(
         asset = CyanAsset.Celebrate, // full-body, finger up
         title = stringResource(R.string.tutorial_what_makes_this_different),
-        bubble = "No phone number. No account. No server stores your messages. Just cryptography.",
+        bubble = stringResource(R.string.tutorial_bubble_different),
     ) {
-        TutorialBullet("Built on the SimpleX protocol")
-        TutorialBullet("Zero metadata — no profile, no contact graph")
-        TutorialBullet("End-to-end encrypted, always")
+        TutorialBullet(stringResource(R.string.tutorial_bullet_protocol))
+        TutorialBullet(stringResource(R.string.tutorial_bullet_metadata))
+        TutorialBullet(stringResource(R.string.tutorial_bullet_e2ee))
     }
 }
 
@@ -1006,11 +1029,18 @@ private fun TutorialPageSafety() {
     TutorialPageScaffold(
         asset = CyanAsset.Celebrate, // full-body, finger up
         title = stringResource(R.string.tutorial_your_safety_net),
-        bubble = "If you're ever in danger, one button alerts everyone you trust.",
+        bubble = stringResource(R.string.tutorial_bubble_safety),
     ) {
-        TutorialBullet("Hold the SOS button 1 second — or tap power ×4")
-        TutorialBullet("GPS, audio, and camera broadcast to your contacts")
-        TutorialBullet("Works from the lock screen")
+        TutorialBullet("Hold the SOS button 1 second — or press power 4× at a steady pace")
+        // Cadence: the trigger needs 4 presses within a 2-second window, i.e.
+        // roughly one press every half-second — NOT once a second (that overruns
+        // the window and never fires). Faster than ~0.5s/press and Android's own
+        // gestures (2× = camera, 5× = Emergency SOS) grab the presses at a layer
+        // no app can override — an OS limit, not our bug.
+        TutorialBullet("Press power about twice a second — roughly one press every half-second. Mashing it faster gets taken by Android's camera (2×) and Emergency SOS (5×) shortcuts, not Aegis. That's an Android limit, not a bug.")
+        TutorialBullet("Three quick buzzes mean it fired — you'll feel it even in a pocket. No buzz after four presses? You went too fast: ease off the speed and keep pressing until you feel it.")
+        TutorialBullet(stringResource(R.string.tutorial_bullet_sos_broadcast))
+        TutorialBullet(stringResource(R.string.tutorial_bullet_sos_lockscreen))
     }
 }
 
@@ -1020,13 +1050,13 @@ private fun TutorialPageTiers() {
     TutorialPageScaffold(
         asset = CyanAsset.Sitting, // full-body standing
         title = stringResource(R.string.tutorial_three_tiers_of_trust),
-        bubble = "You decide who sees what.",
+        bubble = stringResource(R.string.tutorial_bubble_tiers),
     ) {
         TutorialTierCard("Trusted", "Everything — location, presence, SOS.")
         Spacer(modifier = Modifier.height(8.dp))
-        TutorialTierCard("Emergency", "SOS alerts only — no daily data.")
+        TutorialTierCard("Emergency", stringResource(R.string.tutorial_tier_emergency_desc))
         Spacer(modifier = Modifier.height(8.dp))
-        TutorialTierCard("Untrusted", "Messages only — nothing else.")
+        TutorialTierCard("Untrusted", stringResource(R.string.tutorial_tier_untrusted_desc))
     }
 }
 
@@ -1056,16 +1086,14 @@ private fun TutorialPageSkillTree() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                TutorialSkillNode("App\nDuress")
-                TutorialSkillNode("Vault\nPIN")
-                TutorialSkillNode("Device\nOwner")
+                TutorialSkillNode(stringResource(R.string.tutorial_node_app_duress))
+                TutorialSkillNode(stringResource(R.string.tutorial_node_vault_pin))
+                TutorialSkillNode(stringResource(R.string.tutorial_node_device_owner))
             }
         }
         Spacer(modifier = Modifier.height(14.dp))
         Text(
-            "App PIN unlocks Duress, Mugshot, Vault, Canary, SIM Watch and " +
-                "Geofence — set it once and the rest open up. The full climb " +
-                "ends at Device Owner, the top tier.",
+            stringResource(R.string.tutorial_skill_tree_explanation),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp,
             textAlign = TextAlign.Center,
@@ -1096,7 +1124,7 @@ private fun TutorialPageTabs() {
     TutorialPageScaffold(
         asset = CyanAsset.Celebrate, // full-body, finger up (was the waist-up Onboard2 — mixing framings looked off)
         title = stringResource(R.string.tutorial_find_your_way_around),
-        bubble = "Five tabs run along the bottom. Here's what each one does.",
+        bubble = stringResource(R.string.tutorial_bubble_tabs),
     ) {
         Text(
             stringResource(R.string.tutorial_left_to_right_along),
@@ -1110,12 +1138,12 @@ private fun TutorialPageTabs() {
         TutorialTabRow(
             iconRes = R.drawable.ic_aegis_settings,
             labelRes = R.string.nav_settings,
-            desc = "Settings, your identity, app lock, and updates.",
+            desc = stringResource(R.string.tutorial_tab_system_desc),
         )
         TutorialTabRow(
             iconRes = R.drawable.ic_aegis_security,
             labelRes = R.string.nav_security,
-            desc = "Your security skill tree — harden the phone step by step.",
+            desc = stringResource(R.string.tutorial_tab_opsec_desc),
         )
         TutorialTabRow(
             iconRes = R.drawable.ic_aegis_sos,
@@ -1123,12 +1151,12 @@ private fun TutorialPageTabs() {
             // SOS is the locked-centre tab; tint it the same danger
             // red the bar uses so it's unmistakable here too.
             tint = AegisSOS,
-            desc = "The big one. Hold to alert everyone you trust.",
+            desc = stringResource(R.string.tutorial_tab_sos_desc),
         )
         TutorialTabRow(
             iconRes = R.drawable.ic_aegis_chats,
             labelRes = R.string.nav_chats,
-            desc = "Your encrypted chats. Message your contacts here.",
+            desc = stringResource(R.string.tutorial_tab_comms_desc),
         )
         TutorialTabRow(
             // Radar's glyph has a negative-space "N" a flat tint can't
@@ -1137,12 +1165,11 @@ private fun TutorialPageTabs() {
             iconRes = R.drawable.ic_aegis_radar,
             labelRes = R.string.nav_radar,
             isRadar = true,
-            desc = "Live map — where your trusted contacts are, and who's online.",
+            desc = stringResource(R.string.tutorial_tab_radar_desc),
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            stringResource(R.string.tutorial_sos_stays_locked_in) +
-                "in System → Nav.",
+            stringResource(R.string.tutorial_sos_stays_locked_in),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             textAlign = TextAlign.Center,
@@ -1174,6 +1201,7 @@ private fun TutorialPageTabs() {
 private fun TutorialPagePin(onPinJustSet: () -> Unit) {
     val store = AegisApp.instance.lockState.store
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current  // for getString() in onClick (non-composable)
     // Snapshot whether a PIN exists at entry. Flips to true the
     // moment we set one, which swaps the body to the done state.
     var hasPin by remember { mutableStateOf(store.hasPin) }
@@ -1186,7 +1214,7 @@ private fun TutorialPagePin(onPinJustSet: () -> Unit) {
         title = stringResource(R.string.tutorial_set_your_pin),
         // Replay-with-PIN gets the warm acknowledgement from the
         // spec; first-time gets the instruction.
-        bubble = if (hasPin) "Already done. Nice." else "First things first. Set your app PIN.",
+        bubble = if (hasPin) stringResource(R.string.tutorial_pin_already_nice) else stringResource(R.string.tutorial_pin_set_first),
     ) {
         if (hasPin) {
             // Done state — replay path, or right after a successful
@@ -1213,11 +1241,9 @@ private fun TutorialPagePin(onPinJustSet: () -> Unit) {
         // so the user isn't told the PIN protects what it doesn't.
         Text(
             if (store.hasRecoveryPhrase) {
-                "Your PIN locks Aegis and protects your duress profiles. " +
-                    "Your recovery phrase is what encrypts your messages. 4–8 digits."
+                stringResource(R.string.tutorial_pin_explanation_new)
             } else {
-                "Your PIN unlocks Aegis and is the key your messages are " +
-                    "encrypted under. 4–8 digits."
+                stringResource(R.string.tutorial_pin_explanation_existing)
             },
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp,
@@ -1248,7 +1274,7 @@ private fun TutorialPagePin(onPinJustSet: () -> Unit) {
             Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
         }
         Spacer(modifier = Modifier.height(12.dp))
-        Button(
+        AegisButton(
             enabled = newPin.length in 4..8 && newPin == confirmPin,
             onClick = {
                 // Two paths depending on whether the phrase already
@@ -1262,11 +1288,11 @@ private fun TutorialPagePin(onPinJustSet: () -> Unit) {
                 if (saveResult.isFailure) {
                     error = "Couldn't save PIN: " +
                         (saveResult.exceptionOrNull()?.message ?: "unknown error")
-                    return@Button
+                    return@AegisButton
                 }
                 if (!store.hasPin) {
-                    error = "PIN write didn't persist — check Diagnostics."
-                    return@Button
+                    error = context.getString(R.string.tutorial_pin_persist_error)
+                    return@AegisButton
                 }
                 hasPin = true
                 newPin = ""
@@ -1319,8 +1345,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
         mascotOnSide = true,
     ) {
         Text(
-            stringResource(R.string.tutorial_your_pin_is_set) +
-                "access use. These are optional shortcuts on top of it.",
+            stringResource(R.string.tutorial_your_pin_is_set),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp,
             textAlign = TextAlign.Center,
@@ -1343,7 +1368,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
         if (patternStage > 0) {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                if (patternStage == 1) "Draw your pattern" else "Draw it again to confirm",
+                if (patternStage == 1) stringResource(R.string.tutorial_draw_pattern) else stringResource(R.string.tutorial_draw_pattern_confirm),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium,
             )
@@ -1352,7 +1377,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
                 onPattern = { seq ->
                     when {
                         seq.size < store.minPatternLength ->
-                            patternErr = "Use at least ${store.minPatternLength} dots."
+                            patternErr = ctx.getString(R.string.tutorial_pattern_min_dots, store.minPatternLength)
                         patternStage == 1 -> {
                             firstPattern = seq; patternStage = 2; patternErr = null
                         }
@@ -1361,7 +1386,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
                                 store.setPattern(seq)
                                 patternEnabled = true; patternStage = 0; patternErr = null
                             } else {
-                                patternErr = "Didn't match — start again."
+                                patternErr = ctx.getString(R.string.tutorial_pattern_mismatch)
                                 patternStage = 1; firstPattern = null
                             }
                         }
@@ -1399,7 +1424,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onContinue, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.tutorial_continue)) }
+        AegisButton(onClick = onContinue, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.tutorial_continue)) }
     }
 
     if (showBioWarn) {
@@ -1408,9 +1433,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
             title = { Text(stringResource(R.string.tutorial_biometric_skips_duress)) },
             text = {
                 Text(
-                    stringResource(R.string.tutorial_biometric_login_is_convenient) +
-                        "If someone forces your fingerprint, the real profile opens. " +
-                        "PIN is recommended for maximum security.",
+                    stringResource(R.string.tutorial_biometric_login_is_convenient),
                 )
             },
             confirmButton = {
@@ -1418,12 +1441,12 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
                     showBioWarn = false
                     val priv = app.aether.aegis.lock.PinSession.priv()
                     if (priv == null) {
-                        bioError = "Set up your PIN first, then add biometric."
+                        bioError = ctx.getString(R.string.tutorial_bio_need_pin_first)
                         return@TextButton
                     }
                     app.aether.aegis.ui.components.enrolBiometric(ctx, priv) { ok ->
                         biometricOn = ok
-                        if (!ok) bioError = "Couldn't enable biometric. Try again."
+                        if (!ok) bioError = ctx.getString(R.string.tutorial_bio_failed)
                     }
                 }) { Text(stringResource(R.string.tutorial_enable_anyway)) }
             },
@@ -1438,9 +1461,7 @@ private fun TutorialPageUnlockMethod(onContinue: () -> Unit) {
             title = { Text(stringResource(R.string.tutorial_open_without_a_lock)) },
             text = {
                 Text(
-                    stringResource(R.string.tutorial_aegis_will_open_without) +
-                        "exists underneath — for duress, remote access, and to encrypt " +
-                        "your messages. You can re-enable the lock anytime in Settings.",
+                    stringResource(R.string.tutorial_aegis_will_open_without),
                 )
             },
             confirmButton = {
@@ -1527,6 +1548,7 @@ private fun UnlockOptionCard(
 private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
     val store = AegisApp.instance.lockState.store
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current  // for getString() in onClick (non-composable)
     var alreadyEnrolled by remember { mutableStateOf(store.hasRecoveryPhrase) }
     // Generate exactly once per visit, and ONLY when nothing is enrolled
     // yet. The recovery phrase is SHOW-ONCE: it is never stored and never
@@ -1561,9 +1583,9 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
         asset = CyanAsset.Celebrate, // full-body, finger up
         title = stringResource(R.string.tutorial_your_recovery_phrase),
         bubble = if (alreadyEnrolled) {
-            "Already saved. Keep your paper copy somewhere safe."
+            stringResource(R.string.tutorial_phrase_already_saved)
         } else {
-            "Write these 24 words on paper. They're the key to everything."
+            stringResource(R.string.tutorial_phrase_write_down)
         },
         // Side-dock (small mascot beside the wide word-grid) ONLY when the grid
         // is shown. On replay (already enrolled, no grid) the page is nearly
@@ -1585,16 +1607,13 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                stringResource(R.string.tutorial_it_is_your_master) +
-                    "never show it again — not behind your PIN, not behind your " +
-                    "fingerprint. If you didn't write it down, that's the price " +
-                    "of it being truly yours. Keep your paper copy safe.",
+                stringResource(R.string.tutorial_it_is_your_master),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = onEnrolled, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.tutorial_done)) }
+            AegisButton(onClick = onEnrolled, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.tutorial_done)) }
             return@TutorialPageScaffold
         }
 
@@ -1608,9 +1627,7 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                 // above Cyan, and the scratch step is now spelled out.
                 // (user-reported 2026-06-09)
                 Text(
-                    stringResource(R.string.tutorial_this_encrypts_your_messages) +
-                        "you forget your PIN or lose your fingerprint. If you lose " +
-                        "it, no one — not us, not anyone — can recover your data.",
+                    stringResource(R.string.tutorial_this_encrypts_your_messages),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center,
@@ -1619,18 +1636,17 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                 PhraseRevealWarning()
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    "On the next screen you'll see 24 words. Scratch the panel " +
-                        "to reveal them, then write them all down on paper.",
+                    stringResource(R.string.tutorial_phrase_intro),
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(
+                AegisButton(
                     onClick = { stage = 1 },
                     modifier = Modifier.fillMaxWidth(),
-                ) { Text("Show my phrase") }
+                ) { Text(stringResource(R.string.tutorial_phrase_show)) }
             }
             1 -> {
                 // Phrase grid — MINIMAL surrounding text on purpose, so all
@@ -1638,7 +1654,7 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                 // one line carries the only thing they still need at the grid:
                 // scratch, then transcribe in order.
                 Text(
-                    "Scratch to reveal, then write all 24 words down in order.",
+                    stringResource(R.string.tutorial_phrase_scratch),
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -1647,7 +1663,7 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                 Spacer(modifier = Modifier.height(12.dp))
                 RecoveryWordGrid(words)
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(
+                AegisButton(
                     // Bump the seed so a fresh random trio is drawn each
                     // time the confirm stage opens.
                     onClick = { challengeSeed++; stage = 2 },
@@ -1661,7 +1677,7 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                     else -> nums.joinToString(", ")
                 }
                 Text(
-                    "Confirm you saved it. Enter words $positions from your paper.",
+                    stringResource(R.string.tutorial_phrase_confirm, positions),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center,
@@ -1671,7 +1687,7 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                     OutlinedTextField(
                         value = answers[i],
                         onValueChange = { answers[i] = it.trim(); error = null },
-                        label = { Text("Word #${idx + 1}") },
+                        label = { Text(stringResource(R.string.tutorial_phrase_word_n, idx + 1)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -1682,7 +1698,7 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                     Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                Button(
+                AegisButton(
                     enabled = !working && answers.all { it.isNotBlank() },
                     onClick = {
                         // Compare each answer against the word at its random
@@ -1693,8 +1709,8 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                             answers[i].equals(words[checkIdx[i]], ignoreCase = true)
                         }
                         if (!ok) {
-                            error = "Those words don't match. Check your paper."
-                            return@Button
+                            error = context.getString(R.string.tutorial_phrase_mismatch)
+                            return@AegisButton
                         }
                         working = true
                         error = null
@@ -1714,6 +1730,42 @@ private fun TutorialPageRecoveryPhrase(onEnrolled: () -> Unit) {
                 ) { Text(if (working) "Securing…" else stringResource(R.string.vault_pin_confirm)) }
                 Spacer(modifier = Modifier.height(4.dp))
                 TextButton(onClick = { stage = 1 }) { Text(stringResource(R.string.tutorial_show_the_words_again)) }
+                // Skip the re-type verification. The phrase has still been
+                // generated and SHOWN (stage 1) — this only bypasses the
+                // three-word quiz that proves it was transcribed. It exists
+                // because forcing the quiz "just to test" was turning fresh
+                // users away (they didn't want to write down 24 words before
+                // even trying the app). Opt-in and de-emphasised so the
+                // verified path stays the obvious default; the warning above
+                // the grid still spells out that the phrase is unrecoverable.
+                // Same enrol path as Confirm — derives the phrase-rooted seal
+                // keypair and opens the session — so a skipped enrolment is
+                // cryptographically identical to a verified one, just
+                // unproven on the user's side.
+                TextButton(
+                    enabled = !working,
+                    onClick = {
+                        working = true
+                        error = null
+                        scope.launch {
+                            val kp = withContext(Dispatchers.Default) {
+                                store.enrollRecoveryPhrase(words)
+                            }
+                            app.aether.aegis.lock.PinSession.set(kp)
+                            alreadyEnrolled = true
+                            working = false
+                            onEnrolled()
+                        }
+                    },
+                ) {
+                    Text(
+                        // Inline English (matches the other inline tutorial
+                        // strings in this file); translation extraction is
+                        // handled separately in the i18n pass.
+                        "Skip — I've saved my phrase",
+                        color = app.aether.aegis.ui.theme.AegisOnSurfaceDim,
+                    )
+                }
             }
         }
     }
@@ -1738,19 +1790,13 @@ private fun PhraseRevealWarning() {
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                stringResource(R.string.tutorial_make_sure_no_one) +
-                    "screen. Scratch the panel below to reveal your 24 words, " +
-                    "write them on paper, then keep that paper somewhere safe.",
+                stringResource(R.string.tutorial_make_sure_no_one),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                stringResource(R.string.tutorial_this_is_the_only) +
-                    "\"forgot phrase\", no reset, and no way to make a new one — " +
-                    "not with your PIN, not with your fingerprint, not by us. " +
-                    "If you lose this paper, your data is gone forever, and " +
-                    "no one on earth can bring it back. Write it down now.",
+                stringResource(R.string.tutorial_this_is_the_only),
                 color = AegisSOS,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -1846,9 +1892,9 @@ private fun TutorialPageReady(onGetStarted: () -> Unit) {
     TutorialPageScaffold(
         asset = CyanAsset.Celebrate, // full-body, finger up
         title = stringResource(R.string.tutorial_youre_ready),
-        bubble = "You're ready. Add a contact to get started.",
+        bubble = stringResource(R.string.tutorial_bubble_ready),
     ) {
-        Button(onClick = onGetStarted) { Text(stringResource(R.string.tutorial_get_started)) }
+        AegisButton(onClick = onGetStarted) { Text(stringResource(R.string.tutorial_get_started)) }
     }
 }
 
@@ -1870,7 +1916,7 @@ private fun TutorialPageThankYou(onDone: () -> Unit) {
     TutorialPageScaffold(
         asset = CyanAsset.Sitting, // full-body standing — warm closer
         title = stringResource(R.string.tutorial_thank_you),
-        bubble = "Thank you for choosing Aegis.",
+        bubble = stringResource(R.string.tutorial_bubble_thanks),
         showSignature = true, // closer — stringResource(R.string.capabilities_stay_safe)
     ) {
         Text(
@@ -1883,14 +1929,13 @@ private fun TutorialPageThankYou(onDone: () -> Unit) {
         // Pointer, not a pitch — where to find support once they've
         // actually used the app. No button, no link tap here.
         Text(
-            stringResource(R.string.tutorial_if_it_ever_helps) +
-                "time from System → About.",
+            stringResource(R.string.tutorial_if_it_ever_helps),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onDone) { Text(stringResource(R.string.tutorial_enter_aegis)) }
+        AegisButton(onClick = onDone) { Text(stringResource(R.string.tutorial_enter_aegis)) }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             stringResource(R.string.tutorial_you_can_replay_this),

@@ -1,5 +1,12 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.update.UpdateCheckWorker
 import app.aether.aegis.update.UpdatePrefs
 import androidx.compose.foundation.layout.*
@@ -9,6 +16,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -66,11 +74,11 @@ fun UpdateSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.settings_updates)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -95,10 +103,7 @@ fun UpdateSettingsScreen(navController: NavController) {
                 Column(modifier = Modifier.padding(14.dp)) {
                     Text(stringResource(R.string.settings_how_it_works), fontWeight = FontWeight.SemiBold)
                     Text(
-                        stringResource(R.string.update_aegis_polls_github_every) +
-                            "Each APK is ~45–65 MB. By default we only download " +
-                            "over WiFi — pulling that much over a cellular plan " +
-                            "every release would eat real money.",
+                        stringResource(R.string.update_how_it_works_body),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp,
                     )
@@ -197,7 +202,7 @@ fun UpdateSettingsScreen(navController: NavController) {
                             fontSize = 12.sp,
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        OutlinedButton(
+                        AegisOutlinedButton(
                             onClick = { rollbackStep = 1 },
                             modifier = Modifier.fillMaxWidth(),
                         ) {
@@ -344,10 +349,9 @@ private fun UpdateActionPanel() {
                 if (total != null && total > 0L) {
                     val frac = (dl.bytesDownloaded.toFloat() / total.toFloat())
                         .coerceIn(0f, 1f)
-                    LinearProgressIndicator(
-                        progress = { frac },
+                    app.aether.aegis.ui.components.HexProgressBar(
+                        progress = frac,
                         modifier = Modifier.fillMaxWidth(),
-                        drawStopIndicator = {},
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
@@ -360,7 +364,7 @@ private fun UpdateActionPanel() {
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 } else {
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.CutCornerShape(percent = 50)))
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
                         "%.1f MB downloaded".format(dl.bytesDownloaded / 1_048_576.0),
@@ -369,6 +373,9 @@ private fun UpdateActionPanel() {
                     )
                 }
             }
+            // >>> DEBUG-ONLY (stripped for public build)
+            app.aether.aegis.update.DebugTokenField(secrets)
+            // <<< DEBUG-ONLY
             // NB: do NOT capture secrets.githubToken here — it's read fresh at
             // click time below so a just-saved token is used on the FIRST check.
             val appContext = context.applicationContext
@@ -379,7 +386,7 @@ private fun UpdateActionPanel() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Button(
+                AegisButton(
                     // Protected Mode: the self-update controls can be locked.
                     enabled = !busy &&
                         !isGatedNow(app.aether.aegis.protectedmode.ProtectedMode.Gate.UPDATES),
@@ -405,7 +412,7 @@ private fun UpdateActionPanel() {
                 ) { Text(actionLabel(status)) }
                 // Cancel — only meaningful while bytes are streaming.
                 if (status is app.aether.aegis.update.UpdateState.Status.Downloading) {
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             app.aether.aegis.update.UpdateState.cancelRequested.set(true)
                         },
@@ -418,7 +425,7 @@ private fun UpdateActionPanel() {
                 // re-offer it if the release is still newer.
                 if (status is app.aether.aegis.update.UpdateState.Status.Available ||
                     status is app.aether.aegis.update.UpdateState.Status.Downloaded) {
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         enabled = !busy,
                         onClick = {
                             runCatching {

@@ -54,12 +54,14 @@ let inactiveCallMediaSources = {
 let activeCall;
 let notConnectedCall;
 let answerTimeout = 30000;
-// Encrypted-media transform selector. Left FALSE for now: enabling the
-// worker-based RTCRtpScriptTransform (to get E2E on modern WebView) was
-// shipped untested and is a suspect for black remote video. Reverted to the
-// known-baseline behaviour until the call surface is debugged with device
-// logs; revisit encryption once basic streaming is verified working.
-var useWorker = false;
+// Encrypted-media transform selector. Worker-based RTCRtpScriptTransform
+// provides e2e encryption of media frames (AES-GCM on top of DTLS-SRTP).
+// Was disabled (false) because Blob-URL Worker creation failed from the
+// file:///android_asset origin, silently breaking the decrypt pipeline
+// and leaving incoming encrypted frames garbled → black remote video.
+// Fixed: CallVideoSurface now loads from https://appassets... via
+// WebViewAssetLoader where Blob Workers work correctly.
+var useWorker = true;
 var isDesktop = false;
 var localizedState = "";
 var localizedDescription = "";
@@ -596,10 +598,17 @@ const processCommand = (function () {
             if (!call.key)
                 call.key = await callCrypto.decodeAesKey(call.aesKey);
             if (useWorker && !call.worker) {
-                const workerCode = `const callCrypto = (${callCryptoFunction.toString()})(); (${workerFunction.toString()})()`;
-                call.worker = new Worker(URL.createObjectURL(new Blob([workerCode], { type: "text/javascript" })));
-                call.worker.onerror = ({ error, filename, lineno, message }) => console.log({ error, filename, lineno, message });
-                // call.worker.onmessage = ({data}) => console.log(JSON.stringify({message: data}))
+                try {
+                    const workerCode = `const callCrypto = (${callCryptoFunction.toString()})(); (${workerFunction.toString()})()`;
+                    call.worker = new Worker(URL.createObjectURL(new Blob([workerCode], { type: "text/javascript" })));
+                    call.worker.onerror = ({ error, filename, lineno, message }) => console.log({ error, filename, lineno, message });
+                    // call.worker.onmessage = ({data}) => console.log(JSON.stringify({message: data}))
+                } catch (e) {
+                    // Worker creation fails on file:// origins or restricted
+                    // contexts. Fall back to unencrypted rather than crashing.
+                    console.error("encryption Worker creation failed — falling back to unencrypted", e);
+                    call.worker = null;
+                }
             }
         }
     }

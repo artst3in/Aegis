@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">릴레이 전용 ICE 및 통화 진단.</string>
     <string name="_stops_screenshots_screen_recording">스크린샷, 녹화, 미리보기 차단.</string>
     <string name="_unfinished_features_hidden_behind">7탭 게이트 뒤에 숨겨진 미완성 기능.</string>
-    <string name="_wifionly_by_default_apks">WiFi만 -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">WiFi만 -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM 변경 알림</string>
     <string name="sim_swap_when_the_sim_in">이 전화의 SIM이 바뀌면 알림이 전송됩니다.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Aegis 로고</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis는 24시간마다 GitHub 확인.</string>
+    <string name="update_how_it_works_body">Aegis는 24시간마다 GitHub에서 새 빌드를 확인합니다. 각 APK는 ~100MB입니다. 기본적으로 WiFi에서만 다운로드합니다 — 매 릴리스마다 모바일 데이터로 이만큼 다운로드하면 실제 돈이 듭니다.</string>
     <string name="update_beltandbraces_type_rollback_below">아래에 ROLLBACK 입력.</string>
     <string name="update_check_interval">확인 간격</string>
     <string name="update_how_often_aegis_polls">Aegis가 GitHub에서 새 빌드를 확인하는 빈도.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis는 영원히 무료. 광고 없음. 추적 없음. 데이터 판매 없음.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis가 묻지 않고 열림. PIN이 데이터 보호.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis는 아무것도 묻지 않고 열립니다. PIN은 여전히 존재합니다 — 강박, 원격 액세스, 메시지 암호화를 위해. 설정에서 언제든지 잠금을 다시 활성화할 수 있습니다.</string>
     <string name="tutorial_anyone_who_sees_these">이 단어를 보는 사람은 계정을 소유</string>
-    <string name="tutorial_biometric_login_is_convenient">생체인증 로그인은 편리하지만 강압을 건너.</string>
+    <string name="tutorial_biometric_login_is_convenient">생체 인식 로그인은 편리하지만 강박 보호를 건너뜁니다. 누군가 지문을 강제로 사용하면 실제 프로필이 열립니다. 최대 보안을 위해 PIN을 권장합니다.</string>
     <string name="tutorial_biometric_skips_duress">생체인증은 강압을 건너</string>
     <string name="tutorial_choose_how_you_unlock">잠금해제 방법 선택</string>
     <string name="tutorial_confirm_pin">PIN 확인</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">앱 둘러보기</string>
     <string name="tutorial_fingerprint_face">지문 / 얼굴</string>
     <string name="tutorial_get_started">시작</string>
-    <string name="tutorial_if_it_ever_helps">도움이 된다면 Aether 프로젝트를 지원해 주세요.</string>
-    <string name="tutorial_it_is_your_master">이것이 마스터 키입니다</string>
+    <string name="tutorial_if_it_ever_helps">도움이 되셨다면 시스템 → 정보에서 Project Aether를 지원할 수 있습니다.</string>
+    <string name="tutorial_it_is_your_master">이것은 마스터 키이며 한 번만 표시됩니다. 저장하지 않으며 다시 표시하지 않습니다 — PIN 뒤에도, 지문 뒤에도. 적어두지 않았다면, 그것이 진정 당신의 것인 대가입니다. 종이 사본을 안전하게 보관하세요.</string>
     <string name="tutorial_ive_written_it_down">적어두었음</string>
     <string name="tutorial_keep_lock">잠금 유지</string>
     <string name="tutorial_keep_pin_only">PIN만</string>
     <string name="tutorial_left_to_right_along">왼쪽에서 오른쪽으로 하단을 따라:</string>
-    <string name="tutorial_make_sure_no_one">아무도 보고 있지 않은지 확인</string>
+    <string name="tutorial_make_sure_no_one">아무도 보고 있지 않고 화면을 녹화하는 것이 없는지 확인하세요. 스크린샷이 차단됩니다 — 스크린샷은 갤러리에 저장되고 클라우드에 동기화되며 휴대폰에 접근할 수 있는 누구나 볼 수 있습니다. 아래 패널을 긁어 24개 단어를 확인하고 종이에 적어 안전한 곳에 보관하세요.</string>
     <string name="tutorial_new_pin_48_digits">새 PIN (4–8자리)</string>
     <string name="tutorial_no_lock_screen">잠금화면 없음</string>
     <string name="tutorial_open_without_a_lock">잠금화면 없이 열기?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">단어 다시 보기</string>
     <string name="tutorial_skip">건너뛰기</string>
     <string name="tutorial_skip_check_debug">검사 건너뛰기 (디버그)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS는 중앙에 고정</string>
+    <string name="tutorial_sos_stays_locked_in">SOS는 중앙에 고정됩니다. 나머지는 시스템 → 내비게이션에서 재정렬할 수 있습니다.</string>
     <string name="tutorial_thank_you">감사합니다</string>
     <string name="tutorial_the_skill_tree">스킬 트리</string>
-    <string name="tutorial_this_encrypts_your_messages">메시지를 암호화하고 계정을 복구.</string>
-    <string name="tutorial_this_is_the_only">이것이 유일한 사본입니다</string>
+    <string name="tutorial_this_encrypts_your_messages">이것은 메시지를 암호화하고 PIN을 잊거나 지문을 잃었을 때 계정을 복구합니다. 이것을 잃으면 아무도 — 우리도, 누구도 — 데이터를 복구할 수 없습니다.</string>
+    <string name="tutorial_this_is_the_only">이것이 유일한 사본입니다. 아무것도 보관하지 않습니다. \"문구 분실\"도 없고, 재설정도 없고, 새로 만들 방법도 없습니다 — PIN으로도, 지문으로도, 우리에 의해서도. 이 종이를 잃으면 데이터는 영원히 사라지며 지구상의 누구도 되찾을 수 없습니다. 지금 적으세요.</string>
     <string name="tutorial_three_tiers_of_trust">3단계 신뢰</string>
     <string name="tutorial_what_makes_this_different">무엇이 다른지</string>
     <string name="tutorial_you_can_replay_this">도움말에서 튜토리얼 재생 가능.</string>
     <string name="tutorial_your_messages_and_attachments">메시지와 첨부파일은 이 PIN으로 암호화.</string>
-    <string name="tutorial_your_pin_is_set">PIN이 설정되어 항상 작동.</string>
+    <string name="tutorial_your_pin_is_set">PIN이 설정되어 항상 작동합니다 — 강박 모드와 원격 액세스가 사용하는 것입니다. 이것들은 그 위의 선택적 바로가기입니다.</string>
     <string name="tutorial_your_recovery_phrase">복구 문구</string>
     <string name="tutorial_your_safety_net">안전망</string>
     <string name="tutorial_youre_ready">준비 완료</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">충전 중</string>
     <string name="remote_locate">위치 찾기</string>
     <string name="remote_siren">사이렌</string>
-    <string name="tutorial_bubble_welcome">Project Aether에 오신 것을 환영합니다. Cyan입니다 — 안내하겠습니다.</string>
+    <string name="tutorial_bubble_welcome">Project Aether에 오신 것을 환영합니다. 저는 Cyan이에요 — 가이드를 맡겠습니다. 펜과 종이를 준비하세요 — 메시지를 보호하는 24개 단어를 적어달라고 할 거예요.</string>
     <string name="tutorial_bubble_different">전화번호 없음. 계정 없음. 서버가 메시지를 저장하지 않음. 암호화만.</string>
     <string name="tutorial_bubble_safety">위험할 때 버튼 하나로 신뢰하는 모든 사람에게 알림.</string>
     <string name="tutorial_bubble_tiers">누가 무엇을 볼지 당신이 결정.</string>
@@ -712,14 +712,14 @@ PIN</string>
 PIN</string>
     <string name="tutorial_perm_title">Aegis가 왜 많이 요청하는지</string>
     <string name="tutorial_perm_bubble">탭하여 허용 — 또는 건너뛰기. 각각의 이유를 설명합니다.</string>
-    <string name="tutorial_perm_intro">보안 앱은 당신을 대신해 행동해야 합니다 — 찾기, 알리기, 화면 꺼졌을 때 실행. 당신 없이는 아무것도 휴대폰을 떠나지 않습니다.</string>
+    <string name="tutorial_perm_intro">보안 앱은 당신을 대신해 행동할 수 있어야 합니다 — 찾기, 알리기, 화면 꺼졌을 때 실행. 그래서 목록이 길어 보입니다. 카드를 탭하여 지금 허용하거나, 나중에 기능이 필요할 때 허용하세요. 당신 없이는 아무것도 휴대폰을 떠나지 않습니다.</string>
     <string name="tutorial_perm_background_title">백그라운드 활동</string>
     <string name="tutorial_perm_background_why">가장 중요. Aegis가 닫히거나 화면이 꺼져도 실행됩니다. 이것 없이는 휴대폰이 조용히 멈출 수 있습니다 — 특히 OnePlus, Xiaomi, Oppo에서.</string>
     <string name="tutorial_perm_oem_warning">%1$s 휴대폰에 Aegis를 죽일 수 있는 추가 배터리 설정이 있습니다. 이 설정을 열고 Aegis의 자동 시작을 허용하세요.</string>
     <string name="tutorial_perm_notif_title">알림</string>
     <string name="tutorial_perm_notif_why">메시지, 통화, SOS 알림 — 잠금 화면에서도.</string>
     <string name="tutorial_perm_location_title">위치</string>
-    <string name="tutorial_perm_location_why">신뢰하는 연락처가 비상시 당신을 찾고 SOS가 위치를 공유.</string>
+    <string name="tutorial_perm_location_why">비상시 신뢰하는 연락처가 당신을 찾고 SOS가 위치를 공유할 수 있도록. (백그라운드 위치는 화면 꺼짐 시를 위해 설정에서 별도로 허용됩니다.)</string>
     <string name="tutorial_perm_camera_title">카메라</string>
     <string name="tutorial_perm_camera_why">SOS 사진, 잘못된 PIN 머그샷, 영상통화용.</string>
     <string name="tutorial_perm_mic_title">마이크</string>
@@ -731,9 +731,36 @@ PIN</string>
     <string name="tutorial_perm_nearby_title">근처 기기</string>
     <string name="tutorial_perm_nearby_why">Bluetooth로 사람과 기기 찾기 (레이더와 소나).</string>
     <string name="tutorial_perm_install_title">업데이트 설치</string>
-    <string name="tutorial_perm_install_why">Aegis가 추적 없이 안전하게 업데이트.</string>
+    <string name="tutorial_perm_install_why">당신을 추적할 수 있는 앱 스토어 없이 Aegis가 안전하게 자동 업데이트할 수 있도록.</string>
     <string name="tutorial_perm_footer">당신이 통제합니다. 건너뛰어도 Aegis 대부분 작동 — 하지만 백그라운드가 보안 기능을 유지.</string>
     <string name="tutorial_perm_granted">허용됨 ✓</string>
     <string name="tutorial_perm_denied">거부됨</string>
     <string name="tutorial_perm_allow">허용</string>
+
+    <string name="tutorial_perm_oem_title">%1$s 배터리 설정</string>
+    <string name="tutorial_perm_oem_open">%1$s 설정 열기</string>
+    <string name="tutorial_perm_denied_note">나중에 활성화할 수 있습니다 — 탭하여 설정을 엽니다.</string>
+    <string name="tutorial_pin_explanation_existing">PIN은 Aegis를 잠금 해제하고 메시지를 암호화하는 키입니다. 4~8자리.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">금고\nPIN</string>
+    <string name="tutorial_node_device_owner">기기\n소유자</string>
+    <string name="tutorial_node_app_duress">앱\n강박</string>
+    <string name="tutorial_skill_tree_explanation">앱 PIN으로 강박, 사진, 금고, 카나리아, SIM 감시, 지오펜스가 해제됩니다. 한 번 설정하면 나머지가 열립니다. 최고 등급은 기기 소유자입니다.</string>
+    <string name="tutorial_phrase_intro">다음 화면에 24개 단어가 표시됩니다. 패널을 긁어 확인하고 모두 종이에 적으세요.</string>
+    <string name="tutorial_phrase_show">문구 보기</string>
+    <string name="tutorial_phrase_scratch">긁어서 확인한 후 24개 단어를 순서대로 적으세요.</string>
+    <string name="tutorial_phrase_confirm">저장을 확인하세요. 종이에서 단어 %1$s을 입력하세요.</string>
+    <string name="tutorial_phrase_word_n">단어 #%1$d</string>
+    <string name="tutorial_phrase_mismatch">단어가 일치하지 않습니다. 종이를 확인하세요.</string>
+    <string name="tutorial_phrase_write_down">이 24개 단어를 종이에 적으세요. 모든 것의 열쇠입니다.</string>
+    <string name="tutorial_phrase_already_saved">이미 저장됨. 종이 사본을 안전하게 보관하세요.</string>
+    <string name="tutorial_draw_pattern">패턴을 그리세요</string>
+    <string name="tutorial_draw_pattern_confirm">확인을 위해 다시 그리세요</string>
+    <string name="tutorial_pattern_min_dots">최소 %1$d개의 점을 사용하세요.</string>
+    <string name="tutorial_pattern_mismatch">일치하지 않음 — 다시 시작하세요.</string>
+    <string name="tutorial_bio_need_pin_first">먼저 PIN을 설정한 후 생체 인식을 추가하세요.</string>
+    <string name="tutorial_bio_failed">생체 인식을 활성화할 수 없습니다. 다시 시도하세요.</string>
+    <string name="tutorial_pin_save_error">PIN을 저장할 수 없습니다: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN이 저장되지 않았습니다 — 진단을 확인하세요.</string>
 </resources>

@@ -47,13 +47,50 @@ import androidx.compose.runtime.remember
  * once the SOS clears.
  */
 @Composable
-fun SOSAdapter(victimKey: String) {
+fun SOSAdapter(victimKey: String, navController: androidx.navigation.NavController) {
     val state = collectSOSControlState(victimKey)
     if (state == null) return  // no active SOS for this peer
     // Actions are keyed on victimKey only — they re-read live state via
     // the stores when invoked, so they never need to recompose.
-    val actions = remember(victimKey) { sosControlActions(victimKey) }
+    val base = remember(victimKey) { sosControlActions(victimKey) }
+    // Responder-facing actions added on top of the base SOS set so a
+    // contact responding to a panic can actually DO something: navigate to
+    // the victim's last fix, and call them. Suppressed when the local
+    // device IS the victim (calling/navigating to yourself is meaningless)
+    // or when there's no fix yet (maps).
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    val startCall = app.aether.aegis.call.rememberCallStarter(navController)
+    val isVictim = victimKey == AegisApp.instance.identity.deviceId
+    val fix = state.locationFix
+    val actions = base.copy(
+        onOpenMaps = if (!isVictim && fix != null) {
+            { openInMaps(ctx, fix.lat, fix.lng, state.peerName) }
+        } else null,
+        onCall = if (!isVictim) {
+            { video -> startCall(victimKey, state.peerName, video) }
+        } else null,
+    )
     DeviceControlScreen(state, actions)
+}
+
+/** Open [lat]/[lng] in whatever maps app handles `geo:`, falling back to a
+ *  Google Maps web URL if no geo handler exists. Best-effort — a missing
+ *  maps app must not crash the panic screen. */
+private fun openInMaps(ctx: android.content.Context, lat: Double, lng: Double, label: String) {
+    val q = "$lat,$lng(${android.net.Uri.encode(label)})"
+    val geo = android.content.Intent(
+        android.content.Intent.ACTION_VIEW,
+        android.net.Uri.parse("geo:$lat,$lng?q=$q"),
+    ).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+    val ok = runCatching { ctx.startActivity(geo); true }.getOrDefault(false)
+    if (!ok) runCatching {
+        ctx.startActivity(
+            android.content.Intent(
+                android.content.Intent.ACTION_VIEW,
+                android.net.Uri.parse("https://maps.google.com/?q=$lat,$lng"),
+            ).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
+        )
+    }
 }
 
 /**
@@ -108,15 +145,21 @@ private fun collectSOSControlState(victimKey: String): ControlState? {
         if (lat != null && lng != null) GeoFix(lat, lng, s.lastActive) else null
     }
 
-    // SOS frame — file path on disk. Read bytes for the shell.
-    // Cheap: bounded ~100 KB JPEGs, only re-read on alert tick (not
-    // every recomposition, because we `remember` on the path).
-    val framePath = alert.latestSnapshotPath
-    val frontFrame = remember(framePath, alert.latestSnapshotAt) {
-        if (framePath == null) return@remember null
-        val bytes = runCatching { java.io.File(framePath).readBytes() }.getOrNull()
+    // SOS frames — the victim's phone fans out BOTH lenses (rear = scene,
+    // front = who's with them), tagged so each lands in its correct slot.
+    // Read bytes for the shell; cheap (bounded ~100 KB JPEGs) and only
+    // re-read when the per-lens path/timestamp changes (remember key).
+    val frontFrame = remember(alert.latestFrontSnapshotPath, alert.latestFrontSnapshotAt) {
+        val p = alert.latestFrontSnapshotPath ?: return@remember null
+        val bytes = runCatching { java.io.File(p).readBytes() }.getOrNull()
             ?: return@remember null
-        FrameSnapshot(bytes = bytes, ts = alert.latestSnapshotAt, lensLabel = "front")
+        FrameSnapshot(bytes = bytes, ts = alert.latestFrontSnapshotAt, lensLabel = "front")
+    }
+    val rearFrame = remember(alert.latestRearSnapshotPath, alert.latestRearSnapshotAt) {
+        val p = alert.latestRearSnapshotPath ?: return@remember null
+        val bytes = runCatching { java.io.File(p).readBytes() }.getOrNull()
+            ?: return@remember null
+        FrameSnapshot(bytes = bytes, ts = alert.latestRearSnapshotAt, lensLabel = "rear")
     }
 
     // A responder counts as "arrived" once it has reported an arrival
@@ -136,7 +179,7 @@ private fun collectSOSControlState(victimKey: String): ControlState? {
         mode = ControlMode.SOS,
         locationFix = location,
         frontFrame = frontFrame,
-        rearFrame = null,  // SOS broadcasts a single frame stream
+        rearFrame = rearFrame,  // both lenses now fanned out + slotted
         audioClips = audioClips,
         battery = status?.batteryLevel,
         networkType = status?.networkType,

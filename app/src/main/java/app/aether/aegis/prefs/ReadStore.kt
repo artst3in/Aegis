@@ -57,7 +57,8 @@ object UnreadTracker {
         AegisApp.instance.repository.observeLastMessagePerPeer(),
         ReadStore.reads,
         AegisApp.instance.repository.observeGroups(),
-    ) { lastByPeer, reads, groups ->
+        app.aether.aegis.groups.GroupModulePrefs.enabledFlowStatic(),
+    ) { lastByPeer, reads, groups, groupModuleEnabled ->
         val self = AegisApp.instance.identity.deviceId
         // Group conversation keys that STILL EXIST. Leaving or deleting a
         // group can strand its message rows (peerKey "group:<id>") without
@@ -71,8 +72,20 @@ object UnreadTracker {
         val liveGroupKeys = groups.mapTo(HashSet()) { "group:${it.id}" }
         val unread = lastByPeer.entries.asSequence()
             .filter { (peer, msg) ->
+                val isGroup = peer.startsWith("group:")
+                // Group module gate. When the module is OFF, suppress ALL
+                // group unreads: inbound group messages are already dropped
+                // at dispatch while disabled, but messages stored BEFORE the
+                // module was turned off keep their group:<id> key unread
+                // forever (the Groups surface is disabled, so the user can't
+                // open the group to clear the watermark). That stale key lit
+                // the Groups tab dot, the Comms nav dot, and the widget,
+                // falsely signalling that groups run in the background (user
+                // report 2026-06-23). State is preserved — the dot returns
+                // when the module is re-enabled.
+                if (isGroup && !groupModuleEnabled) return@filter false
                 msg.from != self && msg.timestamp > (reads[peer] ?: 0L) &&
-                    (!peer.startsWith("group:") || peer in liveGroupKeys)
+                    (!isGroup || peer in liveGroupKeys)
             }
             .map { it.key }
             .toSet()

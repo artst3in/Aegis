@@ -239,7 +239,7 @@
     <string name="_relayonly_ice_and_call">केवल-रिले ICE और कॉल डायग्नोस्टिक्स.</string>
     <string name="_stops_screenshots_screen_recording">स्क्रीनशॉट, रिकॉर्डिंग और प्रीव्यू रोकता है.</string>
     <string name="_unfinished_features_hidden_behind">7-टैप गेट के पीछे अधूरी सुविधाएं.</string>
-    <string name="_wifionly_by_default_apks">WiFi केवल -- APK ~45-65 MB.</string>
+    <string name="_wifionly_by_default_apks">WiFi केवल -- APK ~100 MB.</string>
     <!-- SimSwapSettingsScreen -->
     <string name="sim_swap_sim_swap_alert">SIM बदलने की चेतावनी</string>
     <string name="sim_swap_when_the_sim_in">जब फोन में SIM बदलता है, अलर्ट भेजा जाता है.</string>
@@ -247,7 +247,7 @@
     <string name="splash_aegis_logo">Aegis लोगो</string>
     <string name="splash_splashscale">splash-scale</string>
     <!-- UpdateSettingsScreen -->
-    <string name="update_aegis_polls_github_every">Aegis हर 24 घंटे GitHub जाँचता है.</string>
+    <string name="update_how_it_works_body">Aegis हर 24 घंटे GitHub पर नए बिल्ड की जांच करता है। प्रत्येक APK ~100 MB है। डिफ़ॉल्ट रूप से हम केवल WiFi पर डाउनलोड करते हैं — हर रिलीज़ में मोबाइल डेटा पर इतना डाउनलोड करने में असली पैसे खर्च होंगे।</string>
     <string name="update_beltandbraces_type_rollback_below">नीचे ROLLBACK टाइप करें.</string>
     <string name="update_check_interval">जाँच अंतराल</string>
     <string name="update_how_often_aegis_polls">Aegis कितनी बार GitHub से नए बिल्ड की जाँच करता है.</string>
@@ -521,9 +521,9 @@
     <string name="tutorial_">•  </string>
     <string name="tutorial_aegis">AEGIS</string>
     <string name="tutorial_aegis_is_free_forever">Aegis हमेशा मुफ्त. कोई विज्ञापन नहीं. कोई ट्रैकिंग नहीं. डेटा नहीं बेचा जाता.</string>
-    <string name="tutorial_aegis_will_open_without">Aegis بिना पूछे खुलेगा. PIN डेटा सुरक्षित करता है.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis बिना कुछ पूछे खुलेगा। आपका PIN अभी भी मौजूद है — ज़बरदस्ती, रिमोट एक्सेस और संदेशों को एन्क्रिप्ट करने के लिए। आप सेटिंग्स में कभी भी लॉक दोबारा चालू कर सकते हैं।</string>
     <string name="tutorial_anyone_who_sees_these">जो भी ये शब्द देखे वह आपका खाता रखता है</string>
-    <string name="tutorial_biometric_login_is_convenient">बायोमेट्रिक लॉगिन सुविधाजनक लेकिन दबाव छोड़ता है.</string>
+    <string name="tutorial_biometric_login_is_convenient">बायोमेट्रिक लॉगिन सुविधाजनक है लेकिन ज़बरदस्ती सुरक्षा को छोड़ देता है। अगर कोई आपकी उंगली का निशान ज़बरदस्ती इस्तेमाल करे तो असली प्रोफ़ाइल खुलती है। अधिकतम सुरक्षा के लिए PIN की सिफ़ारिश है।</string>
     <string name="tutorial_biometric_skips_duress">बायोमेट्रिक दबाव छोड़ता है</string>
     <string name="tutorial_choose_how_you_unlock">खोलने का तरीका चुनें</string>
     <string name="tutorial_confirm_pin">PIN पुष्टि करें</string>
@@ -537,13 +537,13 @@
     <string name="tutorial_find_your_way_around">ऐप को जानें</string>
     <string name="tutorial_fingerprint_face">फिंगरप्रिंट / चेहरा</string>
     <string name="tutorial_get_started">शुरू करें</string>
-    <string name="tutorial_if_it_ever_helps">अगर मदद मिले तो Aether प्रोजेक्ट का समर्थन कर सकते हैं.</string>
-    <string name="tutorial_it_is_your_master">यह आपकी मास्टर कुंजी है</string>
+    <string name="tutorial_if_it_ever_helps">अगर यह कभी आपकी मदद करे, तो आप सिस्टम → परिचय से प्रोजेक्ट Aether का समर्थन कर सकते हैं।</string>
+    <string name="tutorial_it_is_your_master">यह आपकी मास्टर कुंजी है, एक बार दिखाई गई। हम इसे कभी स्टोर नहीं करते और कभी दोबारा नहीं दिखाएंगे — न PIN के पीछे, न आपकी उंगली के निशान के पीछे। अगर आपने इसे नहीं लिखा, तो यह इसकी कीमत है कि यह सच में आपकी है। अपनी कागज़ की कॉपी सुरक्षित रखें।</string>
     <string name="tutorial_ive_written_it_down">मैंने लिख लिया</string>
     <string name="tutorial_keep_lock">लॉक रखें</string>
     <string name="tutorial_keep_pin_only">केवल PIN</string>
     <string name="tutorial_left_to_right_along">बाएं से दाएं नीचे के साथ:</string>
-    <string name="tutorial_make_sure_no_one">सुनिश्चित करें कोई नहीं देख रहा</string>
+    <string name="tutorial_make_sure_no_one">सुनिश्चित करें कि कोई नहीं देख रहा और कुछ भी आपकी स्क्रीन रिकॉर्ड नहीं कर रहा। स्क्रीनशॉट ब्लॉक हैं — स्क्रीनशॉट गैलरी में जाता है, क्लाउड में सिंक होता है और आपके फ़ोन तक पहुंच रखने वाला कोई भी देख सकता है। नीचे पैनल को खरोंचें अपने 24 शब्द देखने के लिए, उन्हें कागज़ पर लिखें और उस कागज़ को सुरक्षित जगह रखें।</string>
     <string name="tutorial_new_pin_48_digits">नया PIN (4–8 अंक)</string>
     <string name="tutorial_no_lock_screen">लॉक स्क्रीन नहीं</string>
     <string name="tutorial_open_without_a_lock">लॉक स्क्रीन के बिना खोलें?</string>
@@ -557,16 +557,16 @@
     <string name="tutorial_show_the_words_again">शब्द फिर से दिखाएं</string>
     <string name="tutorial_skip">छोड़ें</string>
     <string name="tutorial_skip_check_debug">जाँच छोड़ें (डीबग)</string>
-    <string name="tutorial_sos_stays_locked_in">SOS केंद्र में लॉक</string>
+    <string name="tutorial_sos_stays_locked_in">SOS बीच में लॉक रहता है। बाकी को सिस्टम → नेविगेशन में बदल सकते हैं।</string>
     <string name="tutorial_thank_you">धन्यवाद</string>
     <string name="tutorial_the_skill_tree">स्किल ट्री</string>
-    <string name="tutorial_this_encrypts_your_messages">यह आपके संदेश एन्क्रिप्ट करता है और खाता रिकवर करता है.</string>
-    <string name="tutorial_this_is_the_only">यह एकमात्र प्रती है</string>
+    <string name="tutorial_this_encrypts_your_messages">यह आपके संदेशों को एन्क्रिप्ट करता है और अगर आप PIN भूल जाएं या उंगली का निशान खो दें तो खाता पुनर्प्राप्त करता है। अगर आप इसे खो दें, तो कोई भी — न हम, न कोई — आपका डेटा वापस ला सकता है।</string>
+    <string name="tutorial_this_is_the_only">यह एकमात्र कॉपी है। हम कुछ नहीं रखते। कोई \"वाक्यांश भूल गए\" नहीं है, कोई रीसेट नहीं और नया बनाने का कोई तरीका नहीं — न PIN से, न उंगली के निशान से, न हमसे। अगर आप यह कागज़ खो दें, आपका डेटा हमेशा के लिए चला जाएगा और पृथ्वी पर कोई इसे वापस नहीं ला सकता। अभी लिखें।</string>
     <string name="tutorial_three_tiers_of_trust">विश्वास के तीन स्तर</string>
     <string name="tutorial_what_makes_this_different">क्या इसे अलग बनाता है</string>
     <string name="tutorial_you_can_replay_this">आप मदद से यह ट्यूटोरियल दोहरा सकते हैं.</string>
     <string name="tutorial_your_messages_and_attachments">आपके संदेश और अटैचमेंट इस PIN से एन्क्रिप्टेड.</string>
-    <string name="tutorial_your_pin_is_set">PIN सेट हो गया और हमेशा काम करता है.</string>
+    <string name="tutorial_your_pin_is_set">आपका PIN सेट है और हमेशा काम करता है — यही ज़बरदस्ती मोड और रिमोट एक्सेस इस्तेमाल करते हैं। ये इसके ऊपर वैकल्पिक शॉर्टकट हैं।</string>
     <string name="tutorial_your_recovery_phrase">आपकी रिकवरी फ्रेज</string>
     <string name="tutorial_your_safety_net">आपका सुरक्षा जाल</string>
     <string name="tutorial_youre_ready">आप तैयार हैं</string>
@@ -673,7 +673,7 @@
     <string name="status_charging">चार्ज हो रही</string>
     <string name="remote_locate">खोजें</string>
     <string name="remote_siren">सायरन</string>
-    <string name="tutorial_bubble_welcome">वेलकम Project Aether. मैं Cyan हूँ — मैं आपका गाइड हूंगा.</string>
+    <string name="tutorial_bubble_welcome">प्रोजेक्ट Aether में आपका स्वागत है। मैं Cyan हूं — मैं आपका गाइड रहूंगा। पेन और कागज़ लें — मैं आपसे 24 शब्द लिखने को कहूंगा जो आपके संदेशों की रक्षा करते हैं।</string>
     <string name="tutorial_bubble_different">कोई फोन नंबर नहीं. कोई खाता नहीं. कोई सर्वर संदेश नहीं रखता. सिर्फ क्रिप्टोग्राफी.</string>
     <string name="tutorial_bubble_safety">यदि आप खतरे में हैं तो एक बटन सभी विश्वसनीय लोगों को सूचना भेजता है.</string>
     <string name="tutorial_bubble_tiers">आप तय करें कौन क्या देखे.</string>
@@ -736,4 +736,31 @@
     <string name="tutorial_perm_granted">अनुमति दी ✓</string>
     <string name="tutorial_perm_denied">अस्वीकृत</string>
     <string name="tutorial_perm_allow">अनुमति दें</string>
+
+    <string name="tutorial_perm_oem_title">%1$s बैटरी सेटिंग्स</string>
+    <string name="tutorial_perm_oem_open">%1$s सेटिंग्स खोलें</string>
+    <string name="tutorial_perm_denied_note">आप इसे बाद में सक्षम कर सकते हैं — सेटिंग्स खोलने के लिए टैप करें।</string>
+    <string name="tutorial_pin_explanation_existing">आपका PIN Aegis को अनलॉक करता है और यही वह कुंजी है जिससे आपके संदेश एन्क्रिप्ट होते हैं। 4–8 अंक।</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">वॉल्ट\nPIN</string>
+    <string name="tutorial_node_device_owner">डिवाइस\nमालिक</string>
+    <string name="tutorial_node_app_duress">ऐप\nज़बरदस्ती</string>
+    <string name="tutorial_skill_tree_explanation">ऐप PIN ज़बरदस्ती, फोटो, वॉल्ट, कैनरी, SIM वॉच और जियोफेंस खोलता है — एक बार सेट करें और बाकी खुल जाएंगे। शीर्ष स्तर डिवाइस मालिक है।</string>
+    <string name="tutorial_phrase_intro">अगली स्क्रीन पर आपको 24 शब्द दिखेंगे। पैनल को खरोंचकर उन्हें देखें और सभी को कागज़ पर लिखें।</string>
+    <string name="tutorial_phrase_show">फ्रेज़ दिखाएं</string>
+    <string name="tutorial_phrase_scratch">खरोंचकर देखें, फिर सभी 24 शब्द क्रम में लिखें।</string>
+    <string name="tutorial_phrase_confirm">पुष्टि करें कि आपने सहेजा। अपने कागज़ से शब्द %1$s दर्ज करें।</string>
+    <string name="tutorial_phrase_word_n">शब्द #%1$d</string>
+    <string name="tutorial_phrase_mismatch">शब्द मेल नहीं खाते। अपना कागज़ जांचें।</string>
+    <string name="tutorial_phrase_write_down">ये 24 शब्द कागज़ पर लिखें। ये सब कुछ की कुंजी हैं।</string>
+    <string name="tutorial_phrase_already_saved">पहले से सहेजा हुआ। अपनी कागज़ की कॉपी सुरक्षित रखें।</string>
+    <string name="tutorial_draw_pattern">अपना पैटर्न बनाएं</string>
+    <string name="tutorial_draw_pattern_confirm">पुष्टि के लिए दोबारा बनाएं</string>
+    <string name="tutorial_pattern_min_dots">कम से कम %1$d बिंदु उपयोग करें।</string>
+    <string name="tutorial_pattern_mismatch">मेल नहीं खाता — फिर से शुरू करें।</string>
+    <string name="tutorial_bio_need_pin_first">पहले अपना PIN सेट करें, फिर बायोमेट्रिक जोड़ें।</string>
+    <string name="tutorial_bio_failed">बायोमेट्रिक सक्षम नहीं हो सका। फिर कोशिश करें।</string>
+    <string name="tutorial_pin_save_error">PIN सहेज नहीं सका: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN सहेजा नहीं गया — डायग्नोस्टिक्स जांचें।</string>
 </resources>

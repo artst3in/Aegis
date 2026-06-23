@@ -1,5 +1,12 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisIcon
+import app.aether.aegis.ui.components.AegisIcons
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisButton
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.geofence.GeofenceStore
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -59,11 +66,11 @@ fun GeofenceSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string.security_geofence)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Text("←", fontSize = 20.sp)
+                        AegisIcon(AegisIcons.Back, "back")
                     }
                 },
             )
@@ -144,7 +151,7 @@ fun GeofenceSettingsScreen(navController: NavController) {
                         fontSize = 12.sp,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = {
+                    AegisButton(onClick = {
                         // Read the current location and pin the geofence
                         // to it. Tries GPS → NETWORK → PASSIVE (each
                         // platform-direct, no Play Services). If
@@ -233,20 +240,20 @@ fun GeofenceSettingsScreen(navController: NavController) {
                     // recomputes and the status row updates immediately.
                     // The Resume button only appears while paused.
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        OutlinedButton(onClick = {
+                        AegisOutlinedButton(onClick = {
                             store.pauseFor(1)
                             pausedUntil = store.pausedUntil
                         }) { Text("1h") }
-                        OutlinedButton(onClick = {
+                        AegisOutlinedButton(onClick = {
                             store.pauseFor(4)
                             pausedUntil = store.pausedUntil
                         }) { Text("4h") }
-                        OutlinedButton(onClick = {
+                        AegisOutlinedButton(onClick = {
                             store.pauseFor(8)
                             pausedUntil = store.pausedUntil
                         }) { Text("8h") }
                         if (paused) {
-                            OutlinedButton(onClick = {
+                            AegisOutlinedButton(onClick = {
                                 store.resumeNow()
                                 pausedUntil = 0L
                             }) { Text(stringResource(R.string.geofence_resume)) }

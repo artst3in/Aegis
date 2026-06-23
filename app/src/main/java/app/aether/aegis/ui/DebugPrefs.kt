@@ -14,8 +14,15 @@ val LocalDebugOverlay = compositionLocalOf { false }
  * overlay is now a MENU of independently-selectable items — the user
  * atomically picks what they want drawn:
  *
- *   - [Item.COUNTER]     FPS / heap / network text in the header.
- *   - [Item.GRAPH]       frame-time sparkline in the header.
+ *   - [Item.COUNTER]     FPS / heap / network text (standalone top-right
+ *                        overlay — NOT the header; counters there shoved the
+ *                        icons and overlapped the wordmark).
+ *   - [Item.GRAPH]       frame-time sparkline (same standalone overlay).
+ *   - [Item.FRAME_TIMING] avg / p95 / dropped-frame pill. OFF by default —
+ *                        it self-reposts a Choreographer callback every vsync,
+ *                        which forces a continuous render loop, so leaving it
+ *                        always-on pinned the CPU (user report).
+ *   - [Item.BUILD]       running build-version badge (top-right).
  *   - [Item.COARSE_GRID] 8 dp alignment grid + bright centre lines,
  *                        drawn over the WHOLE window (header included) so
  *                        pixel-level placement — e.g. the centred lock
@@ -34,8 +41,10 @@ class DebugPrefs(context: Context) {
 
     /** The selectable overlay items. [label]/[desc] drive the menu rows. */
     enum class Item(val key: String, val label: String, val desc: String) {
-        COUNTER("counter", "Counters", "FPS · heap · network bytes in the header"),
-        GRAPH("graph", "Frame graph", "Frame-time sparkline in the header"),
+        COUNTER("counter", "Counters", "FPS · heap · network bytes (top-right overlay)"),
+        GRAPH("graph", "Frame graph", "Frame-time sparkline (top-right overlay)"),
+        FRAME_TIMING("frame_timing", "Frame timing", "avg / p95 / dropped-frame pill (top-right)"),
+        BUILD("build", "Build version", "running build version badge (top-right)"),
         COARSE_GRID("coarse_grid", "Coarse grid", "8 dp grid + centre lines (whole screen)"),
         FINE_GRID("fine_grid", "Fine grid", "2 dp grid for sub-pixel alignment"),
     }

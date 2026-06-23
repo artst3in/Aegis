@@ -1,5 +1,7 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -147,6 +149,14 @@ fun SettingsScreen(
                         }
                     }
                 },
+            )
+            // In-app notification CONTENT privacy (full / name only / hidden) —
+            // distinct from the OS link above, which controls sound/channels.
+            // This decides how much of a message leaks to the shade.
+            SettingsLinkRow(
+                title = "Notification privacy",
+                subtitle = "Hide sender names or message text on the lock screen.",
+                onClick = { navController?.navigate("settings/notifications") },
             )
             SettingsLinkRow(
                 title = stringResource(R.string.settings_quiet_hours),
@@ -556,7 +566,7 @@ private fun OutboxCard() {
                 fontSize = 12.sp,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedButton(onClick = {
+            AegisOutlinedButton(onClick = {
                 scope.launch { AegisApp.instance.repository.clearOutbox() }
             }) {
                 Text(stringResource(R.string._clear_all_queued))

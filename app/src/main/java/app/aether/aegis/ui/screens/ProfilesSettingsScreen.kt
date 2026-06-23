@@ -1,5 +1,9 @@
 package app.aether.aegis.ui.screens
 
+import app.aether.aegis.ui.components.AegisTopBar
+
+import app.aether.aegis.ui.components.AegisOutlinedButton
+
 import app.aether.aegis.profile.ProfileRegistry
 import app.aether.aegis.profile.ProfileRoot
 import app.aether.aegis.lock.LockStore
@@ -134,7 +138,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            AegisTopBar(
                 title = { Text(stringResource(R.string._profiles)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -201,7 +205,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
             // we do NOT kill the process to start onboarding, only when
             // you actually open a new permanent profile or enter an
             // ephemeral one.
-            OutlinedButton(
+            AegisOutlinedButton(
                 onClick = { onboardingOpen = true },
                 modifier = Modifier.fillMaxWidth(),
             ) { Text(stringResource(R.string.profiles_new_profile)) }
@@ -211,7 +215,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
             // makes throwaway data forensically permanent — hence the red
             // warning. (Permanent → ephemeral isn't offered; see makePermanent.)
             if (registry.isEphemeral(activeId)) {
-                OutlinedButton(
+                AegisOutlinedButton(
                     onClick = { showMakePermanent = true },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
@@ -237,7 +241,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     // Permanent · create
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             onboardingOpen = false
                             createEphemeral = false; createForImport = false; createOpen = true
@@ -245,7 +249,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                     ) { Text(stringResource(R.string.profiles_permanent_start_fresh)) }
                     // Permanent · import
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             onboardingOpen = false
                             createEphemeral = false; createForImport = true; createOpen = true
@@ -253,7 +257,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                     ) { Text(stringResource(R.string.profiles_permanent_import_a_backup)) }
                     // Ephemeral · create — wiped on lock.
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             onboardingOpen = false
                             createEphemeral = true; createForImport = false; createOpen = true
@@ -262,7 +266,7 @@ fun ProfilesSettingsScreen(navController: NavController) {
                     ) { Text(stringResource(R.string.profiles_ephemeral_start_fresh)) }
                     // Ephemeral · import — inspect a backup without committing
                     // it to disk; gone on lock.
-                    OutlinedButton(
+                    AegisOutlinedButton(
                         onClick = {
                             onboardingOpen = false
                             createEphemeral = true; createForImport = true; createOpen = true
