@@ -1,0 +1,30 @@
+<!-- Incognito mark — angular LunaGlass cut. Fedora + spectacles, but
+     drawn with straight facets, miter joins and square caps (the same
+     treatment as ic_aegis_heart) instead of the old round-cap curves, so
+     it sits in the hexagonal/faceted icon family. Used as the avatar
+     stand-in for UNTRUSTED contacts (a face you haven't vetted). 24dp,
+     white stroke 1.8. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- Hat brim — shallow angular peak, not a curve. -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8"
+        android:strokeLineCap="square" android:strokeLineJoin="miter"
+        android:fillColor="#00000000" android:pathData="M3.5,11.5 L12,10.2 L20.5,11.5" />
+    <!-- Hat crown — faceted trapezoid. -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8"
+        android:strokeLineCap="square" android:strokeLineJoin="miter"
+        android:fillColor="#00000000" android:pathData="M7.4,11 L8.7,6.3 L15.3,6.3 L16.6,11" />
+    <!-- Left lens — angular diamond. -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8"
+        android:strokeLineCap="square" android:strokeLineJoin="miter"
+        android:fillColor="#00000000" android:pathData="M8.3,13.3 L10.5,15.5 L8.3,17.7 L6.1,15.5 Z" />
+    <!-- Right lens — angular diamond. -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8"
+        android:strokeLineCap="square" android:strokeLineJoin="miter"
+        android:fillColor="#00000000" android:pathData="M15.7,13.3 L17.9,15.5 L15.7,17.7 L13.5,15.5 Z" />
+    <!-- Bridge. -->
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="1.8"
+        android:strokeLineCap="square" android:strokeLineJoin="miter"
+        android:fillColor="#00000000" android:pathData="M10.5,15.5 L13.5,15.5" />
+</vector>

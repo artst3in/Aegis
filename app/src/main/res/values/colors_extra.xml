@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Adaptive-icon background — matches the cosmic theme so the
+         launcher icon reads as a continuation of the in-app palette
+         when Android shows the launcher background through. -->
+    <color name="icon_background">#00000000</color>
+</resources>

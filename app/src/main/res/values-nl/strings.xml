@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+
+    <!-- Navigatie -->
+    <string name="nav_chats">Berichten</string>
+    <string name="nav_sos">Paniek</string>
+    <string name="nav_settings">Systeem</string>
+
+    <!-- Algemene acties -->
+    <string name="action_save">Opslaan</string>
+    <string name="action_cancel">Annuleren</string>
+    <string name="action_done">Klaar</string>
+    <string name="action_back">Terug</string>
+    <string name="action_delete">Verwijderen</string>
+    <string name="action_clear">Wissen</string>
+    <string name="action_add">Toevoegen</string>
+    <string name="action_edit">Bewerken</string>
+    <string name="action_copy">Kopiëren</string>
+    <string name="action_share">Delen…</string>
+    <string name="action_send">Verzenden</string>
+    <string name="action_change">Wijzigen</string>
+
+    <!-- Profiel -->
+    <string name="profile_title">Jouw profiel</string>
+    <string name="profile_welcome">Welkom bij Aegis</string>
+    <string name="profile_display_name">Weergavenaam</string>
+    <string name="profile_your_name">Jouw naam</string>
+    <string name="profile_bio">Bio (optioneel)</string>
+    <string name="profile_bio_hint">Iets dat gekoppelde contacten zien als ze op je naam tikken.</string>
+    <string name="profile_saving">Opslaan…</string>
+    <string name="profile_get_started">Aan de slag</string>
+
+    <!-- Contacten -->
+    <string name="contact_title">Contact</string>
+    <string name="contact_not_found">Contact niet gevonden.</string>
+    <string name="contact_add">Contact toevoegen</string>
+    <string name="contact_connecting">Verbinden…</string>
+    <string name="contact_nickname">Bijnaam</string>
+    <string name="contact_nickname_hint">Bijnaam (hoe jij ze noemt)</string>
+    <string name="contact_my_nickname">Mijn bijnaam voor hen</string>
+    <string name="contact_save_nickname">Bijnaam opslaan</string>
+    <string name="contact_copy_link">Link kopiëren</string>
+    <string name="contact_accept_invite">Uitnodiging accepteren</string>
+    <string name="contact_accept_invitation">Uitnodiging accepteren</string>
+    <string name="contact_pin">Vastpinnen</string>
+    <string name="contact_unpin">Losmaken</string>
+    <string name="contact_mute">Dempen</string>
+    <string name="contact_notification_sound">Meldingsgeluid</string>
+
+    <!-- Chat -->
+    <string name="chat_add_caption">Bijschrift toevoegen…</string>
+    <string name="chat_clear">Chat wissen</string>
+    <string name="chat_clear_confirm">Deze chat wissen?</string>
+    <string name="chat_schedule_message">Bericht inplannen</string>
+    <string name="chat_cancel_edit">Bewerking annuleren</string>
+    <string name="chat_cancel_reply">Antwoord annuleren</string>
+    <string name="chat_voice_message">Spraakbericht</string>
+    <string name="chat_file">Bestand</string>
+    <string name="chat_location">Locatie</string>
+    <string name="chat_camera">Camera</string>
+
+    <!-- Groepen -->
+    <string name="group_new">Nieuwe groep</string>
+    <string name="group_name">Groepsnaam</string>
+    <string name="group_creating">Aanmaken…</string>
+    <string name="group_create">Groep aanmaken</string>
+
+    <!-- Bellen -->
+    <string name="call_voice">Spraakoproep</string>
+    <string name="call_video">Videogesprek</string>
+    <string name="call_calling">Bellen…</string>
+
+    <!-- Paniek -->
+    <string name="sos_title">PANIEK</string>
+    <string name="sos_active">ACTIEF</string>
+    <string name="sos_broadcasting">Uitzenden</string>
+    <string name="sos_emergency">NOODGEVAL</string>
+    <string name="sos_stop">STOP</string>
+
+    <!-- Voyager -->
+
+    <!-- Dwang -->
+    <string name="duress_confirm_pin">PIN bevestigen</string>
+    <string name="duress_confirm_duress_pin">Dwang-PIN bevestigen</string>
+    <string name="duress_change_pin">PIN wijzigen</string>
+
+    <!-- Instellingen -->
+    <string name="settings_title">Systeem</string>
+    <string name="settings_app_lock">App-vergrendeling</string>
+    <string name="settings_auto_lock">Automatisch vergrendelen</string>
+    <string name="settings_calls">Oproepen</string>
+    <string name="settings_updates">Updates</string>
+    <string name="settings_quiet_hours">Stille uren</string>
+    <string name="settings_canary">Kanariebericht</string>
+    <string name="settings_wifi_only">Alleen via wifi</string>
+    <string name="settings_checking">Controleren…</string>
+    <string name="settings_enabled">Ingeschakeld</string>
+    <string name="settings_start">Begin</string>
+    <string name="settings_end">Einde</string>
+    <string name="settings_how_it_works">Hoe het werkt</string>
+    <string name="settings_message">Bericht</string>
+    <string name="settings_checkin_window">Inchecktijd</string>
+
+    <!-- Status -->
+    <string name="status_online">online</string>
+    <string name="status_offline">offline</string>
+    <string name="status_away">afwezig</string>
+    <string name="status_battery">Batterij</string>
+    <string name="status_charging">Opladen</string>
+
+    <!-- Beveiliging -->
+
+    <!-- Updates -->
+    <string name="update_available">Update beschikbaar</string>
+
+    <!-- Afstandsbediening -->
+    <string name="remote_locate">Lokaliseren</string>
+    <string name="remote_siren">Sirene</string>
+
+    <!-- Loki -->
+    <string name="loki_mugshot_armed">Gewapend — maakt foto na %d foute PIN-pogingen.</string>
+    <string name="loki_sim_armed">Gewapend. Huidige SIM:</string>
+    <string name="loki_canary_armed">Gewapend. Open de app om de timer te resetten.</string>
+    <string name="loki_deadmans_switch">Dodemanschakelaar</string>
+
+    <!-- Overig -->
+    <string name="nav_security">Beveiliging</string>
+    <string name="nav_radar">Radar</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">Kopieerfout</string>
+    <string name="add_contact_generate_a_onetime_link">Eenmalige link maken. Het beste persoonlijk.</string>
+    <string name="add_contact_generating_link">Link genereren…</string>
+    <string name="add_contact_got_their_invitation_link">Link ontvangen? QR scannen of plakken.</string>
+    <string name="add_contact_invitation_qr">uitnodigings-QR</string>
+    <string name="add_contact_invite_someone">Iemand uitnodigen</string>
+    <string name="add_contact_joining_a_group_no">Groep bijtreden -- bijnaam niet nodig.</string>
+    <string name="add_contact_or_paste_an_invitation">...of plak een uitnodiging / groepslink</string>
+    <string name="add_contact_pair_via_simplex_exchange">Koppelen via SimpleX -- eenmalige link uitwisselen.</string>
+    <string name="add_contact_paired">Gekoppeld ✓</string>
+    <string name="add_contact_pick_qr_from_photo">QR uit foto kiezen</string>
+    <string name="add_contact_show_this_qr_to">Toon deze QR of deel de link.</string>
+    <string name="add_contact_they_see_you_as">Ze zien jou ook als een willekeurige alias.</string>
+    <string name="add_contact_they_sent_you_a">Ze hebben je een link of QR gestuurd. Scan of plak.</string>
+    <string name="add_contact_theyll_see_you_as">Ze zien je als een willekeurige alias.</string>
+    <string name="add_contact_waiting_for_them_to">Wachten op acceptatie…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">Microfoontest</string>
+    <string name="call_relayonly_calls">Alleen relay-oproepen</string>
+    <string name="call_run_mic_test">Microfoontest uitvoeren</string>
+    <string name="call_troubleshooting">Probleemoplossing</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Hoe lang zonder Aegis te openen voor de kanarie.</string>
+    <string name="canary_i_havent_checked_in">Ik heb me even niet gemeld. </string>
+    <string name="canary_if_you_dont_open">Als je Aegis niet opent binnen het ingestelde venster, </string>
+    <string name="canary_sent_verbatim_to_every">Wordt letterlijk naar elk gekoppeld contact gestuurd.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">Accepteren</string>
+    <string name="chat_list_add_contact">Contact toevoegen</string>
+    <string name="chat_list_add_your_first_contact">Voeg je eerste contact toe</string>
+    <string name="chat_list_automatically_turn_off_the">Groepsmodule automatisch uitschakelen na een periode.</string>
+    <string name="chat_list_disable">Uitschakelen</string>
+    <string name="chat_list_enable_group_chat">Groepschat inschakelen</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">Uitnodigen</string>
+    <string name="chat_list_join_via_link">Deelnemen via link</string>
+    <string name="chat_list_new_group">+ Nieuwe groep</string>
+    <string name="chat_list_no_groups_yet_tap">Geen groepen. Tik + Nieuwe groep om er een te maken.</string>
+    <string name="chat_list_pending_invitations">UITSTAANDE UITNODIGINGEN</string>
+    <string name="chat_list_public_groups_increase_your">Openbare groepen vergroten je aanvalsoppervlak.</string>
+    <string name="chat_list_removes_the_group_and">Verwijdert de groep en geschiedenis van dit apparaat.</string>
+    <string name="chat_list_revoke">Intrekken</string>
+    <string name="chat_list_search_messages">Berichten zoeken…</string>
+    <string name="chat_list_shield_paused_messages_and">Schild gepauzeerd - berichten en SOS onderbroken</string>
+    <string name="chat_list_tap_here_or_the">Tik hier of op de hex-knop om een uitnodigingslink te delen.</string>
+    <string name="chat_list_video_call">videogesprek</string>
+    <string name="chat_list_view">Bekijken</string>
+    <string name="chat_list_voice_call">spraakoproep</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">Een willekeurig alias, uniek voor dit contact — elke persoon die</string>
+    <string name="contact_detail_access_denied_wrong_pin">Toegang geweigerd -- foute PIN.</string>
+    <string name="contact_detail_authenticate">Verifieer</string>
+    <string name="contact_detail_battery">Batterij</string>
+    <string name="contact_detail_delete_contact">Contact verwijderen</string>
+    <string name="contact_detail_device_status">APPARAATSTATUS</string>
+    <string name="contact_detail_enable">Inschakelen</string>
+    <string name="contact_detail_group_this_contact_under">Dit contact groeperen onder een label.</string>
+    <string name="contact_detail_local_only_they_dont">Alleen lokaal — ze zien niet hoe je ze noemt.</string>
+    <string name="contact_detail_no_data_received_yet">Nog geen data -- wachten op eerste statusping.</string>
+    <string name="contact_detail_not_now">Nu niet</string>
+    <string name="contact_detail_notifications">MELDINGEN</string>
+    <string name="contact_detail_on_success_their_phone">Bij succes wordt hun telefoon vergrendeld en gelokaliseerd.</string>
+    <string name="contact_detail_one_label_per_contact">Eén label per contact. Bepaalt wat ze ontvangen.</string>
+    <string name="contact_detail_opening_remote_control">Afstandsbediening openen…</string>
+    <string name="contact_detail_removes_the_contact_every">Verwijdert het contact en elk bericht uit de 1:1-chat.</string>
+    <string name="contact_detail_repair_contact">Contact opnieuw koppelen</string>
+    <string name="contact_detail_their_achievements">HUN PRESTATIES</string>
+    <string name="contact_detail_this_person_will_be">Deze persoon kan je telefoon lokaliseren, vergrendelen en wissen.</string>
+    <string name="contact_detail_trust_tier">Vertrouwensniveau</string>
+    <string name="contact_detail_wearable">DRAAGBAAR</string>
+    <string name="contact_detail_you_appear_to_them">JE VERSCHIJNT BIJ HEN ALS</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">Botsingdetectie</string>
+    <string name="crash_detection_detects_a_vehicle_crash">Detecteert een auto-ongeluk bij harde impact.</string>
+    <string name="crash_detection_sensitivity">GEVOELIGHEID</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">ACTIES</string>
+    <string name="device_control_audio">AUDIO</string>
+    <string name="device_control_expires_in">verloopt over </string>
+    <string name="device_control_fix">repareer</string>
+    <string name="device_control_location">LOCATIE</string>
+    <string name="device_control_lock_did_not_fire">Vergrendeling niet geactiveerd — Apparaatbeheerder niet ingeschreven.</string>
+    <string name="device_control_lock_off">vergrendeling uit</string>
+    <string name="device_control_lockscreen_message">Vergrendelschermbericht</string>
+    <string name="device_control_no_frame">geen beeld</string>
+    <string name="device_control_remote_session">SESSIE OP AFSTAND</string>
+    <string name="device_control_send">Verzenden</string>
+    <string name="device_control_this_is_the_last">Dit is de laatste stap voor de fabrieksreset.</string>
+    <string name="device_control_this_triggers_a_full">Dit activeert een VOLLEDIGE FABRIEKSRESET op het doel.</string>
+    <string name="device_control_type_wipe">Typ WIPE</string>
+    <string name="device_control_type_wipe_to_confirm">Typ WIPE om te bevestigen</string>
+    <string name="device_control_wipe_device">Apparaat wissen</string>
+    <string name="device_control_wipe_target_device">Doelapparaat wissen?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">Toegang op afstand</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">Hard gooien/grijpen activeert SOS. Experimenteel.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">Indringingsdetectie. Cascade van 3 sensoren.</string>
+    <string name="experimental_crash_sensitivity_settings">Botsinggevoeligheid ></string>
+    <string name="experimental_detect_a_vehicle_crash">Detecteer botsing en stuur SOS na 30s.</string>
+    <string name="experimental_event_log">Gebeurtenislog →</string>
+    <string name="experimental_here_be_dragons">Hier wonen draken</string>
+    <string name="experimental_inbox">Postvak →</string>
+    <string name="experimental_relock_experimental_section">Experimentele sectie hervergrendelen</string>
+    <string name="experimental_snatch_detection">Grijpdetectie</string>
+    <string name="experimental_these_features_are_unfinished">Deze functies zijn onaf en kunnen de batterij leegtrekken.</string>
+    <string name="experimental_vehicle_crash_detection">Botsingdetectie</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">Back-up wachtwoordzin invoeren</string>
+    <string name="first_run_passphrase">Wachtwoordzin</string>
+    <string name="first_run_restore">Herstellen</string>
+    <string name="first_run_restore_from_a_previous">Herstellen of opnieuw beginnen.</string>
+    <string name="first_run_start_fresh">Opnieuw beginnen</string>
+    <string name="first_run_welcome_to_aegis">Welkom bij Aegis</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">Pauzeren</string>
+    <string name="geofence_radius">Radius</string>
+    <string name="geofence_resume">Hervatten</string>
+    <string name="geofence_set_a_circular_zone">Circulaire zone instellen. Melding bij verlaten.</string>
+    <string name="geofence_zone_centre">Zonecentrum</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">Leden</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis vereist ontgrendeling bij start en na achtergrond.</string>
+    <string name="lock_after_too_many_wrong">Na te veel foute PINs, data permanent wissen.</string>
+    <string name="lock_arm">Inschakelen</string>
+    <string name="lock_arm_selfdestruct">Zelfvernietiging inschakelen?</string>
+    <string name="lock_biometric_login_is_convenient">Biometrie is handig maar slaat dwang over.</string>
+    <string name="lock_deletes_the_pin_entirely">Verwijdert de PIN EN de dwang-PIN indien ingesteld.</string>
+    <string name="lock_draw_a_pattern_to">Teken een patroon om te ontgrendelen in plaats van PIN.</string>
+    <string name="lock_duress_pin_48_digits">Dwang-PIN (4-8 cijfers)</string>
+    <string name="lock_enable_device_admin">Apparaatbeheer inschakelen</string>
+    <string name="lock_entering_this_pin_opens">Deze PIN opent een nepprofiel en activeert stille SOS.</string>
+    <string name="lock_fast_convenient_but_it">Snel en handig -- maar slaat dwang over.</string>
+    <string name="lock_how_long_after_backgrounding">Tijd voordat auto-vergrendeling activeert.</string>
+    <string name="lock_maximum_security_your_encryption">Maximale beveiliging: je encryptiesleutel wordt nooit opgeslagen op</string>
+    <string name="lock_pattern_unlock">Patroonontgrendeling</string>
+    <string name="lock_remove_pin">PIN verwijderen</string>
+    <string name="lock_require_pin_to_open">PIN vereist om Aegis te openen</string>
+    <string name="lock_require_recovery_phrase_on">Herstelzin vereisen bij herstart</string>
+    <string name="lock_scramble_pin_pad">PIN-toetsen willekeurig</string>
+    <string name="lock_shuffles_digit_positions_on">Schudt cijferposities bij elk ontgrendelen.</string>
+    <string name="lock_unlock_with_fingerprint_face">Ontgrendelen met vingerafdruk / gezicht</string>
+    <string name="lock_when_off_aegis_opens">Uit, Aegis opent zonder te vragen. PIN beschermt data.</string>
+    <string name="lock_wipe_after_failed_attempts">Wissen na mislukte pogingen</string>
+    <!-- MapScreen -->
+    <string name="map_charging">laden</string>
+    <string name="map_locate_on_map">lokaliseren op kaart</string>
+    <string name="map_radar">RADAR</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">hercentreren op familie</string>
+    <string name="map_solo">solo</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">Foto bij foute PIN</string>
+    <string name="mugshot_threshold">Drempel</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">Over profielen</string>
+    <string name="profiles_active">ACTIEF</string>
+    <string name="profiles_create">Aanmaken</string>
+    <string name="profiles_each_profile_is_a">Elk profiel is een compleet, geisoleerd Aegis.</string>
+    <string name="profiles_ephemeral_import_a_backup">Tijdelijk - back-up importeren</string>
+    <string name="profiles_ephemeral_start_fresh">Tijdelijk - opnieuw beginnen</string>
+    <string name="profiles_ive_written_it_down">Opgeschreven -- aanmaken</string>
+    <string name="profiles_keep_ephemeral">Tijdelijk houden</string>
+    <string name="profiles_make_permanent">Permanent maken?</string>
+    <string name="profiles_make_this_profile_permanent">Profiel permanent maken</string>
+    <string name="profiles_new_pin">Nieuwe PIN</string>
+    <string name="profiles_new_profile">Nieuw profiel</string>
+    <string name="profiles_permanent_import_a_backup">Permanent · backup importeren</string>
+    <string name="profiles_permanent_start_fresh">Permanent · opnieuw beginnen</string>
+    <string name="profiles_pick_a_short_id">Kies een kort ID (letters, cijfers, - _).</string>
+    <string name="profiles_profile_id">Profiel-ID</string>
+    <string name="profiles_sos_alerts_only_fire">SOS-meldingen alleen voor familie van actief profiel.</string>
+    <string name="profiles_switch">Wisselen</string>
+    <string name="profiles_these_24_words_are">Deze 24 woorden zijn de ENIGE sleutel tot de gegevens van dit profiel. </string>
+    <string name="profiles_this_conversation_will_be">Dit gesprek wordt opgeslagen op schijf en BEWAARD.</string>
+    <string name="profiles_write_down_your_recovery">Schrijf je herstelzin op</string>
+    <string name="profiles_your_current_profile_stays">Je huidige profiel blijft beveiligd op de achtergrond</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">Dempt chatmeldingen s nachts. SOS maakt je wakker.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">24-woorden zin</string>
+    <string name="recovery_unlock_back_to_pin">Terug naar PIN</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">Voer de 24-woorden herstelzin in.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">Herstellen met je zin</string>
+    <string name="recovery_unlock_recovered_set_a_new">Hersteld. Stel een nieuwe PIN in.</string>
+    <string name="recovery_unlock_set_pin">PIN instellen</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">Hulp is onderweg</string>
+    <string name="s_o_s_no_sos_recipients_promote">Geen SOS-ontvangers. Promoveer minstens een contact.</string>
+    <string name="s_o_s_plays_at_maximum_alarm">Speelt op maximaal alarmvolume tot ontgrendeling.</string>
+    <string name="s_o_s_start_siren">Sirene starten?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">App-PIN</string>
+    <string name="security_canary">Kanarie</string>
+    <string name="security_device_admin">Apparaatbeheer</string>
+    <string name="security_duress_mode_active_some">Dwangmodus actief. Sommige panelen zijn verborgen om de dekmantel te behouden.</string>
+    <string name="security_geofence">Geofencing</string>
+    <string name="security_mugshot">Foto</string>
+    <string name="security_sim_watch">SIM-bewaking</string>
+    <string name="security_sonar_experimental">Sonar · Experimenteel</string>
+    <string name="security_your_living_shield_each">Je levende schild. Elke hex is een beveiligingsfunctie.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">Geavanceerd: standaard SMP-servers overschrijven.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">Auto-verwijderen in nieuwe chats.</string>
+    <string name="_autorevoke_unused_11_invite">Ongebruikte 1:1 uitnodigingslinks automatisch intrekken na een bepaalde tijd.</string>
+    <string name="_backup">Back-up</string>
+    <string name="_block_screenshots">Screenshots blokkeren</string>
+    <string name="_clear_all_queued">Alle wachtrij wissen</string>
+    <string name="_disappearing_default">Standaard verdwijning</string>
+    <string name="_encrypted_file_backup_data">Versleutelde back-up -- data overleeft de-installatie.</string>
+    <string name="_experimental">Experimenteel</string>
+    <string name="_health_probes_driver_reloads">Gezondheidsprobes, driverherladingen, verbindingslog, debug-overlay.</string>
+    <string name="_language">Taal</string>
+    <string name="_multiple_isolated_aegis_profiles">Meerdere geisoleerde Aegis-profielen op dit apparaat.</string>
+    <string name="_mute_chat_notifications_at">Chatmeldingen dempen \'s nachts. SOS wekt je.</string>
+    <string name="_notifications">Meldingen</string>
+    <string name="_outbox">Postvak uit</string>
+    <string name="_perchannel_sound_vibration_and">Per kanaal geluid, trilling en belang —</string>
+    <string name="_performance_balanced_power_saver">Prestatie / Gebalanceerd / Energiebesparing + per-effect schakelaars.</string>
+    <string name="_pressandhold_send_call_video">Houd Verstuur / Bel / Video ingedrukt om te activeren. Voorkomt onbedoelde triggers.</string>
+    <string name="_profiles">Profielen</string>
+    <string name="_project_aether">PROJECT AETHER</string>
+    <string name="_readonly_inventory_of_every">Alleen-lezen inventaris van elk meegeleverd gedrag.</string>
+    <string name="_rearrange_the_bottom_tabs">Herschik de onderste tabbladen. SOS blijft gecentreerd.</string>
+    <string name="_relayonly_ice_and_call">Alleen-relay ICE en beldiagnose.</string>
+    <string name="_stops_screenshots_screen_recording">Blokkeert screenshots, schermopname en de</string>
+    <string name="_unfinished_features_hidden_behind">Onafgemaakte functies achter de 7-tik poort.</string>
+    <string name="_wifionly_by_default_apks">Alleen WiFi standaard -- APKs ~100 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">SIM-wissel melding</string>
+    <string name="sim_swap_when_the_sim_in">Als de SIM verandert, wordt een melding gestuurd.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Aegis-logo</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_how_it_works_body">Aegis controleert GitHub elke 24 uur op nieuwe builds. Elke APK is ~100 MB. Standaard downloaden we alleen via WiFi — zoveel via mobiele data downloaden bij elke release zou echt geld kosten.</string>
+    <string name="update_beltandbraces_type_rollback_below">Dubbele zekerheid -- typ ROLLBACK hieronder.</string>
+    <string name="update_check_interval">Controle-interval</string>
+    <string name="update_how_often_aegis_polls">Hoe vaak Aegis controleert. Lager = meer batterij.</string>
+    <string name="update_roll_back">Terugdraaien</string>
+    <string name="update_roll_back_to_previous">Terug naar vorige versie</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">De systeeminstalleerder wordt geopend.</string>
+    <string name="update_type_rollback_to_confirm">Typ ROLLBACK om te bevestigen</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">Bevestigen</string>
+    <string name="vault_pin_confirm_duress">Dwang bevestigen</string>
+    <string name="vault_pin_current_vault_pin">Huidige kluis-PIN</string>
+    <string name="vault_pin_entering_this_pin_at">Het invoeren van deze PIN bij de kluispoort opent een</string>
+    <string name="vault_pin_remove_duress_pin">Dwang-PIN verwijderen</string>
+    <string name="vault_pin_vault_pin">Kluis-PIN</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">Geen screenshots. Geen kopiëren. Geen spoor na sluiten.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">Ontvanger ziet een vuuricoon. Openen start het aftellen.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">Mogelijkheden</string>
+    <string name="capabilities_device_admin_enable_in">Apparaatbeheerder: inschakelen in Instellingen \u2192 Beveiliging \u2192 Apparaatbeheerder-apps.</string>
+    <string name="capabilities_device_owner_factoryreset_the">Eigenaar: fabrieksreset, controle.</string>
+    <string name="capabilities_live_status_green_active">Live status. Groen = actief. Gedimd = toestemming nodig.</string>
+    <string name="capabilities_stay_safe">Blijf veilig.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">Berichten in deze chat automatisch verbranden na de gekozen periode.</string>
+    <string name="chat_burn">Verbranden</string>
+    <string name="chat_burn_after_reading">Verbranden na lezen</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">Verwijderen voor iedereen</string>
+    <string name="chat_deletes_every_message_in">Verwijdert elk bericht in dit gesprek.</string>
+    <string name="chat_disappearing_messages">Verdwijnende berichten…</string>
+    <string name="chat_editing_message">Bericht bewerken</string>
+    <string name="chat_emergency_contact_they_receive">Noodcontact. Ontvangt alleen SOS-meldingen.</string>
+    <string name="chat_forward">Doorsturen</string>
+    <string name="chat_forward_to">Doorsturen naar…</string>
+    <string name="chat_gallery">Galerij</string>
+    <string name="chat_loading_preview">voorbeeld laden...</string>
+    <string name="chat_no_contacts_paired_yet">Nog geen contacten gekoppeld.</string>
+    <string name="chat_pick_when_to_send">Kies wanneer te verzenden. Aegis pollt elke minuut.</string>
+    <string name="chat_pinned">Vastgezet</string>
+    <string name="chat_reply">Beantwoorden</string>
+    <string name="chat_save_to_device">Opslaan op apparaat</string>
+    <string name="chat_save_to_notes">Opslaan in Notities</string>
+    <string name="chat_video">video</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">Alle bekende sinks leeg.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ is leeg.</string>
+    <string name="diagnostics_building_usage_history">Gebruiksgeschiedenis opbouwen…</string>
+    <string name="diagnostics_close">Sluiten</string>
+    <string name="diagnostics_copy">Kopieer</string>
+    <string name="diagnostics_device_owner">Apparaateigenaar</string>
+    <string name="diagnostics_diagnostics">Diagnostiek</string>
+    <string name="diagnostics_empty">(leeg)</string>
+    <string name="diagnostics_erase_all_aegis_data">ALLE Aegis-data wissen?</string>
+    <string name="diagnostics_erase_everything">Alles wissen</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">Subsystemen geforceerd resetten zonder de app te herstarten.</string>
+    <string name="diagnostics_how_much_data_aegis">Hoeveel data Aegis heeft verplaatst.</string>
+    <string name="diagnostics_kills_the_aegis_process">Beëindigt het Aegis-proces en herstart het. Lopende</string>
+    <string name="diagnostics_mainthread_sample_30_100">Main-thread sample (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">Geen signalen van manipulatie.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">Niets wordt ergens naartoe gestuurd en niets kan worden hersteld.</string>
+    <string name="diagnostics_process">PROCES</string>
+    <string name="diagnostics_reconnect_now">Nu verbinden</string>
+    <string name="diagnostics_relays">RELAYS</string>
+    <string name="diagnostics_reset">Resetten</string>
+    <string name="diagnostics_reset_simplex_core">SimpleX-kern resetten?</string>
+    <string name="diagnostics_restart">Herstarten</string>
+    <string name="diagnostics_restart_aegis">Aegis herstarten?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Aegis herstarten (volledige herstart)</string>
+    <string name="diagnostics_signer_sha256">Ondertekenaar SHA-256</string>
+    <string name="diagnostics_stop_all_sos">STOP ALLE SOS</string>
+    <string name="diagnostics_storage">Opslag</string>
+    <string name="diagnostics_subsystems_shut_off_as">Subsystemen schakelen uit als de batterij daalt, in volgorde. Volgende drempel</string>
+    <string name="diagnostics_tap_to_open">tik om te openen</string>
+    <string name="diagnostics_this_is_irreversible_it">Dit is onomkeerbaar. Herstelt dit apparaat naar een schone staat.</string>
+    <string name="diagnostics_threads">THREADS</string>
+    <string name="diagnostics_wipe_all_aegis_data">Alle Aegis-data van dit apparaat wissen.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">Wist de SimpleX-databases</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">Geen contacten. Koppel eerst iemand.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">Naar contact sturen</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">Alle visuele effecten hieronder zijn uitgeschakeld terwijl</string>
+    <string name="graphics_cyan_mascot">Cyan-mascotte</string>
+    <string name="graphics_data_rain">Dataregen</string>
+    <string name="graphics_effects_intensity">Effectintensiteit</string>
+    <string name="graphics_effects_suppressed_in_power">Effecten uitgeschakeld in energiebesparing</string>
+    <string name="graphics_faint_repeating_hex_pattern">Vaag herhalend zeshoekig patroon achter elk scherm.</string>
+    <string name="graphics_graphics">Grafisch</string>
+    <string name="graphics_graphics_profile">Grafisch profiel</string>
+    <string name="graphics_hex_grid_backdrop">Zeshoekig rasterachtergrond</string>
+    <string name="graphics_scan_line">Scanlijn</string>
+    <string name="graphics_scan_line_data_rain">Scanlijn en dataregentransparantie.</string>
+    <string name="graphics_show_the_chibi_mascot">Chibi-mascotte tonen op welkom- en lege schermen.</string>
+    <string name="graphics_single_cyan_line_crawling">Enkele cyaan lijn van boven naar beneden elke 30s.</string>
+    <string name="graphics_tiny_hex_particles_drifting">Kleine hex-deeltjes drijvend naar beneden.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">Groep verwijderen</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">Bericht</string>
+    <string name="group_chat_removes_the_group_and">Verwijdert de groep en de berichtgeschiedenis.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">Een korte notitie zichtbaar voor alle leden.</string>
+    <string name="group_members_about_this_group">Over deze groep</string>
+    <string name="group_members_active_in_this_group">Actief in deze groep</string>
+    <string name="group_members_anonymous_the_group_sees">Anoniem -- de groep ziet een alias, nooit je naam.</string>
+    <string name="group_members_apply">Toepassen</string>
+    <string name="group_members_armed">Geactiveerd</string>
+    <string name="group_members_autoburn_messages_in_this">Berichten automatisch verwijderen in deze groep.</string>
+    <string name="group_members_autodisable_timer">Auto-uitschakel timer</string>
+    <string name="group_members_autodisable_timer_for_this">Auto-deactiveringstimer voor deze groep</string>
+    <string name="group_members_configure">Configureren ›</string>
+    <string name="group_members_demote_to_member">Degraderen tot lid</string>
+    <string name="group_members_description">Beschrijving</string>
+    <string name="group_members_disappearing_messages">Verdwijnende berichten</string>
+    <string name="group_members_every_paired_contact_is">Elk gekoppeld contact is al in deze groep.</string>
+    <string name="group_members_group_description">Groepsbeschrijving</string>
+    <string name="group_members_group_image">GROEPSAFBEELDING</string>
+    <string name="group_members_group_name">Groepsnaam</string>
+    <string name="group_members_groups_are_always_incognito">Groepen zijn altijd incognito. Je profiel blijft verborgen.</string>
+    <string name="group_members_invite_member">Lid uitnodigen</string>
+    <string name="group_members_leave">Verlaten</string>
+    <string name="group_members_leave_group">Groep verlaten</string>
+    <string name="group_members_make_sure_the_photo">Zorg dat de foto jou of je locatie niet toont.</string>
+    <string name="group_members_minutes_min_1">Minuten (min 1)</string>
+    <string name="group_members_mute_group">Groep dempen</string>
+    <string name="group_members_no_members_yet_the">Geen leden. De host-bot en leden verschijnen hier.</string>
+    <string name="group_members_off_1_min_1">Uit / 1 min - 1 jaar. Geldt voor berichten in deze groep.</string>
+    <string name="group_members_promote_to_admin">Promoveren tot beheerder</string>
+    <string name="group_members_remove_from_group">Verwijderen uit groep</string>
+    <string name="group_members_removes_the_group_locally">Verwijdert groep lokaal en informeert de host.</string>
+    <string name="group_members_rename">Hernoemen</string>
+    <string name="group_members_rename_group">Groep hernoemen</string>
+    <string name="group_members_save">Opslaan</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">Wanneer het venster zonder jou verloopt.</string>
+    <string name="group_members_youll_stop_receiving_messages">Je ontvangt geen berichten meer van deze groep.</string>
+    <string name="group_members_your_identity_here">JE IDENTITEIT HIER</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">BASIS</string>
+    <string name="help_design_decisions">ONTWERPKEUZES</string>
+    <string name="help_experimental">EXPERIMENTEEL</string>
+    <string name="help_help">Help</string>
+    <string name="help_how_aegis_works">Hoe Aegis werkt</string>
+    <string name="help_loading">Laden…</string>
+    <string name="help_privacy">Privacy</string>
+    <string name="help_security">BEVEILIGING</string>
+    <string name="help_technical">TECHNISCH</string>
+    <string name="help_the_same_documents_that">Dezelfde documenten die met de broncode worden geleverd — gebundeld in</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">Inhoudduur</string>
+    <string name="hold_to_execute_hold_to_send_call">Vasthouden om te verzenden / bellen</string>
+    <string name="hold_to_execute_send_voice_call_and">Verzend- en belknoppen vereisen vasthouden.</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">1:1 uitnodigingslink werkt op relay tot het verloopt.</string>
+    <string name="invitation_expiry_about_this_setting">Over deze instelling</string>
+    <string name="invitation_expiry_invitation_expiry">Uitnodigingsvervaldatum</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis is beschikbaar in 17 talen. Altijd aanpasbaar.</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">PIN vergeten?</string>
+    <string name="lock_hold_for_silent_emergency">Vasthouden voor stille noodmelding</string>
+    <string name="lock_use_fingerprint_or_face">Vingerafdruk of gezicht gebruiken</string>
+    <string name="lock_use_pattern">Patroon gebruiken</string>
+    <string name="lock_use_pin">PIN gebruiken</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">Notitie verwijderen</string>
+    <string name="note_editor_folder">Map</string>
+    <string name="note_editor_unfiled">Niet geclassificeerd</string>
+    <string name="note_editor_write">Schrijven…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis is gebouwd op technologieen die al miljoenen beschermden.</string>
+    <string name="origins_origins">Oorsprong</string>
+    <string name="origins_where_this_came_from">Waar dit vandaan komt</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">PRESTATIES</string>
+    <string name="profile_avatar">avatar</string>
+    <string name="profile_pick_avatar">Avatar kiezen</string>
+    <string name="profile_proof_your_safety_net">Bewijs dat je veiligheidsnet werkt.</string>
+    <string name="profile_set_your_name_and">Stel je naam en optionele foto in.</string>
+    <string name="profile_tap_to_change_photo">Tik om foto te wijzigen</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">Relay toevoegen</string>
+    <string name="relay_current_relays">HUIDIGE RELAYS</string>
+    <string name="relay_format_smpbase64fingerprinthostport">Formaat: smp://&lt;base64-vingerafdruk&gt;@host[:poort]</string>
+    <string name="relay_loading">laden…</string>
+    <string name="relay_must_start_with_smp">Moet beginnen met smp:// en een host bevatten.</string>
+    <string name="relay_poweruser_setting_the_defaults">Geavanceerde instelling. Standaardwaarden draaien op infrastructuur.</string>
+    <string name="relay_reset_to_defaults">Standaard herstellen</string>
+    <string name="relay_simplex_relays">SimpleX-relays</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;vingerafdruk&gt;@host:poort</string>
+    <string name="relay_using_simplex_defaults">Standaard SimpleX-waarden gebruiken.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">TOEGANG OP AFSTAND</string>
+    <string name="remote_access_target_device">DOELAPPARAAT</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">DRUK OM TE SPREKEN</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">Dubbele zekerheid.</string>
+    <string name="secure_notes_cancel">Annuleren</string>
+    <string name="secure_notes_delete">Verwijderen</string>
+    <string name="secure_notes_every_note_photo_video">Elke notitie, foto, video en bestand in de kluis.</string>
+    <string name="secure_notes_search_the_vault">Kluis doorzoeken…</string>
+    <string name="secure_notes_type_wipe_vault_to">Typ WIPE VAULT om te bevestigen</string>
+    <string name="secure_notes_vault">Kluis</string>
+    <string name="secure_notes_wipe">Wissen</string>
+    <string name="secure_notes_wipe_vault">Kluis wissen</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">🛡️ DRILL</string>
+    <string name="sentinel_inbox_frontcamera_capture">Frontcamera-opname</string>
+    <string name="sentinel_inbox_gyroscope_rads">Gyroscoop (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">Foto van OPNAME-fase</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">Geen forensische lading voor deze fase.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">Nog geen Sentinel-events. Wanneer een contact die je op</string>
+    <string name="sentinel_inbox_sentinel_inbox">Sentinel-postvak</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">Wissen</string>
+    <string name="sentinel_log_no_events_logged_arm">Geen events gelogd. Activeer Sentinel en trigger een paar</string>
+    <string name="sentinel_log_sentinel_event_log">Sentinel-eventlog</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">Per apparaat aanpassen -- speakers varieren.</string>
+    <string name="sonar_audio_loop_selftest">Audio-lus zelftest</string>
+    <string name="sonar_autoarm_at_bedside">Auto-activering bij bed</string>
+    <string name="sonar_autocalibrate">Autokalibreren</string>
+    <string name="sonar_automatically_arms_sentinel_when">Schakelt Sentinel auto in als telefoon neergelegd.</string>
+    <string name="sonar_cancel_drill">Oefening annuleren</string>
+    <string name="sonar_contacts_who_receive_silent">Contacten die stille pings ontvangen.</string>
+    <string name="sonar_fires_one_audible_200">Geeft een hoorbare 200 ms 1 kHz piep en meet.</string>
+    <string name="sonar_hearing_audible_clicks_drop">Klikken? Verlaag. Speaker bereikt ultrasoon.</string>
+    <string name="sonar_if_you_hear_clicks">Als je klikken hoort, is het de luidspreker van je telefoon — de meeste</string>
+    <string name="sonar_latest_reading">Laatste meting</string>
+    <string name="sonar_layered_cascade_sonar_proximity">Cascade: sonar, nabijheid, versnelling.</string>
+    <string name="sonar_local_event_log_debug">Lokaal eventlog (debug)</string>
+    <string name="sonar_logonly_record_events_locally">Alleen log -- registreren zonder melden</string>
+    <string name="sonar_lower_more_sensitive_compare">Lager = gevoeliger.</string>
+    <string name="sonar_no_contacts_yet_add">Geen contacten -- toevoegen voor meldingen.</string>
+    <string name="sonar_no_data_yet_tap">geen data -- tik Start</string>
+    <string name="sonar_notification_throttle">Meldingslimiet</string>
+    <string name="sonar_notify_list">Meldingslijst</string>
+    <string name="sonar_place_the_phone_where">Leg de telefoon waar hij moet luisteren.</string>
+    <string name="sonar_send_test_notification_to">Testmelding naar lijst sturen</string>
+    <string name="sonar_sentinel_mode">Sentinel-modus</string>
+    <string name="sonar_sentinel_viewers">Sentinel-kijkers</string>
+    <string name="sonar_sonar_raw_data">Sonar -- ruwe data</string>
+    <string name="sonar_status">Status</string>
+    <string name="sonar_stop_sonar_first_calibrate">stop sonar eerst -- kalibratie vereist audio</string>
+    <string name="sonar_stop_sonar_first_selftest">stop sonar eerst -- zelftest vereist audio</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">Camera</string>
+    <string name="story_screens_new_story">Nieuw verhaal</string>
+    <string name="story_screens_photo">Foto</string>
+    <string name="story_screens_remove">Verwijderen</string>
+    <string name="story_screens_stories">Verhalen</string>
+    <string name="story_screens_story_not_found">Verhaal niet gevonden.</string>
+    <string name="story_screens_visible_to_every_paired">Zichtbaar voor elk contact gedurende 24 uur.</string>
+    <string name="story_screens_whats_happening">Wat gebeurt er?</string>
+    <string name="story_screens_your_story">Jouw verhaal</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">Altijd in het midden. Kan niet verplaatst worden.</string>
+    <string name="tab_order_nav_order">Navigatievolgorde</string>
+    <string name="tab_order_reorder_bottom_nav">Navigatie herschikken</string>
+    <string name="tab_order_reset_to_default">Standaard herstellen</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (vergrendeld in midden)</string>
+    <string name="tab_order_sos_stays_in_the">SOS blijft in het midden -- te belangrijk om te verplaatsen.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis is voor altijd gratis. Geen advertenties. Geen tracking. Geen dataverkoop.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis opent zonder iets te vragen. Je PIN bestaat nog steeds — voor dwang, externe toegang en het versleutelen van je berichten. Je kunt de vergrendeling altijd opnieuw activeren in Instellingen.</string>
+    <string name="tutorial_anyone_who_sees_these">Wie deze woorden ziet, bezit je account</string>
+    <string name="tutorial_biometric_login_is_convenient">Biometrische login is handig maar slaat dwangbescherming over. Als iemand je vingerafdruk afdwingt, opent het echte profiel. PIN wordt aanbevolen voor maximale beveiliging.</string>
+    <string name="tutorial_biometric_skips_duress">Biometrie slaat dwang over</string>
+    <string name="tutorial_choose_how_you_unlock">Kies hoe je ontgrendelt</string>
+    <string name="tutorial_confirm_pin">PIN bevestigen</string>
+    <string name="tutorial_continue">Doorgaan</string>
+    <string name="tutorial_disable_lock">Vergrendeling uitschakelen</string>
+    <string name="tutorial_done">Klaar</string>
+    <string name="tutorial_each_node_unlocks_a">Elk knooppunt ontgrendelt een nieuwe beschermingslaag.</string>
+    <string name="tutorial_enable_anyway">Toch inschakelen</string>
+    <string name="tutorial_encrypted_communication_personal_security">Versleutelde communicatie + persoonlijke beveiliging.</string>
+    <string name="tutorial_enter_aegis">Aegis betreden</string>
+    <string name="tutorial_find_your_way_around">Verken de app</string>
+    <string name="tutorial_fingerprint_face">Vingerafdruk / Gezicht</string>
+    <string name="tutorial_get_started">Beginnen</string>
+    <string name="tutorial_if_it_ever_helps">Als het je ooit helpt, kun je Project Aether steunen via Systeem → Over.</string>
+    <string name="tutorial_it_is_your_master">Dit is je hoofdsleutel, één keer getoond. We slaan hem nooit op en tonen hem nooit meer — niet achter je PIN, niet achter je vingerafdruk. Als je hem niet hebt opgeschreven, is dat de prijs ervoor dat hij echt van jou is. Bewaar je papieren kopie veilig.</string>
+    <string name="tutorial_ive_written_it_down">Ik heb het opgeschreven</string>
+    <string name="tutorial_keep_lock">Vergrendeling behouden</string>
+    <string name="tutorial_keep_pin_only">Alleen PIN</string>
+    <string name="tutorial_left_to_right_along">Van links naar rechts langs de onderkant van elk scherm:</string>
+    <string name="tutorial_make_sure_no_one">Zorg ervoor dat niemand meekijkt en niets je scherm opneemt. Screenshots zijn geblokkeerd — een screenshot gaat naar je galerij, synchroniseert naar de cloud en is zichtbaar voor iedereen met je telefoon. Kras het paneel hieronder om je 24 woorden te onthullen, schrijf ze op papier en bewaar dat papier op een veilige plek.</string>
+    <string name="tutorial_new_pin_48_digits">Nieuwe PIN (4–8 cijfers)</string>
+    <string name="tutorial_no_lock_screen">Geen vergrendelscherm</string>
+    <string name="tutorial_open_without_a_lock">Openen zonder vergrendelscherm?</string>
+    <string name="tutorial_part_of_project_aether">Onderdeel van Project Aether</string>
+    <string name="tutorial_pattern">Patroon</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN ingesteld ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">Herstelzin ingesteld!</string>
+    <string name="tutorial_save_pin">PIN opslaan</string>
+    <string name="tutorial_set_your_pin">Stel je PIN in</string>
+    <string name="tutorial_show_the_words_again">Woorden opnieuw tonen</string>
+    <string name="tutorial_skip">Overslaan</string>
+    <string name="tutorial_skip_check_debug">Controle overslaan (debug)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS blijft in het midden vergrendeld. De rest kun je herordenen in Systeem → Navigatie.</string>
+    <string name="tutorial_thank_you">Bedankt</string>
+    <string name="tutorial_the_skill_tree">Vaardigheidsboom</string>
+    <string name="tutorial_this_encrypts_your_messages">Dit versleutelt je berichten en herstelt je account als je je PIN vergeet of je vingerafdruk verliest. Als je het verliest, kan niemand — niet wij, niet iemand anders — je gegevens herstellen.</string>
+    <string name="tutorial_this_is_the_only">Dit is de ENIGE kopie. We bewaren niets. Er is geen \"wachtwoord vergeten\", geen reset en geen manier om een nieuwe te maken — niet met je PIN, niet met je vingerafdruk, niet door ons. Als je dit papier verliest, zijn je gegevens voor altijd weg en niemand ter wereld kan ze terughalen. Schrijf het nu op.</string>
+    <string name="tutorial_three_tiers_of_trust">Drie vertrouwensniveaus</string>
+    <string name="tutorial_what_makes_this_different">Wat het anders maakt</string>
+    <string name="tutorial_you_can_replay_this">Je kunt deze tutorial op elk moment opnieuw bekijken via Help.</string>
+    <string name="tutorial_your_messages_and_attachments">Je berichten en bijlagen zijn versleuteld met deze PIN.</string>
+    <string name="tutorial_your_pin_is_set">Je PIN is ingesteld en werkt altijd — dit is wat dwang en externe toegang gebruiken. Dit zijn optionele snelkoppelingen erboven.</string>
+    <string name="tutorial_your_recovery_phrase">Je herstelzin</string>
+    <string name="tutorial_your_safety_net">Je vangnet</string>
+    <string name="tutorial_youre_ready">Je bent klaar</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">Kon veiligheidscode niet ophalen.</string>
+    <string name="verify_contact_pick_qr_from_photo">QR uit foto kiezen</string>
+    <string name="verify_contact_safety_code_qr">Veiligheidscode QR</string>
+    <string name="verify_contact_scan_their_qr">Hun QR scannen</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">Nu vergrendelen</string>
+    <string name="header_sentinel_armed">Sentinel actief</string>
+    <string name="call_island_tap_return">Tik om terug te keren</string>
+    <string name="cyan_stay_safe">— Blijf veilig.</string>
+    <string name="pin_guard_required">APP-PIN VEREIST</string>
+    <string name="pin_guard_set_pin">PIN instellen</string>
+    <string name="update_dialog_later">Later</string>
+    <string name="update_dialog_update">Bijwerken</string>
+    <string name="voice_slide_cancel">veeg om te annuleren ←</string>
+    <string name="a11y_group_avatar">groepsavatar</string>
+    <string name="a11y_voice_record">spraakopname</string>
+
+    <string name="chat_react_custom_title">Aangepaste reactie</string>
+    <string name="chat_react_custom_hint">Typ een emoji om te reageren.</string>
+    <string name="chat_react_apply">Reageren</string>
+    <string name="tutorial_bubble_welcome">Welkom bij Project Aether. Ik ben Cyan — ik zal je gids zijn. Pak pen en papier — ik ga je vragen 24 woorden op te schrijven die je berichten beschermen.</string>
+    <string name="tutorial_bubble_different">Geen telefoonnummer. Geen account. Geen server slaat je berichten op. Alleen cryptografie.</string>
+    <string name="tutorial_bubble_safety">Als je ooit in gevaar bent, alarmeert één knop iedereen die je vertrouwt.</string>
+    <string name="tutorial_bubble_tiers">Jij bepaalt wie wat ziet.</string>
+    <string name="tutorial_bubble_skill_tree">Versterk je telefoon stap voor stap.</string>
+    <string name="tutorial_bubble_tabs">Vijf tabbladen onderaan. Dit doet elk tabblad.</string>
+    <string name="tutorial_bubble_unlock">PIN is het veiligst. Voeg een snellere methode toe — je PIN blijft altijd.</string>
+    <string name="tutorial_bubble_ready">Klaar. Voeg een contact toe om te beginnen.</string>
+    <string name="tutorial_bubble_thanks">Bedankt voor het kiezen van Aegis.</string>
+    <string name="tutorial_bullet_protocol">Gebouwd op Aegis Protocol</string>
+    <string name="tutorial_bullet_metadata">Geen metadata — geen profiel, geen contactgrafiek</string>
+    <string name="tutorial_bullet_e2ee">End-to-end versleuteld, altijd</string>
+    <string name="tutorial_bullet_sos_hold">Houd de SOS-knop 1 seconde ingedrukt — of druk power ×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS, audio en camera naar je contacten</string>
+    <string name="tutorial_bullet_sos_lockscreen">Werkt vanaf het vergrendelscherm</string>
+    <string name="tutorial_tier_trusted">Vertrouwd</string>
+    <string name="tutorial_tier_trusted_desc">Alles — locatie, aanwezigheid, SOS.</string>
+    <string name="tutorial_tier_emergency">Noodgeval</string>
+    <string name="tutorial_tier_emergency_desc">Alleen SOS-meldingen — geen dagelijkse gegevens.</string>
+    <string name="tutorial_tier_untrusted">Niet vertrouwd</string>
+    <string name="tutorial_tier_untrusted_desc">Alleen berichten — niets anders.</string>
+    <string name="tutorial_tab_system_desc">Instellingen, identiteit, app-vergrendeling en updates.</string>
+    <string name="tutorial_tab_opsec_desc">Je beveiligingsboom — versterk de telefoon stap voor stap.</string>
+    <string name="tutorial_tab_sos_desc">De belangrijkste. Houd ingedrukt om iedereen te waarschuwen.</string>
+    <string name="tutorial_tab_comms_desc">Je versleutelde chats. Stuur hier berichten.</string>
+    <string name="tutorial_tab_radar_desc">Live kaart — waar je contacten zijn en wie online is.</string>
+    <string name="tutorial_unlock_pin_desc">Typ je PIN om te ontgrendelen. Volledige dwangbescherming.</string>
+    <string name="tutorial_unlock_pattern_desc">Teken een patroon. PIN dekt nog steeds dwang.</string>
+    <string name="tutorial_unlock_bio_desc">Snel ontgrendelen. Let op: biometrie slaat dwang over.</string>
+    <string name="tutorial_unlock_none_desc">Open Aegis zonder ontgrendeling. PIN beschermt dwang + afstandsbediening.</string>
+    <string name="tutorial_pin_explanation_new">Je PIN vergrendelt Aegis en beschermt je profielen. Je herstelzin versleutelt je berichten. 4–8 cijfers.</string>
+    <string name="tutorial_pin_already_nice">Al gedaan. Mooi.</string>
+    <string name="tutorial_pin_set_first">Eerst het belangrijkste. Stel je app-PIN in.</string>
+    <string name="tutorial_node_app_pin">App
+PIN</string>
+    <string name="tutorial_node_duress_pin">Dwang
+PIN</string>
+    <string name="tutorial_perm_title">Waarom Aegis zoveel vraagt</string>
+    <string name="tutorial_perm_bubble">Tik om toe te staan — of sla over. Ik leg precies uit waarvoor.</string>
+    <string name="tutorial_perm_intro">Een beveiligings-app moet voor je kunnen handelen — je vinden, je mensen waarschuwen, draaien als je scherm uit is. Daarom is de lijst lang. Niets verlaat je telefoon zonder jou.</string>
+    <string name="tutorial_perm_background_title">Achtergrondactiviteit</string>
+    <string name="tutorial_perm_background_why">De belangrijkste. Laat Aegis draaien als de app gesloten is of het scherm uit, zodat berichten en SOS blijven aankomen. Zonder kan je telefoon stil stoppen — vooral op OnePlus, Xiaomi en Oppo.</string>
+    <string name="tutorial_perm_oem_warning">Je %1$s telefoon heeft extra batterij-instellingen die Aegis op de achtergrond kunnen doden. Open deze instelling en zorg dat Aegis automatisch mag starten en op de achtergrond mag draaien.</string>
+    <string name="tutorial_perm_notif_title">Meldingen</string>
+    <string name="tutorial_perm_notif_why">Voor berichten, oproepen en SOS-meldingen — ook op je vergrendelscherm.</string>
+    <string name="tutorial_perm_location_title">Locatie</string>
+    <string name="tutorial_perm_location_why">Zodat vertrouwde contacten je kunnen vinden in nood en je SOS je locatie kan delen.</string>
+    <string name="tutorial_perm_camera_title">Camera</string>
+    <string name="tutorial_perm_camera_why">Voor SOS-foto\'s, mugshot bij verkeerde PIN en videobellen.</string>
+    <string name="tutorial_perm_mic_title">Microfoon</string>
+    <string name="tutorial_perm_mic_why">Voor SOS-audio-opname en spraak-/videobellen.</string>
+    <string name="tutorial_perm_media_title">Foto\'s, video en bestanden</string>
+    <string name="tutorial_perm_media_why">Om bijlagen te versturen en op te slaan. Aegis ziet alleen wat je deelt.</string>
+    <string name="tutorial_perm_phone_title">Telefoon en SIM</string>
+    <string name="tutorial_perm_phone_why">Waarschuwt als je SIM wordt verwisseld — veelvoorkomend teken van kaping.</string>
+    <string name="tutorial_perm_nearby_title">Apparaten in de buurt</string>
+    <string name="tutorial_perm_nearby_why">Bluetooth om mensen en apparaten te vinden (Radar en Sonar).</string>
+    <string name="tutorial_perm_install_title">Updates installeren</string>
+    <string name="tutorial_perm_install_why">Zodat Aegis zichzelf veilig kan updaten, zonder app store die je volgt.</string>
+    <string name="tutorial_perm_footer">Je houdt de controle. Sla over en Aegis werkt grotendeels — maar achtergrondactiviteit houdt de beveiligingsfuncties in leven.</string>
+    <string name="tutorial_perm_granted">Toegestaan ✓</string>
+    <string name="tutorial_perm_denied">Geweigerd</string>
+    <string name="tutorial_perm_allow">Toestaan</string>
+
+    <string name="tutorial_perm_oem_title">%1$s batterij-instellingen</string>
+    <string name="tutorial_perm_oem_open">Open %1$s instellingen</string>
+    <string name="tutorial_perm_denied_note">Je kunt dit later inschakelen — tik om Instellingen te openen.</string>
+    <string name="tutorial_pin_explanation_existing">Je PIN ontgrendelt Aegis en is de sleutel waarmee je berichten worden versleuteld. 4–8 cijfers.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">Kluis\nPIN</string>
+    <string name="tutorial_node_device_owner">Apparaat\neigenaar</string>
+    <string name="tutorial_node_app_duress">App\nDwang</string>
+    <string name="tutorial_skill_tree_explanation">App-PIN ontgrendelt dwang, foto, kluis, kanarie, SIM-bewaking en geofence — stel het eenmaal in en de rest opent. Het hoogste niveau is apparaateigenaar.</string>
+    <string name="tutorial_phrase_intro">Op het volgende scherm zie je 24 woorden. Kras het paneel om ze te onthullen en schrijf ze allemaal op papier.</string>
+    <string name="tutorial_phrase_show">Toon mijn zin</string>
+    <string name="tutorial_phrase_scratch">Kras om te onthullen en schrijf alle 24 woorden op volgorde op.</string>
+    <string name="tutorial_phrase_confirm">Bevestig dat je het hebt opgeslagen. Voer woorden %1$s van je papier in.</string>
+    <string name="tutorial_phrase_word_n">Woord #%1$d</string>
+    <string name="tutorial_phrase_mismatch">De woorden komen niet overeen. Controleer je papier.</string>
+    <string name="tutorial_phrase_write_down">Schrijf deze 24 woorden op papier. Ze zijn de sleutel tot alles.</string>
+    <string name="tutorial_phrase_already_saved">Al opgeslagen. Bewaar je papieren kopie veilig.</string>
+    <string name="tutorial_draw_pattern">Teken je patroon</string>
+    <string name="tutorial_draw_pattern_confirm">Teken het opnieuw ter bevestiging</string>
+    <string name="tutorial_pattern_min_dots">Gebruik minstens %1$d punten.</string>
+    <string name="tutorial_pattern_mismatch">Komt niet overeen — begin opnieuw.</string>
+    <string name="tutorial_bio_need_pin_first">Stel eerst je PIN in en voeg dan biometrie toe.</string>
+    <string name="tutorial_bio_failed">Biometrie kon niet worden ingeschakeld. Probeer opnieuw.</string>
+    <string name="tutorial_pin_save_error">PIN kon niet worden opgeslagen: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN is niet opgeslagen — controleer Diagnostiek.</string>
+</resources>

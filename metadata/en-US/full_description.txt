@@ -1,0 +1,29 @@
+Aegis is a free, encrypted messaging app designed for people in dangerous situations — domestic violence, stalking, surveillance.
+
+It runs on SimpleX, which means no phone number, no account, no server stores your messages. Decentralized. The Aegis Protocol enforces anonymous handles on every connection — your real identity never touches the network. No telemetry, no analytics, nothing phones home.
+
+Features:
+
+SOS panic button that broadcasts GPS, audio, and camera to your trusted contacts. Works from the app lock screen without unlocking. 1-second hold.
+
+Duress PIN — a second PIN opens a decoy profile with fake contacts while silently alerting your real contacts with your location. The duress profiles are cryptographically indistinguishable from the real profile on disk.
+
+Silent SOS — triggered by duress PIN, zero visual footprint. The attacker sees a normal-looking app while your contacts receive your location and a duress alert.
+
+Remote access — a trusted family member can locate, lock, ring, or wipe your phone remotely. Every PIN prompt in the remote flow is a coercion trap — any duress PIN triggers instant session revoke and silent SOS.
+
+Receipt reconciliation — delivery confirmations that survive bad networks. If you are on a throttled prepaid connection in a rural area, your ticks still arrive. Zero extra traffic.
+
+Encrypted vault behind a separate PIN for documents and photos.
+
+24-word recovery phrase that seals your messages at rest. The encryption key lives in your phone's hardware security chip (TEE) and cannot be extracted from a disk image.
+
+Trust tiers — you decide who sees what. Trusted contacts get everything (location, presence, SOS). Emergency contacts get SOS alerts only. Untrusted contacts get messages only.
+
+Skill tree — security progression. Enable features one at a time: PIN, duress, vault, canary, geofence, SIM swap detection, mugshot on wrong PIN, Sentinel intrusion detection.
+
+16 languages. Free forever. No ads. Source code public under AGPL.
+
+The architecture is complete. Security model, protocol, privacy, encryption — all designed and implemented. Active development continues on remaining features.
+
+Built for people who are less likely to be believed and less likely to ask for help.

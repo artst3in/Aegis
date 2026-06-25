@@ -1,0 +1,7 @@
+Fix: suppress group unread dot when group module disabled.
+Fix: call buttons as flat filled buttons with larger avatar.
+Fix: graceful fallback when encryption Worker fails.
+Fix: call encryption + video WebViewAssetLoader origin.
+Fix: stale WebView after live-cam/mic + spontaneous calls.
+Capture FGS resilience with honest-fail.
+LunaGlass slider/radio polish.

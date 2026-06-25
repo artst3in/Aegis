@@ -1,0 +1,25 @@
+<!--
+  LunaGlass help glyph — angular question mark, straight lines only.
+  No curves. Matching LunaGlass icons.jsx.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Angular question mark hook. Hook spans x=8..16 (centre x=12)
+         so the stem + dot need to land at x=12 too; the previous
+         path ended at x=13, kicking the stem and dot one unit right
+         of the curl's centre and reading as asymmetric. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M8,7 L8,4 L16,4 L16,10 L12,10 L12,14" />
+    <!-- Square dot, centred at x=12 to align with the stem. -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M11,17 L13,17 L13,19 L11,19 Z" />
+</vector>

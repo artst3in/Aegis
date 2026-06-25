@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">채팅</string>    <string name="action_save">저장</string><string name="action_cancel">취소</string><string name="action_done">완료</string><string name="action_back">뒤로</string>    <string name="profile_title">프로필</string><string name="profile_welcome">Aegis에 오신 것을 환영합니다</string><string name="profile_display_name">표시 이름</string><string name="profile_your_name">이름</string><string name="profile_bio">소개 (선택)</string><string name="profile_bio_hint">연락처가 이름을 탭하면 보이는 내용입니다.</string>    <string name="contact_title">연락처</string><string name="contact_not_found">연락처를 찾을 수 없습니다.</string><string name="contact_add">연락처 추가</string><string name="contact_connecting">연결 중…</string><string name="contact_nickname">별명</string><string name="contact_nickname_hint">별명 (부르는 이름)</string><string name="contact_my_nickname">내가 부르는 별명</string><string name="contact_save_nickname">별명 저장</string><string name="contact_copy_link">링크 복사</string><string name="contact_accept_invite">초대 수락</string><string name="contact_accept_invitation">초대 수락</string><string name="contact_pin">고정</string><string name="contact_unpin">고정 해제</string><string name="contact_mute">음소거</string>    <string name="group_new">새 그룹</string><string name="group_name">그룹 이름</string><string name="group_creating">생성 중…</string><string name="group_create">그룹 만들기</string>
+    <string name="call_voice">음성 통화</string><string name="call_video">영상 통화</string><string name="call_calling">전화 중…</string>    <string name="sos_title">긴급</string><string name="sos_active">활성</string><string name="sos_broadcasting">방송 중</string>    <string name="duress_confirm_pin">PIN 확인</string><string name="duress_confirm_duress_pin">강압 PIN 확인</string><string name="duress_change_pin">PIN 변경</string>
+    <string name="settings_title">설정</string><string name="settings_app_lock">앱 잠금</string><string name="settings_auto_lock">자동 잠금</string><string name="settings_calls">통화</string><string name="settings_updates">업데이트</string><string name="settings_quiet_hours">방해 금지</string><string name="settings_canary">카나리아 메시지</string><string name="settings_wifi_only">Wi-Fi 전용</string>    <string name="status_online">온라인</string><string name="status_offline">오프라인</string><string name="status_away">자리 비움</string>    <string name="update_available">업데이트 사용 가능</string>    <string name="loki_mugshot_armed">준비됨 — PIN %d회 오류 시 촬영.</string><string name="loki_sim_armed">준비됨. 현재 SIM:</string><string name="loki_canary_armed">준비됨. 앱을 열어 타이머를 재설정하세요.</string><string name="loki_deadmans_switch">데드맨 스위치</string>
+    <string name="nav_security">보안</string>
+    <string name="nav_radar">레이더</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">복사 오류</string>
+    <string name="add_contact_generate_a_onetime_link">일회용 링크 생성</string>
+    <string name="add_contact_generating_link">링크 생성 중…</string>
+    <string name="add_contact_got_their_invitation_link">링크를 받았나요? QR 스캔 또는 붙여넣기.</string>
+    <string name="add_contact_invitation_qr">초대 QR</string>
+    <string name="add_contact_invite_someone">누군가를 초대</string>
+    <string name="add_contact_joining_a_group_no">그룹 가입 -- 별명 필요 없음.</string>
+    <string name="add_contact_or_paste_an_invitation">…또는 초대/그룹 링크 붙여넣기</string>
+    <string name="add_contact_pair_via_simplex_exchange">SimpleX로 페어링 -- 일회용 링크 교환.</string>
+    <string name="add_contact_paired">페어링 완료 ✓</string>
+    <string name="add_contact_pick_qr_from_photo">사진에서 QR 선택</string>
+    <string name="add_contact_show_this_qr_to">이 QR을 보여주거나 링크 공유.</string>
+    <string name="add_contact_they_see_you_as">상대방에게 랜덤 핸들로 표시 -- 실명 비공개.</string>
+    <string name="add_contact_they_sent_you_a">링크나 QR을 받았습니다. 스캔 또는 붙여넣기.</string>
+    <string name="add_contact_theyll_see_you_as">상대방에게 랜덤 핸들로 표시됨 -- 실명 비공개.</string>
+    <string name="add_contact_waiting_for_them_to">수락 대기 중…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">마이크 테스트</string>
+    <string name="call_relayonly_calls">릴레이 전용 통화</string>
+    <string name="call_run_mic_test">마이크 테스트 실행</string>
+    <string name="call_troubleshooting">문제 해결</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Aegis를 열지 않고 얼마나</string>
+    <string name="canary_i_havent_checked_in">한동안 체크인하지 않았습니다. </string>
+    <string name="canary_if_you_dont_open">Aegis를 열지 않으면، </string>
+    <string name="canary_sent_verbatim_to_every">모든 페어링된 연락처에 그대로 전송.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">수락</string>
+    <string name="chat_list_add_contact">연락처 추가</string>
+    <string name="chat_list_add_your_first_contact">第 연溜처 추가</string>
+    <string name="chat_list_automatically_turn_off_the">기간 후 그룹 모듈 자동 종료.</string>
+    <string name="chat_list_disable">비활성화</string>
+    <string name="chat_list_enable_group_chat">그룹 채팅 활성화</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">초대</string>
+    <string name="chat_list_join_via_link">링크로 참여</string>
+    <string name="chat_list_new_group">+ 새 그룹</string>
+    <string name="chat_list_no_groups_yet_tap">그룹 없음. + 새 그룹을 탭.</string>
+    <string name="chat_list_pending_invitations">대기 중인 초대</string>
+    <string name="chat_list_public_groups_increase_your">공개 그룹은 공격 표면을 늘릴.</string>
+    <string name="chat_list_removes_the_group_and">이 기기에서 그룹과 메시지 기록을 삭제.</string>
+    <string name="chat_list_revoke">취소</string>
+    <string name="chat_list_search_messages">메시지 검색…</string>
+    <string name="chat_list_shield_paused_messages_and">시드 일시중지 · 메시지와 SOS 정지</string>
+    <string name="chat_list_tap_here_or_the">여기 또는 아래 헥스 버튼을 탭하여 초대 링크 공유 또는 QR 스캔.</string>
+    <string name="chat_list_video_call">영상 통화</string>
+    <string name="chat_list_view">보기</string>
+    <string name="chat_list_voice_call">음성 통화</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">이 연락처에 고유한 랜덤 별명.</string>
+    <string name="contact_detail_access_denied_wrong_pin">접근 거부 -- 잘못된 PIN</string>
+    <string name="contact_detail_authenticate">인증</string>
+    <string name="contact_detail_battery">배터리</string>
+    <string name="contact_detail_delete_contact">연락처 삭제</string>
+    <string name="contact_detail_device_status">기기 상태</string>
+    <string name="contact_detail_enable">활성화</string>
+    <string name="contact_detail_group_this_contact_under">채팅 목록에서 라벨로 분류.</string>
+    <string name="contact_detail_local_only_they_dont">로컬만 -- 상대방은 볼 수 없습니다.</string>
+    <string name="contact_detail_no_data_received_yet">데이터 없음 -- 첫 핑 대기 중.</string>
+    <string name="contact_detail_not_now">나중에</string>
+    <string name="contact_detail_notifications">알림</string>
+    <string name="contact_detail_on_success_their_phone">성공하면 전화가 잠기고 위치가 확인됩니다.</string>
+    <string name="contact_detail_one_label_per_contact">연락처당 라벨 하나. 무엇을 받을지 결정.</string>
+    <string name="contact_detail_opening_remote_control">원격 제어 여는 중…</string>
+    <string name="contact_detail_removes_the_contact_every">연락처와 모든 메시지를 삭제.</string>
+    <string name="contact_detail_repair_contact">연락처 재연결</string>
+    <string name="contact_detail_their_achievements">그들의 업적</string>
+    <string name="contact_detail_this_person_will_be">이 사람은 당신의 전화를 찾고, 잠그고, 삭제할 수 있습니다.</string>
+    <string name="contact_detail_trust_tier">신뢰 등급</string>
+    <string name="contact_detail_wearable">웨어러블</string>
+    <string name="contact_detail_you_appear_to_them">당い へ 见える</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">충돌 감지</string>
+    <string name="crash_detection_detects_a_vehicle_crash">충격으로 차량 충돌을 감지.</string>
+    <string name="crash_detection_sensitivity">감도</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">액션</string>
+    <string name="device_control_audio">오디오</string>
+    <string name="device_control_expires_in">만료: </string>
+    <string name="device_control_fix">수정 </string>
+    <string name="device_control_location">위치</string>
+    <string name="device_control_lock_did_not_fire">잠금 실행 안됨 -- 기기 관리자 미등록.</string>
+    <string name="device_control_lock_off">⚠ 잠금 해제</string>
+    <string name="device_control_lockscreen_message">잠금화면 메시지</string>
+    <string name="device_control_no_frame">프레임 없음</string>
+    <string name="device_control_remote_session">원격 세션</string>
+    <string name="device_control_send">보내기</string>
+    <string name="device_control_this_is_the_last">공장초기화 전 마지막 단계.</string>
+    <string name="device_control_this_triggers_a_full">대상에서 전체 공장초기화를 실행.</string>
+    <string name="device_control_type_wipe">WIPE 입力</string>
+    <string name="device_control_type_wipe_to_confirm">WIPE 입력</string>
+    <string name="device_control_wipe_device">기기 삭제</string>
+    <string name="device_control_wipe_target_device">대상 기기 삭제?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">원격 접근</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">강한 던지기/잡기/당기기로 SOS 발사.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">침입 감지. 3센서 캐스케이드.</string>
+    <string name="experimental_crash_sensitivity_settings">충돌 민감도 설정 ></string>
+    <string name="experimental_detect_a_vehicle_crash">차량 충돌 감지 후 SOS</string>
+    <string name="experimental_event_log">이벤트 로그 →</string>
+    <string name="experimental_here_be_dragons">여기에 용이 있다</string>
+    <string name="experimental_inbox">받은편함 →</string>
+    <string name="experimental_relock_experimental_section">실험 섹션 재잠금</string>
+    <string name="experimental_snatch_detection">날치기 감지</string>
+    <string name="experimental_these_features_are_unfinished">이 기능들은 미완성이며 배터리를 소모할 수 있음.</string>
+    <string name="experimental_vehicle_crash_detection">차량 충돌 감지</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">백업 암호문구 입력</string>
+    <string name="first_run_passphrase">암호문구</string>
+    <string name="first_run_restore">복원</string>
+    <string name="first_run_restore_from_a_previous">이전 백업에서 복원 또는 새로 시작.</string>
+    <string name="first_run_start_fresh">새로 시작</string>
+    <string name="first_run_welcome_to_aegis">Aegis에 오신 것을 환영합니다</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">일시정지</string>
+    <string name="geofence_radius">반경</string>
+    <string name="geofence_resume">재개</string>
+    <string name="geofence_set_a_circular_zone">원형 구역 설정. 떠날 때 알림.</string>
+    <string name="geofence_zone_centre">존 중심</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">멤버</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis는 실행과 백그라운드 후 잠금해제 필요.</string>
+    <string name="lock_after_too_many_wrong">PIN …开 틀리면 데이터 영구 삭제.</string>
+    <string name="lock_arm">Arm</string>
+    <string name="lock_arm_selfdestruct">자파 활성화?</string>
+    <string name="lock_biometric_login_is_convenient">생체인증 편리하지만 강압 건너.</string>
+    <string name="lock_deletes_the_pin_entirely">PIN을 완전히 삭제하고 강압 PIN도 제거.</string>
+    <string name="lock_draw_a_pattern_to">PIN 대신 패턴으로 잠금해제.</string>
+    <string name="lock_duress_pin_48_digits">강압 PIN (4-8자리)</string>
+    <string name="lock_enable_device_admin">기기 관리자 활성화</string>
+    <string name="lock_entering_this_pin_opens">이 PIN은 가짜 프로필을 열고 SOS를 활성화.</string>
+    <string name="lock_fast_convenient_but_it">빠르고 편리하지만 강압을 건너.</string>
+    <string name="lock_how_long_after_backgrounding">백그라운드 후 얼마나 지나면 재잠금.</string>
+    <string name="lock_maximum_security_your_encryption">최대 보안: 암호화 키가 디스크에 저장되지 않음.</string>
+    <string name="lock_pattern_unlock">패턴 잠금해제</string>
+    <string name="lock_remove_pin">PIN 제거</string>
+    <string name="lock_require_pin_to_open">Aegis 열려면 PIN 필요</string>
+    <string name="lock_require_recovery_phrase_on">재부팅마다 복구 문구 필요</string>
+    <string name="lock_scramble_pin_pad">PIN 패드 섯플</string>
+    <string name="lock_shuffles_digit_positions_on">어깨너머로 방지를 위해 숫자 위치 섬기.</string>
+    <string name="lock_unlock_with_fingerprint_face">지문/얼굴로 잠금해제</string>
+    <string name="lock_when_off_aegis_opens">Aegis가 묻지 않고 열림. PIN이 데이터 보호.</string>
+    <string name="lock_wipe_after_failed_attempts">실패 후 삭除</string>
+    <!-- MapScreen -->
+    <string name="map_charging">충전 중</string>
+    <string name="map_locate_on_map">지도에서 찾기</string>
+    <string name="map_radar">레이더</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">가족 중심으로</string>
+    <string name="map_solo">솔로</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">잘못된 PIN에 사진</string>
+    <string name="mugshot_threshold">임계값</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">프로필 정보</string>
+    <string name="profiles_active">활성</string>
+    <string name="profiles_create">만들기</string>
+    <string name="profiles_each_profile_is_a">각 프로필은 완전히 격리된 Aegis.</string>
+    <string name="profiles_ephemeral_import_a_backup">임시 - 백업 가져오기</string>
+    <string name="profiles_ephemeral_start_fresh">임시 · 새로 시작</string>
+    <string name="profiles_ive_written_it_down">적어두었음 -- 생성</string>
+    <string name="profiles_keep_ephemeral">임시 유지</string>
+    <string name="profiles_make_permanent">영구적으로?</string>
+    <string name="profiles_make_this_profile_permanent">이 프로필을 영구적으로</string>
+    <string name="profiles_new_pin">새 PIN</string>
+    <string name="profiles_new_profile">새 프로필</string>
+    <string name="profiles_permanent_import_a_backup">영구 · 백업 가져오기</string>
+    <string name="profiles_permanent_start_fresh">영구 · 새로 시작</string>
+    <string name="profiles_pick_a_short_id">짧은 ID 선택 (문자, 숫자, - _).</string>
+    <string name="profiles_profile_id">프로필 ID</string>
+    <string name="profiles_sos_alerts_only_fire">SOS 알림은 활성 프로필 가족만.</string>
+    <string name="profiles_switch">전환</string>
+    <string name="profiles_these_24_words_are">이 24단어가 유일한 키.</string>
+    <string name="profiles_this_conversation_will_be">이 대화는 디스크에 저장되고 유지됩니다.</string>
+    <string name="profiles_write_down_your_recovery">복구 문구를 적어두세요</string>
+    <string name="profiles_your_current_profile_stays">현재 프로필은 백그라운드에서 안전.</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">설정된 기간 동안 채팅 알림음 음소거.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">24단어 문구</string>
+    <string name="recovery_unlock_back_to_pin">PIN으로 돌아가기</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">24단어 복구 문구를 입력하세요.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">문구로 복구</string>
+    <string name="recovery_unlock_recovered_set_a_new">복구됨. 새 PIN을 설정하세요.</string>
+    <string name="recovery_unlock_set_pin">PIN 설정</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">도움이 오고 있습니다</string>
+    <string name="s_o_s_no_sos_recipients_promote">SOS 수신자가 없습니다. 최소 1명을 승격하세요.</string>
+    <string name="s_o_s_plays_at_maximum_alarm">잠금 해제까지 최대 볼륨</string>
+    <string name="s_o_s_start_siren">사이렌 시작?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">앱 PIN</string>
+    <string name="security_canary">카나리아</string>
+    <string name="security_device_admin">기기 관리자</string>
+    <string name="security_duress_mode_active_some">강압 모드 활성. 일부 패널 숨김.</string>
+    <string name="security_geofence">지오펜스</string>
+    <string name="security_mugshot">머그샷</string>
+    <string name="security_sim_watch">SIM 감시</string>
+    <string name="security_sonar_experimental">Sonar · 실험적</string>
+    <string name="security_your_living_shield_each">당신의 살아있는 방패. 각 헥스가 보호 기능.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">고급: 기본 SMP 서버 재정의.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">새 채팅에 자동 삭제.</string>
+    <string name="_autorevoke_unused_11_invite">미사용 초대 자동 취소.</string>
+    <string name="_backup">백업</string>
+    <string name="_block_screenshots">스크린샷 차단</string>
+    <string name="_clear_all_queued">대기열 모두 지우기</string>
+    <string name="_disappearing_default">사라지는 기본값</string>
+    <string name="_encrypted_file_backup_data">암호화 백업 -- 데이터 생존.</string>
+    <string name="_experimental">실험적</string>
+    <string name="_health_probes_driver_reloads">프로브, 리로드, 로그, 디버그 오버레이.</string>
+    <string name="_language">언어</string>
+    <string name="_multiple_isolated_aegis_profiles">여러 격리된 Aegis 프로필 -- 가족 간 전환.</string>
+    <string name="_mute_chat_notifications_at">야간 채팅 알림 음소거. SOS는 깨움.</string>
+    <string name="_notifications">알림</string>
+    <string name="_outbox">보낸편지함</string>
+    <string name="_perchannel_sound_vibration_and">채널별 소리, 진동, 중요도.</string>
+    <string name="_performance_balanced_power_saver">성능/균형/절전 + 제어.</string>
+    <string name="_pressandhold_send_call_video">길게 눌러 보내기/전화/영상. 실수 방지.</string>
+    <string name="_profiles">프로필</string>
+    <string name="_project_aether">프로젝트 AETHER</string>
+    <string name="_readonly_inventory_of_every">모든 배포 동작의 읽기 전용 목록.</string>
+    <string name="_rearrange_the_bottom_tabs">하단 탭 재배열. SOS는 중앙 고정.</string>
+    <string name="_relayonly_ice_and_call">릴레이 전용 ICE 및 통화 진단.</string>
+    <string name="_stops_screenshots_screen_recording">스크린샷, 녹화, 미리보기 차단.</string>
+    <string name="_unfinished_features_hidden_behind">7탭 게이트 뒤에 숨겨진 미완성 기능.</string>
+    <string name="_wifionly_by_default_apks">WiFi만 -- APK ~100 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">SIM 변경 알림</string>
+    <string name="sim_swap_when_the_sim_in">이 전화의 SIM이 바뀌면 알림이 전송됩니다.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Aegis 로고</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_how_it_works_body">Aegis는 24시간마다 GitHub에서 새 빌드를 확인합니다. 각 APK는 ~100MB입니다. 기본적으로 WiFi에서만 다운로드합니다 — 매 릴리스마다 모바일 데이터로 이만큼 다운로드하면 실제 돈이 듭니다.</string>
+    <string name="update_beltandbraces_type_rollback_below">아래에 ROLLBACK 입력.</string>
+    <string name="update_check_interval">확인 간격</string>
+    <string name="update_how_often_aegis_polls">Aegis가 GitHub에서 새 빌드를 확인하는 빈도.</string>
+    <string name="update_roll_back">롤백</string>
+    <string name="update_roll_back_to_previous">이전 버전으로 돌아가기</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">시스템 설치 프로그램이 열립니다.</string>
+    <string name="update_type_rollback_to_confirm">ROLLBACK 입력</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">확인</string>
+    <string name="vault_pin_confirm_duress">강압 확인</string>
+    <string name="vault_pin_current_vault_pin">현재 금고 PIN</string>
+    <string name="vault_pin_entering_this_pin_at">이 PIN은 금고의 숨겨진 가짜 영역을 열.</string>
+    <string name="vault_pin_remove_duress_pin">강압 PIN 제거</string>
+    <string name="vault_pin_vault_pin">금고 PIN</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">스크린샷 없음. 복사 없음. 흔적 없음.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">수신자가 불 아이콘을 봄. 열면 카운트다운 시작.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">기능</string>
+    <string name="capabilities_device_admin_enable_in">기기 관리자: 설정에서 활성화.</string>
+    <string name="capabilities_device_owner_factoryreset_the">기기 소유자: 공장초기화, 제어.</string>
+    <string name="capabilities_live_status_green_active">라이브 상태. 녹색=활성. 희미=권한 필요.</string>
+    <string name="capabilities_stay_safe">안전하세요.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">선택한 기간 후 메시지 자동 삭제.</string>
+    <string name="chat_burn">소却</string>
+    <string name="chat_burn_after_reading">읽은 후 소각</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">모두에게서 삭제</string>
+    <string name="chat_deletes_every_message_in">이 대화의 모든 메시지를 삭제.</string>
+    <string name="chat_disappearing_messages">사라지는 메시지…</string>
+    <string name="chat_editing_message">메시지 편집 중</string>
+    <string name="chat_emergency_contact_they_receive">비상 연락처. SOS만 수신.</string>
+    <string name="chat_forward">전달</string>
+    <string name="chat_forward_to">전達 대…</string>
+    <string name="chat_gallery">갤러리</string>
+    <string name="chat_loading_preview">미리보기 로딩…</string>
+    <string name="chat_no_contacts_paired_yet">아직 연락처가 없습니다.</string>
+    <string name="chat_pick_when_to_send">보낼 시간 선택. Aegis는 매분 폴링.</string>
+    <string name="chat_pinned">고정됨</string>
+    <string name="chat_reply">답장</string>
+    <string name="chat_save_to_device">기기에 저장</string>
+    <string name="chat_save_to_notes">노트에 저장</string>
+    <string name="chat_video">영상</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">알려진 모든 싱크 비어있음.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ 비어있습니다.</string>
+    <string name="diagnostics_building_usage_history">사용 기록 구성 중…</string>
+    <string name="diagnostics_close">닫기</string>
+    <string name="diagnostics_copy">복사</string>
+    <string name="diagnostics_device_owner">기기 소유자</string>
+    <string name="diagnostics_diagnostics">진단</string>
+    <string name="diagnostics_empty">(비어있음)</string>
+    <string name="diagnostics_erase_all_aegis_data">모든 Aegis 데이터 삭제?</string>
+    <string name="diagnostics_erase_everything">모두 삭제</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">재시작 없이 서브시스템 재설정.</string>
+    <string name="diagnostics_how_much_data_aegis">Aegis가 전송한 데이터량.</string>
+    <string name="diagnostics_kills_the_aegis_process">Aegis 프로세스를 종료하고 재시작.</string>
+    <string name="diagnostics_mainthread_sample_30_100">메인 스레드 샘플 (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">조작 신호 없음.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">아무것도 어디로도 전송되지 않습니다.</string>
+    <string name="diagnostics_process">프로세스</string>
+    <string name="diagnostics_reconnect_now">지금 재연결</string>
+    <string name="diagnostics_relays">릴레이</string>
+    <string name="diagnostics_reset">재설정</string>
+    <string name="diagnostics_reset_simplex_core">SimpleX 코어 재설정?</string>
+    <string name="diagnostics_restart">재시작</string>
+    <string name="diagnostics_restart_aegis">Aegis 재시작?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Aegis 재시작(전체)</string>
+    <string name="diagnostics_signer_sha256">서명자 SHA-256</string>
+    <string name="diagnostics_stop_all_sos">모든 SOS 정지</string>
+    <string name="diagnostics_storage">저장소</string>
+    <string name="diagnostics_subsystems_shut_off_as">배터리 저하 시 서브시스템 종료.</string>
+    <string name="diagnostics_tap_to_open">탭하여 열기</string>
+    <string name="diagnostics_this_is_irreversible_it">되돌릴 수 없습니다. 공장초기화.</string>
+    <string name="diagnostics_threads">스레드</string>
+    <string name="diagnostics_wipe_all_aegis_data">모든 Aegis 데이터 삭제.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">SimpleX 데이터베이스 삭제.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">연락처 없음. 먼저 연결.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">연락처에 보내기</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">절전 모드에서 모든 효과 비활성화.</string>
+    <string name="graphics_cyan_mascot">Cyan 마스코트</string>
+    <string name="graphics_data_rain">데이터 레인</string>
+    <string name="graphics_effects_intensity">효과 강도</string>
+    <string name="graphics_effects_suppressed_in_power">절전 모드에서 효과 억제</string>
+    <string name="graphics_faint_repeating_hex_pattern">모든 화면 뒤에 엷은 헥스 패턴.</string>
+    <string name="graphics_graphics">그래픽</string>
+    <string name="graphics_graphics_profile">그래픽 프로필</string>
+    <string name="graphics_hex_grid_backdrop">헥스 그리드 배경</string>
+    <string name="graphics_scan_line">스캔 라인</string>
+    <string name="graphics_scan_line_data_rain">스캔 라인 + 데이터 레인 투명도.</string>
+    <string name="graphics_show_the_chibi_mascot">chibi 마스코트를 스플래시, 빈 화면, About에 표시.</string>
+    <string name="graphics_single_cyan_line_crawling">30초마다 시안 라인이 위에서 아래로.</string>
+    <string name="graphics_tiny_hex_particles_drifting">작은 헥스 입자가 아래로. 세 가지 중 가장 무거움.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">그룹 삭제</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">메시지</string>
+    <string name="group_chat_removes_the_group_and">그룹과 메시지 기록을 삭제.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">모든 멤버에게 표시되는 짧은 메모.</string>
+    <string name="group_members_about_this_group">이 그룹 정보</string>
+    <string name="group_members_active_in_this_group">이 그룹에서 활동 중</string>
+    <string name="group_members_anonymous_the_group_sees">익名 -- 그룹은 랜덤 이름을 봄.</string>
+    <string name="group_members_apply">적용</string>
+    <string name="group_members_armed">활성화됨</string>
+    <string name="group_members_autoburn_messages_in_this">이 그룹의 메시지 자동 삭제.</string>
+    <string name="group_members_autodisable_timer">자동 비활성화 타이머</string>
+    <string name="group_members_autodisable_timer_for_this">이 그룹의 자동 비활성화 타이머</string>
+    <string name="group_members_configure">구 ›</string>
+    <string name="group_members_demote_to_member">멤버로 강등</string>
+    <string name="group_members_description">설명</string>
+    <string name="group_members_disappearing_messages">사라지는 메시지</string>
+    <string name="group_members_every_paired_contact_is">모든 페어링된 연락처는 이미 이 그룹에.</string>
+    <string name="group_members_group_description">그룹 설명</string>
+    <string name="group_members_group_image">그룹 이미지</string>
+    <string name="group_members_group_name">그룹 이름</string>
+    <string name="group_members_groups_are_always_incognito">그룹은 항상 익명. 프로필은 숨겨진 채.</string>
+    <string name="group_members_invite_member">멤버 초대</string>
+    <string name="group_members_leave">나가기</string>
+    <string name="group_members_leave_group">그룹 나가기</string>
+    <string name="group_members_make_sure_the_photo">사진에 당신이나 위치가 나오지 않도록.</string>
+    <string name="group_members_minutes_min_1">분 (min 1)</string>
+    <string name="group_members_mute_group">그룹 음소거</string>
+    <string name="group_members_no_members_yet_the">아직 멤버 없음. 호스트 봇이 여기 표시.</string>
+    <string name="group_members_off_1_min_1">꺼瘤 / 1분 - 1년.</string>
+    <string name="group_members_promote_to_admin">관리자로 승격</string>
+    <string name="group_members_remove_from_group">그룹에서 제거</string>
+    <string name="group_members_removes_the_group_locally">로컬에서 그룹 제거 후 호스트에 알림.</string>
+    <string name="group_members_rename">이름 변경</string>
+    <string name="group_members_rename_group">그룹 이름 변경</string>
+    <string name="group_members_save">저장</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">창이 당신 없이 만료되면.</string>
+    <string name="group_members_youll_stop_receiving_messages">이 그룹에서 메시지를 받지 않게 됩니다.</string>
+    <string name="group_members_your_identity_here">여기서의 당신의 신원</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">기초</string>
+    <string name="help_design_decisions">디자인 결정</string>
+    <string name="help_experimental">실험적</string>
+    <string name="help_help">도움말</string>
+    <string name="help_how_aegis_works">Aegis 작동 방식</string>
+    <string name="help_loading">로딩 중…</string>
+    <string name="help_privacy">개인정보</string>
+    <string name="help_security">보안</string>
+    <string name="help_technical">기적</string>
+    <string name="help_the_same_documents_that">소스 코드와 같은 문서 -- 앱 내장.</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">누르기 시</string>
+    <string name="hold_to_execute_hold_to_send_call">보내기/전화를 위해 길게 누르기</string>
+    <string name="hold_to_execute_send_voice_call_and">보내기와 전화 버튼은 길게 누르기 필요.</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">1:1 초대 링크는 만료까지 유효.</string>
+    <string name="invitation_expiry_about_this_setting">이 설정에 대해</string>
+    <string name="invitation_expiry_invitation_expiry">초대 만료</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis는 17개 언어로 사용 가능.</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">PIN을 잊으셨나요?</string>
+    <string name="lock_hold_for_silent_emergency">조용한 비상을 위해 길게 누르기</string>
+    <string name="lock_use_fingerprint_or_face">지문 또는 얼굴 사용</string>
+    <string name="lock_use_pattern">패턴 사용</string>
+    <string name="lock_use_pin">PIN 사용</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">노트 삭제</string>
+    <string name="note_editor_folder">폴더</string>
+    <string name="note_editor_unfiled">분류되지 않음</string>
+    <string name="note_editor_write">쓰기…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis는 수백만 명을 보호한 기술 위에 구축.</string>
+    <string name="origins_origins">기o</string>
+    <string name="origins_where_this_came_from">이것의 기o</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">업적</string>
+    <string name="profile_avatar">아바타</string>
+    <string name="profile_pick_avatar">아바타 선택</string>
+    <string name="profile_proof_your_safety_net">안전망이 작동하는 증거.</string>
+    <string name="profile_set_your_name_and">이름과 선택적 사진을 설정.</string>
+    <string name="profile_tap_to_change_photo">탭하여 사진 변경</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">릴레이 추가</string>
+    <string name="relay_current_relays">현재 릴레이</string>
+    <string name="relay_format_smpbase64fingerprinthostport">형식: smp://&lt;base64-지문&gt;@호스트[:포트]</string>
+    <string name="relay_loading">로딩 중…</string>
+    <string name="relay_must_start_with_smp">smp://로 시작하고 호스트를 포함해야 합니다.</string>
+    <string name="relay_poweruser_setting_the_defaults">고급 사용자 설정. 기본값은 인프라에서 실행.</string>
+    <string name="relay_reset_to_defaults">기본값으로 재설정</string>
+    <string name="relay_simplex_relays">SimpleX 릴레이</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;지문&gt;@호스트:포트</string>
+    <string name="relay_using_simplex_defaults">SimpleX 기본값 사용 중.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">원격 접근</string>
+    <string name="remote_access_target_device">대상 기기</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">눌러 말하기</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">이중 보안.</string>
+    <string name="secure_notes_cancel">취소</string>
+    <string name="secure_notes_delete">삭제</string>
+    <string name="secure_notes_every_note_photo_video">금고 안의 모든 노트, 사진, 동영상.</string>
+    <string name="secure_notes_search_the_vault">금고 검색…</string>
+    <string name="secure_notes_type_wipe_vault_to">WIPE VAULT 입力</string>
+    <string name="secure_notes_vault">금고</string>
+    <string name="secure_notes_wipe">삭제</string>
+    <string name="secure_notes_wipe_vault">금고 삭除</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">드릴</string>
+    <string name="sentinel_inbox_frontcamera_capture">전면 카메라 캡처</string>
+    <string name="sentinel_inbox_gyroscope_rads">자이로스코프 (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">녹화 단계의 머그샷</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">이 단계에 대한 포렌식 페이로드 없음.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">아직 Sentinel 이벤트 없음.</string>
+    <string name="sentinel_inbox_sentinel_inbox">Sentinel 받은편함</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">지우기</string>
+    <string name="sentinel_log_no_events_logged_arm">이벤트 없음. Sentinel 활성화.</string>
+    <string name="sentinel_log_sentinel_event_log">Sentinel 이벤트 로그</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">기기별 조정 -- 스피커가 다름.</string>
+    <string name="sonar_audio_loop_selftest">오디오 루프 자가테스트</string>
+    <string name="sonar_autoarm_at_bedside">춨대 옆에서 자동 활성화</string>
+    <string name="sonar_autocalibrate">자동 보정</string>
+    <string name="sonar_automatically_arms_sentinel_when">전화를 놓으면 Sentinel 자동 활성화.</string>
+    <string name="sonar_cancel_drill">훈련 취소</string>
+    <string name="sonar_contacts_who_receive_silent">사일런트 핑을 받는 연락처.</string>
+    <string name="sonar_fires_one_audible_200">200 ms 1 kHz 비프 1회 발사 후 측정.</string>
+    <string name="sonar_hearing_audible_clicks_drop">클릭? 낮추세요. 스피커가 초음파에 도달.</string>
+    <string name="sonar_if_you_hear_clicks">클릭 소리가 들리면 -- 휴대폰 스피커 -- 대부분</string>
+    <string name="sonar_latest_reading">최신 읽기</string>
+    <string name="sonar_layered_cascade_sonar_proximity">캐스케이드: 소나, 근접, 가속도.</string>
+    <string name="sonar_local_event_log_debug">로컬 로그(디버그)</string>
+    <string name="sonar_logonly_record_events_locally">로그만 -- 알림 없음</string>
+    <string name="sonar_lower_more_sensitive_compare">낮을수록 = 더 민감.</string>
+    <string name="sonar_no_contacts_yet_add">연락처 없음 -- 알림을 위해 추가.</string>
+    <string name="sonar_no_data_yet_tap">데이터 없음 -- 시작</string>
+    <string name="sonar_notification_throttle">알림 제한</string>
+    <string name="sonar_notify_list">알림 목록</string>
+    <string name="sonar_place_the_phone_where">전화를 듣고 싶은 곳에 놓으세요.</string>
+    <string name="sonar_send_test_notification_to">목록에 테스트 알림 보내기</string>
+    <string name="sonar_sentinel_mode">Sentinel 모드</string>
+    <string name="sonar_sentinel_viewers">Sentinel 뷰어</string>
+    <string name="sonar_sonar_raw_data">소나 -- 원시 데이터</string>
+    <string name="sonar_status">상태</string>
+    <string name="sonar_stop_sonar_first_calibrate">소나 먼저 중지 -- 보정에 오디오 독점 필요</string>
+    <string name="sonar_stop_sonar_first_selftest">소나 먼저 중지 -- 자가테스트에 오디오 독점 필요</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">카메라</string>
+    <string name="story_screens_new_story">새 스토리</string>
+    <string name="story_screens_photo">사凄</string>
+    <string name="story_screens_remove">제거</string>
+    <string name="story_screens_stories">스토리</string>
+    <string name="story_screens_story_not_found">스토리를 찾을 수 없습니다.</string>
+    <string name="story_screens_visible_to_every_paired">모든 연락처에 24시간 표시.</string>
+    <string name="story_screens_whats_happening">무슨 일이 일어나고 있나요?</string>
+    <string name="story_screens_your_story">나的 스토리</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">항상 중앙. 이동 불가.</string>
+    <string name="tab_order_nav_order">탐색 순서</string>
+    <string name="tab_order_reorder_bottom_nav">탐색 재정렬</string>
+    <string name="tab_order_reset_to_default">기본값으로 재설정</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (중앙 고정)</string>
+    <string name="tab_order_sos_stays_in_the">SOS는 중앙에 유지 -- 이동하기에 너무 중요.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis는 영원히 무료. 광고 없음. 추적 없음. 데이터 판매 없음.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis는 아무것도 묻지 않고 열립니다. PIN은 여전히 존재합니다 — 강박, 원격 액세스, 메시지 암호화를 위해. 설정에서 언제든지 잠금을 다시 활성화할 수 있습니다.</string>
+    <string name="tutorial_anyone_who_sees_these">이 단어를 보는 사람은 계정을 소유</string>
+    <string name="tutorial_biometric_login_is_convenient">생체 인식 로그인은 편리하지만 강박 보호를 건너뜁니다. 누군가 지문을 강제로 사용하면 실제 프로필이 열립니다. 최대 보안을 위해 PIN을 권장합니다.</string>
+    <string name="tutorial_biometric_skips_duress">생체인증은 강압을 건너</string>
+    <string name="tutorial_choose_how_you_unlock">잠금해제 방법 선택</string>
+    <string name="tutorial_confirm_pin">PIN 확인</string>
+    <string name="tutorial_continue">계속</string>
+    <string name="tutorial_disable_lock">잠금 비활성화</string>
+    <string name="tutorial_done">완료</string>
+    <string name="tutorial_each_node_unlocks_a">각 노드가 새로운 보호 레이어를 해제.</string>
+    <string name="tutorial_enable_anyway">그래도 활성화</string>
+    <string name="tutorial_encrypted_communication_personal_security">암호화 통신 + 개인 보안.</string>
+    <string name="tutorial_enter_aegis">Aegis 입장</string>
+    <string name="tutorial_find_your_way_around">앱 둘러보기</string>
+    <string name="tutorial_fingerprint_face">지문 / 얼굴</string>
+    <string name="tutorial_get_started">시작</string>
+    <string name="tutorial_if_it_ever_helps">도움이 되셨다면 시스템 → 정보에서 Project Aether를 지원할 수 있습니다.</string>
+    <string name="tutorial_it_is_your_master">이것은 마스터 키이며 한 번만 표시됩니다. 저장하지 않으며 다시 표시하지 않습니다 — PIN 뒤에도, 지문 뒤에도. 적어두지 않았다면, 그것이 진정 당신의 것인 대가입니다. 종이 사본을 안전하게 보관하세요.</string>
+    <string name="tutorial_ive_written_it_down">적어두었음</string>
+    <string name="tutorial_keep_lock">잠금 유지</string>
+    <string name="tutorial_keep_pin_only">PIN만</string>
+    <string name="tutorial_left_to_right_along">왼쪽에서 오른쪽으로 하단을 따라:</string>
+    <string name="tutorial_make_sure_no_one">아무도 보고 있지 않고 화면을 녹화하는 것이 없는지 확인하세요. 스크린샷이 차단됩니다 — 스크린샷은 갤러리에 저장되고 클라우드에 동기화되며 휴대폰에 접근할 수 있는 누구나 볼 수 있습니다. 아래 패널을 긁어 24개 단어를 확인하고 종이에 적어 안전한 곳에 보관하세요.</string>
+    <string name="tutorial_new_pin_48_digits">새 PIN (4–8자리)</string>
+    <string name="tutorial_no_lock_screen">잠금화면 없음</string>
+    <string name="tutorial_open_without_a_lock">잠금화면 없이 열기?</string>
+    <string name="tutorial_part_of_project_aether">Project Aether의 일부</string>
+    <string name="tutorial_pattern">패턴</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN 설정됨 ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">복구 문구 설정 완료!</string>
+    <string name="tutorial_save_pin">PIN 저장</string>
+    <string name="tutorial_set_your_pin">PIN 설정</string>
+    <string name="tutorial_show_the_words_again">단어 다시 보기</string>
+    <string name="tutorial_skip">건너뛰기</string>
+    <string name="tutorial_skip_check_debug">검사 건너뛰기 (디버그)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS는 중앙에 고정됩니다. 나머지는 시스템 → 내비게이션에서 재정렬할 수 있습니다.</string>
+    <string name="tutorial_thank_you">감사합니다</string>
+    <string name="tutorial_the_skill_tree">스킬 트리</string>
+    <string name="tutorial_this_encrypts_your_messages">이것은 메시지를 암호화하고 PIN을 잊거나 지문을 잃었을 때 계정을 복구합니다. 이것을 잃으면 아무도 — 우리도, 누구도 — 데이터를 복구할 수 없습니다.</string>
+    <string name="tutorial_this_is_the_only">이것이 유일한 사본입니다. 아무것도 보관하지 않습니다. \"문구 분실\"도 없고, 재설정도 없고, 새로 만들 방법도 없습니다 — PIN으로도, 지문으로도, 우리에 의해서도. 이 종이를 잃으면 데이터는 영원히 사라지며 지구상의 누구도 되찾을 수 없습니다. 지금 적으세요.</string>
+    <string name="tutorial_three_tiers_of_trust">3단계 신뢰</string>
+    <string name="tutorial_what_makes_this_different">무엇이 다른지</string>
+    <string name="tutorial_you_can_replay_this">도움말에서 튜토리얼 재생 가능.</string>
+    <string name="tutorial_your_messages_and_attachments">메시지와 첨부파일은 이 PIN으로 암호화.</string>
+    <string name="tutorial_your_pin_is_set">PIN이 설정되어 항상 작동합니다 — 강박 모드와 원격 액세스가 사용하는 것입니다. 이것들은 그 위의 선택적 바로가기입니다.</string>
+    <string name="tutorial_your_recovery_phrase">복구 문구</string>
+    <string name="tutorial_your_safety_net">안전망</string>
+    <string name="tutorial_youre_ready">준비 완료</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">안전 코드를 가져올 수 없습니다. SimpleX가 아직</string>
+    <string name="verify_contact_pick_qr_from_photo">사진에서 QR 선택</string>
+    <string name="verify_contact_safety_code_qr">안전 코드 QR</string>
+    <string name="verify_contact_scan_their_qr">상대방 QR 스캔</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">지금 잠금</string>
+    <string name="header_sentinel_armed">Sentinel 활성화됨</string>
+    <string name="call_island_tap_return">탭하여 돌아가기</string>
+    <string name="cyan_stay_safe">— 안전하세요.</string>
+    <string name="pin_guard_required">앱 PIN 필요</string>
+    <string name="pin_guard_set_pin">앱 PIN 설정</string>
+    <string name="update_dialog_later">나중에</string>
+    <string name="update_dialog_update">업데이트</string>
+    <string name="voice_slide_cancel">취소하려면 슬라이드 ←</string>
+    <string name="a11y_group_avatar">그룹 아바타</string>
+    <string name="a11y_voice_record">음성 녹음</string>
+
+    <string name="chat_react_custom_title">사용자 정의 반응</string>
+    <string name="chat_react_custom_hint">이모지를 입력하세요.</string>
+    <string name="chat_react_apply">반응</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">시스템</string>
+    <string name="action_delete">삭제</string>
+    <string name="action_clear">지우기</string>
+    <string name="action_add">추가</string>
+    <string name="action_edit">편집</string>
+    <string name="action_copy">복사</string>
+    <string name="action_share">공유…</string>
+    <string name="action_send">보내기</string>
+    <string name="action_change">변경</string>
+    <string name="profile_saving">저장 중…</string>
+    <string name="profile_get_started">시작하기</string>
+    <string name="contact_notification_sound">알림음</string>
+    <string name="chat_add_caption">설명 추가…</string>
+    <string name="chat_clear">채팅 지우기</string>
+    <string name="chat_clear_confirm">이 채팅을 지우시겠습니까?</string>
+    <string name="chat_schedule_message">메시지 예약</string>
+    <string name="chat_cancel_edit">편집 취소</string>
+    <string name="chat_cancel_reply">답장 취소</string>
+    <string name="chat_voice_message">음성 메시지</string>
+    <string name="chat_file">파일</string>
+    <string name="chat_location">위치</string>
+    <string name="chat_camera">카메라</string>
+    <string name="sos_emergency">긴급상황</string>
+    <string name="sos_stop">정지</string>
+    <string name="settings_checking">확인 중…</string>
+    <string name="settings_enabled">활성화됨</string>
+    <string name="settings_start">시작</string>
+    <string name="settings_end">종료</string>
+    <string name="settings_how_it_works">작동 방식</string>
+    <string name="settings_message">메시지</string>
+    <string name="settings_checkin_window">체크인 창</string>
+    <string name="status_battery">배터리</string>
+    <string name="status_charging">충전 중</string>
+    <string name="remote_locate">위치 찾기</string>
+    <string name="remote_siren">사이렌</string>
+    <string name="tutorial_bubble_welcome">Project Aether에 오신 것을 환영합니다. 저는 Cyan이에요 — 가이드를 맡겠습니다. 펜과 종이를 준비하세요 — 메시지를 보호하는 24개 단어를 적어달라고 할 거예요.</string>
+    <string name="tutorial_bubble_different">전화번호 없음. 계정 없음. 서버가 메시지를 저장하지 않음. 암호화만.</string>
+    <string name="tutorial_bubble_safety">위험할 때 버튼 하나로 신뢰하는 모든 사람에게 알림.</string>
+    <string name="tutorial_bubble_tiers">누가 무엇을 볼지 당신이 결정.</string>
+    <string name="tutorial_bubble_skill_tree">한 번에 한 단계씩 휴대폰 강화.</string>
+    <string name="tutorial_bubble_tabs">하단에 5개 탭. 각각의 기능:</string>
+    <string name="tutorial_bubble_unlock">PIN이 가장 안전. 더 빠른 방법 추가 — PIN은 항상 유지.</string>
+    <string name="tutorial_bubble_ready">준비 완료. 연락처를 추가하여 시작.</string>
+    <string name="tutorial_bubble_thanks">Aegis를 선택해 주셔서 감사합니다.</string>
+    <string name="tutorial_bullet_protocol">Aegis Protocol 기반</string>
+    <string name="tutorial_bullet_metadata">메타데이터 제로 — 프로필 없음, 연락처 그래프 없음</string>
+    <string name="tutorial_bullet_e2ee">종단 간 암호화, 항상</string>
+    <string name="tutorial_bullet_sos_hold">SOS 버튼 1초 길게 누르기 — 또는 전원 ×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS, 오디오, 카메라가 연락처에 전송</string>
+    <string name="tutorial_bullet_sos_lockscreen">잠금 화면에서 작동</string>
+    <string name="tutorial_tier_trusted">신뢰</string>
+    <string name="tutorial_tier_trusted_desc">모든 것 — 위치, 프레즐스, SOS.</string>
+    <string name="tutorial_tier_emergency">비상</string>
+    <string name="tutorial_tier_emergency_desc">비상 알림만 — 일상 데이터 없음.</string>
+    <string name="tutorial_tier_untrusted">비신뢰</string>
+    <string name="tutorial_tier_untrusted_desc">메시지만 — 다른 것 없음.</string>
+    <string name="tutorial_tab_system_desc">설정, 신원, 앱 잠금, 업데이트.</string>
+    <string name="tutorial_tab_opsec_desc">보안 스킬 트리 — 단계별 강화.</string>
+    <string name="tutorial_tab_sos_desc">가장 중요. 길게 눌러 모두에게 알림.</string>
+    <string name="tutorial_tab_comms_desc">암호화 채팅. 여기서 메시지.</string>
+    <string name="tutorial_tab_radar_desc">라이브 지도 — 연락처 위치와 온라인 상태.</string>
+    <string name="tutorial_unlock_pin_desc">PIN 입력으로 잠금 해제. 완전한 강압 보호.</string>
+    <string name="tutorial_unlock_pattern_desc">패턴 그려 잠금 해제. PIN은 강압을 커버.</string>
+    <string name="tutorial_unlock_bio_desc">빠른 잠금 해제. 생체 인식은 강압 보호를 건너َ.</string>
+    <string name="tutorial_unlock_none_desc">잠금 없이 Aegis 열기. PIN이 강압 + 원격 접근을 보호.</string>
+    <string name="tutorial_pin_explanation_new">PIN이 Aegis를 잠그고 프로필을 보호. 복구 문구가 메시지를 암호화. 4–8자리.</string>
+    <string name="tutorial_pin_already_nice">이미 완료. 좋습니다.</string>
+    <string name="tutorial_pin_set_first">가장 먼저. 앱 PIN을 설정하세요.</string>
+    <string name="tutorial_node_app_pin">앱
+PIN</string>
+    <string name="tutorial_node_duress_pin">강압
+PIN</string>
+    <string name="tutorial_perm_title">Aegis가 왜 많이 요청하는지</string>
+    <string name="tutorial_perm_bubble">탭하여 허용 — 또는 건너뛰기. 각각의 이유를 설명합니다.</string>
+    <string name="tutorial_perm_intro">보안 앱은 당신을 대신해 행동할 수 있어야 합니다 — 찾기, 알리기, 화면 꺼졌을 때 실행. 그래서 목록이 길어 보입니다. 카드를 탭하여 지금 허용하거나, 나중에 기능이 필요할 때 허용하세요. 당신 없이는 아무것도 휴대폰을 떠나지 않습니다.</string>
+    <string name="tutorial_perm_background_title">백그라운드 활동</string>
+    <string name="tutorial_perm_background_why">가장 중요. Aegis가 닫히거나 화면이 꺼져도 실행됩니다. 이것 없이는 휴대폰이 조용히 멈출 수 있습니다 — 특히 OnePlus, Xiaomi, Oppo에서.</string>
+    <string name="tutorial_perm_oem_warning">%1$s 휴대폰에 Aegis를 죽일 수 있는 추가 배터리 설정이 있습니다. 이 설정을 열고 Aegis의 자동 시작을 허용하세요.</string>
+    <string name="tutorial_perm_notif_title">알림</string>
+    <string name="tutorial_perm_notif_why">메시지, 통화, SOS 알림 — 잠금 화면에서도.</string>
+    <string name="tutorial_perm_location_title">위치</string>
+    <string name="tutorial_perm_location_why">비상시 신뢰하는 연락처가 당신을 찾고 SOS가 위치를 공유할 수 있도록. (백그라운드 위치는 화면 꺼짐 시를 위해 설정에서 별도로 허용됩니다.)</string>
+    <string name="tutorial_perm_camera_title">카메라</string>
+    <string name="tutorial_perm_camera_why">SOS 사진, 잘못된 PIN 머그샷, 영상통화용.</string>
+    <string name="tutorial_perm_mic_title">마이크</string>
+    <string name="tutorial_perm_mic_why">SOS 음성 녹음 및 음성/영상통화용.</string>
+    <string name="tutorial_perm_media_title">사진, 동영상, 파일</string>
+    <string name="tutorial_perm_media_why">첨부파일 전송/저장용. Aegis는 공유한 것만 봅니다.</string>
+    <string name="tutorial_perm_phone_title">전화와 SIM</string>
+    <string name="tutorial_perm_phone_why">SIM 교체 경고 — 번호 탈취의 일반적 징후.</string>
+    <string name="tutorial_perm_nearby_title">근처 기기</string>
+    <string name="tutorial_perm_nearby_why">Bluetooth로 사람과 기기 찾기 (레이더와 소나).</string>
+    <string name="tutorial_perm_install_title">업데이트 설치</string>
+    <string name="tutorial_perm_install_why">당신을 추적할 수 있는 앱 스토어 없이 Aegis가 안전하게 자동 업데이트할 수 있도록.</string>
+    <string name="tutorial_perm_footer">당신이 통제합니다. 건너뛰어도 Aegis 대부분 작동 — 하지만 백그라운드가 보안 기능을 유지.</string>
+    <string name="tutorial_perm_granted">허용됨 ✓</string>
+    <string name="tutorial_perm_denied">거부됨</string>
+    <string name="tutorial_perm_allow">허용</string>
+
+    <string name="tutorial_perm_oem_title">%1$s 배터리 설정</string>
+    <string name="tutorial_perm_oem_open">%1$s 설정 열기</string>
+    <string name="tutorial_perm_denied_note">나중에 활성화할 수 있습니다 — 탭하여 설정을 엽니다.</string>
+    <string name="tutorial_pin_explanation_existing">PIN은 Aegis를 잠금 해제하고 메시지를 암호화하는 키입니다. 4~8자리.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">금고\nPIN</string>
+    <string name="tutorial_node_device_owner">기기\n소유자</string>
+    <string name="tutorial_node_app_duress">앱\n강박</string>
+    <string name="tutorial_skill_tree_explanation">앱 PIN으로 강박, 사진, 금고, 카나리아, SIM 감시, 지오펜스가 해제됩니다. 한 번 설정하면 나머지가 열립니다. 최고 등급은 기기 소유자입니다.</string>
+    <string name="tutorial_phrase_intro">다음 화면에 24개 단어가 표시됩니다. 패널을 긁어 확인하고 모두 종이에 적으세요.</string>
+    <string name="tutorial_phrase_show">문구 보기</string>
+    <string name="tutorial_phrase_scratch">긁어서 확인한 후 24개 단어를 순서대로 적으세요.</string>
+    <string name="tutorial_phrase_confirm">저장을 확인하세요. 종이에서 단어 %1$s을 입력하세요.</string>
+    <string name="tutorial_phrase_word_n">단어 #%1$d</string>
+    <string name="tutorial_phrase_mismatch">단어가 일치하지 않습니다. 종이를 확인하세요.</string>
+    <string name="tutorial_phrase_write_down">이 24개 단어를 종이에 적으세요. 모든 것의 열쇠입니다.</string>
+    <string name="tutorial_phrase_already_saved">이미 저장됨. 종이 사본을 안전하게 보관하세요.</string>
+    <string name="tutorial_draw_pattern">패턴을 그리세요</string>
+    <string name="tutorial_draw_pattern_confirm">확인을 위해 다시 그리세요</string>
+    <string name="tutorial_pattern_min_dots">최소 %1$d개의 점을 사용하세요.</string>
+    <string name="tutorial_pattern_mismatch">일치하지 않음 — 다시 시작하세요.</string>
+    <string name="tutorial_bio_need_pin_first">먼저 PIN을 설정한 후 생체 인식을 추가하세요.</string>
+    <string name="tutorial_bio_failed">생체 인식을 활성화할 수 없습니다. 다시 시도하세요.</string>
+    <string name="tutorial_pin_save_error">PIN을 저장할 수 없습니다: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN이 저장되지 않았습니다 — 진단을 확인하세요.</string>
+</resources>

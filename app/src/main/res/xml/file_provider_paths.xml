@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Update APKs (UpdateInstaller) and any other root-level files. -->
+    <files-path name="update_apks" path="." />
+    <!-- Camera capture + voice recordings. Pre-Phase-1 layout is
+         filesDir/app_files; Phase 1 multi-profile moved this under
+         profiles/<id>/app_files. Both entries surface so links
+         from before/after the migration both resolve. -->
+    <files-path name="attachments" path="app_files/" />
+    <files-path name="profile_attachments" path="profiles/" />
+    <!-- Decrypted vault attachments are written to cacheDir during a
+         view session and wiped on activity resume / vault lock.
+         Sharing through FileProvider lets the system viewer (image,
+         video, PDF) read the plaintext temp via content:// URI. -->
+    <cache-path name="vault_dec" path="vault_dec/" />
+    <!-- Decrypted CHAT attachments (ChatAttachmentSeal.DECRYPT_SUBDIR).
+         Same story as vault_dec: a sealed photo/video/file is decrypted to
+         a cacheDir scratch and wiped on lock. Without this root, handing the
+         scratch to an external player via FileProvider.getUriForFile threw
+         "failed to find configured root" — so tapping a sealed video (or
+         opening a sealed file) silently did nothing (user-reported). -->
+    <cache-path name="chat_dec" path="chat_dec/" />
+    <!-- Connection / diagnostic log exports — written to cacheDir
+         by the log viewer's Share button and handed to the system
+         chooser as a text/plain attachment. Bypasses clipboard
+         length limits when the log doesn't fit in the recipient's
+         text input. -->
+    <cache-path name="diag_logs" path="diag/" />
+</paths>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link href="./style.css" rel="stylesheet" />
+    <script src="./lz-string.min.js"></script>
+    <script>
+      // Aegis-side, BEFORE call.js. Wraps RTCPeerConnection so the
+      // active connection is reachable from outside call.js — used by
+      // the Netflix-style quality monitor below to read getStats and
+      // adapt the local track's resolution. The override is a no-op
+      // for behaviour; just a side-channel registration.
+      (function () {
+        var RealPC = window.RTCPeerConnection;
+        if (!RealPC) return;
+        function WrappedPC() {
+          var pc = new (Function.prototype.bind.apply(RealPC, [null].concat(Array.prototype.slice.call(arguments))))();
+          window.aegis_pc = pc;
+          return pc;
+        }
+        WrappedPC.prototype = RealPC.prototype;
+        window.RTCPeerConnection = WrappedPC;
+      })();
+    </script>
+  </head>
+  <body>
+    <video
+      id="remote-video-stream"
+      autoplay
+      playsinline
+      poster="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAEUlEQVR42mNk+M+AARiHsiAAcCIKAYwFoQ8AAAAASUVORK5CYII="
+    ></video>
+    <video
+      id="local-video-stream"
+      muted
+      autoplay
+      playsinline
+      poster="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAEUlEQVR42mNk+M+AARiHsiAAcCIKAYwFoQ8AAAAASUVORK5CYII="
+    ></video>
+  </body>
+  <footer>
+    <script src="./call.js"></script>
+    <script>
+      // Aegis-side: drag-to-reposition + tap-to-swap on the self-view
+      // PiP. Lives here rather than in call.js so we don't drift from
+      // upstream simplex-chat when we sync vendored files. Activates
+      // once the elements exist (call.js binds streams asynchronously).
+      (function () {
+        function arm() {
+          var local = document.getElementById('local-video-stream');
+          var remote = document.getElementById('remote-video-stream');
+          if (!local || !remote) { setTimeout(arm, 200); return; }
+
+          var swapped = false;
+          var pressed = false;
+          var moved = false;
+          var startX = 0, startY = 0;
+          var offsetX = 0, offsetY = 0;
+          var baseX = 0, baseY = 0;
+
+          local.addEventListener('pointerdown', function (e) {
+            pressed = true;
+            moved = false;
+            startX = e.clientX;
+            startY = e.clientY;
+            baseX = offsetX;
+            baseY = offsetY;
+            try { local.setPointerCapture(e.pointerId); } catch (_) {}
+          });
+          local.addEventListener('pointermove', function (e) {
+            if (!pressed) return;
+            var dx = e.clientX - startX;
+            var dy = e.clientY - startY;
+            if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+            if (moved) {
+              offsetX = baseX + dx;
+              offsetY = baseY + dy;
+              local.style.transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+              e.preventDefault();
+            }
+          });
+          function endPointer(e) {
+            if (!pressed) return;
+            pressed = false;
+            try { local.releasePointerCapture(e.pointerId); } catch (_) {}
+            if (!moved) {
+              // Tap with no meaningful drag = swap focus.
+              swapped = !swapped;
+              if (swapped) {
+                local.classList.add('aegis-fullscreen');
+                remote.classList.add('aegis-pip');
+                local.style.transform = '';   // fullscreen ignores drag
+                offsetX = 0; offsetY = 0;
+              } else {
+                local.classList.remove('aegis-fullscreen');
+                remote.classList.remove('aegis-pip');
+              }
+            }
+          }
+          local.addEventListener('pointerup', endPointer);
+          local.addEventListener('pointercancel', endPointer);
+        }
+        if (document.readyState === 'complete' || document.readyState === 'interactive') arm();
+        else document.addEventListener('DOMContentLoaded', arm);
+      })();
+
+      // Netflix-style adaptive resolution. Every 5 s read RTCStatsReport
+      // off the active peer connection, compute a quality score from
+      // packet loss + RTT, and tighten / relax the local camera
+      // constraints to match. Big-screen friendliness without drowning
+      // the user's uplink. Five buckets:
+      //
+      //   AUTO_HIGH       720p · 30 fps   pkt-loss < 1 %, RTT < 150 ms
+      //   AUTO_MEDIUM     480p · 30 fps   pkt-loss < 3 %, RTT < 300 ms
+      //   AUTO_LOW        360p · 24 fps   pkt-loss < 5 %, RTT < 500 ms
+      //   AUTO_VERY_LOW   240p · 15 fps   pkt-loss < 10 %, RTT < 800 ms
+      //   AUTO_AUDIO_ONLY  no video       worse than above
+      //
+      // Hysteresis: step DOWN immediately, step UP only after two
+      // consecutive better measurements, so a brief glitch doesn't
+      // bounce the resolution back and forth.
+      (function () {
+        var ladder = [
+          { name: 'AUTO_HIGH',     w: 1280, h: 720, fr: 30 },
+          { name: 'AUTO_MEDIUM',   w: 854,  h: 480, fr: 30 },
+          { name: 'AUTO_LOW',      w: 640,  h: 360, fr: 24 },
+          { name: 'AUTO_VERY_LOW', w: 426,  h: 240, fr: 15 },
+        ];
+        var current = 0;        // index into ladder (0 = highest)
+        var goodStreak = 0;     // consecutive "could go up" reads
+        var lastBytes = null;
+        var lastTs = null;
+
+        function pickBucket(lossPct, rttMs) {
+          if (lossPct < 1 && rttMs < 150)  return 0;
+          if (lossPct < 3 && rttMs < 300)  return 1;
+          if (lossPct < 5 && rttMs < 500)  return 2;
+          return 3;
+        }
+
+        function postToKotlin(payload) {
+          try {
+            var s = JSON.stringify({ resp: payload });
+            // Prefer the WebMessageListener channel (androidApi.postMessage) —
+            // it has no per-call JNI reflection, so it can't leak/overflow the
+            // global ref table like the legacy addJavascriptInterface bridge
+            // (androidApi.onWebRtcMessage) did under a panic call's message
+            // storm. Fall back to the bridge where the listener isn't present.
+            if (window.androidApi && window.androidApi.postMessage) {
+              window.androidApi.postMessage(s);
+            } else if (window.androidApi && window.androidApi.onWebRtcMessage) {
+              window.androidApi.onWebRtcMessage(s);
+            }
+          } catch (_) {}
+        }
+
+        function applyBucket(idx) {
+          var b = ladder[idx];
+          var local = document.getElementById('local-video-stream');
+          var stream = local && local.srcObject;
+          var track = stream && stream.getVideoTracks && stream.getVideoTracks()[0];
+          if (!track) return;
+          track.applyConstraints({
+            width:     { ideal: b.w  },
+            height:    { ideal: b.h  },
+            frameRate: { ideal: b.fr },
+          }).catch(function () {});
+          postToKotlin({ type: 'quality_adapt', bucket: b.name, w: b.w, h: b.h, fr: b.fr });
+        }
+
+        async function tick() {
+          var pc = window.aegis_pc;
+          if (!pc) return;
+          if (pc.connectionState !== 'connected') return;
+          var stats;
+          try { stats = await pc.getStats(); } catch (_) { return; }
+          var loss = 0, lossDen = 0, rtt = 0, rttCount = 0;
+          stats.forEach(function (report) {
+            if (report.type === 'remote-inbound-rtp' && report.kind === 'video') {
+              if (typeof report.fractionLost === 'number') {
+                loss += report.fractionLost;
+                lossDen += 1;
+              }
+              if (typeof report.roundTripTime === 'number') {
+                rtt += report.roundTripTime * 1000;
+                rttCount += 1;
+              }
+            } else if (report.type === 'candidate-pair' && report.state === 'succeeded' && report.currentRoundTripTime) {
+              rtt += report.currentRoundTripTime * 1000;
+              rttCount += 1;
+            }
+          });
+          var lossPct = lossDen > 0 ? (loss / lossDen) * 100 : 0;
+          var rttMs   = rttCount > 0 ? (rtt / rttCount) : 0;
+          var target = pickBucket(lossPct, rttMs);
+
+          // Hysteresis. Lower index = higher quality. Step DOWN
+          // (target > current) immediately; step UP only after two
+          // consecutive "we could afford to bump back up" reads.
+          if (target > current) {
+            current = target;
+            goodStreak = 0;
+            applyBucket(current);
+          } else if (target < current) {
+            goodStreak += 1;
+            if (goodStreak >= 2) {
+              current = target;
+              goodStreak = 0;
+              applyBucket(current);
+            }
+          } else {
+            goodStreak = 0;
+          }
+          postToKotlin({
+            type: 'quality_stats',
+            loss_pct: Math.round(lossPct * 10) / 10,
+            rtt_ms: Math.round(rttMs),
+            bucket: ladder[current].name,
+          });
+        }
+        setInterval(tick, 5000);
+      })();
+    </script>
+  </footer>
+</html>

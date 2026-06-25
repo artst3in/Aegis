@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LunaGlass notes icon (icon-set May 24 expansion): folded-
+     corner document with a tiny padlock inside the body. Reads as
+     "secure note" — the AegisHeader's 📓 emoji shortcut into the
+     Secure Notes screen used to render in colour and break the
+     monochrome palette. Replaces that. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M6,2 L15,2 L20,7 L20,22 L6,22 Z M15,2 L15,7 L20,7 M10,13 L14,13 L14,18 L10,18 Z M11,13 L11,11.5 Q12,10 13,11.5 L13,13" />
+</vector>

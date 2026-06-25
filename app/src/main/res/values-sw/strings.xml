@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">Mazungumzo</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">Mfumo</string>
+    <string name="action_save">Hifadhi</string>
+    <string name="action_cancel">Ghairi</string>
+    <string name="action_done">Tayari</string>
+    <string name="action_back">Rudi</string>
+    <string name="action_delete">Futa</string>
+    <string name="action_clear">Safisha</string>
+    <string name="action_add">Ongeza</string>
+    <string name="action_edit">Hariri</string>
+    <string name="action_copy">Nakili</string>
+    <string name="action_share">Shiriki…</string>
+    <string name="action_send">Tuma</string>
+    <string name="action_change">Badilisha</string>
+    <string name="profile_title">Wasifu wako</string>
+    <string name="profile_welcome">Karibu Aegis</string>
+    <string name="profile_display_name">Jina la kuonyesha</string>
+    <string name="profile_your_name">Jina lako</string>
+    <string name="profile_bio">Maelezo (hiari)</string>
+    <string name="profile_bio_hint">Kitu ambacho wawasiliani wako wanaona wanapogonga jina lako.</string>
+    <string name="profile_saving">Inahifadhi…</string>
+    <string name="profile_get_started">Anza</string>
+    <string name="contact_title">Mwasiliani</string>
+    <string name="contact_not_found">Mwasiliani hajapatikana.</string>
+    <string name="contact_add">Ongeza mwasiliani</string>
+    <string name="contact_connecting">Inaunganisha…</string>
+    <string name="contact_nickname">Jina la utani</string>
+    <string name="contact_nickname_hint">Jina la utani (utawaitaje)</string>
+    <string name="contact_my_nickname">Jina langu kwao</string>
+    <string name="contact_save_nickname">Hifadhi jina la utani</string>
+    <string name="contact_copy_link">Nakili kiungo</string>
+    <string name="contact_accept_invite">Kubali mwaliko</string>
+    <string name="contact_accept_invitation">Kubali mwaliko</string>
+    <string name="contact_pin">Bandika juu</string>
+    <string name="contact_unpin">Ondoa</string>
+    <string name="contact_mute">Nyamazisha</string>
+    <string name="contact_notification_sound">Sauti ya arifa</string>
+    <string name="chat_add_caption">Ongeza maelezo…</string>
+    <string name="chat_clear">Safisha mazungumzo</string>
+    <string name="chat_clear_confirm">Safisha mazungumzo haya?</string>
+    <string name="chat_schedule_message">Panga ujumbe</string>
+    <string name="chat_cancel_edit">Ghairi kuhariri</string>
+    <string name="chat_cancel_reply">Ghairi jibu</string>
+    <string name="chat_voice_message">Ujumbe wa sauti</string>
+    <string name="chat_file">Faili</string>
+    <string name="chat_location">Mahali</string>
+    <string name="chat_camera">Kamera</string>
+    <string name="group_new">Kundi jipya</string>
+    <string name="group_name">Jina la kundi</string>
+    <string name="group_creating">Inaunda…</string>
+    <string name="group_create">Unda kundi</string>
+    <string name="call_voice">Piga simu</string>
+    <string name="call_video">Simu ya video</string>
+    <string name="call_calling">Inapiga…</string>
+    <string name="sos_title">SOS</string>
+    <string name="sos_active">INATUMIKA</string>
+    <string name="sos_broadcasting">Inatangaza</string>
+    <string name="sos_emergency">SOS</string>
+    <string name="sos_stop">SIMAMA</string>
+    <string name="duress_confirm_pin">Thibitisha PIN</string>
+    <string name="duress_confirm_duress_pin">Thibitisha PIN ya kulazimishwa</string>
+    <string name="duress_change_pin">Badilisha PIN</string>
+    <string name="settings_title">Mfumo</string>
+    <string name="settings_app_lock">Kufuli ya programu</string>
+    <string name="settings_auto_lock">Kufuli otomatiki</string>
+    <string name="settings_calls">Simu</string>
+    <string name="settings_updates">Masasisho</string>
+    <string name="settings_quiet_hours">Masaa ya utulivu</string>
+    <string name="settings_canary">Ujumbe wa kanari</string>
+    <string name="settings_wifi_only">WiFi pekee</string>
+    <string name="settings_checking">Inaangalia…</string>
+    <string name="settings_enabled">Imewashwa</string>
+    <string name="settings_start">Anza</string>
+    <string name="settings_end">Mwisho</string>
+    <string name="settings_how_it_works">Jinsi inavyofanya kazi</string>
+    <string name="settings_message">Ujumbe</string>
+    <string name="settings_checkin_window">Muda wa kujiandikisha</string>
+    <string name="status_online">mtandaoni</string>
+    <string name="status_offline">nje ya mtandao</string>
+    <string name="status_away">mbali</string>
+    <string name="status_battery">Betri</string>
+    <string name="status_charging">Inachaji</string>
+    <string name="update_available">Sasishio linapatikana</string>
+    <string name="remote_locate">Tafuta</string>
+    <string name="remote_siren">Sireni</string>
+    <string name="loki_mugshot_armed">Imewekwa — inapiga picha baada ya PIN %d mbaya.</string>
+    <string name="loki_sim_armed">Imewekwa. SIM ya sasa:</string>
+    <string name="loki_canary_armed">Imewekwa. Fungua programu kuweka upya kipima muda.</string>
+    <string name="loki_deadmans_switch">Kitufe cha usalama</string>
+    <string name="nav_security">Usalama</string>
+    <string name="nav_radar">Rada</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">Kosa la kunakili</string>
+    <string name="add_contact_generate_a_onetime_link">Tengeneza kiungo cha mara moja.</string>
+    <string name="add_contact_generating_link">Inatengeneza kiungo…</string>
+    <string name="add_contact_got_their_invitation_link">Una kiungo chao? Changanua QR au bandika.</string>
+    <string name="add_contact_invitation_qr">QR ya mualiko</string>
+    <string name="add_contact_invite_someone">Alika mtu</string>
+    <string name="add_contact_joining_a_group_no">Kujiunga na kundi — jina la utani halihitajiki.</string>
+    <string name="add_contact_or_paste_an_invitation">…au bandika mualiko / kiungo cha kundi</string>
+    <string name="add_contact_pair_via_simplex_exchange">Unganisha kupitia SimpleX.</string>
+    <string name="add_contact_paired">Imeunganishwa ✓</string>
+    <string name="add_contact_pick_qr_from_photo">Chagua QR kutoka picha</string>
+    <string name="add_contact_show_this_qr_to">Waonyeshe QR hii au shiriki kiungo.</string>
+    <string name="add_contact_they_see_you_as">Wanakuona kama jina la nasibu pia -- jina lako halisi linabaki siri.</string>
+    <string name="add_contact_they_sent_you_a">Walikutumia kiungo au QR. Changanua au bandika hapa.</string>
+    <string name="add_contact_theyll_see_you_as">Watakuona kama jina la nasibu — jina lako halisi linabaki</string>
+    <string name="add_contact_waiting_for_them_to">Inasubiri wakubali…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">Jaribio la kipaza sauti</string>
+    <string name="call_relayonly_calls">Simu kupitia relay pekee</string>
+    <string name="call_run_mic_test">Endesha jaribio la kipaza sauti</string>
+    <string name="call_troubleshooting">Kutatua matatizo</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Muda gani bila kufungua Aegis kabla kanahari.</string>
+    <string name="canary_i_havent_checked_in">Sijajisajili kwa muda. </string>
+    <string name="canary_if_you_dont_open">Usipofungua Aegis ndani ya muda uliosanidiwa, </string>
+    <string name="canary_sent_verbatim_to_every">Inatumwa kwa kila mwasiliani kanahari inapofanya kazi.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">Kubali</string>
+    <string name="chat_list_add_contact">Ongeza mwasiliani</string>
+    <string name="chat_list_add_your_first_contact">Ongeza mwasiliani wako wa kwanza</string>
+    <string name="chat_list_automatically_turn_off_the">Zima otomatiki moduli ya kundi baada ya muda.</string>
+    <string name="chat_list_disable">Zima</string>
+    <string name="chat_list_enable_group_chat">Wezesha Mazungumzo ya Kundi</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">Alika</string>
+    <string name="chat_list_join_via_link">Jiunge kupitia kiungo</string>
+    <string name="chat_list_new_group">+ Kundi jipya</string>
+    <string name="chat_list_no_groups_yet_tap">Hakuna makundi bado. Gusa + Kundi jipya kuunda au jiunge kupitia kiungo.</string>
+    <string name="chat_list_pending_invitations">MIALIKO INAYOSUBIRI</string>
+    <string name="chat_list_public_groups_increase_your">Makundi ya umma huongeza eneo lako la mashambulizi.</string>
+    <string name="chat_list_removes_the_group_and">Kuondoa kundi na historia yake kutoka kifaa hiki.</string>
+    <string name="chat_list_revoke">Batilisha</string>
+    <string name="chat_list_search_messages">Tafuta ujumbe…</string>
+    <string name="chat_list_shield_paused_messages_and">Ngao imesimamishwa - ujumbe na SOS zimesimamishwa</string>
+    <string name="chat_list_tap_here_or_the">Gusa hapa au kitufe cha heksagoni kuhurudia kiungo cha mwaliko.</string>
+    <string name="chat_list_video_call">simu ya video</string>
+    <string name="chat_list_view">Angalia</string>
+    <string name="chat_list_voice_call">simu ya sauti</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">Jina la nasibu, la kipekee kwa mwasiliani huyu.</string>
+    <string name="contact_detail_access_denied_wrong_pin">Ufikiaji umekataliwa -- PIN mbaya.</string>
+    <string name="contact_detail_authenticate">Jidhihirishe</string>
+    <string name="contact_detail_battery">Betri</string>
+    <string name="contact_detail_delete_contact">Futa mwasiliani</string>
+    <string name="contact_detail_device_status">HALI YA KIFAA</string>
+    <string name="contact_detail_enable">Wezesha</string>
+    <string name="contact_detail_group_this_contact_under">Weka mwasiliani chini ya lebo.</string>
+    <string name="contact_detail_local_only_they_dont">Ya ndani pekee — hawaoni unachowakita.</string>
+    <string name="contact_detail_no_data_received_yet">Hakuna data bado -- kusubiri ping ya kwanza ya hali.</string>
+    <string name="contact_detail_not_now">Si sasa</string>
+    <string name="contact_detail_notifications">ARIFA</string>
+    <string name="contact_detail_on_success_their_phone">Ikifanikiwa simu yao itafungwa na kutafutwa.</string>
+    <string name="contact_detail_one_label_per_contact">Lebo moja kwa mwasiliani. Inaamua wanachopokea.</string>
+    <string name="contact_detail_opening_remote_control">Kufungua udhibiti wa mbali…</string>
+    <string name="contact_detail_removes_the_contact_every">Kuondoa mwasiliani na kila ujumbe.</string>
+    <string name="contact_detail_repair_contact">Rekebisha mwasiliani</string>
+    <string name="contact_detail_their_achievements">MAFANIKIO YAO</string>
+    <string name="contact_detail_this_person_will_be">Mtu huyu ataweza kutafuta, kufunga, na kufuta simu yako.</string>
+    <string name="contact_detail_trust_tier">Kiwango cha uaminifu</string>
+    <string name="contact_detail_wearable">KIFAA CHA KUVAA</string>
+    <string name="contact_detail_you_appear_to_them">WANAKUONA KAMA</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">Kugundua ajali</string>
+    <string name="crash_detection_detects_a_vehicle_crash">Hugundua ajali ya gari kutokana na mgongano mkali.</string>
+    <string name="crash_detection_sensitivity">USIKIVU</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">VITENDO</string>
+    <string name="device_control_audio">SAUTI</string>
+    <string name="device_control_expires_in">inaisha baada ya </string>
+    <string name="device_control_fix">rekebisha</string>
+    <string name="device_control_location">MAHALI</string>
+    <string name="device_control_lock_did_not_fire">Kufunga hakukufanya kazi.</string>
+    <string name="device_control_lock_off">kufuli imezimwa</string>
+    <string name="device_control_lockscreen_message">Ujumbe wa skrini ya kufuli</string>
+    <string name="device_control_no_frame">hakuna fremu</string>
+    <string name="device_control_remote_session">KIPINDI CHA MBALI</string>
+    <string name="device_control_send">Tuma</string>
+    <string name="device_control_this_is_the_last">Hii ni hatua ya mwisho kabla ya kurejesha kiwanda.</string>
+    <string name="device_control_this_triggers_a_full">Hii inasababisha UREJESHO KAMILI WA KIWANDA kwenye kifaa lengwa.</string>
+    <string name="device_control_type_wipe">Andika WIPE</string>
+    <string name="device_control_type_wipe_to_confirm">Andika WIPE kuthibitisha</string>
+    <string name="device_control_wipe_device">Futa kifaa</string>
+    <string name="device_control_wipe_target_device">Futa kifaa lengwa?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">Ufikiaji wa mbali</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">Kutupa/kunyakua kwa nguvu kunasababisha SOS. Majaribio.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">Kugundua kuingia kwa siri. Kaskada ya sensori tatu.</string>
+    <string name="experimental_crash_sensitivity_settings">Mipangilio ya usikivu wa ajali ></string>
+    <string name="experimental_detect_a_vehicle_crash">Gundua ajali ya gari na tuma SOS baada ya sekunde 30.</string>
+    <string name="experimental_event_log">Kumbukumbu ya matukio →</string>
+    <string name="experimental_here_be_dragons">Hapa kuna majaribio</string>
+    <string name="experimental_inbox">Kisanduku →</string>
+    <string name="experimental_relock_experimental_section">Funga tena sehemu ya majaribio</string>
+    <string name="experimental_snatch_detection">Kugundua kunyakuliwa</string>
+    <string name="experimental_these_features_are_unfinished">Vipengele hivi havijamalizika.</string>
+    <string name="experimental_vehicle_crash_detection">Kugundua ajali ya gari</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">Weka neno la siri la nakala</string>
+    <string name="first_run_passphrase">Neno la siri</string>
+    <string name="first_run_restore">Rejesha</string>
+    <string name="first_run_restore_from_a_previous">Rejesha kutoka nakala ya awali au anza upya.</string>
+    <string name="first_run_start_fresh">Anza upya</string>
+    <string name="first_run_welcome_to_aegis">Karibu Aegis</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">Simama</string>
+    <string name="geofence_radius">Eneo</string>
+    <string name="geofence_resume">Endelea</string>
+    <string name="geofence_set_a_circular_zone">Weka eneo la mviringo. Arifa unapotoka.</string>
+    <string name="geofence_zone_centre">Kituo cha eneo</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">Wanachama</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis inahitaji kufungua wakati wa kuzindua na baada ya kupunguza.</string>
+    <string name="lock_after_too_many_wrong">Baada ya PIN nyingi mbaya, futa data milele.</string>
+    <string name="lock_arm">Panga</string>
+    <string name="lock_arm_selfdestruct">Panga kujiharibu?</string>
+    <string name="lock_biometric_login_is_convenient">Kuingia kwa baiometriki ni rahisi lakini kunaruka ulinzi wa kulazimishwa.</string>
+    <string name="lock_deletes_the_pin_entirely">Inafuta PIN kabisa NA kuondoa PIN ya kulazimishwa ikiwekwa.</string>
+    <string name="lock_draw_a_pattern_to">Chora mchoro kufungua badala ya kuandika PIN.</string>
+    <string name="lock_duress_pin_48_digits">PIN ya kulazimishwa (tarakimu 4-8)</string>
+    <string name="lock_enable_device_admin">Wezesha Msimamizi wa Kifaa</string>
+    <string name="lock_entering_this_pin_opens">Kuandika PIN hii kunafungua profaili bandia inayoonekana kama simu safi.</string>
+    <string name="lock_fast_convenient_but_it">Haraka, rahisi — lakini inaruka kulazimishwa.</string>
+    <string name="lock_how_long_after_backgrounding">Muda baada ya kupunguza kabla programu kujifunga.</string>
+    <string name="lock_maximum_security_your_encryption">Usalama wa juu: ufunguo wako wa usimbaji hauhifadhiwi kamwe kwenye diski.</string>
+    <string name="lock_pattern_unlock">Kufungua kwa mchoro</string>
+    <string name="lock_remove_pin">Ondoa PIN</string>
+    <string name="lock_require_pin_to_open">Hitaji PIN kufungua Aegis</string>
+    <string name="lock_require_recovery_phrase_on">Hitaji fraza ya urejeshaji kila unapowasha upya</string>
+    <string name="lock_scramble_pin_pad">Changanya kibao cha PIN</string>
+    <string name="lock_shuffles_digit_positions_on">Hubadilisha nafasi za nambari kila kufungua.</string>
+    <string name="lock_unlock_with_fingerprint_face">Fungua kwa alama ya kidole / uso</string>
+    <string name="lock_when_off_aegis_opens">Ukizima, Aegis inafunguka bila kuuliza.</string>
+    <string name="lock_wipe_after_failed_attempts">Futa baada ya majaribio yasiyofaulu</string>
+    <!-- MapScreen -->
+    <string name="map_charging">inachaji</string>
+    <string name="map_locate_on_map">tafuta kwenye ramani</string>
+    <string name="map_radar">RADAR</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">onyesha familia</string>
+    <string name="map_solo">peke yake</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">Picha kwa PIN mbaya</string>
+    <string name="mugshot_threshold">Kiwango</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">Kuhusu profaili</string>
+    <string name="profiles_active">INATUMIKA</string>
+    <string name="profiles_create">Unda</string>
+    <string name="profiles_each_profile_is_a">Kila profaili ni Aegis kamili, iliyotengwa.</string>
+    <string name="profiles_ephemeral_import_a_backup">Ya muda - ingiza nakala</string>
+    <string name="profiles_ephemeral_start_fresh">Ya muda - anza upya</string>
+    <string name="profiles_ive_written_it_down">Nimeandika — unda</string>
+    <string name="profiles_keep_ephemeral">Weka ya muda</string>
+    <string name="profiles_make_permanent">Fanya ya kudumu?</string>
+    <string name="profiles_make_this_profile_permanent">Fanya profaili hii ya kudumu</string>
+    <string name="profiles_new_pin">PIN mpya</string>
+    <string name="profiles_new_profile">Profaili mpya</string>
+    <string name="profiles_permanent_import_a_backup">Ya kudumu · ingiza nakala</string>
+    <string name="profiles_permanent_start_fresh">Ya kudumu · anza upya</string>
+    <string name="profiles_pick_a_short_id">Chagua kitambulisho kifupi (herufi, nambari, - _) — kinaonekana</string>
+    <string name="profiles_profile_id">Kitambulisho cha profaili</string>
+    <string name="profiles_sos_alerts_only_fire">Arifa za SOS kwa familia ya profaili inayotumika tu.</string>
+    <string name="profiles_switch">Badilisha</string>
+    <string name="profiles_these_24_words_are">Maneno haya 24 ndiyo UFUNGUO pekee wa data ya profaili hii.</string>
+    <string name="profiles_this_conversation_will_be">Mazungumzo haya yatahifadhiwa kwenye diski na KUBAKI.</string>
+    <string name="profiles_write_down_your_recovery">Andika fraza yako ya urejeshaji</string>
+    <string name="profiles_your_current_profile_stays">Profaili yako ya sasa inabaki salama nyuma.</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">Inanyamazisha arifa usiku. SOS bado inakuamsha.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">Fraza ya maneno 24</string>
+    <string name="recovery_unlock_back_to_pin">Rudi kwa PIN</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">Weka fraza ya maneno 24.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">Rejesha na fraza yako</string>
+    <string name="recovery_unlock_recovered_set_a_new">Imerejeshwa. Weka PIN mpya.</string>
+    <string name="recovery_unlock_set_pin">Weka PIN</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">Msaada unakuja</string>
+    <string name="s_o_s_no_sos_recipients_promote">Hakuna wapokeaji wa SOS. Teua angalau mwasiliani mmoja kuwa Aaminika.</string>
+    <string name="s_o_s_plays_at_maximum_alarm">Inacheza kwa sauti ya juu ya kengele hadi ufungue.</string>
+    <string name="s_o_s_start_siren">Anzisha sireni?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">PIN ya programu</string>
+    <string name="security_canary">Kanahari</string>
+    <string name="security_device_admin">Msimamizi wa kifaa</string>
+    <string name="security_duress_mode_active_some">Hali ya kulazimishwa. Paneli fulani zimefichwa.</string>
+    <string name="security_geofence">Eneo-uzio</string>
+    <string name="security_mugshot">Picha</string>
+    <string name="security_sim_watch">Ufuatiliaji wa SIM</string>
+    <string name="security_sonar_experimental">Sonar · Majaribio</string>
+    <string name="security_your_living_shield_each">Ngao yako hai. Kila heksagoni ni kipengele cha ulinzi.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">Juu: badilisha seva za chaguo-msingi.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">Kufuta otomatiki katika mazungumzo mapya.</string>
+    <string name="_autorevoke_unused_11_invite">Batilisha mialiko isiyotumika baada ya muda.</string>
+    <string name="_backup">Nakala</string>
+    <string name="_block_screenshots">Zuia picha za skrini</string>
+    <string name="_clear_all_queued">Safisha zote kwenye foleni</string>
+    <string name="_disappearing_default">Chaguo-msingi la kupotea</string>
+    <string name="_encrypted_file_backup_data">Nakala iliyosimbwa — data inaishi baada ya kuondoa.</string>
+    <string name="_experimental">Majaribio</string>
+    <string name="_health_probes_driver_reloads">Uchunguzi, upakiaji upya, kumbukumbu.</string>
+    <string name="_language">Lugha</string>
+    <string name="_multiple_isolated_aegis_profiles">Profaili nyingi za Aegis zilizotengana kwenye kifaa hiki.</string>
+    <string name="_mute_chat_notifications_at">Nyamazisha arifa za mazungumzo usiku. SOS bado inakuamsha.</string>
+    <string name="_notifications">Arifa</string>
+    <string name="_outbox">Kisanduku cha kutuma</string>
+    <string name="_perchannel_sound_vibration_and">Sauti, mtetemo kwa kila chaneli.</string>
+    <string name="_performance_balanced_power_saver">Utendaji / Usawa / Kuokoa.</string>
+    <string name="_pressandhold_send_call_video">Shikilia Tuma / Piga / Video.</string>
+    <string name="_profiles">Profaili</string>
+    <string name="_project_aether">MRADI AETHER</string>
+    <string name="_readonly_inventory_of_every">Kusoma pekee — orodha ya kila tabia.</string>
+    <string name="_rearrange_the_bottom_tabs">Panga upya tabo za chini. SOS inabaki katikati.</string>
+    <string name="_relayonly_ice_and_call">Relay pekee ICE na uchunguzi wa simu.</string>
+    <string name="_stops_screenshots_screen_recording">Inazuia picha za skrini na kurekodi.</string>
+    <string name="_unfinished_features_hidden_behind">Vipengele visivyokamilika vilivyofichwa nyuma ya lango la kugusa 7.</string>
+    <string name="_wifionly_by_default_apks">WiFi pekee — APK ni ~100 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">Tahadhari ya kubadilisha SIM</string>
+    <string name="sim_swap_when_the_sim_in">SIM inapobadilika, arifa itatumwa.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Nembo ya Aegis</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_how_it_works_body">Aegis hukagua GitHub kila masaa 24 kwa miundo mipya. Kila APK ni ~100 MB. Kwa chaguo-msingi tunapakua kupitia WiFi pekee — kupakua kiasi hicho kupitia data ya simu kwa kila toleo kungetumia pesa halisi.</string>
+    <string name="update_beltandbraces_type_rollback_below">Usalama mara mbili -- andika ROLLBACK hapa chini.</string>
+    <string name="update_check_interval">Muda wa kuangalia</string>
+    <string name="update_how_often_aegis_polls">Mara ngapi Aegis inaangalia. Chini zaidi hutumia betri zaidi.</string>
+    <string name="update_roll_back">Rejesha toleo la awali</string>
+    <string name="update_roll_back_to_previous">Rejesha toleo la awali</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">Kisakinishi kitafunguka. Thibitisha.</string>
+    <string name="update_type_rollback_to_confirm">Andika ROLLBACK kuthibitisha</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">Thibitisha</string>
+    <string name="vault_pin_confirm_duress">Thibitisha kulazimishwa</string>
+    <string name="vault_pin_current_vault_pin">PIN ya sasa ya hifadhi</string>
+    <string name="vault_pin_entering_this_pin_at">Kuingiza PIN hii kwenye lango la hazina kunafungua</string>
+    <string name="vault_pin_remove_duress_pin">Ondoa PIN ya kulazimishwa</string>
+    <string name="vault_pin_vault_pin">PIN ya hifadhi</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">Hakuna picha za skrini. Hakuna kunakili. Hakuna athari.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">Mpokeaji anaona ikoni ya moto. Kufungua kunasababisha kuhesabu mara moja.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">Uwezo</string>
+    <string name="capabilities_device_admin_enable_in">Msimamizi wa Kifaa: wezesha katika Mipangilio.</string>
+    <string name="capabilities_device_owner_factoryreset_the">Mmiliki wa Kifaa: kurejesha kiwanda, kudhibiti.</string>
+    <string name="capabilities_live_status_green_active">Hali ya moja kwa moja. Kijani = inatumika.</string>
+    <string name="capabilities_stay_safe">Kaa salama.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">Choma otomatiki ujumbe katika mazungumzo haya.</string>
+    <string name="chat_burn">Choma</string>
+    <string name="chat_burn_after_reading">Choma baada ya kusoma</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">Futa kwa wote</string>
+    <string name="chat_deletes_every_message_in">Inafuta kila ujumbe katika mazungumzo haya kutoka kifaa hiki.</string>
+    <string name="chat_disappearing_messages">Ujumbe unaopotea…</string>
+    <string name="chat_editing_message">Kuhariri ujumbe</string>
+    <string name="chat_emergency_contact_they_receive">Mwasiliani wa dharura. Wanapokea arifa za SOS pekee.</string>
+    <string name="chat_forward">Tuma mbele</string>
+    <string name="chat_forward_to">Tuma kwa…</string>
+    <string name="chat_gallery">Picha</string>
+    <string name="chat_loading_preview">inapakia muhtasari…</string>
+    <string name="chat_no_contacts_paired_yet">Hakuna mawasiliani waliounganishwa bado.</string>
+    <string name="chat_pick_when_to_send">Chagua wakati wa kutuma. Aegis inaangalia kila dakika.</string>
+    <string name="chat_pinned">Umebandikwa</string>
+    <string name="chat_reply">Jibu</string>
+    <string name="chat_save_to_device">Hifadhi kwenye kifaa</string>
+    <string name="chat_save_to_notes">Hifadhi kwenye Maelezo</string>
+    <string name="chat_video">video</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">Mazingira yote yanayojulikana ni tupu.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ ni tupu.</string>
+    <string name="diagnostics_building_usage_history">Kujenga historia ya matumizi...</string>
+    <string name="diagnostics_close">Funga</string>
+    <string name="diagnostics_copy">Nakili</string>
+    <string name="diagnostics_device_owner">Mmiliki wa kifaa</string>
+    <string name="diagnostics_diagnostics">Uchunguzi</string>
+    <string name="diagnostics_empty">(tupu)</string>
+    <string name="diagnostics_erase_all_aegis_data">Futa data YOTE ya Aegis?</string>
+    <string name="diagnostics_erase_everything">Futa kila kitu</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">Lazimisha kuseti upya mifumo ndogo bila kuanzisha upya.</string>
+    <string name="diagnostics_how_much_data_aegis">Kiasi gani cha data Aegis imesafirisha.</string>
+    <string name="diagnostics_kills_the_aegis_process">Inaua mchakato wa Aegis na kuanzisha upya.</string>
+    <string name="diagnostics_mainthread_sample_30_100">Main-thread sample (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">Hakuna ishara za kuchezea.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">Hakuna kinachotumwa popote na hakuna kinachoweza kurejeshwa.</string>
+    <string name="diagnostics_process">MCHAKATO</string>
+    <string name="diagnostics_reconnect_now">Unganisha sasa</string>
+    <string name="diagnostics_relays">RELAY</string>
+    <string name="diagnostics_reset">Seti upya</string>
+    <string name="diagnostics_reset_simplex_core">Seti upya msingi wa SimpleX?</string>
+    <string name="diagnostics_restart">Anza upya</string>
+    <string name="diagnostics_restart_aegis">Anza upya Aegis?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Anza upya Aegis (uwashaji kamili)</string>
+    <string name="diagnostics_signer_sha256">SHA-256 ya msaini</string>
+    <string name="diagnostics_stop_all_sos">SIMAMISHA SOS ZOTE</string>
+    <string name="diagnostics_storage">Hifadhi</string>
+    <string name="diagnostics_subsystems_shut_off_as">Mifumo ndogo inazimika betri inaposhuka.</string>
+    <string name="diagnostics_tap_to_open">gusa kufungua</string>
+    <string name="diagnostics_this_is_irreversible_it">Hii haiwezi kutenduliwa. Inasafisha kifaa hadi hali ya kiwanda.</string>
+    <string name="diagnostics_threads">THREADS</string>
+    <string name="diagnostics_wipe_all_aegis_data">Futa data yote ya Aegis kutoka kifaa hiki.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">Inafuta hifadhidata za SimpleX.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">Hakuna mawasiliani. Unganisha mtu kwanza.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">Tuma kwa mwasiliani</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">Athari zote zimezimwa katika hali ya kuokoa nishati.</string>
+    <string name="graphics_cyan_mascot">Mascot Cyan</string>
+    <string name="graphics_data_rain">Mvua ya data</string>
+    <string name="graphics_effects_intensity">Ukali wa athari</string>
+    <string name="graphics_effects_suppressed_in_power">Athari zimezimwa katika hali ya kuokoa betri</string>
+    <string name="graphics_faint_repeating_hex_pattern">Muundo wa heksagoni nyuma ya kila skrini.</string>
+    <string name="graphics_graphics">Picha</string>
+    <string name="graphics_graphics_profile">Profaili ya picha</string>
+    <string name="graphics_hex_grid_backdrop">Mandhari ya gridi ya heksagoni</string>
+    <string name="graphics_scan_line">Mstari wa skani</string>
+    <string name="graphics_scan_line_data_rain">Uwazi wa mstari wa skani na mvua ya data.</string>
+    <string name="graphics_show_the_chibi_mascot">Onyesha mascot chibi kwenye skrini ya kukaribisha.</string>
+    <string name="graphics_single_cyan_line_crawling">Mstari mmoja wa cyan unaoenda juu chini kila sek 30.</string>
+    <string name="graphics_tiny_hex_particles_drifting">Chembe ndogo za heksagoni zinazoelea chini.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">Futa kundi</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">Ujumbe</string>
+    <string name="group_chat_removes_the_group_and">Inaondoa kundi na historia ya ujumbe kutoka kwenye kifaa hiki.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">Maelezo mafupi yanayoonekana kwa kila mwanachama.</string>
+    <string name="group_members_about_this_group">KUHUSU KUNDI HILI</string>
+    <string name="group_members_active_in_this_group">Wanaohudhuria kwenye kundi hili</string>
+    <string name="group_members_anonymous_the_group_sees">Siri -- kundi linaona jina la nasibu, kamwe jina lako halisi.</string>
+    <string name="group_members_apply">Tekeleza</string>
+    <string name="group_members_armed">Imewashwa</string>
+    <string name="group_members_autoburn_messages_in_this">Choma ujumbe kiotomatiki katika kundi hili baada ya kipindi kilichochaguliwa.</string>
+    <string name="group_members_autodisable_timer">Kipima muda cha kuzima otomatiki</string>
+    <string name="group_members_autodisable_timer_for_this">Kipima muda cha kuzima kiotomatiki kwa kundi hili</string>
+    <string name="group_members_configure">Sanidi ›</string>
+    <string name="group_members_demote_to_member">Shusha hadi mwanachama</string>
+    <string name="group_members_description">Maelezo</string>
+    <string name="group_members_disappearing_messages">Ujumbe unaopotea</string>
+    <string name="group_members_every_paired_contact_is">Kila mwasiliani aliyeunganishwa tayari yuko katika kundi hili.</string>
+    <string name="group_members_group_description">Maelezo ya kundi</string>
+    <string name="group_members_group_image">PICHA YA KUNDI</string>
+    <string name="group_members_group_name">Jina la kundi</string>
+    <string name="group_members_groups_are_always_incognito">Vikundi viko incognito kila wakati. Profaili yako halisi inabaki siri.</string>
+    <string name="group_members_invite_member">Alika mwanachama</string>
+    <string name="group_members_leave">Ondoka</string>
+    <string name="group_members_leave_group">Ondoka kwenye kundi</string>
+    <string name="group_members_make_sure_the_photo">Hakikisha picha haionyeshi wewe au mahali ulipo.</string>
+    <string name="group_members_minutes_min_1">Dakika (min 1)</string>
+    <string name="group_members_mute_group">Nyamazisha kundi</string>
+    <string name="group_members_no_members_yet_the">Hakuna wanachama bado. Bot ya mwenyeji na wanachama wengine wataonekana hapa.</string>
+    <string name="group_members_off_1_min_1">Zimwa / dak 1 - mwaka 1. Inatumika kwa ujumbe uliotumwa katika kundi hili.</string>
+    <string name="group_members_promote_to_admin">Pandisha hadi msimamizi</string>
+    <string name="group_members_remove_from_group">Ondoa kutoka kundi</string>
+    <string name="group_members_removes_the_group_locally">Kuondoa kundi kimahali na kumjulisha mwenyeji kuwa umeondoka.</string>
+    <string name="group_members_rename">Badilisha jina</string>
+    <string name="group_members_rename_group">Badilisha jina la kundi</string>
+    <string name="group_members_save">Hifadhi</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">Dirisha linapokwisha bila shughuli,</string>
+    <string name="group_members_youll_stop_receiving_messages">Utaacha kupokea ujumbe kutoka kundi hili.</string>
+    <string name="group_members_your_identity_here">UTAMBULISHO WAKO HAPA</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">MISINGI</string>
+    <string name="help_design_decisions">MAAMUZI YA MUUNDO</string>
+    <string name="help_experimental">MAJARIBIO</string>
+    <string name="help_help">Msaada</string>
+    <string name="help_how_aegis_works">Jinsi Aegis inavyofanya kazi</string>
+    <string name="help_loading">Inapakia...</string>
+    <string name="help_privacy">Faragha</string>
+    <string name="help_security">USALAMA</string>
+    <string name="help_technical">KIUFUNDI</string>
+    <string name="help_the_same_documents_that">Hati sawa zilizo kwenye msimbo wa chanzo -- ndani ya programu.</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">Muda wa kushikilia</string>
+    <string name="hold_to_execute_hold_to_send_call">Shikilia kutuma / kupiga simu</string>
+    <string name="hold_to_execute_send_voice_call_and">Vitufe vya kutuma na kupiga simu vinahitaji kushikilia.</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">Kiungo cha mwaliko wa 1:1 kinafanya kazi kwenye relay hadi kiishe.</string>
+    <string name="invitation_expiry_about_this_setting">Kuhusu mpangilio huu</string>
+    <string name="invitation_expiry_invitation_expiry">Muda wa mwaliko kuisha</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis inapatikana katika lugha 17. Unaweza kubadilisha wakati wowote.</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">Umesahau PIN?</string>
+    <string name="lock_hold_for_silent_emergency">Shikilia kwa dharura ya kimya</string>
+    <string name="lock_use_fingerprint_or_face">Tumia alama ya kidole au uso</string>
+    <string name="lock_use_pattern">Tumia mchoro</string>
+    <string name="lock_use_pin">Tumia PIN</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">Futa maelezo</string>
+    <string name="note_editor_folder">Folda</string>
+    <string name="note_editor_unfiled">Bila folda</string>
+    <string name="note_editor_write">Andika…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis imejengwa juu ya teknolojia ambazo tayari zililinda mamilioni.</string>
+    <string name="origins_origins">Asili</string>
+    <string name="origins_where_this_came_from">Asili ya hii</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">MAFANIKIO</string>
+    <string name="profile_avatar">avatar</string>
+    <string name="profile_pick_avatar">Chagua picha</string>
+    <string name="profile_proof_your_safety_net">Uthibitisho kwamba mtandao wako wa usalama unafanya kazi.</string>
+    <string name="profile_set_your_name_and">Weka jina lako na picha ya hiari.</string>
+    <string name="profile_tap_to_change_photo">Gusa kubadilisha picha</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">Ongeza relay</string>
+    <string name="relay_current_relays">RELAY ZA SASA</string>
+    <string name="relay_format_smpbase64fingerprinthostport">Muundo: smp://&lt;alama-ya-base64&gt;@mwenyeji[:bandari]</string>
+    <string name="relay_loading">inapakia…</string>
+    <string name="relay_must_start_with_smp">Lazima ianze na smp:// na iwe na mwenyeji.</string>
+    <string name="relay_poweruser_setting_the_defaults">Mpangilio wa kitaalamu. Chaguomsingi zinatumia miundombinu</string>
+    <string name="relay_reset_to_defaults">Rejesha chaguo-msingi</string>
+    <string name="relay_simplex_relays">Relay za SimpleX</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;alama&gt;@mwenyeji:bandari</string>
+    <string name="relay_using_simplex_defaults">Inatumia chaguomsingi za SimpleX.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">UFIKIAJI WA MBALI</string>
+    <string name="remote_access_target_device">KIFAA KINACHOLENGWA</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">BONYEZA NA ONGEA</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">Usalama mara mbili.</string>
+    <string name="secure_notes_cancel">Ghairi</string>
+    <string name="secure_notes_delete">Futa</string>
+    <string name="secure_notes_every_note_photo_video">Kila ujumbe, picha, video, na faili kwenye hazina — zote</string>
+    <string name="secure_notes_search_the_vault">Tafuta kwenye hifadhi…</string>
+    <string name="secure_notes_type_wipe_vault_to">Andika WIPE VAULT kuthibitisha</string>
+    <string name="secure_notes_vault">Hifadhi</string>
+    <string name="secure_notes_wipe">Futa</string>
+    <string name="secure_notes_wipe_vault">Futa hifadhi</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">🛡️ DRILL</string>
+    <string name="sentinel_inbox_frontcamera_capture">Picha ya kamera ya mbele</string>
+    <string name="sentinel_inbox_gyroscope_rads">Gyroscope (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">Picha kutoka hatua ya KUREKODI</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">Hakuna mzigo wa uchunguzi kwa hatua hii.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">Hakuna matukio ya Sentinel bado.</string>
+    <string name="sentinel_inbox_sentinel_inbox">Kisanduku cha Sentinel</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">Safisha</string>
+    <string name="sentinel_log_no_events_logged_arm">Hakuna matukio. Panga Sentinel kuanza.</string>
+    <string name="sentinel_log_sentinel_event_log">Kumbukumbu ya matukio ya Sentinel</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">Rekebisha kwa kifaa -- spika hutofautiana.</string>
+    <string name="sonar_audio_loop_selftest">Jaribio la kitanzi cha sauti</string>
+    <string name="sonar_autoarm_at_bedside">Jipange kiotomatiki karibu na kitanda</string>
+    <string name="sonar_autocalibrate">Sahihisha kiotomatiki</string>
+    <string name="sonar_automatically_arms_sentinel_when">Hupanga Sentinel otomatiki simu inapowekwa chini.</string>
+    <string name="sonar_cancel_drill">Ghairi zoezi</string>
+    <string name="sonar_contacts_who_receive_silent">Mawasiliani wanaopokea ping za kimya za SimpleX.</string>
+    <string name="sonar_fires_one_audible_200">Hutoa BIP moja 200 ms 1 kHz na kupima jibu.</string>
+    <string name="sonar_hearing_audible_clicks_drop">Unasikia mibofyo? Punguza. Spika yako inafika ultrasonic.</string>
+    <string name="sonar_if_you_hear_clicks">Ukisikia mibofyo, ni spika ya simu yako.</string>
+    <string name="sonar_latest_reading">Usomaji wa hivi karibuni</string>
+    <string name="sonar_layered_cascade_sonar_proximity">Kaskada: sonar, ukaribu, kasi.</string>
+    <string name="sonar_local_event_log_debug">Kumbukumbu ya matukio ya ndani (utatuzi)</string>
+    <string name="sonar_logonly_record_events_locally">Kumbukumbu pekee -- rekodi matukio, usiarife kamwe</string>
+    <string name="sonar_lower_more_sensitive_compare">Chini = nyeti zaidi.</string>
+    <string name="sonar_no_contacts_yet_add">Hakuna mawasiliani -- ongeza kuwezesha arifa.</string>
+    <string name="sonar_no_data_yet_tap">hakuna data -- gusa Anza</string>
+    <string name="sonar_notification_throttle">Kizuizi cha arifa</string>
+    <string name="sonar_notify_list">Orodha ya arifa</string>
+    <string name="sonar_place_the_phone_where">Weka simu mahali unapotaka isikie.</string>
+    <string name="sonar_send_test_notification_to">Tuma arifa ya majaribio kwa orodha</string>
+    <string name="sonar_sentinel_mode">Hali ya Sentinel</string>
+    <string name="sonar_sentinel_viewers">Watazamaji wa Sentinel</string>
+    <string name="sonar_sonar_raw_data">Sonar -- data ghafi</string>
+    <string name="sonar_status">Hali</string>
+    <string name="sonar_stop_sonar_first_calibrate">simamisha sonar kwanza -- urekebishaji unahitaji sauti</string>
+    <string name="sonar_stop_sonar_first_selftest">simamisha sonar kwanza -- jaribio linahitaji sauti</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">Kamera</string>
+    <string name="story_screens_new_story">Hadithi mpya</string>
+    <string name="story_screens_photo">Picha</string>
+    <string name="story_screens_remove">Ondoa</string>
+    <string name="story_screens_stories">Hadithi</string>
+    <string name="story_screens_story_not_found">Hadithi haipatikani.</string>
+    <string name="story_screens_visible_to_every_paired">Inaonekana kwa kila mwasiliani kwa masaa 24.</string>
+    <string name="story_screens_whats_happening">Nini kinaendelea?</string>
+    <string name="story_screens_your_story">Hadithi yako</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">Daima katikati. Haiwezi kuhamishwa.</string>
+    <string name="tab_order_nav_order">Mpangilio wa urambazaji</string>
+    <string name="tab_order_reorder_bottom_nav">Panga upya urambazaji wa chini</string>
+    <string name="tab_order_reset_to_default">Rejesha chaguo-msingi</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (imefungwa katikati)</string>
+    <string name="tab_order_sos_stays_in_the">SOS inabaki katikati -- muhimu sana kuhamisha.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis ni bure milele. Hakuna matangazo. Hakuna ufuatiliaji.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis itafunguka bila kuomba chochote. PIN yako bado ipo — kwa kulazimishwa, ufikiaji wa mbali, na kusimba ujumbe wako. Unaweza kuwezesha kufuli tena wakati wowote katika Mipangilio.</string>
+    <string name="tutorial_anyone_who_sees_these">Yeyote anayeona maneno haya anamiliki akaunti yako</string>
+    <string name="tutorial_biometric_login_is_convenient">Kuingia kwa biometriki ni rahisi lakini inaruka ulinzi wa kulazimishwa. Mtu akiilazimisha alama ya kidole chako, wasifu halisi unafunguka. PIN inapendekezwa kwa usalama wa juu.</string>
+    <string name="tutorial_biometric_skips_duress">Baiometriki inaruka kulazimishwa</string>
+    <string name="tutorial_choose_how_you_unlock">Chagua jinsi unavyofungua</string>
+    <string name="tutorial_confirm_pin">Thibitisha PIN</string>
+    <string name="tutorial_continue">Endelea</string>
+    <string name="tutorial_disable_lock">Zima kufuli</string>
+    <string name="tutorial_done">Imekwisha</string>
+    <string name="tutorial_each_node_unlocks_a">Kila nodi inafungua safu mpya ya ulinzi.</string>
+    <string name="tutorial_enable_anyway">Wezesha hata hivyo</string>
+    <string name="tutorial_encrypted_communication_personal_security">Mawasiliano yaliyosimbwa + usalama wa kibinafsi.</string>
+    <string name="tutorial_enter_aegis">Ingia Aegis</string>
+    <string name="tutorial_find_your_way_around">Jifunze kuzunguka</string>
+    <string name="tutorial_fingerprint_face">Alama ya kidole / Uso</string>
+    <string name="tutorial_get_started">Anza</string>
+    <string name="tutorial_if_it_ever_helps">Ikikusaidia siku moja, unaweza kuunga mkono Mradi Aether kutoka Mfumo → Kuhusu.</string>
+    <string name="tutorial_it_is_your_master">Hii ni ufunguo wako mkuu, unaonyeshwa mara moja. Hatuhifadhi kamwe na hatutauonyesha tena — si nyuma ya PIN yako, si nyuma ya alama ya kidole chako. Ikiwa haukuiandika, hiyo ndiyo bei ya kuwa yako kweli. Hifadhi nakala yako ya karatasi salama.</string>
+    <string name="tutorial_ive_written_it_down">Nimeandika</string>
+    <string name="tutorial_keep_lock">Weka kufuli</string>
+    <string name="tutorial_keep_pin_only">Weka PIN pekee</string>
+    <string name="tutorial_left_to_right_along">Kushoto kwenda kulia kando ya chini:</string>
+    <string name="tutorial_make_sure_no_one">Hakikisha hakuna mtu anayetazama na hakuna kinachorekodia skrini yako. Picha za skrini zimezuiwa — picha ya skrini inaenda kwenye galeria, inasawazishwa na wingu na mtu yeyote mwenye simu yako anaweza kuiona. Parua paneli hapa chini kuonyesha maneno yako 24, yaandike kwenye karatasi na uhifadhi karatasi hiyo mahali salama.</string>
+    <string name="tutorial_new_pin_48_digits">PIN mpya (tarakimu 4-8)</string>
+    <string name="tutorial_no_lock_screen">Bila skrini ya kufuli</string>
+    <string name="tutorial_open_without_a_lock">Fungua bila skrini ya kufuli?</string>
+    <string name="tutorial_part_of_project_aether">Sehemu ya Mradi Aether</string>
+    <string name="tutorial_pattern">Mchoro</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN imewekwa ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">Fraza ya urejeshaji imewekwa!</string>
+    <string name="tutorial_save_pin">Hifadhi PIN</string>
+    <string name="tutorial_set_your_pin">Weka PIN yako</string>
+    <string name="tutorial_show_the_words_again">Onyesha maneno tena</string>
+    <string name="tutorial_skip">Ruka</string>
+    <string name="tutorial_skip_check_debug">Ruka ukaguzi (utatuzi)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS inabaki katikati. Unaweza kupanga upya mengine katika Mfumo → Urambazaji.</string>
+    <string name="tutorial_thank_you">Asante</string>
+    <string name="tutorial_the_skill_tree">Mti wa ujuzi</string>
+    <string name="tutorial_this_encrypts_your_messages">Hii inasimba ujumbe wako na kurejesha akaunti yako ukisahau PIN au kupoteza alama ya kidole. Ukiipoteza, hakuna mtu — si sisi, si yeyote — anayeweza kurejesha data yako.</string>
+    <string name="tutorial_this_is_the_only">Hii ni nakala PEKEE. Hatuhifadhi chochote. Hakuna \"nilisahau msemo\", hakuna kuweka upya, na hakuna njia ya kutengeneza mpya — si kwa PIN, si kwa alama ya kidole, si kupitia sisi. Ukipoteza karatasi hii, data yako itatoweka milele na hakuna mtu duniani anayeweza kuirejesha. Iandike sasa.</string>
+    <string name="tutorial_three_tiers_of_trust">Viwango vitatu vya uaminifu</string>
+    <string name="tutorial_what_makes_this_different">Kinachofanya hii tofauti</string>
+    <string name="tutorial_you_can_replay_this">Unaweza kurudia mafunzo haya kutoka Msaada.</string>
+    <string name="tutorial_your_messages_and_attachments">Ujumbe na viambatanisho vimesimbwa chini ya PIN hii.</string>
+    <string name="tutorial_your_pin_is_set">PIN yako imewekwa na inafanya kazi kila wakati — hii ndiyo hali ya kulazimishwa na ufikiaji wa mbali hutumia. Hizi ni njia za mkato za hiari juu yake.</string>
+    <string name="tutorial_your_recovery_phrase">Fraza yako ya urejeshaji</string>
+    <string name="tutorial_your_safety_net">Mtandao wako wa usalama</string>
+    <string name="tutorial_youre_ready">Uko tayari</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">Imeshindwa kupata msimbo wa usalama.</string>
+    <string name="verify_contact_pick_qr_from_photo">Chagua QR kutoka picha</string>
+    <string name="verify_contact_safety_code_qr">QR ya msimbo wa usalama</string>
+    <string name="verify_contact_scan_their_qr">Changanua QR yao</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">Funga sasa</string>
+    <string name="header_sentinel_armed">Sentinel imejipanga</string>
+    <string name="call_island_tap_return">Gusa kurudi</string>
+    <string name="cyan_stay_safe">— Kaa salama.</string>
+    <string name="pin_guard_required">PIN YA PROGRAMU INAHITAJIKA</string>
+    <string name="pin_guard_set_pin">Weka PIN</string>
+    <string name="update_dialog_later">Baadaye</string>
+    <string name="update_dialog_update">Sasisha</string>
+    <string name="voice_slide_cancel">telezesha kughairi ←</string>
+    <string name="a11y_group_avatar">picha ya kundi</string>
+    <string name="a11y_voice_record">rekodi ya sauti</string>
+
+    <string name="chat_react_custom_title">Mmenyuko maalum</string>
+    <string name="chat_react_custom_hint">Andika emoji yoyote.</string>
+    <string name="chat_react_apply">Itikia</string>
+    <string name="tutorial_bubble_welcome">Karibu katika Mradi Aether. Mimi ni Cyan — nitakuwa mwongozaji wako. Chukua kalamu na karatasi — nitakuomba uandike maneno 24 yanayolinda ujumbe wako.</string>
+    <string name="tutorial_bubble_different">Hakuna nambari ya simu. Hakuna akaunti. Hakuna seva inayohifadhi ujumbe wako. Kriptografia tu.</string>
+    <string name="tutorial_bubble_safety">Ukiwa hatarini, kitufe kimoja kinaarifu wote unaoamini.</string>
+    <string name="tutorial_bubble_tiers">Wewe unaamua nani anaona nini.</string>
+    <string name="tutorial_bubble_skill_tree">Imarisha simu yako hatua kwa hatua.</string>
+    <string name="tutorial_bubble_tabs">Vichupo vitano chini. Kila kimoja kinafanya nini.</string>
+    <string name="tutorial_bubble_unlock">PIN ndiyo salama zaidi. Ongeza njia ya haraka — PIN yako inabaki daima.</string>
+    <string name="tutorial_bubble_ready">Tayari. Ongeza mtu wa kuwasiliana naye.</string>
+    <string name="tutorial_bubble_thanks">Asante kwa kuchagua Aegis.</string>
+    <string name="tutorial_bullet_protocol">Imejengwa juu ya Aegis Protocol</string>
+    <string name="tutorial_bullet_metadata">Metadata sifuri — hakuna wasifu, hakuna grafu ya mawasiliano</string>
+    <string name="tutorial_bullet_e2ee">Usimbaji fiche mwisho-hadi-mwisho, daima</string>
+    <string name="tutorial_bullet_sos_hold">Shika kitufe cha SOS sekunde 1 — au bonyeza nguvu ×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS, sauti na kamera zinatangazwa kwa mawasiliano yako</string>
+    <string name="tutorial_bullet_sos_lockscreen">Inafanya kazi kutoka kwenye skrini ya kufunga</string>
+    <string name="tutorial_tier_trusted">Anayeaminika</string>
+    <string name="tutorial_tier_trusted_desc">Kila kitu — mahali, uwepo, SOS.</string>
+    <string name="tutorial_tier_emergency">Dharura</string>
+    <string name="tutorial_tier_emergency_desc">Tahadhari za SOS tu — hakuna data ya kila siku.</string>
+    <string name="tutorial_tier_untrusted">Haaminiki</string>
+    <string name="tutorial_tier_untrusted_desc">Ujumbe tu — hakuna kingine.</string>
+    <string name="tutorial_tab_system_desc">Mipangilio, utambulisho, kufunga programu na masasisho.</string>
+    <string name="tutorial_tab_opsec_desc">Mti wako wa ujuzi — imarisha simu hatua kwa hatua.</string>
+    <string name="tutorial_tab_sos_desc">Muhimu zaidi. Shikilia kuarifu wote.</string>
+    <string name="tutorial_tab_comms_desc">Mazungumzo yako yaliyosimbwa. Andika hapa.</string>
+    <string name="tutorial_tab_radar_desc">Ramani ya moja kwa moja — wapi mawasiliano yako na nani yuko mtandaoni.</string>
+    <string name="tutorial_unlock_pin_desc">Andika PIN yako kufungua. Ulinzi kamili dhidi ya kulazimishwa.</string>
+    <string name="tutorial_unlock_pattern_desc">Chora muundo. PIN bado inalinda kulazimishwa.</string>
+    <string name="tutorial_unlock_bio_desc">Kufungua haraka. Biometria inaruka ulinzi wa kulazimishwa.</string>
+    <string name="tutorial_unlock_none_desc">Fungua Aegis bila kufungua. PIN inalinda kulazimishwa + ufikiaji wa mbali.</string>
+    <string name="tutorial_pin_explanation_new">PIN yako inafunga Aegis na kulinda wasifu wako. Msemo wa uokoaji unasimba ujumbe. Tarakimu 4–8.</string>
+    <string name="tutorial_pin_already_nice">Tayari imefanywa. Vizuri.</string>
+    <string name="tutorial_pin_set_first">Kwanza mambo muhimu. Weka PIN ya programu.</string>
+    <string name="tutorial_node_app_pin">PIN ya
+Programu</string>
+    <string name="tutorial_node_duress_pin">PIN ya
+Kulazimishwa</string>
+    <string name="tutorial_perm_title">Kwa nini Aegis inaomba mengi</string>
+    <string name="tutorial_perm_bubble">Gusa yoyote kuruhusu — au ruka. Nitakuambia kwa nini kila moja inahitajika.</string>
+    <string name="tutorial_perm_intro">Programu ya usalama lazima iweze kutenda kwa niaba yako — kukupata, kuwaarifu watu wako, kufanya kazi skrini ikiwa imezimwa. Ndiyo maana orodha ni ndefu. Gusa kadi kuruhusu sasa au baadaye. Hakuna kinachondoka kwenye simu yako bila wewe.</string>
+    <string name="tutorial_perm_background_title">Shughuli ya nyuma</string>
+    <string name="tutorial_perm_background_why">Muhimu zaidi. Inaruhusu Aegis kuendelea kufanya kazi ikifungwa au skrini yako ikizimwa, ili ujumbe na arifa za SOS bado zifike. Bila hii simu yako inaweza kusimamisha kwa utulivu — hasa kwenye OnePlus, Xiaomi na Oppo.</string>
+    <string name="tutorial_perm_oem_warning">Simu yako ya %1$s ina mipangilio ya ziada ya betri inayoweza kuua Aegis nyuma. Fungua mpangilio huu na uhakikishe Aegis inaruhusiwa kuanza kiotomatiki na kufanya kazi nyuma.</string>
+    <string name="tutorial_perm_notif_title">Arifa</string>
+    <string name="tutorial_perm_notif_why">Kukuarifu kuhusu ujumbe, simu na SOS — hata kwenye skrini ya kufunga.</string>
+    <string name="tutorial_perm_location_title">Mahali</string>
+    <string name="tutorial_perm_location_why">Ili mawasiliano yako ya kuaminika wakupate dharura na SOS yako ishiriki mahali ulipo.</string>
+    <string name="tutorial_perm_camera_title">Kamera</string>
+    <string name="tutorial_perm_camera_why">Kwa picha za SOS, picha ya uso kwa PIN mbaya na simu za video.</string>
+    <string name="tutorial_perm_mic_title">Maikrofoni</string>
+    <string name="tutorial_perm_mic_why">Kwa kurekodi sauti ya SOS na simu za sauti/video.</string>
+    <string name="tutorial_perm_media_title">Picha, video na faili</string>
+    <string name="tutorial_perm_media_why">Kutuma na kuhifadhi viambatisho. Aegis inaona tu unachoshiriki.</string>
+    <string name="tutorial_perm_phone_title">Simu na SIM</string>
+    <string name="tutorial_perm_phone_why">Kukuonya SIM ikibadilishwa — ishara ya kawaida ya utekaji wa nambari.</string>
+    <string name="tutorial_perm_nearby_title">Vifaa vya karibu</string>
+    <string name="tutorial_perm_nearby_why">Bluetooth kwa kutafuta watu na vifaa (Radar na Sonar).</string>
+    <string name="tutorial_perm_install_title">Sakinisha masasisho</string>
+    <string name="tutorial_perm_install_why">Ili Aegis ijisasishe kwa usalama bila duka la programu linalofuatilia.</string>
+    <string name="tutorial_perm_footer">Unabaki na udhibiti. Ruka yoyote na Aegis nyingi bado inafanya kazi — lakini shughuli ya nyuma ndiyo inayoweka huduma za usalama hai.</string>
+    <string name="tutorial_perm_granted">Imeruhusiwa ✓</string>
+    <string name="tutorial_perm_denied">Imekataliwa</string>
+    <string name="tutorial_perm_allow">Ruhusu</string>
+
+    <string name="tutorial_perm_oem_title">Mipangilio ya betri ya %1$s</string>
+    <string name="tutorial_perm_oem_open">Fungua mipangilio ya %1$s</string>
+    <string name="tutorial_perm_denied_note">Unaweza kuwezesha hii baadaye — gusa kufungua Mipangilio.</string>
+    <string name="tutorial_pin_explanation_existing">PIN yako inafungua Aegis na ni ufunguo ambao ujumbe wako unasimbwa nao. Tarakimu 4–8.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">PIN\nya kabati</string>
+    <string name="tutorial_node_device_owner">Mmiliki\nwa kifaa</string>
+    <string name="tutorial_node_app_duress">Programu\nKulazimisha</string>
+    <string name="tutorial_skill_tree_explanation">PIN ya programu inafungua kulazimishwa, picha, kabati, kanari, uangalizi wa SIM na uzio — iweke mara moja na mengine yatafunguka. Kilele ni mmiliki wa kifaa.</string>
+    <string name="tutorial_phrase_intro">Kwenye skrini inayofuata utaona maneno 24. Parua paneli kuyaonyesha na uyaandike yote kwenye karatasi.</string>
+    <string name="tutorial_phrase_show">Onyesha msemo</string>
+    <string name="tutorial_phrase_scratch">Parua kuonyesha, kisha andika maneno yote 24 kwa mpangilio.</string>
+    <string name="tutorial_phrase_confirm">Thibitisha umehifadhi. Ingiza maneno %1$s kutoka karatasi yako.</string>
+    <string name="tutorial_phrase_word_n">Neno #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Maneno hayalingani. Angalia karatasi yako.</string>
+    <string name="tutorial_phrase_write_down">Andika maneno haya 24 kwenye karatasi. Ni ufunguo wa kila kitu.</string>
+    <string name="tutorial_phrase_already_saved">Tayari imehifadhiwa. Hifadhi nakala ya karatasi salama.</string>
+    <string name="tutorial_draw_pattern">Chora muundo wako</string>
+    <string name="tutorial_draw_pattern_confirm">Chora tena kuthibitisha</string>
+    <string name="tutorial_pattern_min_dots">Tumia angalau nukta %1$d.</string>
+    <string name="tutorial_pattern_mismatch">Hailingani — anza tena.</string>
+    <string name="tutorial_bio_need_pin_first">Weka PIN kwanza, kisha ongeza biometriki.</string>
+    <string name="tutorial_bio_failed">Haiwezekani kuwezesha biometriki. Jaribu tena.</string>
+    <string name="tutorial_pin_save_error">Haiwezekani kuhifadhi PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN haikuhifadhiwa — angalia Uchunguzi.</string>
+</resources>

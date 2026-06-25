@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">Chat</string>    <string name="action_save">Salva</string><string name="action_cancel">Annulla</string><string name="action_done">Fatto</string><string name="action_back">Indietro</string>    <string name="profile_title">Il tuo profilo</string><string name="profile_welcome">Benvenuto su Aegis</string><string name="profile_display_name">Nome visualizzato</string><string name="profile_your_name">Il tuo nome</string><string name="profile_bio">Bio (opzionale)</string><string name="profile_bio_hint">Ciò che i tuoi contatti vedono toccando il tuo nome.</string>    <string name="contact_title">Contatto</string><string name="contact_not_found">Contatto non trovato.</string><string name="contact_add">Aggiungi contatto</string><string name="contact_connecting">Connessione…</string><string name="contact_nickname">Soprannome</string><string name="contact_nickname_hint">Soprannome (come li chiami)</string><string name="contact_my_nickname">Il mio soprannome per loro</string><string name="contact_save_nickname">Salva soprannome</string><string name="contact_copy_link">Copia link</string><string name="contact_accept_invite">Accetta invito</string><string name="contact_accept_invitation">Accetta invito</string><string name="contact_pin">Fissa in alto</string><string name="contact_unpin">Rimuovi</string><string name="contact_mute">Silenzia</string>    <string name="group_new">Nuovo gruppo</string><string name="group_name">Nome gruppo</string><string name="group_creating">Creazione…</string><string name="group_create">Crea gruppo</string>
+    <string name="call_voice">Chiamata vocale</string><string name="call_video">Videochiamata</string><string name="call_calling">Chiamata…</string>    <string name="sos_title">PANICO</string><string name="sos_active">ATTIVO</string><string name="sos_broadcasting">Trasmissione</string>    <string name="duress_confirm_pin">Conferma PIN</string><string name="duress_confirm_duress_pin">Conferma PIN di coercizione</string><string name="duress_change_pin">Cambia PIN</string>
+    <string name="settings_title">Impostazioni</string><string name="settings_app_lock">Blocco app</string><string name="settings_auto_lock">Blocco automatico</string><string name="settings_calls">Chiamate</string><string name="settings_updates">Aggiornamenti</string><string name="settings_quiet_hours">Ore silenziose</string><string name="settings_canary">Canarino</string><string name="settings_wifi_only">Solo Wi-Fi</string>    <string name="status_online">in linea</string><string name="status_offline">non in linea</string><string name="status_away">assente</string>    <string name="update_available">Aggiornamento disponibile</string>    <string name="loki_mugshot_armed">Armato — foto dopo %d PIN errati.</string><string name="loki_sim_armed">Armato. SIM attuale:</string><string name="loki_canary_armed">Armato. Apri l\'app per resettare il timer.</string><string name="loki_deadmans_switch">Interruttore uomo morto</string>
+    <string name="nav_security">Sicurezza</string>
+    <string name="nav_radar">Radar</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">Errore copia</string>
+    <string name="add_contact_generate_a_onetime_link">Genera link unico.</string>
+    <string name="add_contact_generating_link">Generazione link…</string>
+    <string name="add_contact_got_their_invitation_link">Hai il loro link di invito? Scansiona il QR o incolla sotto.</string>
+    <string name="add_contact_invitation_qr">QR invito</string>
+    <string name="add_contact_invite_someone">Invita qualcuno</string>
+    <string name="add_contact_joining_a_group_no">Ingresso nel gruppo — nessun soprannome; il nome del gruppo</string>
+    <string name="add_contact_or_paste_an_invitation">…o incolla un link invito / gruppo</string>
+    <string name="add_contact_pair_via_simplex_exchange">Accoppiare via SimpleX.</string>
+    <string name="add_contact_paired">Abbinato ✓</string>
+    <string name="add_contact_pick_qr_from_photo">Scegli QR dalla foto</string>
+    <string name="add_contact_show_this_qr_to">Mostra questo QR o condividi il link.</string>
+    <string name="add_contact_they_see_you_as">Ti vedono anche come un alias casuale.</string>
+    <string name="add_contact_they_sent_you_a">Ti hanno inviato un link o QR. Scansiona o incolla qui.</string>
+    <string name="add_contact_theyll_see_you_as">Ti vedranno come un alias casuale — il tuo vero nome resta</string>
+    <string name="add_contact_waiting_for_them_to">In attesa di accettazione…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">Test microfono</string>
+    <string name="call_relayonly_calls">Solo chiamate via relay</string>
+    <string name="call_run_mic_test">Esegui test micro</string>
+    <string name="call_troubleshooting">Risoluzione problemi</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Quanto tempo senza aprire Aegis prima del canarino.</string>
+    <string name="canary_i_havent_checked_in">Non mi sono fatto vivo da un po\'. </string>
+    <string name="canary_if_you_dont_open">Se non apri Aegis entro la finestra configurata, </string>
+    <string name="canary_sent_verbatim_to_every">Inviato letteralmente a ogni contatto abbinato allo scatto.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">Accetta</string>
+    <string name="chat_list_add_contact">Aggiungi contatto</string>
+    <string name="chat_list_add_your_first_contact">Aggiungi il tuo primo contatto</string>
+    <string name="chat_list_automatically_turn_off_the">Disattiva automaticamente il modulo gruppi.</string>
+    <string name="chat_list_disable">Disattiva</string>
+    <string name="chat_list_enable_group_chat">Attiva Chat di Gruppo</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">Invita</string>
+    <string name="chat_list_join_via_link">Unisciti tramite link</string>
+    <string name="chat_list_new_group">+ Nuovo gruppo</string>
+    <string name="chat_list_no_groups_yet_tap">Nessun gruppo. Tocca + Nuovo gruppo per crearne uno.</string>
+    <string name="chat_list_pending_invitations">INVITI IN SOSPESO</string>
+    <string name="chat_list_public_groups_increase_your">I gruppi pubblici aumentano la superficie d attacco.</string>
+    <string name="chat_list_removes_the_group_and">Rimuove il gruppo e la cronologia da questo dispositivo.</string>
+    <string name="chat_list_revoke">Revoca</string>
+    <string name="chat_list_search_messages">Cerca messaggi…</string>
+    <string name="chat_list_shield_paused_messages_and">Scudo in pausa - messaggi e SOS sospesi</string>
+    <string name="chat_list_tap_here_or_the">Tocca qui o il pulsante hex per condividere un link.</string>
+    <string name="chat_list_video_call">videochiamata</string>
+    <string name="chat_list_view">Visualizza</string>
+    <string name="chat_list_voice_call">chiamata vocale</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">Un alias casuale, unico per questo contatto -- ogni persona che</string>
+    <string name="contact_detail_access_denied_wrong_pin">Accesso negato -- PIN errato.</string>
+    <string name="contact_detail_authenticate">Autenticare</string>
+    <string name="contact_detail_battery">Batteria</string>
+    <string name="contact_detail_delete_contact">Elimina contatto</string>
+    <string name="contact_detail_device_status">STATO DISPOSITIVO</string>
+    <string name="contact_detail_enable">Attiva</string>
+    <string name="contact_detail_group_this_contact_under">Raggruppa questo contatto sotto un tag nella lista.</string>
+    <string name="contact_detail_local_only_they_dont">Solo locale — non vedono come li chiami.</string>
+    <string name="contact_detail_no_data_received_yet">Nessun dato -- in attesa del primo ping.</string>
+    <string name="contact_detail_not_now">Non ora</string>
+    <string name="contact_detail_notifications">NOTIFICHE</string>
+    <string name="contact_detail_on_success_their_phone">In caso di successo, il loro telefono viene bloccato e localizzato.</string>
+    <string name="contact_detail_one_label_per_contact">Un tag per contatto. Determina cosa ricevono.</string>
+    <string name="contact_detail_opening_remote_control">Apertura controllo remoto…</string>
+    <string name="contact_detail_removes_the_contact_every">Rimuove il contatto e ogni messaggio dal chat 1:1.</string>
+    <string name="contact_detail_repair_contact">Ri-abbina contatto</string>
+    <string name="contact_detail_their_achievements">I LORO TRAGUARDI</string>
+    <string name="contact_detail_this_person_will_be">Questa persona potra localizzare, bloccare e cancellare il tuo telefono.</string>
+    <string name="contact_detail_trust_tier">Livello di fiducia</string>
+    <string name="contact_detail_wearable">INDOSSABILE</string>
+    <string name="contact_detail_you_appear_to_them">TI VEDONO COME</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">Rilevamento incidente</string>
+    <string name="crash_detection_detects_a_vehicle_crash">Rileva incidente stradale da forte impatto.</string>
+    <string name="crash_detection_sensitivity">SENSIBILITÀ</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">AZIONI</string>
+    <string name="device_control_audio">AUDIO</string>
+    <string name="device_control_expires_in">scade tra </string>
+    <string name="device_control_fix">correggi</string>
+    <string name="device_control_location">Posizione</string>
+    <string name="device_control_lock_did_not_fire">Blocco non attivato -- Admin dispositivo non registrato.</string>
+    <string name="device_control_lock_off">blocco disattivato</string>
+    <string name="device_control_lockscreen_message">Messaggio schermata di blocco</string>
+    <string name="device_control_no_frame">nessun frame</string>
+    <string name="device_control_remote_session">SESSIONE REMOTA</string>
+    <string name="device_control_send">Invia</string>
+    <string name="device_control_this_is_the_last">Questo è l\'ultimo passo prima del ripristino di fabbrica.</string>
+    <string name="device_control_this_triggers_a_full">Questo attiva un RIPRISTINO DI FABBRICA COMPLETO sul bersaglio.</string>
+    <string name="device_control_type_wipe">Digita WIPE</string>
+    <string name="device_control_type_wipe_to_confirm">Digita WIPE per confermare</string>
+    <string name="device_control_wipe_device">Cancella dispositivo</string>
+    <string name="device_control_wipe_target_device">Cancellare dispositivo target?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">Accesso remoto</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">Lancio/presa brusca attiva SOS. Sperimentale.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">Rilevamento intrusione. Cascata 3 sensori.</string>
+    <string name="experimental_crash_sensitivity_settings">Impostazioni sensibilità incidente →</string>
+    <string name="experimental_detect_a_vehicle_crash">Rileva incidente e invia SOS dopo 30s.</string>
+    <string name="experimental_event_log">Log eventi →</string>
+    <string name="experimental_here_be_dragons">Qui ci sono draghi</string>
+    <string name="experimental_inbox">Posta in arrivo →</string>
+    <string name="experimental_relock_experimental_section">Ri-blocca sezione sperimentale</string>
+    <string name="experimental_snatch_detection">Rilevamento strappo</string>
+    <string name="experimental_these_features_are_unfinished">Queste funzioni sono incomplete e possono consumare batteria.</string>
+    <string name="experimental_vehicle_crash_detection">Rilevamento incidente veicolare</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">Inserisci la passphrase di backup</string>
+    <string name="first_run_passphrase">Passphrase</string>
+    <string name="first_run_restore">Ripristina</string>
+    <string name="first_run_restore_from_a_previous">Ripristina da un backup precedente o inizia da zero.</string>
+    <string name="first_run_start_fresh">Inizia da zero</string>
+    <string name="first_run_welcome_to_aegis">Benvenuto in Aegis</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">Pausa</string>
+    <string name="geofence_radius">Raggio</string>
+    <string name="geofence_resume">Riprendi</string>
+    <string name="geofence_set_a_circular_zone">Imposta zona circolare. Notifica all uscita.</string>
+    <string name="geofence_zone_centre">Centro zona</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">Membri</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis richiede sblocco all\'avvio e dopo lo sfondo.</string>
+    <string name="lock_after_too_many_wrong">Dopo troppi PIN errati i dati vengono cancellati definitivamente.</string>
+    <string name="lock_arm">Arm</string>
+    <string name="lock_arm_selfdestruct">Attivare autodistruzione?</string>
+    <string name="lock_biometric_login_is_convenient">Accesso biometrico è comodo ma salta la coercizione.</string>
+    <string name="lock_deletes_the_pin_entirely">Elimina completamente il PIN e rimuove il PIN di coercizione.</string>
+    <string name="lock_draw_a_pattern_to">Disegna una sequenza per sbloccare al posto del PIN.</string>
+    <string name="lock_duress_pin_48_digits">PIN coercizione (4-8 cifre)</string>
+    <string name="lock_enable_device_admin">Attivare Admin dispositivo</string>
+    <string name="lock_entering_this_pin_opens">Questo PIN apre un profilo falso e attiva SOS silenzioso.</string>
+    <string name="lock_fast_convenient_but_it">Veloce e comodo — ma salta la coercizione.</string>
+    <string name="lock_how_long_after_backgrounding">Tempo al ri-blocco dopo sfondo.</string>
+    <string name="lock_maximum_security_your_encryption">Massima sicurezza: la tua chiave di crittografia non è mai memorizzata su</string>
+    <string name="lock_pattern_unlock">Sblocco a pattern</string>
+    <string name="lock_remove_pin">Rimuovi PIN</string>
+    <string name="lock_require_pin_to_open">PIN richiesto per aprire Aegis</string>
+    <string name="lock_require_recovery_phrase_on">Richiedi frase al riavvio</string>
+    <string name="lock_scramble_pin_pad">Mescola tastiera PIN</string>
+    <string name="lock_shuffles_digit_positions_on">Mescola le posizioni delle cifre per prevenire spionaggio.</string>
+    <string name="lock_unlock_with_fingerprint_face">Sblocca con impronta / viso</string>
+    <string name="lock_when_off_aegis_opens">Disattivato, Aegis apre senza chiedere.</string>
+    <string name="lock_wipe_after_failed_attempts">Cancella dopo tentativi falliti</string>
+    <!-- MapScreen -->
+    <string name="map_charging">in carica</string>
+    <string name="map_locate_on_map">localizza sulla mappa</string>
+    <string name="map_radar">RADAR</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">ricentra sulla famiglia</string>
+    <string name="map_solo">singolo</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">Foto con PIN errato</string>
+    <string name="mugshot_threshold">Soglia</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">Informazioni sui profili</string>
+    <string name="profiles_active">Attivo</string>
+    <string name="profiles_create">Crea</string>
+    <string name="profiles_each_profile_is_a">Ogni profilo e un Aegis completo e isolato.</string>
+    <string name="profiles_ephemeral_import_a_backup">Temporaneo - importa backup</string>
+    <string name="profiles_ephemeral_start_fresh">Temporaneo - ricomincia</string>
+    <string name="profiles_ive_written_it_down">L\'ho scritto — crea</string>
+    <string name="profiles_keep_ephemeral">Mantieni temporaneo</string>
+    <string name="profiles_make_permanent">Rendere permanente?</string>
+    <string name="profiles_make_this_profile_permanent">Rendi permanente questo profilo</string>
+    <string name="profiles_new_pin">Nuovo PIN</string>
+    <string name="profiles_new_profile">Nuovo profilo</string>
+    <string name="profiles_permanent_import_a_backup">Permanente · importa backup</string>
+    <string name="profiles_permanent_start_fresh">Permanente · inizia da zero</string>
+    <string name="profiles_pick_a_short_id">Scegli un ID breve (lettere cifre - _).</string>
+    <string name="profiles_profile_id">ID profilo</string>
+    <string name="profiles_sos_alerts_only_fire">Avvisi SOS solo per famiglia del profilo attivo.</string>
+    <string name="profiles_switch">Cambia</string>
+    <string name="profiles_these_24_words_are">Queste 24 parole sono l\'UNICA chiave dei dati di questo profilo. </string>
+    <string name="profiles_this_conversation_will_be">Questa conversazione viene salvata su disco e persiste.</string>
+    <string name="profiles_write_down_your_recovery">Annota la tua frase di recupero</string>
+    <string name="profiles_your_current_profile_stays">Il tuo profilo attuale resta protetto in background</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">Silenzia suoni notifiche chat nel periodo configurato.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">Frase di 24 parole</string>
+    <string name="recovery_unlock_back_to_pin">Torna al PIN</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">Inserisci la tua frase di recupero di 24 parole, separate da spazi.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">Recupera con la tua frase</string>
+    <string name="recovery_unlock_recovered_set_a_new">Recuperato. Imposta un nuovo PIN.</string>
+    <string name="recovery_unlock_set_pin">Imposta PIN</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">L\'aiuto sta arrivando</string>
+    <string name="s_o_s_no_sos_recipients_promote">Nessun destinatario SOS. Promuovi almeno un contatto.</string>
+    <string name="s_o_s_plays_at_maximum_alarm">Riproduce al volume massimo fino allo sblocco.</string>
+    <string name="s_o_s_start_siren">Avviare sirena?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">PIN dell\'app</string>
+    <string name="security_canary">Canarino</string>
+    <string name="security_device_admin">Admin dispositivo</string>
+    <string name="security_duress_mode_active_some">Modalità coercizione attiva. Alcuni pannelli sono nascosti per mantenere la copertura.</string>
+    <string name="security_geofence">Geofence</string>
+    <string name="security_mugshot">Foto intruso</string>
+    <string name="security_sim_watch">Monitoraggio SIM</string>
+    <string name="security_sonar_experimental">Sonar · Sperimentale</string>
+    <string name="security_your_living_shield_each">Il tuo scudo vivente.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">Avanzato: sovrascrivere i server SMP predefiniti.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">Auto-cancellazione nei nuovi chat.</string>
+    <string name="_autorevoke_unused_11_invite">Revoca automatica link invito 1:1 non usati dopo un tempo impostato.</string>
+    <string name="_backup">Copia</string>
+    <string name="_block_screenshots">Blocca screenshot</string>
+    <string name="_clear_all_queued">Cancella tutta la coda</string>
+    <string name="_disappearing_default">Predefinito scomparsa</string>
+    <string name="_encrypted_file_backup_data">Backup crittografato -- i dati sopravvivono.</string>
+    <string name="_experimental">Sperimentale</string>
+    <string name="_health_probes_driver_reloads">Sonde di salute, ricaricamenti driver, log connessione, overlay di debug.</string>
+    <string name="_language">Lingua</string>
+    <string name="_multiple_isolated_aegis_profiles">Più profili Aegis isolati — cambio tra famiglie.</string>
+    <string name="_mute_chat_notifications_at">Silenzia notifiche chat di notte. SOS ti sveglia.</string>
+    <string name="_notifications">Notifiche</string>
+    <string name="_outbox">Posta in uscita</string>
+    <string name="_perchannel_sound_vibration_and">Suono, vibrazione e importanza per canale --</string>
+    <string name="_performance_balanced_power_saver">Prestazioni / Bilanciato / Risparmio energetico + controlli per effetto.</string>
+    <string name="_pressandhold_send_call_video">Tieni premuto Invia / Chiama / Video per attivare. Previene attivazioni accidentali.</string>
+    <string name="_profiles">Profili</string>
+    <string name="_project_aether">PROJECT AETHER</string>
+    <string name="_readonly_inventory_of_every">Inventario in sola lettura di ogni comportamento incluso.</string>
+    <string name="_rearrange_the_bottom_tabs">Riordina le schede inferiori. SOS resta centrato.</string>
+    <string name="_relayonly_ice_and_call">Diagnostica solo relay ICE e chiamate.</string>
+    <string name="_stops_screenshots_screen_recording">Blocca screenshot, registrazione schermo e il</string>
+    <string name="_unfinished_features_hidden_behind">Funzioni incomplete nascoste dietro porta a 7 tap.</string>
+    <string name="_wifionly_by_default_apks">Solo WiFi -- APK ~100 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">Avviso cambio SIM</string>
+    <string name="sim_swap_when_the_sim_in">Quando la SIM nel telefono cambia invia un avviso.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Logo Aegis</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_how_it_works_body">Aegis controlla GitHub ogni 24 ore per nuove build. Ogni APK è ~100 MB. Per impostazione predefinita scarichiamo solo tramite WiFi — scaricare così tanto tramite rete mobile ad ogni rilascio costerebbe soldi veri.</string>
+    <string name="update_beltandbraces_type_rollback_below">Digita ROLLBACK sotto per confermare.</string>
+    <string name="update_check_interval">Intervallo di controllo</string>
+    <string name="update_how_often_aegis_polls">Quanto spesso Aegis interroga GitHub.</string>
+    <string name="update_roll_back">Ripristina</string>
+    <string name="update_roll_back_to_previous">Ripristina versione precedente</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">Si aprirà l\'installatore di sistema.</string>
+    <string name="update_type_rollback_to_confirm">Digita ROLLBACK per confermare</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">Conferma</string>
+    <string name="vault_pin_confirm_duress">Conferma coercizione</string>
+    <string name="vault_pin_current_vault_pin">PIN cassaforte attuale</string>
+    <string name="vault_pin_entering_this_pin_at">Inserire questo PIN al cancello della cassaforte apre un</string>
+    <string name="vault_pin_remove_duress_pin">Rimuovi PIN coercizione</string>
+    <string name="vault_pin_vault_pin">PIN cassaforte</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">Niente screenshot. Niente copia. Nessuna traccia alla chiusura.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">Il destinatario vede un icona fuoco. Aprire avvia il conto.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">Capacità</string>
+    <string name="capabilities_device_admin_enable_in">Admin dispositivo: abilitare in Impostazioni \u2192 Sicurezza \u2192 App Admin.</string>
+    <string name="capabilities_device_owner_factoryreset_the">Proprietario: ripristino di fabbrica, controllo.</string>
+    <string name="capabilities_live_status_green_active">Stato live. Verde = attivo. Grigio = permesso necessario.</string>
+    <string name="capabilities_stay_safe">Stai al sicuro.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">Auto-eliminazione messaggi in questa chat dopo il periodo scelto.</string>
+    <string name="chat_burn">Brucia</string>
+    <string name="chat_burn_after_reading">Brucia dopo la lettura</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">Elimina per tutti</string>
+    <string name="chat_deletes_every_message_in">Elimina ogni messaggio da questa conversazione.</string>
+    <string name="chat_disappearing_messages">Messaggi che scompaiono…</string>
+    <string name="chat_editing_message">Modifica messaggio</string>
+    <string name="chat_emergency_contact_they_receive">Contatto emergenza. Riceve solo avvisi SOS.</string>
+    <string name="chat_forward">Inoltra</string>
+    <string name="chat_forward_to">Inoltra a…</string>
+    <string name="chat_gallery">Galleria</string>
+    <string name="chat_loading_preview">caricamento anteprima...</string>
+    <string name="chat_no_contacts_paired_yet">Nessun contatto abbinato ancora.</string>
+    <string name="chat_pick_when_to_send">Scegli quando inviare. Aegis interroga ogni minuto.</string>
+    <string name="chat_pinned">Fissato</string>
+    <string name="chat_reply">Rispondi</string>
+    <string name="chat_save_to_device">Salva su dispositivo</string>
+    <string name="chat_save_to_notes">Salva in Note</string>
+    <string name="chat_video">video</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">Tutti i sink noti vuoti.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ e vuoto.</string>
+    <string name="diagnostics_building_usage_history">Costruzione cronologia d\'uso…</string>
+    <string name="diagnostics_close">Chiudi</string>
+    <string name="diagnostics_copy">Copia</string>
+    <string name="diagnostics_device_owner">Proprietario dispositivo</string>
+    <string name="diagnostics_diagnostics">Diagnostica</string>
+    <string name="diagnostics_empty">(vuoto)</string>
+    <string name="diagnostics_erase_all_aegis_data">Cancellare tutti i dati di Aegis?</string>
+    <string name="diagnostics_erase_everything">Cancella tutto</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">Reset forzato di sottosistemi individuali senza riavviare l\'app.</string>
+    <string name="diagnostics_how_much_data_aegis">Quanti dati ha spostato Aegis.</string>
+    <string name="diagnostics_kills_the_aegis_process">Uccide il processo Aegis e lo rilancia. In corso</string>
+    <string name="diagnostics_mainthread_sample_30_100">Campione thread principale (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">Nessun segnale di manomissione.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">Nulla viene inviato da nessuna parte e nulla è recuperabile.</string>
+    <string name="diagnostics_process">Processo</string>
+    <string name="diagnostics_reconnect_now">Riconnetti ora</string>
+    <string name="diagnostics_relays">Relays</string>
+    <string name="diagnostics_reset">Ripristina</string>
+    <string name="diagnostics_reset_simplex_core">Ripristinare core SimpleX?</string>
+    <string name="diagnostics_restart">Riavvia</string>
+    <string name="diagnostics_restart_aegis">Riavviare Aegis?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Riavvia Aegis (riavvio completo)</string>
+    <string name="diagnostics_signer_sha256">SHA-256 firmatario</string>
+    <string name="diagnostics_stop_all_sos">FERMA TUTTI I SOS</string>
+    <string name="diagnostics_storage">Archiviazione</string>
+    <string name="diagnostics_subsystems_shut_off_as">I sottosistemi si spengono al calare della batteria, in ordine. Soglia successiva</string>
+    <string name="diagnostics_tap_to_open">Tocca per aprire</string>
+    <string name="diagnostics_this_is_irreversible_it">Questo è irreversibile. Ripristina questo dispositivo a uno stato pulito.</string>
+    <string name="diagnostics_threads">Thread</string>
+    <string name="diagnostics_wipe_all_aegis_data">Cancella tutti i dati Aegis da questo dispositivo.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">Cancella i database lato SimpleX.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">Nessun contatto. Accoppia qualcuno prima.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">Invia a contatto</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">Tutti gli effetti visivi sotto sono forzatamente disabilitati mentre</string>
+    <string name="graphics_cyan_mascot">Mascotte Cyan</string>
+    <string name="graphics_data_rain">Pioggia di dati</string>
+    <string name="graphics_effects_intensity">Intensità effetti</string>
+    <string name="graphics_effects_suppressed_in_power">Effetti disabilitati in risparmio energetico</string>
+    <string name="graphics_faint_repeating_hex_pattern">Motivo esagonale tenue ripetuto dietro ogni schermata.</string>
+    <string name="graphics_graphics">Grafica</string>
+    <string name="graphics_graphics_profile">Profilo grafico</string>
+    <string name="graphics_hex_grid_backdrop">Sfondo griglia esagonale</string>
+    <string name="graphics_scan_line">Linea di scansione</string>
+    <string name="graphics_scan_line_data_rain">Linea di scansione + opacità pioggia dati.</string>
+    <string name="graphics_show_the_chibi_mascot">Mostra mascotte chibi all\'avvio, schermate vuote e intorno.</string>
+    <string name="graphics_single_cyan_line_crawling">Una singola linea ciano che scorre ogni 30 secondi.</string>
+    <string name="graphics_tiny_hex_particles_drifting">Minuscole particelle esagonali alla deriva. La più pesante.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">Elimina gruppo</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">Messaggio</string>
+    <string name="group_chat_removes_the_group_and">Rimuove il gruppo e la cronologia messaggi.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">Una nota breve visibile a tutti i membri.</string>
+    <string name="group_members_about_this_group">Info su questo gruppo</string>
+    <string name="group_members_active_in_this_group">Attivi in questo gruppo</string>
+    <string name="group_members_anonymous_the_group_sees">Anonimo -- il gruppo vede un alias, mai il tuo nome.</string>
+    <string name="group_members_apply">Applica</string>
+    <string name="group_members_armed">Attivato</string>
+    <string name="group_members_autoburn_messages_in_this">Eliminazione auto messaggi in questo gruppo.</string>
+    <string name="group_members_autodisable_timer">Timer auto-disattivazione</string>
+    <string name="group_members_autodisable_timer_for_this">Timer disattivazione automatica per questo gruppo</string>
+    <string name="group_members_configure">Configura ›</string>
+    <string name="group_members_demote_to_member">Degrada a membro</string>
+    <string name="group_members_description">Descrizione</string>
+    <string name="group_members_disappearing_messages">Messaggi a scomparsa</string>
+    <string name="group_members_every_paired_contact_is">Ogni contatto accoppiato e gia in questo gruppo.</string>
+    <string name="group_members_group_description">Descrizione gruppo</string>
+    <string name="group_members_group_image">IMMAGINE DEL GRUPPO</string>
+    <string name="group_members_group_name">Nome del gruppo</string>
+    <string name="group_members_groups_are_always_incognito">I gruppi sono sempre in incognito. Il tuo profilo resta nascosto.</string>
+    <string name="group_members_invite_member">Invita membro</string>
+    <string name="group_members_leave">Esci</string>
+    <string name="group_members_leave_group">Esci dal gruppo</string>
+    <string name="group_members_make_sure_the_photo">Assicurati che la foto non mostri te o la tua posizione.</string>
+    <string name="group_members_minutes_min_1">Minuti (min 1)</string>
+    <string name="group_members_mute_group">Silenzia gruppo</string>
+    <string name="group_members_no_members_yet_the">Nessun membro. Il bot host e i membri appariranno qui.</string>
+    <string name="group_members_off_1_min_1">Disattivato / 1 min - 1 anno. Per messaggi del gruppo.</string>
+    <string name="group_members_promote_to_admin">Promuovi ad amministratore</string>
+    <string name="group_members_remove_from_group">Rimuovi dal gruppo</string>
+    <string name="group_members_removes_the_group_locally">Rimuove il gruppo localmente e informa l host.</string>
+    <string name="group_members_rename">Rinomina</string>
+    <string name="group_members_rename_group">Rinomina gruppo</string>
+    <string name="group_members_save">Salva</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">Quando la finestra scade senza di te.</string>
+    <string name="group_members_youll_stop_receiving_messages">Non riceverai piu messaggi da questo gruppo.</string>
+    <string name="group_members_your_identity_here">LA TUA IDENTITA QUI</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">Basi</string>
+    <string name="help_design_decisions">Decisioni di design</string>
+    <string name="help_experimental">Sperimentale</string>
+    <string name="help_help">Aiuto</string>
+    <string name="help_how_aegis_works">Come funziona Aegis</string>
+    <string name="help_loading">Caricamento…</string>
+    <string name="help_privacy">Privacy</string>
+    <string name="help_security">Sicurezza</string>
+    <string name="help_technical">Tecnico</string>
+    <string name="help_the_same_documents_that">Gli stessi documenti che vengono forniti col codice sorgente -- inclusi in</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">Durata pressione</string>
+    <string name="hold_to_execute_hold_to_send_call">Tieni premuto per inviare / chiamare</string>
+    <string name="hold_to_execute_send_voice_call_and">I pulsanti invia, chiamata vocale e videochiamata richiedono pressione prolungata</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">Il link invito 1:1 funziona sul relay fino alla scadenza.</string>
+    <string name="invitation_expiry_about_this_setting">Informazioni su questa impostazione</string>
+    <string name="invitation_expiry_invitation_expiry">Scadenza invito</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis disponibile in 17 lingue. Modificabile in qualsiasi momento.</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">PIN dimenticato?</string>
+    <string name="lock_hold_for_silent_emergency">Tenere per emergenza silenziosa</string>
+    <string name="lock_use_fingerprint_or_face">Usa impronta o volto</string>
+    <string name="lock_use_pattern">Usa sequenza</string>
+    <string name="lock_use_pin">Usa PIN</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">Elimina nota</string>
+    <string name="note_editor_folder">Cartella</string>
+    <string name="note_editor_unfiled">Non classificato</string>
+    <string name="note_editor_write">Scrivi…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis e costruito su tecnologie che proteggevano gia milioni.</string>
+    <string name="origins_origins">Origini</string>
+    <string name="origins_where_this_came_from">Da dove viene</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">TRAGUARDI</string>
+    <string name="profile_avatar">Avatar</string>
+    <string name="profile_pick_avatar">Scegli avatar</string>
+    <string name="profile_proof_your_safety_net">Dimostra che la tua rete di sicurezza funziona -- ogni badge si guadagna</string>
+    <string name="profile_set_your_name_and">Imposta nome e foto opzionale.</string>
+    <string name="profile_tap_to_change_photo">Tocca per cambiare foto</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">Aggiungi relay</string>
+    <string name="relay_current_relays">RELAY ATTUALI</string>
+    <string name="relay_format_smpbase64fingerprinthostport">Formato: smp://&lt;impronta-base64&gt;@host[:porta]</string>
+    <string name="relay_loading">caricamento…</string>
+    <string name="relay_must_start_with_smp">Deve iniziare con smp:// e contenere un host.</string>
+    <string name="relay_poweruser_setting_the_defaults">Impostazione avanzata. I valori predefiniti funzionano sull\'infrastruttura.</string>
+    <string name="relay_reset_to_defaults">Ripristina valori predefiniti</string>
+    <string name="relay_simplex_relays">Relay SimpleX</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;impronta&gt;@host:porta</string>
+    <string name="relay_using_simplex_defaults">Uso dei valori predefiniti SimpleX.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">ACCESSO REMOTO</string>
+    <string name="remote_access_target_device">DISPOSITIVO TARGET</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">Premi per parlare</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">Doppia sicurezza.</string>
+    <string name="secure_notes_cancel">Annulla</string>
+    <string name="secure_notes_delete">Elimina</string>
+    <string name="secure_notes_every_note_photo_video">Ogni nota, foto, video e file nella cassaforte -- entrambi</string>
+    <string name="secure_notes_search_the_vault">Cerca nella cassaforte…</string>
+    <string name="secure_notes_type_wipe_vault_to">Digita WIPE VAULT per confermare</string>
+    <string name="secure_notes_vault">Cassaforte</string>
+    <string name="secure_notes_wipe">Cancella</string>
+    <string name="secure_notes_wipe_vault">Cancella cassaforte</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">Esercitazione</string>
+    <string name="sentinel_inbox_frontcamera_capture">Acquisizione fotocamera frontale</string>
+    <string name="sentinel_inbox_gyroscope_rads">Giroscopio (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">Foto dalla fase di registrazione</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">Nessun carico forense allegato per questa fase.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">Nessun evento Sentinel ancora. Quando un contatto che ti ha su</string>
+    <string name="sentinel_inbox_sentinel_inbox">Posta Sentinel</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">Cancella</string>
+    <string name="sentinel_log_no_events_logged_arm">Nessun evento registrato. Attiva Sentinel e attiva alcuni</string>
+    <string name="sentinel_log_sentinel_event_log">Log eventi Sentinel</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">Regola per dispositivo -- gli altoparlanti variano.</string>
+    <string name="sonar_audio_loop_selftest">Autotest loop audio</string>
+    <string name="sonar_autoarm_at_bedside">Auto-attivazione al capezzale</string>
+    <string name="sonar_autocalibrate">Autocalibra</string>
+    <string name="sonar_automatically_arms_sentinel_when">Attiva Sentinel quando il telefono viene posato.</string>
+    <string name="sonar_cancel_drill">Annulla esercizio</string>
+    <string name="sonar_contacts_who_receive_silent">Contatti che ricevono ping silenziosi.</string>
+    <string name="sonar_fires_one_audible_200">Emette un bip udibile da 200 ms 1 kHz e misura.</string>
+    <string name="sonar_hearing_audible_clicks_drop">Click? Abbassa. L altoparlante raggiunge l ultrasuono.</string>
+    <string name="sonar_if_you_hear_clicks">Se senti dei clic, è l\'altoparlante del telefono — la maggior parte</string>
+    <string name="sonar_latest_reading">Ultima lettura</string>
+    <string name="sonar_layered_cascade_sonar_proximity">Cascata: sonar, prossimita, accelerometro.</string>
+    <string name="sonar_local_event_log_debug">Log eventi locale (debug)</string>
+    <string name="sonar_logonly_record_events_locally">Solo log -- registrare senza notificare</string>
+    <string name="sonar_lower_more_sensitive_compare">Piu basso = piu sensibile.</string>
+    <string name="sonar_no_contacts_yet_add">Nessun contatto -- aggiungi per attivare le notifiche.</string>
+    <string name="sonar_no_data_yet_tap">nessun dato -- tocca Avvia</string>
+    <string name="sonar_notification_throttle">Limite notifiche</string>
+    <string name="sonar_notify_list">Elenco notifiche</string>
+    <string name="sonar_place_the_phone_where">Metti il telefono dove vuoi che ascolti.</string>
+    <string name="sonar_send_test_notification_to">Invia notifica test alla lista</string>
+    <string name="sonar_sentinel_mode">Modalità Sentinel</string>
+    <string name="sonar_sentinel_viewers">Visualizzatori Sentinel</string>
+    <string name="sonar_sonar_raw_data">Sonar -- dati grezzi</string>
+    <string name="sonar_status">Stato</string>
+    <string name="sonar_stop_sonar_first_calibrate">Ferma prima il sonar -- la calibrazione richiede audio esclusivo</string>
+    <string name="sonar_stop_sonar_first_selftest">Ferma prima il sonar -- l\'autotest richiede audio esclusivo</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">Fotocamera</string>
+    <string name="story_screens_new_story">Nuova storia</string>
+    <string name="story_screens_photo">Foto</string>
+    <string name="story_screens_remove">Rimuovi</string>
+    <string name="story_screens_stories">Storie</string>
+    <string name="story_screens_story_not_found">Storia non trovata.</string>
+    <string name="story_screens_visible_to_every_paired">Visibile a ogni contatto abbinato per 24 ore, poi</string>
+    <string name="story_screens_whats_happening">Cosa succede?</string>
+    <string name="story_screens_your_story">La tua storia</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">Sempre al centro. Non spostabile.</string>
+    <string name="tab_order_nav_order">Ordine navigazione</string>
+    <string name="tab_order_reorder_bottom_nav">Riordina navigazione</string>
+    <string name="tab_order_reset_to_default">Ripristina predefinito</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (fissato al centro)</string>
+    <string name="tab_order_sos_stays_in_the">SOS resta al centro -- troppo importante per spostare.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis è gratuito per sempre. Nessuna pubblicità. Nessun tracciamento. Nessuna vendita dati.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis si aprirà senza chiedere nulla. Il tuo PIN esiste ancora — per coercizione, accesso remoto e cifratura dei messaggi. Puoi riattivare il blocco in qualsiasi momento dalle Impostazioni.</string>
+    <string name="tutorial_anyone_who_sees_these">Chiunque veda queste parole possiede il tuo account</string>
+    <string name="tutorial_biometric_login_is_convenient">L\'accesso biometrico è comodo ma salta la protezione contro la coercizione. Se qualcuno forza la tua impronta, si apre il profilo reale. Il PIN è consigliato per la massima sicurezza.</string>
+    <string name="tutorial_biometric_skips_duress">La biometria salta la coercizione</string>
+    <string name="tutorial_choose_how_you_unlock">Scegli come sbloccare</string>
+    <string name="tutorial_confirm_pin">Conferma PIN</string>
+    <string name="tutorial_continue">Continua</string>
+    <string name="tutorial_disable_lock">Disattiva blocco</string>
+    <string name="tutorial_done">Fatto</string>
+    <string name="tutorial_each_node_unlocks_a">Ogni nodo sblocca un nuovo livello di protezione.</string>
+    <string name="tutorial_enable_anyway">Attiva comunque</string>
+    <string name="tutorial_encrypted_communication_personal_security">Comunicazione crittografata + sicurezza personale.</string>
+    <string name="tutorial_enter_aegis">Entra in Aegis</string>
+    <string name="tutorial_find_your_way_around">Esplora l\'app</string>
+    <string name="tutorial_fingerprint_face">Impronta / Volto</string>
+    <string name="tutorial_get_started">Inizia</string>
+    <string name="tutorial_if_it_ever_helps">Se ti sarà mai utile, puoi sostenere il Progetto Aether da Sistema → Informazioni.</string>
+    <string name="tutorial_it_is_your_master">Questa è la tua chiave principale, mostrata una volta. Non la memorizziamo mai e non la mostreremo mai più — né dietro il PIN, né dietro la tua impronta. Se non l\'hai scritta, questo è il prezzo perché sia veramente tua. Conserva la tua copia cartacea al sicuro.</string>
+    <string name="tutorial_ive_written_it_down">L\'ho scritto</string>
+    <string name="tutorial_keep_lock">Mantieni blocco</string>
+    <string name="tutorial_keep_pin_only">Solo PIN</string>
+    <string name="tutorial_left_to_right_along">Da sinistra a destra lungo la parte inferiore di ogni schermata:</string>
+    <string name="tutorial_make_sure_no_one">Assicurati che nessuno stia guardando e che niente stia registrando lo schermo. Gli screenshot sono bloccati — uno screenshot va nella galleria, si sincronizza con il cloud e chiunque abbia il tuo telefono può vederlo. Gratta il pannello sotto per rivelare le tue 24 parole, scrivile su carta e conserva quella carta al sicuro.</string>
+    <string name="tutorial_new_pin_48_digits">Nuovo PIN (4–8 cifre)</string>
+    <string name="tutorial_no_lock_screen">Nessuna schermata di blocco</string>
+    <string name="tutorial_open_without_a_lock">Aprire senza schermata di blocco?</string>
+    <string name="tutorial_part_of_project_aether">Parte di Project Aether</string>
+    <string name="tutorial_pattern">Sequenza</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN impostato ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">Frase di recupero impostata!</string>
+    <string name="tutorial_save_pin">Salva PIN</string>
+    <string name="tutorial_set_your_pin">Imposta il PIN</string>
+    <string name="tutorial_show_the_words_again">Mostra di nuovo le parole</string>
+    <string name="tutorial_skip">Salta</string>
+    <string name="tutorial_skip_check_debug">Salta controllo (debug)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS resta fisso al centro. Puoi riordinare il resto in Sistema → Navigazione.</string>
+    <string name="tutorial_thank_you">Grazie</string>
+    <string name="tutorial_the_skill_tree">Albero delle abilità</string>
+    <string name="tutorial_this_encrypts_your_messages">Questo cifra i tuoi messaggi e recupera il tuo account se dimentichi il PIN o perdi l\'impronta. Se lo perdi, nessuno — né noi, né nessun altro — può recuperare i tuoi dati.</string>
+    <string name="tutorial_this_is_the_only">Questa è l\'UNICA copia. Non conserviamo nulla. Non c\'è \"frase dimenticata\", nessun reset e nessun modo di crearne una nuova — né col PIN, né con l\'impronta, né da parte nostra. Se perdi questo foglio, i tuoi dati scompaiono per sempre e nessuno al mondo può recuperarli. Scrivilo adesso.</string>
+    <string name="tutorial_three_tiers_of_trust">Tre livelli di fiducia</string>
+    <string name="tutorial_what_makes_this_different">Cosa lo rende diverso</string>
+    <string name="tutorial_you_can_replay_this">Puoi ripetere questo tutorial da Aiuto in qualsiasi momento.</string>
+    <string name="tutorial_your_messages_and_attachments">I tuoi messaggi e allegati sono crittografati con questo PIN.</string>
+    <string name="tutorial_your_pin_is_set">Il tuo PIN è impostato e funziona sempre — è quello che usano la modalità coercizione e l\'accesso remoto. Sono scorciatoie opzionali sopra di esso.</string>
+    <string name="tutorial_your_recovery_phrase">La tua frase di recupero</string>
+    <string name="tutorial_your_safety_net">La tua rete di sicurezza</string>
+    <string name="tutorial_youre_ready">Sei pronto</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">Impossibile ottenere il codice di sicurezza.</string>
+    <string name="verify_contact_pick_qr_from_photo">Scegli QR da foto</string>
+    <string name="verify_contact_safety_code_qr">QR codice di sicurezza</string>
+    <string name="verify_contact_scan_their_qr">Scansiona il loro QR</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">Blocca ora</string>
+    <string name="header_sentinel_armed">Sentinel attivato</string>
+    <string name="call_island_tap_return">Tocca per tornare</string>
+    <string name="cyan_stay_safe">-- Stai al sicuro.</string>
+    <string name="pin_guard_required">PIN dell\'app richiesto</string>
+    <string name="pin_guard_set_pin">Imposta PIN dell\'app</string>
+    <string name="update_dialog_later">Dopo</string>
+    <string name="update_dialog_update">Aggiorna</string>
+    <string name="voice_slide_cancel">Scorri per annullare ←</string>
+    <string name="a11y_group_avatar">avatar del gruppo</string>
+    <string name="a11y_voice_record">registrazione vocale</string>
+
+    <string name="chat_react_custom_title">Reazione personalizzata</string>
+    <string name="chat_react_custom_hint">Digita qualsiasi emoji.</string>
+    <string name="chat_react_apply">Reagisci</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">Sistema</string>
+    <string name="action_delete">Elimina</string>
+    <string name="action_clear">Cancella</string>
+    <string name="action_add">Aggiungi</string>
+    <string name="action_edit">Modifica</string>
+    <string name="action_copy">Copia</string>
+    <string name="action_share">Condividi…</string>
+    <string name="action_send">Invia</string>
+    <string name="action_change">Cambia</string>
+    <string name="profile_saving">Salvataggio…</string>
+    <string name="profile_get_started">Inizia</string>
+    <string name="contact_notification_sound">Suono notifica</string>
+    <string name="chat_add_caption">Aggiungi didascalia…</string>
+    <string name="chat_clear">Cancella chat</string>
+    <string name="chat_clear_confirm">Cancellare questa chat?</string>
+    <string name="chat_schedule_message">Programma messaggio</string>
+    <string name="chat_cancel_edit">Annulla modifica</string>
+    <string name="chat_cancel_reply">Annulla risposta</string>
+    <string name="chat_voice_message">Messaggio vocale</string>
+    <string name="chat_file">File</string>
+    <string name="chat_location">Posizione</string>
+    <string name="chat_camera">Fotocamera</string>
+    <string name="sos_emergency">EMERGENZA</string>
+    <string name="sos_stop">STOP</string>
+    <string name="settings_checking">Controllo…</string>
+    <string name="settings_enabled">Abilitato</string>
+    <string name="settings_start">Inizio</string>
+    <string name="settings_end">Fine</string>
+    <string name="settings_how_it_works">Come funziona</string>
+    <string name="settings_message">Messaggio</string>
+    <string name="settings_checkin_window">Finestra di check-in</string>
+    <string name="status_battery">Batteria</string>
+    <string name="status_charging">In carica</string>
+    <string name="remote_locate">Localizza</string>
+    <string name="remote_siren">Sirena</string>
+    <string name="tutorial_bubble_welcome">Benvenuto nel Progetto Aether. Sono Cyan — sarò la tua guida. Prendi penna e carta — ti chiederò di scrivere 24 parole che proteggono i tuoi messaggi.</string>
+    <string name="tutorial_bubble_different">Nessun numero. Nessun account. Nessun server conserva i tuoi messaggi. Solo crittografia.</string>
+    <string name="tutorial_bubble_safety">Se sei in pericolo, un pulsante avvisa tutti quelli di cui ti fidi.</string>
+    <string name="tutorial_bubble_tiers">Decidi tu chi vede cosa.</string>
+    <string name="tutorial_bubble_skill_tree">Rafforza il telefono passo dopo passo.</string>
+    <string name="tutorial_bubble_tabs">Cinque schede in basso. Ecco cosa fa ognuna.</string>
+    <string name="tutorial_bubble_unlock">Il PIN è il più sicuro. Aggiungi un metodo rapido — il PIN resta sempre.</string>
+    <string name="tutorial_bubble_ready">Pronto. Aggiungi un contatto per iniziare.</string>
+    <string name="tutorial_bubble_thanks">Grazie per aver scelto Aegis.</string>
+    <string name="tutorial_bullet_protocol">Costruito su Aegis Protocol</string>
+    <string name="tutorial_bullet_metadata">Zero metadati — nessun profilo, nessun grafo contatti</string>
+    <string name="tutorial_bullet_e2ee">Crittografia end-to-end, sempre</string>
+    <string name="tutorial_bullet_sos_hold">Tieni il pulsante SOS 1 secondo — o premi power ×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS, audio e fotocamera trasmessi ai tuoi contatti</string>
+    <string name="tutorial_bullet_sos_lockscreen">Funziona dalla schermata di blocco</string>
+    <string name="tutorial_tier_trusted">Fidato</string>
+    <string name="tutorial_tier_trusted_desc">Tutto — posizione, presenza, SOS.</string>
+    <string name="tutorial_tier_emergency">Emergenza</string>
+    <string name="tutorial_tier_emergency_desc">Solo avvisi SOS — nessun dato quotidiano.</string>
+    <string name="tutorial_tier_untrusted">Non fidato</string>
+    <string name="tutorial_tier_untrusted_desc">Solo messaggi — nient\'altro.</string>
+    <string name="tutorial_tab_system_desc">Impostazioni, identità, blocco app e aggiornamenti.</string>
+    <string name="tutorial_tab_opsec_desc">Il tuo albero abilità — rafforza il telefono passo dopo passo.</string>
+    <string name="tutorial_tab_sos_desc">Il più importante. Tieni premuto per avvisare tutti.</string>
+    <string name="tutorial_tab_comms_desc">Le tue chat crittografate. Scrivi qui ai contatti.</string>
+    <string name="tutorial_tab_radar_desc">Mappa live — dove sono i tuoi contatti e chi è online.</string>
+    <string name="tutorial_unlock_pin_desc">Digita il PIN per sbloccare. Protezione completa dalla coercizione.</string>
+    <string name="tutorial_unlock_pattern_desc">Disegna un pattern. Il PIN copre ancora la coercizione.</string>
+    <string name="tutorial_unlock_bio_desc">Sblocco rapido. Il biometrico salta la protezione coercizione.</string>
+    <string name="tutorial_unlock_none_desc">Apri Aegis senza sbloccare. Il PIN protegge coercizione + accesso remoto.</string>
+    <string name="tutorial_pin_explanation_new">Il PIN blocca Aegis e protegge i tuoi profili. La frase di recupero crittografa i messaggi. 4–8 cifre.</string>
+    <string name="tutorial_pin_already_nice">Già fatto. Bene.</string>
+    <string name="tutorial_pin_set_first">Prima di tutto. Imposta il tuo PIN.</string>
+    <string name="tutorial_node_app_pin">PIN
+App</string>
+    <string name="tutorial_node_duress_pin">PIN
+coercizione</string>
+    <string name="tutorial_perm_title">Perché Aegis chiede così tanto</string>
+    <string name="tutorial_perm_bubble">Tocca per consentire — o salta. Ti spiego ciascuno.</string>
+    <string name="tutorial_perm_intro">Un\'app di sicurezza deve agire per te — trovarti, avvisare i tuoi, funzionare a schermo spento. Per questo la lista è lunga. Nulla esce dal telefono senza di te.</string>
+    <string name="tutorial_perm_background_title">Attività in background</string>
+    <string name="tutorial_perm_background_why">La più importante. Permette ad Aegis di funzionare quando chiusa o a schermo spento. Senza, il telefono può smettere silenziosamente — soprattutto su OnePlus, Xiaomi e Oppo.</string>
+    <string name="tutorial_perm_oem_warning">Il tuo telefono %1$s ha impostazioni batteria extra che possono uccidere Aegis in background. Apri questa impostazione e assicurati che Aegis possa avviarsi automaticamente.</string>
+    <string name="tutorial_perm_notif_title">Notifiche</string>
+    <string name="tutorial_perm_notif_why">Per avvisarti di messaggi, chiamate e SOS — anche sulla schermata di blocco.</string>
+    <string name="tutorial_perm_location_title">Posizione</string>
+    <string name="tutorial_perm_location_why">Perché i contatti fidati ti trovino in emergenza e il SOS condivida la tua posizione.</string>
+    <string name="tutorial_perm_camera_title">Fotocamera</string>
+    <string name="tutorial_perm_camera_why">Per foto SOS, mugshot con PIN errato e videochiamate.</string>
+    <string name="tutorial_perm_mic_title">Microfono</string>
+    <string name="tutorial_perm_mic_why">Per registrazione audio SOS e chiamate vocali/video.</string>
+    <string name="tutorial_perm_media_title">Foto, video e file</string>
+    <string name="tutorial_perm_media_why">Per inviare e salvare allegati. Aegis vede solo ciò che condividi.</string>
+    <string name="tutorial_perm_phone_title">Telefono e SIM</string>
+    <string name="tutorial_perm_phone_why">Per avvisarti se la SIM viene scambiata — segno comune di dirottamento.</string>
+    <string name="tutorial_perm_nearby_title">Dispositivi nelle vicinanze</string>
+    <string name="tutorial_perm_nearby_why">Bluetooth per trovare persone e dispositivi (Radar e Sonar).</string>
+    <string name="tutorial_perm_install_title">Installa aggiornamenti</string>
+    <string name="tutorial_perm_install_why">Perché Aegis si aggiorni in sicurezza senza store che ti tracci.</string>
+    <string name="tutorial_perm_footer">Mantieni il controllo. Salta qualsiasi e Aegis funziona in gran parte — ma l\'attività in background mantiene vive le funzioni di sicurezza.</string>
+    <string name="tutorial_perm_granted">Concesso ✓</string>
+    <string name="tutorial_perm_denied">Negato</string>
+    <string name="tutorial_perm_allow">Consenti</string>
+
+    <string name="tutorial_perm_oem_title">Impostazioni batteria %1$s</string>
+    <string name="tutorial_perm_oem_open">Apri impostazioni %1$s</string>
+    <string name="tutorial_perm_denied_note">Puoi attivarlo in seguito — tocca per aprire le Impostazioni.</string>
+    <string name="tutorial_pin_explanation_existing">Il tuo PIN sblocca Aegis ed è la chiave con cui i tuoi messaggi vengono cifrati. 4–8 cifre.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">PIN\ncassaforte</string>
+    <string name="tutorial_node_device_owner">Proprietario\ndispositivo</string>
+    <string name="tutorial_node_app_duress">App\ncoercizione</string>
+    <string name="tutorial_skill_tree_explanation">Il PIN dell\'app sblocca coercizione, foto, cassaforte, canary, monitoraggio SIM e geofence — impostalo una volta e il resto si apre. Il livello più alto è proprietario del dispositivo.</string>
+    <string name="tutorial_phrase_intro">Nella schermata successiva vedrai 24 parole. Gratta il pannello per rivelarle e scrivile tutte su carta.</string>
+    <string name="tutorial_phrase_show">Mostra la frase</string>
+    <string name="tutorial_phrase_scratch">Gratta per rivelare, poi scrivi tutte le 24 parole in ordine.</string>
+    <string name="tutorial_phrase_confirm">Conferma il salvataggio. Inserisci le parole %1$s dal tuo foglio.</string>
+    <string name="tutorial_phrase_word_n">Parola #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Le parole non corrispondono. Controlla il tuo foglio.</string>
+    <string name="tutorial_phrase_write_down">Scrivi queste 24 parole su carta. Sono la chiave di tutto.</string>
+    <string name="tutorial_phrase_already_saved">Già salvato. Conserva la copia cartacea al sicuro.</string>
+    <string name="tutorial_draw_pattern">Disegna il tuo schema</string>
+    <string name="tutorial_draw_pattern_confirm">Disegnalo di nuovo per confermare</string>
+    <string name="tutorial_pattern_min_dots">Usa almeno %1$d punti.</string>
+    <string name="tutorial_pattern_mismatch">Non corrisponde — ricomincia.</string>
+    <string name="tutorial_bio_need_pin_first">Imposta prima il PIN, poi aggiungi la biometria.</string>
+    <string name="tutorial_bio_failed">Impossibile attivare la biometria. Riprova.</string>
+    <string name="tutorial_pin_save_error">Impossibile salvare il PIN: %1$s</string>
+    <string name="tutorial_pin_persist_error">Il PIN non è stato salvato — controlla Diagnostica.</string>
+</resources>

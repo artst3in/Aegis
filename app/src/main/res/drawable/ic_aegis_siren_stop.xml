@@ -1,0 +1,14 @@
+<!--
+  LunaGlass siren-stop glyph — filled square inside the HexShape wrapper.
+  Pairs with ic_aegis_siren for the on/off toggle on PanicScreen.
+  Universal "stop" convention (matches the ⏹ U+23F9 it replaces).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M7,7 L17,7 L17,17 L7,17 Z" />
+</vector>

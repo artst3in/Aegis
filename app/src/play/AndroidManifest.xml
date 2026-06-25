@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Play-flavour manifest overlay. The ONLY thing it does is remove the
+  self-update permission cluster from the merged manifest, because Google
+  Play restricts all three (Play performs updates itself, so a normal app
+  may not):
+
+    - UPDATE_PACKAGES_WITHOUT_USER_ACTION  (silent install, restricted)
+    - INSTALL_PACKAGES                      (signature/privileged — not
+                                             grantable to a normal app at
+                                             all; flagged on upload)
+    - REQUEST_INSTALL_PACKAGES              (sensitive; needs a Play
+                                             declaration we don't want for
+                                             a build that never installs)
+
+  The sideload flavour keeps all three (declared in src/main) for the OTA
+  self-update channel. Paired with BuildConfig.SELF_UPDATE=false (set on
+  this flavour), the updater is also dormant at runtime, so nothing tries
+  to use the permissions that aren't here.
+
+  tools:node="remove" deletes the matching <uses-permission> the manifest
+  merger pulled in from src/main, for this flavour only.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission
+        android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.REQUEST_INSTALL_PACKAGES"
+        tools:node="remove" />
+
+</manifest>

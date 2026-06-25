@@ -1,0 +1,20 @@
+<!--
+  LunaGlass heart — 1/4 filled (top-left quadrant).
+  Fill order: TL → BL → BR → TR.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,7 L8,3 L4,3 L1,6 L1,11 L12,11 Z" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="square"
+        android:strokeLineJoin="miter"
+        android:fillColor="#00000000"
+        android:pathData="M12,7 L8,3 L4,3 L1,6 L1,11 L12,22 L23,11 L23,6 L20,3 L16,3 Z" />
+</vector>

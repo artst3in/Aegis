@@ -1,0 +1,57 @@
+name: no-private-paths
+
+# Server-side enforcement: fail if any private-by-policy path is tracked in
+# the repo. These directories are internal dev material (agent config,
+# specs/reviews, store assets, helper scripts) and must never live in the
+# public repo. Unlike the client-side `hooks/pre-push` guard, this runs on
+# GitHub for EVERY push and PR regardless of who pushed or from what machine.
+#
+# To make it a hard wall rather than after-the-fact detection, pair it with
+# branch protection on `main`: require this check to pass and block direct
+# pushes (Settings -> Branches -> Branch protection rules).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject private-by-policy paths
+        run: |
+          set -euo pipefail
+          # Always-private paths that must never be tracked in the public repo.
+          forbidden=(CLAUDE.md .claude playstore tools)
+          found=0
+          for p in "${forbidden[@]}"; do
+            # git ls-files lists only *tracked* matches (a file, or every
+            # tracked file under a directory). Non-empty => the path leaked.
+            match="$(git ls-files -- "$p")"
+            if [ -n "$match" ]; then
+              echo "::error::Private-by-policy path present in public tree: $p"
+              echo "$match" | sed 's/^/  /'
+              found=1
+            fi
+          done
+          # docs/ is default-DENY with an explicit public allowlist: only the
+          # curated files below may be tracked; everything else under docs/
+          # (specs, internal reviews) is private and fails the check.
+          docs_allow='^docs/(INDEX|PRIVACY|DATA_SAFETY|PLAY_STORE_LISTING)\.md$'
+          docs_bad="$(git ls-files -- docs | { grep -vE "$docs_allow" || true; })"
+          if [ -n "$docs_bad" ]; then
+            echo "::error::Non-allowlisted docs/ path present in public tree:"
+            echo "$docs_bad" | sed 's/^/  /'
+            found=1
+          fi
+          if [ "$found" -ne 0 ]; then
+            echo "Refusing: private-by-policy paths must not exist in the public repo." >&2
+            exit 1
+          fi
+          echo "OK: no private-by-policy paths present."

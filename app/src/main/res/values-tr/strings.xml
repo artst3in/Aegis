@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="nav_chats">Sohbetler</string>    <string name="action_save">Kaydet</string><string name="action_cancel">İptal</string><string name="action_done">Tamam</string><string name="action_back">Geri</string>    <string name="profile_title">Profilin</string><string name="profile_welcome">Aegis\'e hoş geldin</string><string name="profile_display_name">Görünen ad</string><string name="profile_your_name">Adın</string><string name="profile_bio">Biyografi (isteğe bağlı)</string><string name="profile_bio_hint">Kişilerin adına dokunduğunda gördükleri.</string>    <string name="contact_title">Kişi</string><string name="contact_not_found">Kişi bulunamadı.</string><string name="contact_add">Kişi ekle</string><string name="contact_connecting">Bağlanıyor…</string><string name="contact_nickname">Takma ad</string><string name="contact_nickname_hint">Takma ad (onlara ne diyorsun)</string><string name="contact_my_nickname">Onlar için takma adım</string><string name="contact_save_nickname">Takma adı kaydet</string><string name="contact_copy_link">Bağlantıyı kopyala</string><string name="contact_accept_invite">Daveti kabul et</string><string name="contact_accept_invitation">Daveti kabul et</string><string name="contact_pin">Sabitle</string><string name="contact_unpin">Sabitlemeyi kaldır</string><string name="contact_mute">Sessize al</string>    <string name="group_new">Yeni grup</string><string name="group_name">Grup adı</string><string name="group_creating">Oluşturuluyor…</string><string name="group_create">Grup oluştur</string>
+    <string name="call_voice">Sesli arama</string><string name="call_video">Görüntülü arama</string><string name="call_calling">Aranıyor…</string>    <string name="sos_title">PANİK</string><string name="sos_active">AKTİF</string><string name="sos_broadcasting">Yayın yapılıyor</string>    <string name="duress_confirm_pin">PIN\'i onayla</string><string name="duress_confirm_duress_pin">Baskı PIN\'ini onayla</string><string name="duress_change_pin">PIN\'i değiştir</string>
+    <string name="settings_title">Ayarlar</string><string name="settings_app_lock">Uygulama kilidi</string><string name="settings_auto_lock">Otomatik kilit</string><string name="settings_calls">Aramalar</string><string name="settings_updates">Güncellemeler</string><string name="settings_quiet_hours">Sessiz saatler</string><string name="settings_canary">Kanarya</string><string name="settings_wifi_only">Yalnızca Wi-Fi</string>    <string name="status_online">çevrimiçi</string><string name="status_offline">çevrimdışı</string><string name="status_away">uzakta</string>    <string name="update_available">Güncelleme mevcut</string>    <string name="loki_mugshot_armed">Hazır — %d yanlış PIN sonrası fotoğraf çeker.</string><string name="loki_sim_armed">Hazır. Mevcut SIM:</string><string name="loki_canary_armed">Hazır. Zamanlayıcıyı sıfırlamak için uygulamayı açın.</string><string name="loki_deadmans_switch">Ölü adam anahtarı</string>
+    <string name="nav_security">Güvenlik</string>
+    <string name="nav_radar">Radar</string>
+
+    <!-- AddContactScreen -->
+    <string name="add_contact_copy_error">Kopyalama hatası</string>
+    <string name="add_contact_generate_a_onetime_link">Tek kullanimlik link olustur.</string>
+    <string name="add_contact_generating_link">Bağlantı oluşturuluyor…</string>
+    <string name="add_contact_got_their_invitation_link">Davet bağlantıları var mı? QR tarayın veya aşağıya yapıştırın.</string>
+    <string name="add_contact_invitation_qr">Davet QR</string>
+    <string name="add_contact_invite_someone">Birini davet et</string>
+    <string name="add_contact_joining_a_group_no">Gruba katılım — takma ad gerekmez; grup adı</string>
+    <string name="add_contact_or_paste_an_invitation">…veya davet / grup bağlantısı yapıştır</string>
+    <string name="add_contact_pair_via_simplex_exchange">SimpleX ile esle.</string>
+    <string name="add_contact_paired">Eşleştirildi ✓</string>
+    <string name="add_contact_pick_qr_from_photo">Fotodan QR seç</string>
+    <string name="add_contact_show_this_qr_to">Bu QR kodunu göster veya bağlantıyı paylaş.</string>
+    <string name="add_contact_they_see_you_as">Sizi de rastgele bir takma ad olarak gorurler.</string>
+    <string name="add_contact_they_sent_you_a">Sana bir bağlantı veya QR gönderdiler. Tara veya buraya yapıştır.</string>
+    <string name="add_contact_theyll_see_you_as">Seni rastgele bir takma adla görürler — gerçek adın kalır</string>
+    <string name="add_contact_waiting_for_them_to">Kabul etmesi bekleniyor…</string>
+    <!-- CallSettingsScreen -->
+    <string name="call_microphone_test">Mikrofon testi</string>
+    <string name="call_relayonly_calls">Yalnizca relay aramalari</string>
+    <string name="call_run_mic_test">Mikrofon testi çalıştır</string>
+    <string name="call_troubleshooting">Sorun giderme</string>
+    <!-- CanarySettingsScreen -->
+    <string name="canary_how_long_without_opening">Aegis acmadan ne kadar sure kanarya oncesi.</string>
+    <string name="canary_i_havent_checked_in">Bir süredir kontrol etmedim. </string>
+    <string name="canary_if_you_dont_open">Aegis\'i ayarlanan süre içinde açmazsan, </string>
+    <string name="canary_sent_verbatim_to_every">Tetiklendiğinde her eşleşmiş kişiye aynen gönderilir.</string>
+    <!-- ChatListScreen -->
+    <string name="chat_list_accept">Kabul et</string>
+    <string name="chat_list_add_contact">Kişi ekle</string>
+    <string name="chat_list_add_your_first_contact">İlk kişini ekle</string>
+    <string name="chat_list_automatically_turn_off_the">Grup modulunu otomatik kapat.</string>
+    <string name="chat_list_disable">Devre dışı</string>
+    <string name="chat_list_enable_group_chat">Grup Sohbeti Etkinlestir</string>
+    <string name="chat_list_fabrotate">fab-rotate</string>
+    <string name="chat_list_invite">Davet et</string>
+    <string name="chat_list_join_via_link">Bağlantıyla katıl</string>
+    <string name="chat_list_new_group">+ Yeni grup</string>
+    <string name="chat_list_no_groups_yet_tap">Grup yok. + Yeni grup olustur.</string>
+    <string name="chat_list_pending_invitations">BEKLEYEN DAVETLER</string>
+    <string name="chat_list_public_groups_increase_your">Acik gruplar saldiri yuzeyini arttirir.</string>
+    <string name="chat_list_removes_the_group_and">Grubu ve gecmisi bu cihazdan kaldirir.</string>
+    <string name="chat_list_revoke">Iptal et</string>
+    <string name="chat_list_search_messages">Mesajlarda ara…</string>
+    <string name="chat_list_shield_paused_messages_and">Kalkan duraklatildi - mesajlar ve SOS askida</string>
+    <string name="chat_list_tap_here_or_the">Buraya veya hex dugmesine dokunarak davet linki paylasin.</string>
+    <string name="chat_list_video_call">görüntülü arama</string>
+    <string name="chat_list_view">Görüntüle</string>
+    <string name="chat_list_voice_call">sesli arama</string>
+    <!-- ContactDetailScreen -->
+    <string name="contact_detail_a_random_alias_unique">Rastgele bir takma ad, bu kişiye özel -- tanıdığınız her kişi</string>
+    <string name="contact_detail_access_denied_wrong_pin">Erisim reddedildi -- yanlis PIN.</string>
+    <string name="contact_detail_authenticate">Dogrula</string>
+    <string name="contact_detail_battery">Pil</string>
+    <string name="contact_detail_delete_contact">Kişiyi sil</string>
+    <string name="contact_detail_device_status">CİHAZ DURUMU</string>
+    <string name="contact_detail_enable">Etkinleştir</string>
+    <string name="contact_detail_group_this_contact_under">Bu kişiyi listede bir etiket altında grupla.</string>
+    <string name="contact_detail_local_only_they_dont">Yalnızca yerel — onları ne diye çağırdığını görmezler.</string>
+    <string name="contact_detail_no_data_received_yet">Henuz veri yok -- ilk durum pingini bekliyor.</string>
+    <string name="contact_detail_not_now">Şimdi değil</string>
+    <string name="contact_detail_notifications">BILDIRIMLER</string>
+    <string name="contact_detail_on_success_their_phone">Başarılı olursa telefonu kilitlenir ve konumu bulunur.</string>
+    <string name="contact_detail_one_label_per_contact">Kişi başına bir etiket. Ne alacaklarını belirler.</string>
+    <string name="contact_detail_opening_remote_control">Uzaktan kontrol açılıyor…</string>
+    <string name="contact_detail_removes_the_contact_every">Kisiyi ve tum mesajlari siler.</string>
+    <string name="contact_detail_repair_contact">Kişiyi yeniden eşleştir</string>
+    <string name="contact_detail_their_achievements">BAŞARILARI</string>
+    <string name="contact_detail_this_person_will_be">Bu kisi telefonunuzu bulabilir, kilitleyebilir ve silebilir.</string>
+    <string name="contact_detail_trust_tier">Güven seviyesi</string>
+    <string name="contact_detail_wearable">GİYİLEBİLİR</string>
+    <string name="contact_detail_you_appear_to_them">ONLARA GÖRÜNDÜĞÜN</string>
+    <!-- CrashDetectionSettingsScreen -->
+    <string name="crash_detection_crash_detection">Çarpışma algılama</string>
+    <string name="crash_detection_detects_a_vehicle_crash">Sert carpma ile arac kazasi algilar.</string>
+    <string name="crash_detection_sensitivity">HASSASİYET</string>
+    <!-- DeviceControlScreen -->
+    <string name="device_control_actions">EYLEMLER</string>
+    <string name="device_control_audio">SES</string>
+    <string name="device_control_expires_in">suresi doluyor </string>
+    <string name="device_control_fix">duzelt</string>
+    <string name="device_control_location">Konum</string>
+    <string name="device_control_lock_did_not_fire">Kilit tetiklenmedi -- Cihaz Yöneticisi kaydedilmemiş.</string>
+    <string name="device_control_lock_off">kilit kapali</string>
+    <string name="device_control_lockscreen_message">Kilit ekranı mesajı</string>
+    <string name="device_control_no_frame">çerçeve yok</string>
+    <string name="device_control_remote_session">UZAK OTURUM</string>
+    <string name="device_control_send">Gönder</string>
+    <string name="device_control_this_is_the_last">Fabrika sıfırlamasından önceki son adım.</string>
+    <string name="device_control_this_triggers_a_full">Hedefte TAM FABRİKA SIFIRLAMASI tetikler.</string>
+    <string name="device_control_type_wipe">WIPE yaz</string>
+    <string name="device_control_type_wipe_to_confirm">Onaylamak için WIPE yaz</string>
+    <string name="device_control_wipe_device">Cihazi sil</string>
+    <string name="device_control_wipe_target_device">Hedef cihazi sil?</string>
+    <!-- DeviceStatusScreen -->
+    <string name="device_status_remote_access">Uzaktan erişim</string>
+    <string name="device_status_yes">yes</string>
+    <!-- ExperimentalSettingsScreen -->
+    <string name="experimental_a_hard_throwgrabyank_fires">Sert atma/yakala SOS tetikler. Deneysel.</string>
+    <string name="experimental_covert_intrusion_detection_threesensor">Gizli giris tespiti. 3 sensor kaskadi.</string>
+    <string name="experimental_crash_sensitivity_settings">Çarpışma hassasiyet ayarları →</string>
+    <string name="experimental_detect_a_vehicle_crash">Kaza algilayip 30s sonra SOS gonder.</string>
+    <string name="experimental_event_log">Olay günlüğü →</string>
+    <string name="experimental_here_be_dragons">Burada ejderhalar var</string>
+    <string name="experimental_inbox">Gelen kutusu →</string>
+    <string name="experimental_relock_experimental_section">Deneysel bölümü tekrar kilitle</string>
+    <string name="experimental_snatch_detection">Kapma algılama</string>
+    <string name="experimental_these_features_are_unfinished">Bu özellikler tamamlanmamış ve pil tüketebilir.</string>
+    <string name="experimental_vehicle_crash_detection">Araç çarpışma algılama</string>
+    <!-- FirstRunScreen -->
+    <string name="first_run_enter_backup_passphrase">Yedek parolasını gir</string>
+    <string name="first_run_passphrase">Parola</string>
+    <string name="first_run_restore">Geri yükle</string>
+    <string name="first_run_restore_from_a_previous">Önceki yedekten geri yükle veya sıfırdan başla.</string>
+    <string name="first_run_start_fresh">Sıfırdan başla</string>
+    <string name="first_run_welcome_to_aegis">Aegis\'e hoş geldin</string>
+    <!-- GeofenceSettingsScreen -->
+    <string name="geofence_pause">Duraklat</string>
+    <string name="geofence_radius">Yarıçap</string>
+    <string name="geofence_resume">Devam et</string>
+    <string name="geofence_set_a_circular_zone">Dairesel bolge ayarla. Cikista bildir.</string>
+    <string name="geofence_zone_centre">Bölge merkezi</string>
+    <!-- GroupCreateScreen -->
+    <string name="group_create_members">Üyeler</string>
+    <!-- LockSettingsScreen -->
+    <string name="lock_aegis_requires_unlock_on">Aegis başlatıldığında ve arka plandan sonra kilit açma gerektirir.</string>
+    <string name="lock_after_too_many_wrong">Birden fazla yanlış PIN\'den sonra veriler kalıcı olarak silinir.</string>
+    <string name="lock_arm">Arm</string>
+    <string name="lock_arm_selfdestruct">Kendini imhayi etkinlestir?</string>
+    <string name="lock_biometric_login_is_convenient">Biyometrik giriş rahat ama tehdit PIN\'ini atlar.</string>
+    <string name="lock_deletes_the_pin_entirely">PIN\'i tamamen siler ve tehdit PIN\'ini kaldırır.</string>
+    <string name="lock_draw_a_pattern_to">PIN yerine kilit açmak için desen çiz.</string>
+    <string name="lock_duress_pin_48_digits">Zorlama PIN (4-8 rakam)</string>
+    <string name="lock_enable_device_admin">Cihaz Yoneticisi etkinlestir</string>
+    <string name="lock_entering_this_pin_opens">Bu PIN sahte profil acar ve sessiz SOS baslatir.</string>
+    <string name="lock_fast_convenient_but_it">Hızlı ve rahat — ama tehdit PIN\'ini atlar.</string>
+    <string name="lock_how_long_after_backgrounding">Arka plandan sonra yeniden kilitleme süresi.</string>
+    <string name="lock_maximum_security_your_encryption">Maksimum güvenlik: şifreleme anahtarınız asla şunda saklanmaz</string>
+    <string name="lock_pattern_unlock">Desen kilidi</string>
+    <string name="lock_remove_pin">PIN kaldir</string>
+    <string name="lock_require_pin_to_open">Aegis acmak icin PIN gerekli</string>
+    <string name="lock_require_recovery_phrase_on">Yeniden baslatmada ifade gerektir</string>
+    <string name="lock_scramble_pin_pad">PIN tuslarini karistir</string>
+    <string name="lock_shuffles_digit_positions_on">Gözetlemeyi önlemek için rakam konumlarını karıştırır.</string>
+    <string name="lock_unlock_with_fingerprint_face">Parmak izi / yuz ile ac</string>
+    <string name="lock_when_off_aegis_opens">Kapali, Aegis sormadan acilir.</string>
+    <string name="lock_wipe_after_failed_attempts">Başarısız denemelerden sonra sil</string>
+    <!-- MapScreen -->
+    <string name="map_charging">şarj</string>
+    <string name="map_locate_on_map">haritada bul</string>
+    <string name="map_radar">RADAR</string>
+    <string name="map_radarangle">radar-angle</string>
+    <string name="map_radarsweep">radar-sweep</string>
+    <string name="map_recenter_on_family">aileye yeniden ortala</string>
+    <string name="map_solo">yalniz</string>
+    <!-- MugshotSettingsScreen -->
+    <string name="mugshot_mugshot_on_failed_pin">Yanlis PIN ile fotograf</string>
+    <string name="mugshot_threshold">Eşik</string>
+    <!-- ProfilesSettingsScreen -->
+    <string name="profiles_about_profiles">Profiller hakkında</string>
+    <string name="profiles_active">Aktif</string>
+    <string name="profiles_create">Oluştur</string>
+    <string name="profiles_each_profile_is_a">Her profil tam ve izole bir Aegis.</string>
+    <string name="profiles_ephemeral_import_a_backup">Gecici - yedek ice aktar</string>
+    <string name="profiles_ephemeral_start_fresh">Gecici - sifirdan basla</string>
+    <string name="profiles_ive_written_it_down">Yazdım — oluştur</string>
+    <string name="profiles_keep_ephemeral">Gecici tut</string>
+    <string name="profiles_make_permanent">Kalici yap?</string>
+    <string name="profiles_make_this_profile_permanent">Bu profili kalici yap</string>
+    <string name="profiles_new_pin">Yeni PIN</string>
+    <string name="profiles_new_profile">Yeni profil</string>
+    <string name="profiles_permanent_import_a_backup">Kalıcı · yedek içe aktar</string>
+    <string name="profiles_permanent_start_fresh">Kalıcı · sıfırdan başla</string>
+    <string name="profiles_pick_a_short_id">Kısa bir ID seç (harf rakam - _).</string>
+    <string name="profiles_profile_id">Profil kimlik</string>
+    <string name="profiles_sos_alerts_only_fire">SOS yalnizca aktif profil ailesi icin calisir.</string>
+    <string name="profiles_switch">Değiştir</string>
+    <string name="profiles_these_24_words_are">Bu 24 kelime bu profilin verilerinin TEK anahtarıdır. </string>
+    <string name="profiles_this_conversation_will_be">Bu konuşma diske kaydedilir ve kalır.</string>
+    <string name="profiles_write_down_your_recovery">Kurtarma ifadeni yaz</string>
+    <string name="profiles_your_current_profile_stays">Mevcut profilin arka planda korunarlı kalır</string>
+    <!-- QuietHoursSettingsScreen -->
+    <string name="quiet_hours_mutes_chat_notification_sounds">Ayarlanan sürede sohbet bildirim seslerini kapatır.</string>
+    <!-- RecoveryUnlockScreen -->
+    <string name="recovery_unlock_24word_phrase">24 kelimelik ifade</string>
+    <string name="recovery_unlock_back_to_pin">PIN\'e dön</string>
+    <string name="recovery_unlock_enter_your_24word_recovery">24 kelimelik kurtarma ifadeni, boşluklarla ayırarak gir.</string>
+    <string name="recovery_unlock_recover_with_your_phrase">Ifadenizle kurtar</string>
+    <string name="recovery_unlock_recovered_set_a_new">Kurtarildi. Yeni PIN belirle.</string>
+    <string name="recovery_unlock_set_pin">PIN ayarla</string>
+    <!-- SOSScreen -->
+    <string name="s_o_s_help_is_coming">Yardım yolda</string>
+    <string name="s_o_s_no_sos_recipients_promote">SOS alicisi yok. En az bir kisiyi yukselt.</string>
+    <string name="s_o_s_plays_at_maximum_alarm">Kilit acilana kadar maksimum sesle calar.</string>
+    <string name="s_o_s_start_siren">Siren başlatılsın mı?</string>
+    <!-- SecurityScreen -->
+    <string name="security_app_pin">Uygulama PIN\'i</string>
+    <string name="security_canary">Kanarya</string>
+    <string name="security_device_admin">Cihaz yöneticisi</string>
+    <string name="security_duress_mode_active_some">Tehdit modu aktif. Bazı paneller kılıfı korumak için gizlendi.</string>
+    <string name="security_geofence">Coğrafi bölge</string>
+    <string name="security_mugshot">İzleme fotoğrafı</string>
+    <string name="security_sim_watch">SIM izleme</string>
+    <string name="security_sonar_experimental">Sonar · Deneysel</string>
+    <string name="security_your_living_shield_each">Yasiyan kalkanin.</string>
+    <!-- SettingsScreen -->
+    <string name="_advanced_override_the_default">Gelişmiş: varsayılan SMP sunucularını geçersiz kıl.</string>
+    <string name="_aegis">Aegis</string>
+    <string name="_autoburn_ttl_applied_to">Yeni sohbetlerde otomatik silme.</string>
+    <string name="_autorevoke_unused_11_invite">Kullanılmayan 1:1 davet bağlantılarını belirli süreden sonra otomatik iptal et.</string>
+    <string name="_backup">Yedek</string>
+    <string name="_block_screenshots">Ekran görüntüsü engelle</string>
+    <string name="_clear_all_queued">Tüm kuyruğu temizle</string>
+    <string name="_disappearing_default">Varsayılan kaybolma</string>
+    <string name="_encrypted_file_backup_data">Sifreli yedek -- veriler hayatta kalir.</string>
+    <string name="_experimental">Deneysel</string>
+    <string name="_health_probes_driver_reloads">Sağlık probı, sürücü yeniden yüklemeleri, bağlantı günlüğü, hata ayıklama katı.</string>
+    <string name="_language">Dil</string>
+    <string name="_multiple_isolated_aegis_profiles">Birden fazla izole Aegis profili — aileler arası geçiş.</string>
+    <string name="_mute_chat_notifications_at">Gece sohbet bildirimlerini sessize al. SOS seni uyandırır.</string>
+    <string name="_notifications">Bildirimler</string>
+    <string name="_outbox">Giden kutusu</string>
+    <string name="_perchannel_sound_vibration_and">Kanal başına ses, titreşim ve önem --</string>
+    <string name="_performance_balanced_power_saver">Performans / Dengeli / Güç tasarrufu + efekt başına kontroller.</string>
+    <string name="_pressandhold_send_call_video">Gönder / Ara / Video tetiklemek için basılı tut. Yanlışlıkla tetiklemeyi önler.</string>
+    <string name="_profiles">Profiller</string>
+    <string name="_project_aether">PROJECT AETHER</string>
+    <string name="_readonly_inventory_of_every">Her dahil edilen davranışın salt okunur envanteri.</string>
+    <string name="_rearrange_the_bottom_tabs">Alt sekmeleri yeniden düzenle. SOS ortada kalır.</string>
+    <string name="_relayonly_ice_and_call">Yalnızca röle ICE ve arama tanılaması.</string>
+    <string name="_stops_screenshots_screen_recording">Ekran görüntüsü, ekran kaydı ve</string>
+    <string name="_unfinished_features_hidden_behind">Tamamlanmamış özellikler 7 dokunma kapısının arkasında.</string>
+    <string name="_wifionly_by_default_apks">Yalnizca WiFi -- APK ~100 MB.</string>
+    <!-- SimSwapSettingsScreen -->
+    <string name="sim_swap_sim_swap_alert">SIM degisikligi uyarisi</string>
+    <string name="sim_swap_when_the_sim_in">Telefondaki SIM değiştiğinde uyarı gönderir.</string>
+    <!-- SplashScreen -->
+    <string name="splash_aegis_logo">Aegis logosu</string>
+    <string name="splash_splashscale">splash-scale</string>
+    <!-- UpdateSettingsScreen -->
+    <string name="update_how_it_works_body">Aegis her 24 saatte GitHub\'da yeni sürüm kontrol eder. Her APK ~100 MB\'dır. Varsayılan olarak yalnızca WiFi üzerinden indiriyoruz — her sürümde bu kadarını mobil veri üzerinden indirmek gerçek paraya mal olur.</string>
+    <string name="update_beltandbraces_type_rollback_below">Onaylamak için aşağıya ROLLBACK yaz.</string>
+    <string name="update_check_interval">Kontrol aralığı</string>
+    <string name="update_how_often_aegis_polls">Aegis\'in GitHub\'u ne sıklıkla sorgu yapacağı.</string>
+    <string name="update_roll_back">Geri al</string>
+    <string name="update_roll_back_to_previous">Önceki sürüme geri al</string>
+    <string name="update_rollback">ROLLBACK</string>
+    <string name="update_the_system_installer_will">Sistem yükleyicisi açılacak.</string>
+    <string name="update_type_rollback_to_confirm">Onaylamak için ROLLBACK yaz</string>
+    <!-- VaultPinSettingsScreen -->
+    <string name="vault_pin_confirm">Onayla</string>
+    <string name="vault_pin_confirm_duress">Tehdit PIN\'ini onayla</string>
+    <string name="vault_pin_current_vault_pin">Mevcut kasa PIN</string>
+    <string name="vault_pin_entering_this_pin_at">Bu PIN\'i kasa kapısına girmek gizli bir</string>
+    <string name="vault_pin_remove_duress_pin">Tehdit PIN\'ini kaldır</string>
+    <string name="vault_pin_vault_pin">Kasa PIN\'i</string>
+    <!-- BurnUI -->
+    <string name="burn_u_i_no_screenshots_no_copy">Ekran görüntüsü yok. Kopyalama yok. Kapatınca iz yok.</string>
+    <string name="burn_u_i_recipient_sees_a_fire">Alici ates ikonu gorur. Acmak geri sayimi baslatir.</string>
+    <!-- CapabilitiesScreen -->
+    <string name="capabilities_capabilities">Yetenekler</string>
+    <string name="capabilities_device_admin_enable_in">Cihaz Yöneticisi: Ayarlar \u2192 Güvenlik \u2192 Cihaz Yöneticisi\'nde etkinleştir.</string>
+    <string name="capabilities_device_owner_factoryreset_the">Sahip: fabrika ayarlarina sifirla, kontrol.</string>
+    <string name="capabilities_live_status_green_active">Canli durum. Yesil = aktif. Soluk = izin gerekli.</string>
+    <string name="capabilities_stay_safe">Güvende kal.</string>
+    <!-- ChatScreen -->
+    <string name="chat_autoburn_messages_in_this">Seçilen süreden sonra bu sohbetteki mesajları otomatik yak.</string>
+    <string name="chat_burn">Yak</string>
+    <string name="chat_burn_after_reading">Okuduktan sonra yak</string>
+    <string name="chat_composeaddrotate">compose-add-rotate</string>
+    <string name="chat_delete_for_everyone">Herkes için sil</string>
+    <string name="chat_deletes_every_message_in">Bu sohbetteki tum mesajlari siler.</string>
+    <string name="chat_disappearing_messages">Kaybolan mesajlar…</string>
+    <string name="chat_editing_message">Mesaj düzenleniyor</string>
+    <string name="chat_emergency_contact_they_receive">Acil durum kisisi. Yalnizca SOS alir.</string>
+    <string name="chat_forward">İlet</string>
+    <string name="chat_forward_to">Yeniden yönlendir…</string>
+    <string name="chat_gallery">Galeri</string>
+    <string name="chat_loading_preview">onizleme yukleniyor...</string>
+    <string name="chat_no_contacts_paired_yet">Henüz eşleşmiş kişi yok.</string>
+    <string name="chat_pick_when_to_send">Ne zaman göndereceğini seç. Aegis her dakika sorgular.</string>
+    <string name="chat_pinned">Sabitlendi</string>
+    <string name="chat_reply">Yanıtla</string>
+    <string name="chat_save_to_device">Cihaza kaydet</string>
+    <string name="chat_save_to_notes">Notlara Kaydet</string>
+    <string name="chat_video">video</string>
+    <!-- DiagnosticsScreen -->
+    <string name="diagnostics_">⚠  </string>
+    <string name="diagnostics_all_known_sinks_empty">Bilinen tüm hedefler boş.</string>
+    <string name="diagnostics_appfiles_is_empty">app_files/ bos.</string>
+    <string name="diagnostics_building_usage_history">Kullanım geçmişi oluşturuluyor…</string>
+    <string name="diagnostics_close">Kapat</string>
+    <string name="diagnostics_copy">Kopyala</string>
+    <string name="diagnostics_device_owner">Cihaz sahibi</string>
+    <string name="diagnostics_diagnostics">Tanılama</string>
+    <string name="diagnostics_empty">(bos)</string>
+    <string name="diagnostics_erase_all_aegis_data">Tüm Aegis verileri silinsin mi?</string>
+    <string name="diagnostics_erase_everything">Hepsini sil</string>
+    <string name="diagnostics_fix">Fix</string>
+    <string name="diagnostics_forcereset_individual_subsystems_without">Uygulamayı yeniden başlatmadan alt sistemleri zorla sıfırla.</string>
+    <string name="diagnostics_how_much_data_aegis">Aegis ne kadar veri taşıdı.</string>
+    <string name="diagnostics_kills_the_aegis_process">Aegis sürecini sonlandırıp yeniden başlatır. Devam eden</string>
+    <string name="diagnostics_mainthread_sample_30_100">Ana thread örneği (30 × 100 ms)</string>
+    <string name="diagnostics_no_tampering_signals_detected">Muedahale sinyali yok.</string>
+    <string name="diagnostics_nothing_is_sent_anywhere">Hiçbir şey hiçbir yere gönderilmez ve kurtarma mümkün değildir.</string>
+    <string name="diagnostics_process">Sürec</string>
+    <string name="diagnostics_reconnect_now">Simdi baglan</string>
+    <string name="diagnostics_relays">Röleler</string>
+    <string name="diagnostics_reset">Sıfırla</string>
+    <string name="diagnostics_reset_simplex_core">SimpleX çekirdeği sıfırlansın mı?</string>
+    <string name="diagnostics_restart">Yeniden baslat</string>
+    <string name="diagnostics_restart_aegis">Aegis yeniden baslatilsin mi?</string>
+    <string name="diagnostics_restart_aegis_full_reboot">Aegis\'i yeniden başlat (tam yeniden başlatma)</string>
+    <string name="diagnostics_signer_sha256">İmzalayan SHA-256</string>
+    <string name="diagnostics_stop_all_sos">TUM SOS DURDUR</string>
+    <string name="diagnostics_storage">Depolama</string>
+    <string name="diagnostics_subsystems_shut_off_as">Alt sistemler pil düştükçe sırayla kapanır. Sonraki eşik</string>
+    <string name="diagnostics_tap_to_open">Açmak için dokun</string>
+    <string name="diagnostics_this_is_irreversible_it">Bu geri alınamaz. Bu cihazı temiz bir duruma geri döndürür.</string>
+    <string name="diagnostics_threads">Threadler</string>
+    <string name="diagnostics_wipe_all_aegis_data">Bu cihazdaki tum Aegis verilerini sil.</string>
+    <string name="diagnostics_wipes_the_simplexside_databases">SimpleX tarafı veritabanlarını siler.</string>
+    <!-- ForwardVaultEntryDialog -->
+    <string name="forward_vault_entry_dialog_no_paired_contacts_yet">Kisi yok. Once birini esle.</string>
+    <string name="forward_vault_entry_dialog_send_to_contact">Kisiye gonder</string>
+    <!-- GraphicsSettingsScreen -->
+    <string name="graphics_all_visual_effects_below">Aşağıdaki tüm görsel efektler zorla kapatılır</string>
+    <string name="graphics_cyan_mascot">Cyan maskot</string>
+    <string name="graphics_data_rain">Veri yağmuru</string>
+    <string name="graphics_effects_intensity">Efekt yoğunluğu</string>
+    <string name="graphics_effects_suppressed_in_power">Güç tasarrufu modunda efektler kapatıldı</string>
+    <string name="graphics_faint_repeating_hex_pattern">Her ekranın arkasında soluk tekrarlayan altıgen desen.</string>
+    <string name="graphics_graphics">Grafik</string>
+    <string name="graphics_graphics_profile">Grafik profili</string>
+    <string name="graphics_hex_grid_backdrop">Altıgen ızgara arka planı</string>
+    <string name="graphics_scan_line">Tarama cizgisi</string>
+    <string name="graphics_scan_line_data_rain">Tarama çizgisi + veri yağmuru opaklığı.</string>
+    <string name="graphics_show_the_chibi_mascot">Başlangıç, boş ekranlar ve etrafta chibi maskotu göster.</string>
+    <string name="graphics_single_cyan_line_crawling">Her 30 saniyede bir süzülen tek camgöbeği çizgi.</string>
+    <string name="graphics_tiny_hex_particles_drifting">Küçük altıgen parçacıklar sürüklenüyor. En ağır.</string>
+    <!-- GroupChatScreen -->
+    <string name="group_chat_delete_group">Grubu sil</string>
+    <string name="group_chat_group_readme">📖 GROUP README</string>
+    <string name="group_chat_message">Mesaj</string>
+    <string name="group_chat_removes_the_group_and">Grubu ve mesaj geçmişini siler.</string>
+    <!-- GroupMembersScreen -->
+    <string name="group_members_a_short_note_shown">Tüm üyelere görünen kısa not.</string>
+    <string name="group_members_about_this_group">Bu grup hakkında</string>
+    <string name="group_members_active_in_this_group">Bu grupta aktif</string>
+    <string name="group_members_anonymous_the_group_sees">Anonim -- grup takma ad gorur, asla adini.</string>
+    <string name="group_members_apply">Uygula</string>
+    <string name="group_members_armed">Aktif</string>
+    <string name="group_members_autoburn_messages_in_this">Bu gruptaki mesajlari otomatik sil.</string>
+    <string name="group_members_autodisable_timer">Otomatik devre disi zamanlayici</string>
+    <string name="group_members_autodisable_timer_for_this">Bu grup için otomatik devre dışı zamanlayıcı</string>
+    <string name="group_members_configure">Yapılandır ›</string>
+    <string name="group_members_demote_to_member">Üyeye indir</string>
+    <string name="group_members_description">Açıklama</string>
+    <string name="group_members_disappearing_messages">Kaybolan mesajlar</string>
+    <string name="group_members_every_paired_contact_is">Her eslenen kisi zaten bu grupta.</string>
+    <string name="group_members_group_description">Grup açıklaması</string>
+    <string name="group_members_group_image">GRUP RESMI</string>
+    <string name="group_members_group_name">Grup adı</string>
+    <string name="group_members_groups_are_always_incognito">Gruplar her zaman gizli. Profilin gizli kalir.</string>
+    <string name="group_members_invite_member">Üye davet et</string>
+    <string name="group_members_leave">Ayrıl</string>
+    <string name="group_members_leave_group">Gruptan ayrıl</string>
+    <string name="group_members_make_sure_the_photo">Fotografin seni veya konumunu gostermediginden emin ol.</string>
+    <string name="group_members_minutes_min_1">Dakika (min 1)</string>
+    <string name="group_members_mute_group">Grubu sessize al</string>
+    <string name="group_members_no_members_yet_the">Henuz uye yok. Bot ve uyeler burada gorunecek.</string>
+    <string name="group_members_off_1_min_1">Kapali / 1 dk - 1 yil. Grup mesajlari icin.</string>
+    <string name="group_members_promote_to_admin">Yöneticiye yükselt</string>
+    <string name="group_members_remove_from_group">Gruptan çıkar</string>
+    <string name="group_members_removes_the_group_locally">Grubu yerel olarak kaldirir ve sunucuya bildirir.</string>
+    <string name="group_members_rename">Yeniden adlandır</string>
+    <string name="group_members_rename_group">Grubu yeniden adlandır</string>
+    <string name="group_members_save">Kaydet</string>
+    <string name="group_members_set">Set</string>
+    <string name="group_members_when_the_window_elapses">Pencere sensiz dolduğunda.</string>
+    <string name="group_members_youll_stop_receiving_messages">Bu gruptan mesaj almayacaksiniz.</string>
+    <string name="group_members_your_identity_here">BURADAKI KIMLIGINIZ</string>
+    <!-- HelpScreen -->
+    <string name="help_basics">Temel bilgiler</string>
+    <string name="help_design_decisions">Tasarım kararları</string>
+    <string name="help_experimental">Deneysel</string>
+    <string name="help_help">Yardım</string>
+    <string name="help_how_aegis_works">Aegis nasıl çalışır</string>
+    <string name="help_loading">Yükleniyor…</string>
+    <string name="help_privacy">Gizlilik</string>
+    <string name="help_security">Güvenlik</string>
+    <string name="help_technical">Teknik</string>
+    <string name="help_the_same_documents_that">Kaynak kodla birlikte gönderilen aynı belgeler -- paketlenmiş</string>
+    <!-- HoldToExecuteSettingsScreen -->
+    <string name="hold_to_execute_hold_duration">Basma süresi</string>
+    <string name="hold_to_execute_hold_to_send_call">Göndermek / aramak için basılı tut</string>
+    <string name="hold_to_execute_send_voice_call_and">Gönder, sesli arama ve görüntülü arama düğmeleri basılı tutma gerektirir</string>
+    <!-- InvitationExpirySettingsScreen -->
+    <string name="invitation_expiry_a_11_invite_link">1:1 davet linki suresi dolana kadar calisir.</string>
+    <string name="invitation_expiry_about_this_setting">Bu ayar hakkında</string>
+    <string name="invitation_expiry_invitation_expiry">Davet süresi</string>
+    <!-- LanguagePickerScreen -->
+    <string name="language_picker_aegis_is_available_in">Aegis 17 dilde mevcut. Istediginiz zaman degistirin.</string>
+    <!-- LockScreen -->
+    <string name="lock_forgot_pin">PIN mi unuttun?</string>
+    <string name="lock_hold_for_silent_emergency">Sessiz acil durum icin basili tut</string>
+    <string name="lock_use_fingerprint_or_face">Parmak izi veya yüz kullan</string>
+    <string name="lock_use_pattern">Desen kullan</string>
+    <string name="lock_use_pin">PIN kullan</string>
+    <!-- NoteEditorScreen -->
+    <string name="note_editor_delete_note">Notu sil</string>
+    <string name="note_editor_folder">Klasor</string>
+    <string name="note_editor_unfiled">Siniflandirilmamis</string>
+    <string name="note_editor_write">Yaz…</string>
+    <!-- OriginsScreen -->
+    <string name="origins_aegis_is_built_on">Aegis milyonlari koruyan teknolojiler uzerine kurulmustur.</string>
+    <string name="origins_origins">Kökenler</string>
+    <string name="origins_where_this_came_from">Bunun kokenni</string>
+    <!-- ProfileScreen -->
+    <string name="profile_achievements">BAŞARILAR</string>
+    <string name="profile_avatar">Avatar</string>
+    <string name="profile_pick_avatar">Avatar seç</string>
+    <string name="profile_proof_your_safety_net">Güvenlik ağının çalıştığını kanıtla -- her rozet kazanılır</string>
+    <string name="profile_set_your_name_and">Ad ve istege bagli fotograf ayarla.</string>
+    <string name="profile_tap_to_change_photo">Degistirmek icin dokun</string>
+    <!-- RelaySettingsScreen -->
+    <string name="relay_add_relay">Röle ekle</string>
+    <string name="relay_current_relays">MEVCUT RÖLELER</string>
+    <string name="relay_format_smpbase64fingerprinthostport">Biçim: smp://&lt;base64-parmakizi&gt;@sunucu[:port]</string>
+    <string name="relay_loading">yükleniyor…</string>
+    <string name="relay_must_start_with_smp">smp:// ile baslamali ve bir sunucu icermeli.</string>
+    <string name="relay_poweruser_setting_the_defaults">Güçlü kullanıcı ayarı. Varsayılanlar altyapıda çalışır.</string>
+    <string name="relay_reset_to_defaults">Varsayılanlara sıfırla</string>
+    <string name="relay_simplex_relays">SimpleX röleleri</string>
+    <string name="relay_smpfingerprinthostport">smp://&lt;parmakizi&gt;@sunucu:port</string>
+    <string name="relay_using_simplex_defaults">SimpleX varsayılanları kullanılıyor.</string>
+    <!-- RemoteAccessScreen -->
+    <string name="remote_access_remote_access">UZAKTAN ERİŞİM</string>
+    <string name="remote_access_target_device">HEDEF CİHAZ</string>
+    <!-- SOSPtt -->
+    <string name="s_o_s_ptt_push_to_talk">Konuşmak için bas</string>
+    <!-- SecureNotesScreen -->
+    <string name="secure_notes_all">All</string>
+    <string name="secure_notes_beltandbraces">Cifte guvenlik.</string>
+    <string name="secure_notes_cancel">İptal</string>
+    <string name="secure_notes_delete">Sil</string>
+    <string name="secure_notes_every_note_photo_video">Kasadaki her not, foto, video ve dosya -- her ikisi de</string>
+    <string name="secure_notes_search_the_vault">Kasada ara…</string>
+    <string name="secure_notes_type_wipe_vault_to">Onaylamak için WIPE VAULT yaz</string>
+    <string name="secure_notes_vault">Kasa</string>
+    <string name="secure_notes_wipe">Sil</string>
+    <string name="secure_notes_wipe_vault">Kasayı sil</string>
+    <!-- SentinelInboxScreen -->
+    <string name="sentinel_inbox_drill">Tatbikat</string>
+    <string name="sentinel_inbox_frontcamera_capture">Ön kamera çekimi</string>
+    <string name="sentinel_inbox_gyroscope_rads">Jiroskop (rad/s)</string>
+    <string name="sentinel_inbox_mugshot_from_recording_stage">Kayıt aşamasından fotoğraf</string>
+    <string name="sentinel_inbox_no_forensic_payload_attached">Bu aşama için adli yük eklenmedi.</string>
+    <string name="sentinel_inbox_no_sentinel_events_yet">Henüz Sentinel olayı yok. Sizi açık olan bir kişi</string>
+    <string name="sentinel_inbox_sentinel_inbox">Sentinel gelen kutusu</string>
+    <!-- SentinelLogScreen -->
+    <string name="sentinel_log_clear">Temizle</string>
+    <string name="sentinel_log_no_events_logged_arm">Kayıtlı olay yok. Sentinel\'i etkinleştir ve birkaç</string>
+    <string name="sentinel_log_sentinel_event_log">Sentinel olay günlüğü</string>
+    <!-- SonarScreen -->
+    <string name="sonar_adjust_per_device_speakers">Cihaza gore ayarla -- hoparlor farkli.</string>
+    <string name="sonar_audio_loop_selftest">Ses döngüsü öz-testi</string>
+    <string name="sonar_autoarm_at_bedside">Başucu otomatik etkinleştirme</string>
+    <string name="sonar_autocalibrate">Otomatik kalibrasyon</string>
+    <string name="sonar_automatically_arms_sentinel_when">Telefon birakildiginda Sentinel otomatik aktif.</string>
+    <string name="sonar_cancel_drill">Tatbikat iptal</string>
+    <string name="sonar_contacts_who_receive_silent">Sessiz ping alan kisiler.</string>
+    <string name="sonar_fires_one_audible_200">200 ms 1 kHz duyulabilir bir bip yayıp ölçer.</string>
+    <string name="sonar_hearing_audible_clicks_drop">Tiklamalar? Azalt. Hoparlor ultrasonige ulasir.</string>
+    <string name="sonar_if_you_hear_clicks">Tıklamalar duyuyorsan, telefonunun hoparlörü — çoğu</string>
+    <string name="sonar_latest_reading">Son okuma</string>
+    <string name="sonar_layered_cascade_sonar_proximity">Kaskad: sonar, yakinlik, ivmeolcer.</string>
+    <string name="sonar_local_event_log_debug">Yerel olay günlüğü (hata ayıklama)</string>
+    <string name="sonar_logonly_record_events_locally">Sadece kayit -- bildirme</string>
+    <string name="sonar_lower_more_sensitive_compare">Dusuk = daha hassas.</string>
+    <string name="sonar_no_contacts_yet_add">Kisi yok -- bildirimler icin ekle.</string>
+    <string name="sonar_no_data_yet_tap">veri yok -- Basla</string>
+    <string name="sonar_notification_throttle">Bildirim siniri</string>
+    <string name="sonar_notify_list">Bildirim listesi</string>
+    <string name="sonar_place_the_phone_where">Telefonu dinlemesini istediginiz yere koyun.</string>
+    <string name="sonar_send_test_notification_to">Listeye test bildirimi gonder</string>
+    <string name="sonar_sentinel_mode">Sentinel modu</string>
+    <string name="sonar_sentinel_viewers">Sentinel görüntüleyiciler</string>
+    <string name="sonar_sonar_raw_data">Sonar -- ham veri</string>
+    <string name="sonar_status">Durum</string>
+    <string name="sonar_stop_sonar_first_calibrate">Önce sonarı durdur -- kalibrasyon özel ses gerektirir</string>
+    <string name="sonar_stop_sonar_first_selftest">Önce sonarı durdur -- öz-test özel ses gerektirir</string>
+    <!-- StoryScreens -->
+    <string name="story_screens_camera">Kamera</string>
+    <string name="story_screens_new_story">Yeni hikaye</string>
+    <string name="story_screens_photo">Foto</string>
+    <string name="story_screens_remove">Kaldır</string>
+    <string name="story_screens_stories">Hikayeler</string>
+    <string name="story_screens_story_not_found">Hikaye bulunamadı.</string>
+    <string name="story_screens_visible_to_every_paired">Her eşleşmiş kişiye 24 saat görünür, sonra</string>
+    <string name="story_screens_whats_happening">Neler oluyor?</string>
+    <string name="story_screens_your_story">Hikayen</string>
+    <!-- TabOrderSettingsScreen -->
+    <string name="tab_order_always_at_the_middle">Her zaman ortada. Taşınamaz.</string>
+    <string name="tab_order_nav_order">Gezinme sırası</string>
+    <string name="tab_order_reorder_bottom_nav">Gezinmeyi yeniden sirala</string>
+    <string name="tab_order_reset_to_default">Varsayilana sifirla</string>
+    <string name="tab_order_sos">SOS</string>
+    <string name="tab_order_sos_locked_centre">SOS (ortada sabit)</string>
+    <string name="tab_order_sos_stays_in_the">SOS ortada kalır -- taşımak için çok önemli.</string>
+    <!-- TutorialScreen -->
+    <string name="tutorial_">•  </string>
+    <string name="tutorial_aegis">AEGIS</string>
+    <string name="tutorial_aegis_is_free_forever">Aegis sonsuza kadar ücretsiz. Reklam yok. İzleme yok. Veri satışı yok.</string>
+    <string name="tutorial_aegis_will_open_without">Aegis hiçbir şey sormadan açılacak. PIN\'iniz hâlâ mevcut — zorlama, uzaktan erişim ve mesajlarınızı şifrelemek için. Kilidi istediğiniz zaman Ayarlar\'dan yeniden etkinleştirebilirsiniz.</string>
+    <string name="tutorial_anyone_who_sees_these">Bu kelimeleri gören kişi hesabına sahip olur</string>
+    <string name="tutorial_biometric_login_is_convenient">Biyometrik giriş kullanışlıdır ancak zorlama korumasını atlar. Birisi parmak izinizi zorlarsa gerçek profil açılır. Maksimum güvenlik için PIN önerilir.</string>
+    <string name="tutorial_biometric_skips_duress">Biyometri tehdidi atlar</string>
+    <string name="tutorial_choose_how_you_unlock">Nasıl kilit açacağını seç</string>
+    <string name="tutorial_confirm_pin">PIN onayla</string>
+    <string name="tutorial_continue">Devam</string>
+    <string name="tutorial_disable_lock">Kilidi devre dışı bırak</string>
+    <string name="tutorial_done">Tamam</string>
+    <string name="tutorial_each_node_unlocks_a">Her düğüm yeni bir koruma katmanı açar.</string>
+    <string name="tutorial_enable_anyway">Yine de etkinleştir</string>
+    <string name="tutorial_encrypted_communication_personal_security">Şifreli iletişim + kişisel güvenlik.</string>
+    <string name="tutorial_enter_aegis">Aegis\'e gir</string>
+    <string name="tutorial_find_your_way_around">Uygulamayı keşfet</string>
+    <string name="tutorial_fingerprint_face">Parmak izi / Yüz</string>
+    <string name="tutorial_get_started">Başla</string>
+    <string name="tutorial_if_it_ever_helps">Size yardımcı olursa, Sistem → Hakkında\'dan Proje Aether\'ı destekleyebilirsiniz.</string>
+    <string name="tutorial_it_is_your_master">Bu ana anahtarınızdır, bir kez gösterilir. Asla saklamayız ve bir daha göstermeyiz — ne PIN\'inizin ne de parmak izinizin arkasında. Yazmadıysanız, gerçekten size ait olmasının bedeli budur. Kağıt kopyanızı güvenli tutun.</string>
+    <string name="tutorial_ive_written_it_down">Yazdım</string>
+    <string name="tutorial_keep_lock">Kilidi tut</string>
+    <string name="tutorial_keep_pin_only">Yalnızca PIN</string>
+    <string name="tutorial_left_to_right_along">Her ekranın altında soldan sağa:</string>
+    <string name="tutorial_make_sure_no_one">Kimsenin izlemediğinden ve hiçbir şeyin ekranınızı kaydetmediğinden emin olun. Ekran görüntüleri engellendi — ekran görüntüsü galeriye gider, buluta senkronize olur ve telefonunuza erişimi olan herkes görebilir. 24 kelimeyi görmek için aşağıdaki paneli kazıyın, kağıda yazın ve o kağıdı güvenli bir yerde saklayın.</string>
+    <string name="tutorial_new_pin_48_digits">Yeni PIN (4–8 basamak)</string>
+    <string name="tutorial_no_lock_screen">Kilit ekranı yok</string>
+    <string name="tutorial_open_without_a_lock">Kilit ekranı olmadan açılsın mı?</string>
+    <string name="tutorial_part_of_project_aether">Project Aether\'in parçası</string>
+    <string name="tutorial_pattern">Desen</string>
+    <string name="tutorial_pin">PIN</string>
+    <string name="tutorial_pin_already_set">PIN ayarlandı ✓</string>
+    <string name="tutorial_recovery_phrase_already_set">Kurtarma ifadesi ayarlandi!</string>
+    <string name="tutorial_save_pin">PIN kaydet</string>
+    <string name="tutorial_set_your_pin">PIN\'ini belirle</string>
+    <string name="tutorial_show_the_words_again">Kelimeleri tekrar göster</string>
+    <string name="tutorial_skip">Atla</string>
+    <string name="tutorial_skip_check_debug">Kontrolü atla (hata ayıklama)</string>
+    <string name="tutorial_sos_stays_locked_in">SOS ortada sabit kalır. Geri kalanı Sistem → Gezinme\'den yeniden sıralayabilirsiniz.</string>
+    <string name="tutorial_thank_you">Teşekkürler</string>
+    <string name="tutorial_the_skill_tree">Yetenek ağacı</string>
+    <string name="tutorial_this_encrypts_your_messages">Bu mesajlarınızı şifreler ve PIN\'inizi unutursanız veya parmak izinizi kaybederseniz hesabınızı kurtarır. Bunu kaybederseniz, hiç kimse — ne biz ne de başka biri — verilerinizi kurtaramaz.</string>
+    <string name="tutorial_this_is_the_only">Bu TEK kopyadır. Hiçbir şey saklamıyoruz. \"İfadeyi unuttum\" yok, sıfırlama yok ve yeni bir tane oluşturmanın yolu yok — ne PIN ile, ne parmak izi ile, ne de bizim tarafımızdan. Bu kağıdı kaybederseniz verileriniz sonsuza dek kaybolur ve yeryüzünde hiç kimse onları geri getiremez. Şimdi yazın.</string>
+    <string name="tutorial_three_tiers_of_trust">Üç güven seviyesi</string>
+    <string name="tutorial_what_makes_this_different">Onu farklı kılan ne</string>
+    <string name="tutorial_you_can_replay_this">Bu eğitimi istediğin zaman Yardım\'dan tekrarlayabilirsin.</string>
+    <string name="tutorial_your_messages_and_attachments">Mesajların ve eklerin bu PIN ile şifrelenir.</string>
+    <string name="tutorial_your_pin_is_set">PIN\'iniz ayarlandı ve her zaman çalışır — zorlama modu ve uzaktan erişimin kullandığı budur. Bunlar üstündeki isteğe bağlı kısayollardır.</string>
+    <string name="tutorial_your_recovery_phrase">Kurtarma ifaden</string>
+    <string name="tutorial_your_safety_net">Güvenlik ağın</string>
+    <string name="tutorial_youre_ready">Hazırsın</string>
+    <!-- VerifyContactScreen -->
+    <string name="verify_contact_couldnt_fetch_the_safety">Guvenlik kodu alinamadi.</string>
+    <string name="verify_contact_pick_qr_from_photo">Fotograftan QR sec</string>
+    <string name="verify_contact_safety_code_qr">Güvenlik kodu QR</string>
+    <string name="verify_contact_scan_their_qr">QR kodlarını tara</string>
+
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- FORMAT STRINGS (use with stringResource)  -->
+    <!-- ═══════════════════════════════════════════ -->
+
+
+    <!-- ContactDetailScreen — format strings -->
+
+    <!-- ProfilesSettingsScreen — format strings -->
+
+    <!-- MapScreen — format strings -->
+
+    <!-- LockSettingsScreen — format strings -->
+
+    <!-- MugshotSettingsScreen — format strings -->
+
+    <!-- ChatListScreen — format strings -->
+
+    <!-- GroupChatScreen — format strings -->
+
+    <!-- GroupMembersScreen — format strings -->
+
+    <!-- LockScreen — format strings -->
+
+    <!-- SecureNotesScreen — format strings -->
+
+    <!-- SecurityScreen — format strings -->
+
+    <!-- SentinelInboxScreen — format strings -->
+
+    <!-- SentinelLogScreen — format strings -->
+
+    <!-- SonarScreen — format strings -->
+
+    <!-- RemoteAccessScreen — format strings -->
+
+    <!-- DeviceControlScreen — format strings -->
+
+    <!-- TutorialScreen — format strings -->
+
+    <!-- VaultUnlockScreen — format strings -->
+
+    <!-- VerifyContactScreen — format strings -->
+
+
+    <!-- Components and notifications -->
+    <string name="header_lock_now">Şimdi kilitle</string>
+    <string name="header_sentinel_armed">Sentinel aktif</string>
+    <string name="call_island_tap_return">Dönmek için dokun</string>
+    <string name="cyan_stay_safe">-- Güvende kal.</string>
+    <string name="pin_guard_required">Uygulama PIN\'i gerekli</string>
+    <string name="pin_guard_set_pin">Uygulama PIN\'ini ayarla</string>
+    <string name="update_dialog_later">Sonra</string>
+    <string name="update_dialog_update">Güncelle</string>
+    <string name="voice_slide_cancel">İptal için kaydır ←</string>
+    <string name="a11y_group_avatar">grup avatarı</string>
+    <string name="a11y_voice_record">ses kaydı</string>
+
+    <string name="chat_react_custom_title">Özel tepki</string>
+    <string name="chat_react_custom_hint">Tepki vermek için bir emoji yazın.</string>
+    <string name="chat_react_apply">Tepki ver</string>
+    <string name="nav_sos">SOS</string>
+    <string name="nav_settings">Sistem</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_clear">Temizle</string>
+    <string name="action_add">Ekle</string>
+    <string name="action_edit">Düzenle</string>
+    <string name="action_copy">Kopyala</string>
+    <string name="action_share">Paylaş…</string>
+    <string name="action_send">Gönder</string>
+    <string name="action_change">Değiştir</string>
+    <string name="profile_saving">Kaydediliyor…</string>
+    <string name="profile_get_started">Başla</string>
+    <string name="contact_notification_sound">Bildirim sesi</string>
+    <string name="chat_add_caption">Açıklama ekle…</string>
+    <string name="chat_clear">Sohbeti temizle</string>
+    <string name="chat_clear_confirm">Bu sohbet temizlensin mi?</string>
+    <string name="chat_schedule_message">Mesaj planla</string>
+    <string name="chat_cancel_edit">Düzenlemeyi iptal et</string>
+    <string name="chat_cancel_reply">Yanıtı iptal et</string>
+    <string name="chat_voice_message">Sesli mesaj</string>
+    <string name="chat_file">Dosya</string>
+    <string name="chat_location">Konum</string>
+    <string name="chat_camera">Kamera</string>
+    <string name="sos_emergency">ACİL DURUM</string>
+    <string name="sos_stop">DUR</string>
+    <string name="settings_checking">Kontrol ediliyor…</string>
+    <string name="settings_enabled">Etkin</string>
+    <string name="settings_start">Başlangıç</string>
+    <string name="settings_end">Bitiş</string>
+    <string name="settings_how_it_works">Nasıl çalışır</string>
+    <string name="settings_message">Mesaj</string>
+    <string name="settings_checkin_window">Check-in penceresi</string>
+    <string name="status_battery">Pil</string>
+    <string name="status_charging">Şarj oluyor</string>
+    <string name="remote_locate">Bul</string>
+    <string name="remote_siren">Siren</string>
+    <string name="tutorial_bubble_welcome">Project Aether\'e hoş geldiniz. Ben Cyan — rehberiniz olacağım. Kalem ve kağıt alın — mesajlarınızı koruyan 24 kelimeyi yazmanızı isteyeceğim.</string>
+    <string name="tutorial_bubble_different">Telefon numarası yok. Hesap yok. Hiçbir sunucu mesajlarınızı saklamaz. Sadece kriptografi.</string>
+    <string name="tutorial_bubble_safety">Tehlikedeysen, bir düğme güvendiğin herkesi uyarır.</string>
+    <string name="tutorial_bubble_tiers">Kimin neyi göreceğine sen karar verirsin.</string>
+    <string name="tutorial_bubble_skill_tree">Telefonunu adım adım güçlendir.</string>
+    <string name="tutorial_bubble_tabs">Altta beş sekme. Her biri ne yapar:</string>
+    <string name="tutorial_bubble_unlock">PIN en güvenli. Daha hızlı bir yöntem ekle — PIN\'in her zaman kalır.</string>
+    <string name="tutorial_bubble_ready">Hazır. Başlamak için bir kişi ekle.</string>
+    <string name="tutorial_bubble_thanks">Aegis\'i seçtiğin için teşekkürler.</string>
+    <string name="tutorial_bullet_protocol">Aegis Protocol üzerine inşa edildi</string>
+    <string name="tutorial_bullet_metadata">Sıfır meta veri — profil yok, kişi grafiği yok</string>
+    <string name="tutorial_bullet_e2ee">Uçtan uca şifreli, her zaman</string>
+    <string name="tutorial_bullet_sos_hold">SOS düğmesini 1 saniye basılı tut — veya güç ×4</string>
+    <string name="tutorial_bullet_sos_broadcast">GPS, ses ve kamera kişilerine yayınlanır</string>
+    <string name="tutorial_bullet_sos_lockscreen">Kilit ekranından çalışır</string>
+    <string name="tutorial_tier_trusted">Güvenilir</string>
+    <string name="tutorial_tier_trusted_desc">Her şey — konum, varlık, SOS.</string>
+    <string name="tutorial_tier_emergency">Acil</string>
+    <string name="tutorial_tier_emergency_desc">Sadece SOS uyarıları — günlük veri yok.</string>
+    <string name="tutorial_tier_untrusted">Güvenilmez</string>
+    <string name="tutorial_tier_untrusted_desc">Sadece mesajlar — başka bir şey yok.</string>
+    <string name="tutorial_tab_system_desc">Ayarlar, kimlik, uygulama kilidi ve güncellemeler.</string>
+    <string name="tutorial_tab_opsec_desc">İyeteđiń — telefonu adım adım güçlendir.</string>
+    <string name="tutorial_tab_sos_desc">En önemlisi. Herkesi uyarmak için basılı tut.</string>
+    <string name="tutorial_tab_comms_desc">Şifreli sohbetlerin. Buradan yaz.</string>
+    <string name="tutorial_tab_radar_desc">Canlı harita — kişilerin nerede ve kim çevrimiçi.</string>
+    <string name="tutorial_unlock_pin_desc">PIN yazıp kilidi aç. Tam zorlama koruması.</string>
+    <string name="tutorial_unlock_pattern_desc">Desen çiz. PIN hala zorlamayı kapsar.</string>
+    <string name="tutorial_unlock_bio_desc">Hızlı kilit açma. Biyometri zorlama korumasını atlar.</string>
+    <string name="tutorial_unlock_none_desc">Aegis\'i kilitsiz aç. PIN zorlama + uzaktan erişimi korur.</string>
+    <string name="tutorial_pin_explanation_new">PIN\'in Aegis\'i kilitler ve profillerini korur. Kurtarma cümlesi mesajlarını şifreler. 4–8 basamak.</string>
+    <string name="tutorial_pin_already_nice">Zaten yapıldı. Güzel.</string>
+    <string name="tutorial_pin_set_first">Önce en önemlisi. Uygulama PIN\'ini belirle.</string>
+    <string name="tutorial_node_app_pin">Uygulama
+PIN</string>
+    <string name="tutorial_node_duress_pin">Zorlama
+PIN</string>
+    <string name="tutorial_perm_title">Aegis neden bu kadar çok istiyor</string>
+    <string name="tutorial_perm_bubble">Herhangi birine dokunarak izin ver — veya atla. Her birinin ne için olduğunu açıklayacağım.</string>
+    <string name="tutorial_perm_intro">Bir güvenlik uygulaması senin için hareket edebilmeli — seni bulmak, yakınlarını uyarmak, ekran kapalıyken çalışmak. Liste bu yüzden uzun. Hiçbir şey sensiz telefonundan çıkmaz.</string>
+    <string name="tutorial_perm_background_title">Arka plan etkinliği</string>
+    <string name="tutorial_perm_background_why">En önemlisi. Aegis\'in kapandığında veya ekran kapandığında çalışmasını sağlar. Bu olmadan telefonunuz sessizce teslim etmeyi durdurabilir — özellikle OnePlus, Xiaomi ve Oppo\'da.</string>
+    <string name="tutorial_perm_oem_warning">% 1$s telefonunuz Aegis\'i arka planda öldürebilecek ekstra pil ayarlarına sahip. Bu ayarı açın ve Aegis\'in otomatik başlatılmasına izin verin.</string>
+    <string name="tutorial_perm_notif_title">Bildirimler</string>
+    <string name="tutorial_perm_notif_why">Mesaj, arama ve SOS hakkında uyarmak için — kilit ekranında bile.</string>
+    <string name="tutorial_perm_location_title">Konum</string>
+    <string name="tutorial_perm_location_why">Güvenilen kişilerin seni acil durumda bulması ve SOS\'un konumunu paylaşması için.</string>
+    <string name="tutorial_perm_camera_title">Kamera</string>
+    <string name="tutorial_perm_camera_why">SOS fotoğları, yanlış PIN mugshotu ve görüntülü arama için.</string>
+    <string name="tutorial_perm_mic_title">Mikrofon</string>
+    <string name="tutorial_perm_mic_why">SOS ses kaydı ve sesli/görüntülü arama için.</string>
+    <string name="tutorial_perm_media_title">Fotoğraf, video ve dosyalar</string>
+    <string name="tutorial_perm_media_why">Ekleri göndermek ve kaydetmek için. Aegis sadece paylaştıklarını görür.</string>
+    <string name="tutorial_perm_phone_title">Telefon ve SIM</string>
+    <string name="tutorial_perm_phone_why">SIM değişikliğinde uyarmak için — numara kaçırmanın yaygın işareti.</string>
+    <string name="tutorial_perm_nearby_title">Yakın cihazlar</string>
+    <string name="tutorial_perm_nearby_why">Kişi ve cihaz bulmak için Bluetooth (Radar ve Sonar).</string>
+    <string name="tutorial_perm_install_title">Güncellemeleri yükle</string>
+    <string name="tutorial_perm_install_why">Aegis\'in seni izleyen mağaza olmadan güvenle güncellenmesi için.</string>
+    <string name="tutorial_perm_footer">Kontrol sende kalır. Herhangi birini atla ve Aegis\'in çoğu çalışır — ama arka plan etkinliği güvenlik özelliklerini canlı tutar.</string>
+    <string name="tutorial_perm_granted">Verildi ✓</string>
+    <string name="tutorial_perm_denied">Reddedildi</string>
+    <string name="tutorial_perm_allow">İzin ver</string>
+
+    <string name="tutorial_perm_oem_title">%1$s pil ayarları</string>
+    <string name="tutorial_perm_oem_open">%1$s ayarlarını aç</string>
+    <string name="tutorial_perm_denied_note">Bunu daha sonra etkinleştirebilirsiniz — Ayarları açmak için dokunun.</string>
+    <string name="tutorial_pin_explanation_existing">PIN\'iniz Aegis\'i açar ve mesajlarınızın şifrelendiği anahtardır. 4–8 rakam.</string>
+
+    <!-- Tutorial — skill tree, recovery phrase, unlock -->
+    <string name="tutorial_node_vault_pin">Kasa\nPIN</string>
+    <string name="tutorial_node_device_owner">Cihaz\nSahibi</string>
+    <string name="tutorial_node_app_duress">Uygulama\nZorlama</string>
+    <string name="tutorial_skill_tree_explanation">Uygulama PIN\'i zorlama, fotoğraf, kasa, kanarya, SIM izleme ve coğrafi çiti açar — bir kez ayarlayın ve gerisi açılır. Zirve cihaz sahibidir.</string>
+    <string name="tutorial_phrase_intro">Sonraki ekranda 24 kelime göreceksiniz. Paneli kazıyarak ortaya çıkarın ve hepsini kağıda yazın.</string>
+    <string name="tutorial_phrase_show">İfadeyi göster</string>
+    <string name="tutorial_phrase_scratch">Kazıyarak ortaya çıkarın, sonra 24 kelimeyi sırayla yazın.</string>
+    <string name="tutorial_phrase_confirm">Kaydettiğinizi onaylayın. Kağıdınızdan %1$s kelimelerini girin.</string>
+    <string name="tutorial_phrase_word_n">Kelime #%1$d</string>
+    <string name="tutorial_phrase_mismatch">Kelimeler eşleşmiyor. Kağıdınızı kontrol edin.</string>
+    <string name="tutorial_phrase_write_down">Bu 24 kelimeyi kağıda yazın. Her şeyin anahtarı.</string>
+    <string name="tutorial_phrase_already_saved">Zaten kaydedildi. Kağıt kopyanızı güvenli tutun.</string>
+    <string name="tutorial_draw_pattern">Deseninizi çizin</string>
+    <string name="tutorial_draw_pattern_confirm">Onaylamak için tekrar çizin</string>
+    <string name="tutorial_pattern_min_dots">En az %1$d nokta kullanın.</string>
+    <string name="tutorial_pattern_mismatch">Eşleşmiyor — tekrar başlayın.</string>
+    <string name="tutorial_bio_need_pin_first">Önce PIN\'inizi ayarlayın, sonra biyometri ekleyin.</string>
+    <string name="tutorial_bio_failed">Biyometri etkinleştirilemedi. Tekrar deneyin.</string>
+    <string name="tutorial_pin_save_error">PIN kaydedilemedi: %1$s</string>
+    <string name="tutorial_pin_persist_error">PIN kaydedilmedi — Tanılama\'yı kontrol edin.</string>
+</resources>

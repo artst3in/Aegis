@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Declares that Aegis's notifications are usable on Android Auto.
+  This is a manifest hint, NOT a Google library dependency — Aegis
+  pulls in zero Google code. Android Auto reads our standard
+  NotificationCompat.MessagingStyle and our Reply / Mark-as-read
+  actions (with showsUserInterface=false + RemoteInput) directly.
+-->
+<automotiveApp>
+    <uses name="notification" />
+</automotiveApp>
